@@ -8,7 +8,7 @@ categories:
 tags:
   - web scraping
 summary: R packages & functions that make doing data science a joy. Established by aggregating actual usage across [quantumjitter projects](/project/).
-lastmod: '2022-05-01'
+lastmod: '2022-05-03'
 draft: false
 featured: true
 ---
@@ -42,24 +42,21 @@ library(patchwork)
 ```r
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Royal2"))
+(cols <- wes_palette(name = "IsleofDogs2"))
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="100%" />
 
-I'll start by listing the paths to the html files in the project directory.
+I'll start by grabbing the url for every project.
 
 
 ```r
-file_list <- list.files(path = "../../../public/project/",
-                    pattern = "\\.html$",
-                    recursive = TRUE) 
-
-files <- file_list |> 
+urls <- "https://www.quantumjitter.com/project/" |> 
+  read_html() |> 
+  html_elements(".underline .db") |> 
+  html_attr("href") |> 
   as_tibble() |> 
-  mutate(value = str_c(getwd() |> dirname(), file_list, sep = "/"),
-         value = str_replace(value, "/content", "/public")) |> 
-  filter(!str_detect(value, "world|dt1|appfiles|project/index|page/")) |>
+  transmute(str_c("https://www.quantumjitter.com/", value)) |> 
   pull()
 ```
 
@@ -67,14 +64,14 @@ This enables me to extract the usage table for each project.
 
 
 ```r
-table_df <- map_dfr(files, function(x) {
+table_df <- map_dfr(urls, function(x) {
   x |>
     read_html() |>
     html_elements("#r-toolbox , table") |>
     html_table()
 }) |>
   clean_names(replace = c("io" = "")) |>
-  select(package, functn) |> 
+  select(package, functn) |>
   drop_na()
 ```
 
@@ -121,7 +118,7 @@ fun_df <- tidy_df |>
   count(functn, multiverse, wt = n) |>
   mutate(name = "function")
 
-n_url <- files |> n_distinct()
+n_url <- urls |> n_distinct()
 
 packfun_df <- pack_df |>
   bind_rows(fun_df) |>
@@ -186,9 +183,9 @@ packfun_df |>
     seed = 789
   ) +
   scale_size_area(max_size = 20) +
-  scale_colour_manual(values = cols[c(2, 3, 4)]) +
+  scale_colour_manual(values = cols[c(4, 2, 3)]) +
   theme_void() +
-  theme(plot.background = element_rect(fill = cols[5]))
+  theme(plot.background = element_rect(fill = cols[1]))
 ```
 
 <img src="featured-1.png" width="100%" />
@@ -207,11 +204,11 @@ A little bit circular I know, but I might as well include this code too in my "f
 <tbody>
   <tr>
    <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.integer[1];  c[5];  conflicts[1];  cumsum[1];  dirname[1];  function[2];  getwd[1];  list.files[1];  sample[1];  search[1];  sum[1];  unique[1] </td>
+   <td style="text-align:left;"> as.integer[1];  c[5];  conflicts[1];  cumsum[1];  function[2];  sample[1];  search[1];  sum[1];  unique[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> filter[8];  arrange[3];  bind_rows[1];  case_when[1];  coalesce[1];  count[4];  desc[3];  group_by[2];  if_else[3];  mutate[11];  n[8];  n_distinct[1];  pull[1];  select[1];  summarise[1] </td>
+   <td style="text-align:left;"> filter[7];  arrange[3];  bind_rows[1];  case_when[1];  coalesce[1];  count[4];  desc[3];  group_by[2];  if_else[3];  mutate[10];  n[8];  n_distinct[1];  pull[1];  select[1];  summarise[1];  transmute[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> forcats </td>
@@ -251,11 +248,11 @@ A little bit circular I know, but I might as well include this code too in my "f
   </tr>
   <tr>
    <td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_elements[1];  html_table[1];  read_html[1] </td>
+   <td style="text-align:left;"> html_attr[1];  html_elements[2];  html_table[1];  read_html[2] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[6];  str_count[1];  str_detect[3];  str_remove[3];  str_remove_all[1];  str_replace[1];  str_squish[1];  str_starts[1] </td>
+   <td style="text-align:left;"> str_c[6];  str_count[1];  str_detect[2];  str_remove[3];  str_remove_all[1];  str_squish[1];  str_starts[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tibble </td>
