@@ -8,7 +8,8 @@ categories:
 tags:
   - special effects
 summary: "If you're a cat, go find the nearest open pot of paint. No need to read further. But if you're a data scientist, what to do?"
-lastmod: '2022-04-30'
+description: "tidyverse ggplot density plot tail fill"
+lastmod: '2022-05-07'
 draft: false
 featured: false
 ---
