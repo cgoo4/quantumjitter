@@ -8,7 +8,7 @@ categories:
 tags:
   - web scraping
 summary: R packages & functions that make doing data science a joy. Established by aggregating actual usage across [quantumjitter projects](/project/).
-lastmod: '2022-05-03'
+lastmod: '2022-05-14'
 draft: false
 featured: true
 ---
@@ -28,7 +28,7 @@ I may also spot superseded functions e.g. `spread` and `gather` may now be repla
 library(tidyverse)
 library(tidytext)
 library(rvest)
-library(wesanderson)
+library(paletteer)
 library(janitor)
 library(glue)
 library(kableExtra)
@@ -42,7 +42,27 @@ library(patchwork)
 ```r
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "IsleofDogs2"))
+n <- 4
+palette <- "harrypotter::ravenclaw"
+
+cols <- paletteer_c(palette, n = n)
+
+tibble(x = 1:n, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col() +
+  geom_label(aes(label = cols |> str_remove("FF$")), 
+             size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = (n + 1) / 2, y = 0.5,
+    label = palette,
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="100%" />
@@ -140,7 +160,7 @@ p1 <- packfun_df |>
   geom_col(show.legend = FALSE) +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(2, 3, 1)]) +
+  scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(
     title = glue("Favourite Things\nAcross {n_url} Projects"),
     subtitle = "Package Usage",
@@ -153,7 +173,7 @@ p2 <- packfun_df |>
   geom_col() +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(2, 3, 1)]) +
+  scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(x = NULL, y = NULL, 
        subtitle = "Function Usage >= 4")
 
@@ -183,9 +203,9 @@ packfun_df |>
     seed = 789
   ) +
   scale_size_area(max_size = 20) +
-  scale_colour_manual(values = cols[c(4, 2, 3)]) +
+  scale_colour_manual(values = cols[c(4, 2, 1)]) +
   theme_void() +
-  theme(plot.background = element_rect(fill = cols[1]))
+  theme(plot.background = element_rect(fill = cols[3]))
 ```
 
 <img src="featured-1.png" width="100%" />
@@ -204,11 +224,11 @@ A little bit circular I know, but I might as well include this code too in my "f
 <tbody>
   <tr>
    <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.integer[1];  c[5];  conflicts[1];  cumsum[1];  function[2];  sample[1];  search[1];  sum[1];  unique[1] </td>
+   <td style="text-align:left;"> as.character[1];  as.integer[1];  c[5];  conflicts[1];  cumsum[1];  function[2];  sample[1];  search[1];  sum[1];  unique[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> filter[7];  arrange[3];  bind_rows[1];  case_when[1];  coalesce[1];  count[4];  desc[3];  group_by[2];  if_else[3];  mutate[10];  n[8];  n_distinct[1];  pull[1];  select[1];  summarise[1];  transmute[1] </td>
+   <td style="text-align:left;"> filter[7];  arrange[3];  bind_rows[1];  case_when[1];  coalesce[1];  count[4];  desc[3];  group_by[2];  if_else[3];  mutate[10];  n_distinct[1];  pull[1];  select[1];  summarise[1];  transmute[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> forcats </td>
@@ -220,7 +240,7 @@ A little bit circular I know, but I might as well include this code too in my "f
   </tr>
   <tr>
    <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[5];  coord_flip[2];  element_rect[1];  geom_col[2];  geom_label[2];  ggplot[3];  labs[2];  scale_colour_manual[1];  scale_fill_manual[2];  scale_size_area[1];  theme[1];  theme_bw[1];  theme_set[1];  theme_void[1] </td>
+   <td style="text-align:left;"> aes[7];  annotate[1];  coord_flip[2];  element_rect[1];  geom_col[3];  geom_label[3];  ggplot[4];  labs[2];  scale_colour_manual[1];  scale_fill_manual[3];  scale_size_area[1];  theme[2];  theme_bw[1];  theme_set[1];  theme_void[2] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ggwordcloud </td>
@@ -239,6 +259,10 @@ A little bit circular I know, but I might as well include this code too in my "f
    <td style="text-align:left;"> kbl[1] </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> paletteer </td>
+   <td style="text-align:left;"> paletteer_c[1] </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> purrr </td>
    <td style="text-align:left;"> map[1];  map_dfr[1];  map2_dfr[1];  possibly[1];  set_names[1] </td>
   </tr>
@@ -252,11 +276,11 @@ A little bit circular I know, but I might as well include this code too in my "f
   </tr>
   <tr>
    <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[6];  str_count[1];  str_detect[2];  str_remove[3];  str_remove_all[1];  str_squish[1];  str_starts[1] </td>
+   <td style="text-align:left;"> str_c[6];  str_count[1];  str_detect[2];  str_remove[4];  str_remove_all[1];  str_squish[1];  str_starts[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[2];  tibble[2];  enframe[1] </td>
+   <td style="text-align:left;"> as_tibble[2];  tibble[3];  enframe[1] </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tidymodels </td>
@@ -269,10 +293,6 @@ A little bit circular I know, but I might as well include this code too in my "f
   <tr>
    <td style="text-align:left;"> tidyverse </td>
    <td style="text-align:left;"> tidyverse_packages[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> wesanderson </td>
-   <td style="text-align:left;"> wes_palette[1] </td>
   </tr>
 </tbody>
 </table>
