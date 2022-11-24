@@ -1,0 +1,223 @@
+---
+title: "Let's Jitter"
+date: "2017-09-12"
+categories: [R]
+description: "Welcome to the [tidyverse](https://www.tidyverse.org) with data ingestion, cleaning and tidying. And some visualisations of sales data with a little jittering."
+image: "feature.gif"
+bibliography: references.bib
+---
+
+![](feature.gif)
+
+Welcome to the [tidyverse](https://www.tidyverse.org) [@tidyverse] with data ingestion, cleaning and tidying. And some visualisations of sales data with a little jittering.
+
+This first little project uses the tidyverse collection of packages to import, explore and visualise some sales data. The UK Government's Digital Marketplace provides a rich and varied source of public data [under the Open Government Licence](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) [^1].
+
+[^1]:  Contains public sector information licensed under the Open Government Licence v3.0.
+
+The marketplace was set up with an intent to break down barriers that impede Small and Medium Enterprises (SMEs) from bidding for Public Sector contracts. So, let's see how that's going.
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(clock)
+library(janitor)
+library(scales, exclude = "date_format")
+library(wesanderson)
+library(glue)
+```
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette("Royal1"))
+```
+
+The tidyverse framework sits at the heart of all my data science work as evidenced in my [favourite things](/project/box). So I'll begin by using two of my most used tidyverse packages (readr [@readr] and dplyr [@dplyr]) to import and tidy the cloud services (G-Cloud) sales data.
+
+Wild data are often scruffy affairs. Cleaning and tidying is a necessary first step. In the case of these data, there are characters in an otherwise numeric spend column. And the date column is a mix of two formats.
+
+```{r}
+#| label: read
+
+url <- str_c(
+  "https://www.gov.uk/government/",
+  "uploads/system/uploads/attachment_data/",
+  "file/639799/g-cloud-sales-figures-july2017.csv"
+)
+
+gcloud_df <-
+  read_csv(url) |> 
+  clean_names() |> 
+  mutate(
+    evidenced_spend = str_remove_all(evidenced_spend, "[^0-9-]") |> 
+      parse_number(),
+    date = as.Date(as.numeric(return_month), origin = "1899-12-30"),
+    date = if_else(
+      is.na(date),
+      date_parse(return_month, format = "%d/%m/%y"),
+      date
+    ),
+    sme_status = if_else(sme_status == "SME", "SME", "Non-SME"),
+    sme_spend = if_else(sme_status == "SME", evidenced_spend, 0)
+  )
+```
+
+Now we can summarise and visualise how the SME share has changed over time using the ggplot2 package.
+
+```{r}
+#| label: share
+
+share_df <- gcloud_df |> 
+  group_by(date) |> 
+  summarise(
+    evidenced_spend = sum(evidenced_spend, na.rm = TRUE),
+    sme_spend = sum(sme_spend, na.rm = TRUE),
+    pct = sme_spend / evidenced_spend
+  )
+
+last_date <- gcloud_df |> 
+  arrange(desc(date)) |> 
+  slice(1) |> 
+  pull(date) |> 
+  date_format(format = "%B %d, %Y")
+
+share_df |> 
+  ggplot(aes(date, pct)) +
+  geom_point(colour = cols[4]) +
+  geom_smooth(colour = cols[2], fill = cols[3]) +
+  scale_y_continuous(labels = label_percent()) +
+  scale_x_date(date_breaks = "years", date_labels = "%Y") +
+  labs(
+    x = NULL, y = NULL,
+    title = glue("SME Share of G-Cloud to {last_date}"), 
+    subtitle = "Dots = % Monthly Sales via SMEs",
+    caption = "Source: GOV.UK G-Cloud Sales"
+  )
+```
+
+Sales grew steadily to a cumulative £2.4B by July 2017. And as the volume of sales grew, an increasingly clearer picture of sustained growth in the SME share emerged. However, in those latter few months, SMEs lost a little ground.
+
+Dig a little deeper, and one can also see variation by sub-sector. And that's after setting aside those buyers with cumulative G-Cloud spend below £100k, where large enterprise suppliers are less inclined to compete.
+
+```{r}
+#| label: sub-sector
+
+sector_df <- gcloud_df |> 
+  mutate(sector = if_else(
+    sector %in% c("Central Government", "Local Government", "Police", "Health"),
+    sector,
+    "Other Sector"
+  )) |> 
+  group_by(customer_name, sector) |> 
+  summarise(
+    evidenced_spend = sum(evidenced_spend, na.rm = TRUE),
+    sme_spend = sum(sme_spend, na.rm = TRUE),
+    pct = sme_spend / evidenced_spend
+  ) |> 
+  filter(evidenced_spend >= 100000) |>  
+  group_by(sector) |> 
+  mutate(median_pct = median(pct)) |> 
+  ungroup() |> 
+  mutate(sector = fct_reorder(sector, median_pct))
+
+n_df <- sector_df |>  group_by(sector) |>  summarise(n = n())
+
+sector_df |> 
+  ggplot(aes(sector, pct)) +
+  geom_boxplot(outlier.shape = FALSE, fill = cols[3]) +
+  geom_jitter(width = 0.2, alpha = 0.5, colour = cols[2]) +
+  geom_label(aes(y = .75, label = glue("n = {n}")),
+    data = n_df,
+    fill = cols[1], colour = "white"
+  ) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(
+    x = NULL, y = NULL,
+    title = glue("SME Share of G-Cloud to {last_date}"),
+    subtitle = "% Sales via SMEs for Buyers with Cumulative Sales >= £100k",
+    caption = "Source: gov.uk G-Cloud Sales"
+  )
+```
+
+The [box plot](https://en.wikipedia.org/wiki/Box_plot), overlaid with jittered points to avoid over-plotting, shows:
+
+-   Central government, with its big-spending departments, and police favouring large suppliers. This may reflect, among other things, their ability to scale.
+-   Local government and health, in contrast, favouring SMEs. And this despite their looser tether to central government strategy.
+
+So, irrespective of whether service integration is taken in-house or handled by a service integrator, large enterprise suppliers have much to offer:
+
+-   The ability to deliver at scale;
+-   A breadth and depth of capabilities exploitable during discovery to better articulate the "art of the possible";
+-   A re-assurance that there is always extensive capability on hand.
+
+SMEs offer flexibility, fresh thinking and broader competition, often deploying their resources and building their mission around a narrower focus. They tend to do one thing, or a few things, exceptionally well.
+
+These data are explored further in [Six months later](/project/six) and [Can Ravens Forecast](/project/forecast).
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |>  # Which packages are loaded?
+  as_tibble() |> 
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |>  # What are their functions?
+  map(possibly(ls, NA)) |> 
+  set_names(pckg$value) |> 
+  enframe("pckg", "func") |> 
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |> 
+  str_remove(".*post/") |>  read_lines()) |> 
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |> 
+  filter(marker == "code", !str_starts(line, "library")) |> 
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |> 
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |> 
+        sum()
+    )
+  }) %>%
+  filter(total > 0) |> 
+  arrange(Package, desc(total)) |> 
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |> 
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |> 
+  group_by(Package) |> 
+  summarise(Function = str_c(Function, collapse = ";  ")) |> 
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

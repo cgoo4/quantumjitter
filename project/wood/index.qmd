@@ -1,0 +1,231 @@
+---
+title: "Seeing the Wood for the Trees"
+date: "2019-01-01"
+categories: [R, apps]
+description: "Visualising small multiples when crime data leave you unable to see the wood for the trees"
+image: "feature.gif"
+bibliography: references.bib
+---
+
+![](feature.gif)
+
+In [Criminal Goings-on](/project/forest) faceting offered a way to get a sense of the data. This is a great visualisation tool building on the principle of small multiples. There may come a point though where the sheer volume of small multiples make it harder to "see the wood for the trees". What's an alternative strategy?
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(trelliscopejs)
+library(rbokeh)
+library(janitor)
+library(vangogh)
+```
+
+This time I'll use Van Gogh's "The Starry Night" palette for the feature image and plots. And there are 9 types of criminal offence, so `colorRampPalette` will enable the interpolation of an extended set.
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- vangogh_palette("StarryNight"))
+
+cols9 <- colorRampPalette(cols)(9)
+```
+
+The data need a little tidy-up.
+
+```{r}
+#| label: read
+
+url <- str_c(
+  "https://data.london.gov.uk/",
+  "download/recorded_crime_rates/",
+  "c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/",
+  "crime%20rates.csv"
+)
+
+crime_df <-
+  read_csv(url, col_types = "cfcfdn") |>
+  clean_names() |>
+  mutate(
+    year = str_extract(year, "(?:1999|200[0-9]|201[0-7])"),
+    year = as.numeric(year)
+  ) |>
+  group_by(year, borough, offences) |>
+  summarise(number_of_offences = sum(number_of_offences)) |>
+  filter(
+    offences != "All recorded offences",
+    !borough %in% c(
+      "England and Wales",
+      "Met Police Area",
+      "Inner London",
+      "Outer London"
+    )
+  )
+```
+
+This was the original visualisation in [Criminal Goings-on](/project/forest) using ggplot's `facet_wrap`.
+
+```{r}
+#| label: facet
+#| fig-height: 12
+
+crime_df |>
+  mutate(borough = str_wrap(borough, 11)) |>
+  ggplot(aes(year, number_of_offences, colour = offences, group = offences)) +
+  geom_line() +
+  facet_wrap(~borough, scales = "free_y", ncol = 4) +
+  labs(
+    x = NULL, y = NULL, title = "London Crime by Borough",
+    colour = "Offence", caption = "Source: data.gov.uk"
+  ) +
+  scale_colour_manual(values = cols9) +
+  guides(colour = guide_legend(nrow = 3)) +
+  theme(
+    strip.background = element_rect(fill = cols[4]),
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+There are some nice alternatives which allow one to go deeper into the data whilst making the whole experience more consumable and engaging.
+
+Switching `facet_wrap` for `facet_trelliscope` is a simple option. Or `trelliscope`[@trelliscopejs] may be used in combination with the rbokeh [@rbokeh] (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred "small multiple" panels required to go deeper into the crime data.
+
+Pairing `trelliscope` with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends.
+
+```{r}
+#| label: trelliscope
+
+slope <- function(x, y) {
+  coef(lm(y ~ x))[2]
+}
+
+plot_data <- crime_df |>
+  group_by(borough, offences) |>
+  nest() |>
+  ungroup() |>
+  mutate(
+    additional_cogs = map_cog(
+      data,
+      ~ tibble(
+        slope = cog(slope(.x$year, .x$number_of_offences),
+          desc = "Steepness of the trend"
+        ) |>
+          round(2),
+        mean_count = cog(mean(.x$number_of_offences),
+          desc = "Average count"
+        ),
+        iqr_count = cog(IQR(.x$number_of_offences),
+          desc = "Interquartile range"
+        )
+      )
+    ),
+    panel = map_plot(
+      data,
+      ~ figure(xlab = "Date", ylab = "Count") |>
+        ly_lines(year, number_of_offences, color = cols[5], 
+                 width = 2, data = .x) |>
+        ly_points(year, number_of_offences,
+          size = 10,
+          fill_color = cols[9],
+          hover = number_of_offences, data = .x
+        ) |>
+        theme_plot(
+          background_fill_color = cols[2],
+          background_fill_alpha = 0.5
+        )
+    )
+  )
+```
+
+::: callout-note
+A [Github issue](https://github.com/hafen/trelliscopejs/issues/122) has been raised re the trelliscope no longer rendering in the published page.
+:::
+
+```{r}
+#| label: plot
+#| eval: false
+
+plot_data |>
+  trelliscope(
+    name = "London Crime",
+    desc = "Source: data.gov.uk",
+    nrow = 2,
+    ncol = 3,
+    state = list(
+      sort = list(sort_spec("slope", dir = "desc")),
+      labels = c("borough", "offences", "slope")
+    ),
+    path = "appfiles"
+  )
+```
+
+```{=html}
+<iframe src="/project/wood/appfiles" width=100% height="600" frameBorder="0"  allowfullscreen></iframe>
+```
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

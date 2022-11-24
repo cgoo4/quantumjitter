@@ -1,0 +1,262 @@
+---
+title: "Surprising Stories"
+date: "2017-12-20"
+categories: [R, geospatial]
+description: "A little interactive geospatial mapping and an unexpected find"
+image: "feature.jpg"
+bibliography: references.bib
+---
+
+![](feature.jpg)
+
+Late in 2017 I experimented with geospatial mapping techniques in R. The log file for my blog seemed like a good source of data. I thought it might appeal to a wider audience of one (including me).
+
+Combined with longitude and latitude data from MaxMind's GeoLite2, this offered a basis for analysis. Although less precise than the GeoIP2 database, this would be more than adequate for my purpose of getting to country and city level. I settled on the leaflet [@leaflet] package for visualisation given the interactivity and pleasing choice of aesthetics.
+
+The results however were a little puzzling.
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(rgeolocate)
+library(R.utils)
+library(leaflet)
+library(rgdal)
+library(wesanderson)
+library(htmlwidgets)
+```
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette("Darjeeling2"))
+```
+
+```{r}
+#| label: shape
+
+zip_file <- "world_shape_file.zip"
+shape_file <- "TM_WORLD_BORDERS_SIMPL-0.3"
+
+str_c("http://thematicmapping.org/downloads/", shape_file, ".zip") |>
+  download.file(zip_file)
+
+unzip(zip_file)
+
+world_spdf <- readOGR(getwd(), shape_file, verbose = FALSE)
+```
+
+```{r}
+#| label: geolite
+#| eval: false
+
+url <- "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+
+file_name <- basename(url)
+
+download.file(url, file_name)
+
+gunzip(file_name, overwrite = TRUE)
+```
+
+```{r}
+#| label: stats
+
+stats <- read_csv("stats.csv")
+```
+
+```{r}
+#| label: maxmind
+
+ip_df <- map2_df(stats$IP, stats$Pages, function(x, y) {
+  maxmind(
+    x,
+    "GeoLite2-City.mmdb",
+    c(
+      "country_name",
+      "city_name",
+      "longitude",
+      "latitude",
+      "region_name"
+    )
+  ) |>
+    mutate(IP = x) |>
+    rename(
+      country = country_name,
+      region = region_name,
+      city = city_name
+    ) |>
+    mutate(
+      Pages = y,
+      Views = case_when(
+        Pages < 500 ~ 1,
+        Pages < 1000 ~ 2,
+        Pages < 2000 ~ 3,
+        TRUE ~ 4
+      )
+    )
+})
+
+ip_df <- ip_df |>
+  filter(!is.na(longitude) | !is.na(latitude)) |>
+  arrange(Pages)
+```
+
+```{r}
+#| label: ip
+#| include: false
+
+ip_df <- ip_df |> 
+  mutate(Views = if_else(IP == "104.192.74.35", 2000, Views),
+         Pages = if_else(IP == "104.192.74.35", 2000, Pages))
+```
+
+The concentration of page views in central London was of no immediate surprise as this was likely to be my site maintenance and blogging. What did strike me as odd though was the high concentration of page views in the centre of the US. More curious still, when I zoomed in on Kansas and found myself in the middle of the Cheney Reservoir.
+
+```{r}
+#| label: leaflet
+
+pal <-
+  colorFactor(cols[c(2:5)],
+    domain = c(1, 2, 3, 4)
+  )
+
+map1 <- leaflet(world_spdf) |> # World view
+  addProviderTiles(providers$CartoDB.Positron,
+    options = providerTileOptions(maxZoom = 21)
+  ) |>
+  setView(-30, 35, zoom = 2) |> # World view
+  addPolygons(
+    fillColor = cols[1],
+    stroke = TRUE,
+    fillOpacity = 1,
+    color = cols[5],
+    weight = 0.3,
+    highlight = highlightOptions(
+      weight = 3,
+      color = cols[3],
+      fillOpacity = 0.3,
+      bringToFront = FALSE
+    ),
+    label = world_spdf@data$NAME,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal"),
+      textsize = "12px"
+    )
+  ) |>
+  addCircleMarkers(
+    lng = ip_df$longitude,
+    lat = ip_df$latitude,
+    radius = ~ case_when(
+      ip_df$Views == 1 ~ 5,
+      ip_df$Views == 2 ~ 10,
+      ip_df$Views == 3 ~ 15,
+      TRUE ~ 20
+    ),
+    fillColor = ~ pal(ip_df$Views),
+    color = cols[5],
+    weight = 1,
+    fillOpacity = 0.7,
+    popup = str_c(
+      "<b>",
+      ip_df$city,
+      "</b>",
+      "<br/>",
+      ip_df$region,
+      "<br/>",
+      as.character(ip_df$Pages),
+      " ",
+      "page views"
+    )
+  ) |>
+  addLegend(
+    colors = cols[c(2:5)],
+    labels = c("<500", "500+", "1,000+", "2,000+"),
+    opacity = 1,
+    title = "Page Views<br/>Oct-23 to Dec-31 2017",
+    position = "bottomleft"
+  )
+```
+
+```{r}
+#| label: widget
+#| include: false
+
+saveWidget(map1, "world.html")
+```
+
+```{=html}
+<iframe seamless src="/project/stories/world.html" width="100%" height="500"></iframe>
+```
+I imagined someone drifting in the expanse of water with laptop, flask of coffee and box of sandwiches, whiling away the hours absorbed in my blog. Perhaps not. How could such a small number of blog pages generate in excess of 2,000 page views in one spot in less than two months?
+
+Then I chanced upon a [BBC news article](https://www.bbc.co.uk/news/technology-37048521) from August 2016. When unable to locate IPs, MaxMind chose the geographical centre of the US as a default. This initially turned out to be a rented house in Kansas, which was rather unfortunate for the occupants, and brought upon them all kinds of unwanted attention.
+
+MaxMind subsequently changed its default centre points to be the middle of bodies of water. And this solved another puzzle. Some of the page views in London appeared to be in the middle of the River Thames.
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

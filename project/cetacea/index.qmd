@@ -1,0 +1,534 @@
+---
+title: "Sea Monsters that Lost their Way"
+date: "2021-12-04"
+categories: [R, geospatial, machine learning, textual analysis]
+description: "Predicting uncertain species of cetacean strandings recorded by the Natural History Museum"
+image: "feature.gif"
+bibliography: references.bib
+---
+
+![](feature.gif)
+
+The Natural History Museum began recording cetacean (whales, dolphins and porpoises) strandings in 1913 [@naturalhistorymuseum2019]. Let's explore this 1913-1989 dataset.
+
+```{r}
+#| label: libraries
+#| message: false
+
+library(tidyverse)
+library(tidymodels)
+library(probably)
+library(finetune)
+library(textrecipes)
+library(stopwords)
+library(wesanderson)
+library(clock)
+library(glue)
+library(janitor)
+library(vip)
+library(tictoc)
+library(patchwork)
+library(doParallel)
+
+registerDoParallel(cores = 6)
+```
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette(name = "Darjeeling2"))
+```
+
+```{r}
+#| label: read
+
+strandings_df <- read_csv("strandings.csv", show_col_types = FALSE) |>
+  clean_names() |> 
+  mutate(
+    date = date_parse(date, format = "%d/%m/%Y"),
+    length = parse_number(length_et),
+    species_lumped = fct_lump_n(species, 20),
+    across(ends_with("_val"), as.integer)
+  )
+
+# glimpse(strandings_df)
+```
+
+## Exploratory
+
+Some of the `species` labels contain a question mark or forward slash. This indicates uncertainty, so it might be fun to see if a machine learning model (multi-class classification) could learn from the known species and suggest an appropriate `species` where it's uncertain.
+
+```{r}
+#| label: uncertain
+
+strandings_df2 <- 
+  strandings_df |> 
+  mutate(species_uncertainty =
+      if_else(str_detect(species, "[?/]"), "Uncertain", "Known"))
+
+strandings_df2 |> 
+  filter(species_uncertainty == "Uncertain") |> 
+  count(species, sort = TRUE, name = "Count") |> 
+  slice_head(n = 6)
+```
+
+The `date` variable has many NA's. Fortunately, the components to construct many of these are in the `year_val`, `month_val` and `day_val` variables. With a little wrangling and imputation, we can coalesce these variables into a new date. This will be useful since plots of sample `species` by `year`, `month` and `week` of stranding suggest a de-constructed `date` could be a useful predictor.
+
+```{r}
+#| label: impute
+
+strandings_df2 |> 
+  select(date, year_val, month_val, day_val) |> 
+  summary()
+
+strandings_df3 <- strandings_df2 |>
+  group_by(species) |> 
+  mutate(
+    month_val = if_else(month_val == 0, mean(month_val) |> 
+                          as.integer(), month_val),
+    day_val = if_else(day_val == 0, mean(day_val) |> as.integer(), day_val),
+    day_val = if_else(day_val == 0, 1L, day_val),
+    date2 = date_build(year_val, month_val, day_val, invalid = "NA"),
+  ) |> 
+  ungroup() |> 
+  mutate(date3 = coalesce(date, date2)) |> 
+  arrange(id) |> 
+  mutate(date = if_else(is.na(date), lag(date3), date3)) |> 
+  select(-date2, -date3, -ends_with("_val"))
+
+example_species <-
+  c("musculus", "melas", "crassidens", "borealis", "coeruleoalba")
+
+known_species <- strandings_df3 |> 
+  filter(species_uncertainty == "Known")
+
+plot_date_feature <- function(var) {
+  known_species |>
+    mutate(
+      year = get_year(date),
+      month = get_month(date),
+      week = as_iso_year_week_day(date) |> get_week()
+    ) |>
+    filter(species %in% example_species) |>
+    count(species, {{ var }}) |>
+    ggplot(aes(species, {{ var }})) +
+    geom_violin(
+      alpha = 0.7,
+      fill = cols[3],
+      show.legend = FALSE
+    ) +
+    coord_flip() +
+    labs(
+      title = glue("Variation in {str_to_title(as.character(var))}",
+                   " of Stranding for Known Species"),
+      x = NULL, y = glue("{str_to_title(as.character(var))}")
+    )
+}
+
+c("year", "month", "week") |> 
+  map(sym) |> 
+  map(plot_date_feature) |> 
+  wrap_plots(ncol = 1)
+```
+
+Do `latitude` and `longitude` carry useful predictive information?
+
+A geospatial visualisation of strandings shows some `species` do gravitate towards particular stretches of coastline, e.g. "acutus" and "albirostris" to the east, and "coeruleoalba" to the south-west.
+
+Some `species` may also be more prone to mass stranding, so something that indicates whether a `species` has such a history (in these data) may be worth including in the mix.
+
+```{r}
+#| label: mass
+
+uki <- map_data("world", region = c("uk", "ireland"))
+
+labels <- c("Mass", "Single")
+
+uki |> 
+  ggplot() +
+  geom_map(aes(long, lat, map_id = region), map = uki, 
+           colour = "black", fill = "grey90", size = 0.1) +
+  geom_jitter(aes(longitude, latitude, colour = mass_single, 
+                  size = mass_single), 
+              alpha = 0.5, data = known_species) +
+  facet_wrap(~ species_lumped, nrow = 3) +
+  coord_map("mollweide") +
+  scale_size_manual(values = c(1, 0.5), labels = labels) +
+  scale_colour_manual(values = cols[c(3, 2)], labels = labels) +
+  theme_void() +
+  theme(legend.position = "top", 
+        strip.text = element_text(colour = "grey50")) +
+  labs(title = "Strandings by Species", 
+       colour = NULL, size = NULL)
+
+# Add history of mass stranding
+strandings_df4 <- strandings_df3 |> 
+  group_by(species) |>
+  mutate(mass_possible = min(mass_single, na.rm = TRUE)) |>
+  ungroup()
+```
+
+Some records are missing the `length` measurement of the mammal. Nonetheless, where present, this is likely to be predictive, and may help, for example, separate species labelled as "delphis/coeruleoalba" where the `length` is at the extreme ends of the "delphis" range as we see below. And the range of `length` may differ by mammal `sex`.
+
+```{r}
+#| label: length
+
+known_species |>
+  mutate(sex = case_when(
+    sex == "M" ~ "Male",
+    sex == "F" ~ "Female",
+    TRUE       ~ "Unknown"
+  )) |> 
+  filter(species_lumped != "Other") |> 
+  count(species_lumped, length, sex) |> 
+  mutate(species_lumped = fct_reorder(species_lumped, 
+                                      desc(length), min, na.rm = TRUE)) |> 
+  ggplot(aes(species_lumped, length)) + 
+  geom_violin(aes(fill = if_else(str_detect(species_lumped, "^de|^co"), 
+                                 TRUE, FALSE)), show.legend = FALSE) +
+  facet_wrap(~ sex) +
+  scale_fill_manual(values = cols[c(1, 5)]) +
+  coord_flip() +
+  labs(title = "Variation in Species Length by Sex", 
+       x = NULL, y = "Length (metres)")
+```
+
+With map coordinates not always available, `county` could be, with a little string cleaning, a useful additional predictor.
+
+```{r}
+#| label: county
+
+strandings_df4 |> 
+  count(county) |> 
+  filter(str_detect(county, "Shet|Northumberland")) |> 
+  rename(County = county, Count = n)
+
+regex_pattern <-
+  c("[,/].*$",
+    "(?<!Che|Hamp|Lanca|North York)-?shire",
+    " Isl.*$",
+    " &.*$",
+    "[-.]$")
+
+strandings_df5 <- strandings_df4 |>
+  mutate(
+    county = str_remove_all(county, str_c(regex_pattern, collapse = "|")),
+    county = recode(
+      county,
+      "Carnarvon" = "Caernarvon",
+      "E.Lothian" = "East Lothian",
+      "Shetlands" = "Shetland",
+      "W.Glamorgan" = "West Glamorgan",
+      "S.Glamorgan" = "South Glamorgan"
+    )
+  ) 
+
+strandings_df4 |>
+  summarise(counties_before = n_distinct(county))
+
+strandings_df5 |>
+  summarise(counties_after = n_distinct(county))
+```
+
+Whilst `count` also appears to hold, based on the plot pattern below, species-related information, I'm not going to use it as a predictor as we do not know enough about how it was derived, as reflected in these [variable descriptions](https://data.nhm.ac.uk/dataset/historical-uk-cetacean-strandings-dataset/resource/9a306dcd-1667-48b5-b682-ce6f071d85ce).
+
+```{r}
+#| label: count
+#| fig.height: 8
+
+strandings_df5 |>
+  ggplot(aes(species, count, colour = species_uncertainty)) +
+  geom_jitter(alpha = 0.5, size = 2) +
+  coord_flip() +
+  scale_y_log10() +
+  scale_colour_manual(values = cols[c(1, 5)]) +
+  labs(title = "How 'Count' Relates to Species", 
+       x = NULL, y = "Count (log10)", colour = "Species") +
+  theme(legend.position = "top")
+```
+
+## Modelling
+
+So, I'll set aside the rows where the species is uncertain (to be used later for new predictions), and I'll train a model on 75% of known species, and test it on the remaining 25%. I'll use the following predictors:
+
+-   `latitude` and `longitude`
+-   Mammal `length` and `sex`
+-   `mass_possible` indicating a `species` history of mass strandings
+-   `date` reported converted into decimal, week, month and year
+-   `county` may be useful, especially where the longitude and latitude are missing
+-   `fam_genus` which narrows the range of likely species
+
+I'd like to also make use of the textrecipes[@textrecipes] package. I can tokenise the textual information in `comment` and `location` to see if these add to the predictive power of the model.
+
+I'll tune the model using `tune_race_anova`[@finetune] which quickly discards hyperparameter combinations showing little early promise.
+
+```{r}
+#| label: model
+#| cache: true
+
+known_species <- strandings_df5 |>
+  filter(species_uncertainty == "Known") |>
+  mutate(across(
+    c(
+      "species",
+      "mass_single",
+      "mass_possible",
+      "county",
+      "location",
+      "sex",
+      "fam_genus"
+    ),
+    factor
+  ))
+
+set.seed(123)
+
+data_split <-
+  known_species |>
+  mutate(species = fct_drop(species)) |> 
+  initial_split(strata = species)
+
+train <- data_split |> training()
+
+test <- data_split |> testing()
+
+predictors <-
+  c(
+    "latitude",
+    "longitude",
+    "length",
+    "mass_single",
+    "mass_possible",
+    "county",
+    "location",
+    "comment",
+    "sex",
+    "fam_genus"
+  )
+
+recipe <-
+  train |>
+  recipe() |>
+  update_role(species, new_role = "outcome") |>
+  update_role(all_of(predictors), new_role = "predictor") |>
+  update_role(!has_role("outcome") & !has_role("predictor"), 
+              new_role = "id") |>
+  step_date(date, features = c("decimal", "week", "month", "year"), 
+            label = FALSE) |>
+  step_tokenize(location, comment) |>
+  step_stopwords(location, comment) |>
+  step_tokenfilter(location, comment, max_tokens = tune()) |> #100
+  step_tf(location, comment) |>
+  step_zv(all_predictors()) |>
+  step_dummy(all_nominal_predictors())
+
+xgb_model <-
+  boost_tree(trees = tune(), # 440
+             mtry = tune(), # 0.6
+             learn_rate = 0.02) |> 
+  set_mode("classification") |>
+  set_engine("xgboost", 
+             count = FALSE,
+             verbosity = 0,
+             tree_method = "hist")
+
+xgb_wflow <- workflow() |>
+  add_recipe(recipe) |>
+  add_model(xgb_model)
+
+set.seed(9)
+
+folds <- vfold_cv(train, strata = species)
+
+set.seed(10)
+
+tic()
+
+tune_result <- xgb_wflow |>
+  tune_race_anova(
+    resamples = folds,
+    grid = crossing(
+      trees = seq(200, 520, 40),
+      mtry = seq(0.5, 0.7, 0.1),
+      max_tokens = seq(80, 120, 20)
+      ),
+    control = control_race(),
+    metrics = metric_set(accuracy)
+  )
+
+toc()
+
+tune_result |> 
+  plot_race() + 
+  labs(title = "Early Elimination of Parameter Combinations")
+
+set.seed(123)
+
+xgb_fit <- xgb_wflow |>
+  finalize_workflow(tune_result |> 
+                      select_best(metric = "accuracy")) |> 
+  fit(train)
+```
+
+Having fitted the model with the `r nrow(train)` records in the training data, I'll test its accuracy on the `r nrow(test)` records of *known* species the model has not yet seen.
+
+Without spending time on alternative models, we're getting a reasonable result for the "porpoise" of this post, as reflected in both the accuracy metric and confusion matrix.
+
+```{r}
+#| label: results
+
+xgb_results <- xgb_fit |> 
+  augment(new_data = test)
+
+xgb_results |>
+  accuracy(species, .pred_class)
+  
+xgb_results |>
+  conf_mat(species, .pred_class) |>
+  autoplot(type = "heatmap") +
+  scale_fill_gradient2(
+    mid = "white",
+    high = cols[1],
+    midpoint = 0
+  ) +
+  labs(title = "Confusion Matrix") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The top variable importance scores include `fam_genus`, many of the `comment` tokens, plus `length`, `mass-possible`, `date_decimal`, `date_year`, and `latitude`.
+
+```{r}
+#| label: importance
+
+vi(xgb_fit |> extract_fit_parsnip()) |> 
+  arrange(desc(Importance)) |> 
+  mutate(ranking = row_number()) |> 
+  slice_head(n = 40)
+```
+
+Do the predictions look reasonable?
+
+The class probability is spread across 27 species. I'm going to set a high threshold of 0.9, meaning the predicted species needs to be a pretty confident prediction.
+
+```{r}
+#| label: reasonableness
+
+xgb_preds <- xgb_fit |> 
+  augment(new_data = strandings_df5 |> 
+            filter(species_uncertainty == "Uncertain"))
+
+species_levels <- xgb_preds |> 
+  select(starts_with(".pred_"), -.pred_class) |> 
+  names() |> 
+  as.factor()
+
+subset_df <- xgb_preds |>
+  mutate(
+    .class_pred = make_class_pred(
+      .pred_acutorostrata,
+      .pred_acutus,
+      .pred_albirostris,
+      .pred_ampullatus,
+      .pred_bidens,
+      .pred_borealis,
+      .pred_breviceps,
+      .pred_cavirostris,
+      .pred_coeruleoalba,
+      .pred_crassidens,
+      .pred_delphis,
+      .pred_electra,
+      .pred_europaeus,
+      .pred_griseus,
+      .pred_leucas,
+      .pred_macrocephalus,
+      .pred_melaena,
+      .pred_melas,
+      .pred_mirus,
+      .pred_monoceros,
+      .pred_musculus,
+      .pred_novaeangliae,
+      .pred_orca,
+      .pred_phocoena,
+      .pred_physalus,
+      .pred_sp.indet.,
+      .pred_truncatus,
+      levels = levels(species_levels),
+      min_prob = .9
+    )
+  )
+
+subset_df |>
+  group_by(species, .class_pred) |> 
+  summarise(n = n()) |> 
+  ungroup() |> 
+  arrange(species, desc(n)) |> 
+  rename("Actual" = species, "Predicted" = .class_pred, "Count" = n)
+```
+
+The majority of the `r nrow(subset_df)` uncertain records are predicted to be as suspected in the original labelling. The remainder are classed as equivocal as they have not met the high bar of a 0.9-or-above probability for a single species.
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

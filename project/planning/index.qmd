@@ -1,0 +1,531 @@
+---
+title: "Digging Deep"
+date: "2018-01-10"
+categories: [R, time series, correlation, apps, tables, textual analysis]
+description: "Do we see more planning applications when house sales are depressed?"
+image: "feature.jpg"
+bibliography: references.bib
+---
+
+![](feature.jpg)
+
+In [House Sales](/project/sw10) I looked at how a series of events damped down sales. By combining these sales data with planning applications I'd like to see if home owners "start digging" when they can't sell.
+
+Planning data is harvested with the kind permission of The Royal Borough of Kensington and Chelsea (RBKC). The code for these code chunks is not rendered out of courtesy to RBKC.
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(rvest)
+library(SPARQL)
+library(quanteda)
+library(quanteda.textstats)
+library(wesanderson)
+library(tictoc)
+library(htmlwidgets)
+library(clock)
+library(fpp3)
+library(DT)
+library(vctrs)
+```
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette(name = "Darjeeling2"))
+```
+
+```{r}
+#| label: scrape
+#| eval: false
+#| include: false
+
+url <- "https://www.rbkc.gov.uk/planning/searches/default.aspx?adv=0&simple=sw10&simpleBatch=200&simSubmit=Search&pgdec="
+
+last_page <- str_c(url, 1) |>
+  read_html() |>
+  html_element("#tabs-planning-2 strong:nth-child(3)") |>
+  html_text() |>
+  as.numeric() %/% 200 + 1
+
+links_df <- map_dfr(1:last_page, function(i) {
+  table <- str_c(url, i) |>
+    read_html() |>
+    html_element("#tabs-planning-2")
+
+  link <- table |>
+    html_elements("td a") |>
+    html_attr("href")
+
+  tibble(link = str_c("https://www.rbkc.gov.uk/planning/searches/", link))
+})
+```
+
+```{r}
+#| label: iterate
+#| eval: false
+#| include: false
+#| cache: true
+
+tic()
+
+case_df <- links_df$link |> 
+  map_dfr(function(j) {
+  j |> read_html() |>
+    html_elements("#property-details, #applicant-details,
+               #proposal-details, #decision-details,
+               #planning-dept-contact") |>
+    html_table() |>
+    bind_rows() |>
+    mutate(link = j)
+}, .progress = TRUE)
+
+toc()
+
+saveRDS(case_df, "case.rds")
+```
+
+```{r}
+#| label: rename
+#| include: false
+
+plan_colnames <- c(
+  property_case = "Case reference:",
+  property_add = "Address:",
+  property_ward = "Ward:",
+  property_dist = "Polling district:",
+  property_list = "Listed Building Grade:",
+  property_cons = "Conservation area:",
+  app_name = "Applicant's name:",
+  app_comp = "Applicant company name:",
+  app_cont = "Contact address:",
+  proposal_type = "Application type:",
+  proposal_dev = "Proposed development",
+  decision = "Decision:",
+  dec_date = "Decision date:",
+  dec_reason = "Conditions and reasons:",
+  planning_off = "Planning case officer:",
+  planning_team = "Planning team:",
+  link = "link"
+)
+```
+
+```{r}
+#| label: read
+
+case_df <- readRDS("case.rds")
+```
+
+```{r}
+#| label: postcodes
+#| eval: false
+
+url <- 
+  "https://www.freemaptools.com/download/full-postcodes/ukpostcodes.zip"
+
+file_name <- basename(url)
+
+url |> basename
+
+download.file(url, file_name)
+```
+
+```{r}
+#| label: geocodes
+#| results: hide
+
+geocodes <- read_csv("ukpostcodes.zip")
+```
+
+The data need a bit of wrangling. And there is also the opportunity to try the newest column-wise enhancements to mutate: `mutate_if` and `mutate_at` have been superseded by `mutate` with `across`.
+
+```{r}
+#| label: wrangle
+
+wide_df <- case_df |>
+  pivot_wider(names_from = X1, values_from = X2) |>
+  select(all_of(plan_colnames)) |>
+  mutate(across(c(property_list, property_cons), ~na_if(., "N/A")),
+         across(c(app_comp, decision), ~na_if(., "")))
+
+tidy_df <- wide_df |>
+  mutate(
+    dec_date = date_parse(dec_date, format = "%d %b %Y"),
+    dec_year = get_year(dec_date),
+    proposal_dev = str_to_lower(proposal_dev),
+    property_pcode = str_extract(property_add, "SW10[\\s]?\\d[[:alpha:]]{2}"),
+    property_pcode = str_replace(property_pcode, "SW10(?!\\s)", "SW10 "),
+    app_comp = str_to_upper(app_comp) |>
+      str_remove_all("[:punct:]") |>
+      str_remove_all("\\b(?:AND|LTD|CO|LIMITED|UK|GROUP|LLP)\\b") |>
+      str_squish(),
+    decision = fct_explicit_na(decision, na_level = "Other"),
+    decision = str_replace(decision, "/", " / "),
+    dec_lump = fct_lump(decision, prop = 0.03),
+    basement = if_else(str_detect(proposal_dev, "basement"), "Yes", "No"),
+    property_listed = case_when(
+      property_list %in% c("II", "II*", "2", "2*") ~ "Yes",
+      is.na(property_list) ~ "No",
+      TRUE ~ "No"
+    ),
+    app_comp = replace_na(app_comp, "None"),
+    property_cons = if_else(property_cons == "" | is.na(property_cons),
+      "None", property_cons
+    ),
+    proposal_dev = if_else(proposal_dev == "" | is.na(proposal_dev),
+      "None", proposal_dev
+    ),
+    across(where(is.character), str_trim),
+    across(c("app_comp", "proposal_type", "property_cons"), factor)
+  ) |>
+  left_join(geocodes, by = c("property_pcode" = "postcode"))
+
+tidy_df |>
+  count(dec_lump) |>
+  arrange(desc(n)) |>
+  rename("Decision" = dec_lump, "Count" = n)
+```
+
+quanteda [@quanteda] to look at key words in context (kwic).
+
+```{r}
+#| label: phrases
+#| include: false
+
+phrases <- phrase(c(
+  "not exceed",
+  "not result in",
+  "mitigate the effects of, and adapt to,",
+  "fail to preserve",
+  "fail to comply with",
+  "by reason of",
+  "removal would be",
+  "visually intrusive",
+  "out of character",
+  "contrary to",
+  "not been demonstrated that",
+  "neither preserve nor enhance",
+  "not preserve or enhance",
+  "in breach of",
+  "negative impact on",
+  "substandard",
+  "harm the"
+))
+
+dt1 <- tidy_df |> 
+  filter(str_detect(decision, "Refuse")) |> 
+  corpus(text_field = "dec_reason", 
+         docid_field = "property_case", 
+         doc_vars = c("dec_date", "proposal_type", "decision", "dec_year")) |> 
+  kwic(pattern = phrases, window = 10) |> 
+  as_tibble() |> 
+  select(-from, -to, -pattern) |> 
+  datatable()
+```
+
+```{r}
+#| label: widget
+#| include: false
+
+saveWidget(dt1, file = "dt1.html", selfcontained = TRUE)
+```
+
+```{=html}
+<iframe seamless src="/project/planning/dt1.html" width="100%" height="500"></iframe>
+```
+I'd like to review planning applications by theme. So I'll first need to get a sense of what the themes are by plotting the words which appear most frequently.
+
+```{r}
+#| label: dfm
+
+plus_words <-
+  c("new",
+    "pp",
+    "two",
+    "one",
+    "dated",
+    "withdrawn",
+    "flat",
+    "x",
+    "permission",
+    "rear",
+    "first",
+    "second",
+    "planning",
+    "floor",
+    "erection"
+  )
+
+words <- tidy_df |> 
+  corpus(text_field = "proposal_dev", 
+         doc_vars = c("dec_date", "proposal_type", 
+                      "decision", "dec_year")) |> 
+  dfm(
+    remove = c(stopwords("english"), plus_words),
+    remove_numbers = TRUE,
+    remove_punct = TRUE) |> 
+  textstat_frequency() |> 
+  slice_head(n = 30) |> 
+  mutate(feature = fct_reorder(feature, frequency))
+
+words |> 
+  ggplot(aes(feature, frequency)) +
+  geom_col(fill = cols[4]) +
+  coord_flip() +
+  labs(x = NULL, y = NULL, 
+       title = "Frequent Planning Proposal Words",
+       caption = "Source: RBKC Planning Search")
+```
+
+Now I can create a theme feature.
+
+```{r}
+#| label: match
+
+tidy_df <- tidy_df |>
+  mutate(
+    theme = case_when(
+      str_detect(proposal_dev, "basement|excav") ~ "Basement or Excavation",
+      str_detect(proposal_dev, "exten|conservatory|storey") ~ "Extension, Conservatory \nor Storey",
+      str_detect(proposal_dev, "window|door") ~ "Windows or Doors",
+      str_detect(proposal_dev, "roof") ~ "Roof",
+      str_detect(proposal_type, "Tree") |
+        str_detect(proposal_dev, "terrac|landscap|garden") ~ "Trees, Landscaping, \nGarden or Terrace",
+      TRUE ~ "Other"
+    ),
+    outcome = case_when(
+      str_detect(decision, "Grant|No Obj|Accept|Lawful") ~ "Positive",
+      str_detect(decision, "Refuse") ~ "Refuse",
+      str_detect(decision, "Withdrawn") ~ "Withdrawn",
+      TRUE ~ "Other"
+    )
+  )
+```
+
+I also want to compare house sales with planning applications over time. So, I'll re-use the SPARQL query from [House Sales](/project/sw10).
+
+```{r}
+#| label: compare
+#| cache: true
+
+tic()
+
+endpoint <- "https://landregistry.data.gov.uk/landregistry/query"
+
+query <- 'PREFIX  text: <http://jena.apache.org/text#>
+PREFIX  ppd:  <http://landregistry.data.gov.uk/def/ppi/>
+PREFIX  lrcommon: <http://landregistry.data.gov.uk/def/common/>
+  
+SELECT  ?item ?ppd_propertyAddress ?ppd_hasTransaction ?ppd_pricePaid ?ppd_transactionCategory ?ppd_transactionDate ?ppd_transactionId ?ppd_estateType ?ppd_newBuild ?ppd_propertyAddressCounty ?ppd_propertyAddressDistrict ?ppd_propertyAddressLocality ?ppd_propertyAddressPaon ?ppd_propertyAddressPostcode ?ppd_propertyAddressSaon ?ppd_propertyAddressStreet ?ppd_propertyAddressTown ?ppd_propertyType ?ppd_recordStatus
+
+WHERE
+{ ?ppd_propertyAddress text:query _:b0 .
+  _:b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> lrcommon:postcode .
+  _:b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b1 .
+  _:b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "( SW10 )" .
+  _:b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b2 .
+  _:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> 3000000 .
+  _:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+  ?item ppd:propertyAddress ?ppd_propertyAddress .
+  ?item ppd:hasTransaction ?ppd_hasTransaction .
+  ?item ppd:pricePaid ?ppd_pricePaid .
+  ?item ppd:transactionCategory ?ppd_transactionCategory .
+  ?item ppd:transactionDate ?ppd_transactionDate .
+  ?item ppd:transactionId ?ppd_transactionId
+  
+  OPTIONAL { ?item ppd:estateType ?ppd_estateType }
+  OPTIONAL { ?item ppd:newBuild ?ppd_newBuild }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:county ?ppd_propertyAddressCounty }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:district ?ppd_propertyAddressDistrict }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:locality ?ppd_propertyAddressLocality }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:paon ?ppd_propertyAddressPaon }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:postcode ?ppd_propertyAddressPostcode }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:saon ?ppd_propertyAddressSaon }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:street ?ppd_propertyAddressStreet }
+  OPTIONAL { ?ppd_propertyAddress lrcommon:town ?ppd_propertyAddressTown }
+  OPTIONAL { ?item ppd:propertyType ?ppd_propertyType }
+  OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }
+}'
+
+sales <- SPARQL(endpoint, query)
+
+toc()
+```
+
+Let's now bind the data into one tibble and summarise the transaction volumes over time.
+
+```{r}
+#| label: bind
+
+sales_df <- sales$results |> 
+  as_tibble() |>
+  mutate(
+    date = new_datetime(ppd_transactionDate) |> as_date(),
+    dataset = "Sales"
+  ) |>
+  group_by(date, dataset) |>
+  summarise(volume = n()) |>
+  ungroup()
+
+app_df <- tidy_df |>
+  mutate(
+    date = dec_date,
+    dataset = "Planning"
+  ) |>
+  group_by(date, dataset) |>
+  summarise(volume = n()) |>
+  ungroup()
+
+compare_df <- bind_rows(app_df, sales_df)
+
+summary_df <- compare_df |>
+  filter(date >= min(sales_df$date)) |> 
+  mutate(date = date_build(get_year(date), get_month(date), "last")) |> 
+  group_by(date, dataset) |>
+  summarise(volume = sum(volume)) |> 
+  ungroup()
+```
+
+The visualisation below does suggest that home owners "start digging" when they can't sell. At least in this part of London.
+
+```{r}
+#| label: viisualise
+
+monthly_ts <- summary_df |> 
+  mutate(date = yearmonth(date)) |> 
+  as_tsibble(key = dataset, index = date)
+
+monthly_ts |> 
+  ggplot(aes(date, volume, colour = dataset)) +
+  geom_line(key_glyph = "timeseries") +
+  scale_colour_manual(values = cols[c(2, 3)]) +
+  labs(x = NULL, y = NULL, colour = NULL,
+       title = "Monthly Property Transaction Volume in SW10",
+       caption = "Sources: Land Registry & RBKC Planning"
+       )
+```
+
+Time-series data may have an underlying trend and a seasonality pattern. I'll use the seasonal package to decompose each time-series. Each exhibit annual seasonality which evolves over time.
+
+```{r}
+#| label: decomposition
+
+monthly_ts |>
+  model(stl = STL(volume ~ season())) |>
+  components() |> 
+  autoplot() +
+  scale_colour_manual(values = cols[c(2, 3)]) +
+  labs(x = NULL, title = "Time Series Decomposition")
+```
+
+We also see some inverse correlation between the two time-series re-affirming the visual conclusion that planning applications increase when the housing market is depressed.
+
+```{r}
+#| label: correlation
+
+monthly_ts |> 
+  pivot_wider(names_from = dataset, values_from = volume) |>
+  CCF(Sales, Planning, lag_max = 6) |> 
+  autoplot() +
+  labs(title = "Correlation Between Sales & Planning") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The overall volumes of planning applications and house transactions in SW10 are fairly similar.
+
+```{r}
+#| label: volumes
+
+summary_df |>
+  group_by(dataset) |>
+  summarise(total = sum(volume)) |> 
+  rename("Dataset" = dataset, "Count" = total)
+```
+
+Earlier, I added a "theme" feature to the data. So let's take a look at the volume of applications over time faceted by theme and coloured by the outcome. We see that the rise in planning applications is fuelled by basements or excavations, and work on outside landscaping and terracing. So perhaps we do "dig" when we can't sell.
+
+```{r}
+#| label: trend
+
+tidy_df |>
+  ggplot(aes(dec_year, fill = outcome)) +
+  geom_bar() +
+  facet_wrap( ~ theme, nrow = 2) +
+  scale_fill_manual(values = cols[c(1:4)]) +
+  labs(
+    title = "Planning Application Themes",
+    x = NULL, y = NULL,
+    caption = "Source: RBKC Planning Search"
+    )
+```
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:clock", "as_date",
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble",
+  "package:tsibble", "as_tsibble",
+  "package:ggplot2", "autoplot",
+  "package:htmlwidgets", "saveWidget"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

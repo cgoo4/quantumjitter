@@ -1,0 +1,284 @@
+---
+title: "East-West Drift"
+date: "2019-01-09"
+categories: [R, dimension reduction, animation]
+description: "Animated dimension reduction and East-West historical UN voting patterns"
+image: "feature.gif"
+bibliography: references.bib
+---
+
+![](feature.gif)
+
+In [Finding Happiness in 'The Smoke'](/project/happiness), dimension reduction and cluster analysis are used to see how different characteristics group London boroughs.
+
+Dimension reduction is used here to visualise the grouping of UN members, for example [five of the founding members](https://research.un.org/en/unmembers/founders), based on their [General Assembly](http://www.un.org/en/ga/) voting patterns. And by using animation, it's possible to more easily see changes over time. Are they drifting closer or farther apart?
+
+General Assembly votes are obtained from unvotes[@unvotes] and the visualisation animated using gganimate[@gganimate].
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(tidymodels)
+library(tsibble)
+library(gganimate)
+library(clock)
+library(unvotes)
+library(patchwork)
+library(wesanderson)
+library(rvest)
+library(glue)
+```
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette("GrandBudapest2"))
+```
+
+```{r}
+#| label: ingest
+
+raw_df <- un_votes |>
+  inner_join(un_roll_calls, by = "rcid") |>
+  filter(country_code %in% c("GB", "CN", "US", "FR", "RU")) |>
+  mutate(
+    country = recode(
+      country_code,
+      GB = "UK",
+      CN = "China",
+      FR = "France",
+      RU = "Russia"
+    ),
+    date = date_parse(as.character(date), format = "%Y-%m-%d")
+  )
+
+from <- raw_df |>
+  summarise(min(get_year(date))) |>
+  pull()
+
+to <- raw_df |>
+  summarise(max(get_year(date))) |>
+  pull()
+```
+
+Applying a sliding window to the roll-calls from `r from` to `r to` will make it possible to show the temporal changes.
+
+```{r}
+#| label: slide
+
+tidy_df <- raw_df |>
+  arrange(date, rcid) |>
+  nest(data = -c(date, rcid)) |>
+  mutate(vote_id = row_number(), year = get_year(date)) |>
+  unnest(data) |>
+  complete(country, nesting(vote_id)) |>
+  mutate(vote = replace_na(as.character(vote), "na"), value = 1) |>
+  group_by(vote_id) |>
+  fill(year, .direction = "updown") |>
+  mutate(variation = n_distinct(vote)) |>
+  ungroup() |>
+  filter(variation != 1) |>
+  select(country, vote_id, year, vote, value)
+
+wdow_df <- tidy_df |>
+  as_tsibble(key = country, index = vote_id) |>
+  nest(data = -vote_id) |>
+  slide_tsibble(.size = 1000, .step = 250, .id = "slide_id") |>
+  unnest(data) |>
+  as_tibble() |>
+  arrange(slide_id, vote_id, country)
+```
+
+Dimensionality reduction may be performed on each window. And the voting patterns are then visualised as a two-dimensional animation.
+
+```{r}
+#| label: pca
+#| cache: true
+
+wdows <- wdow_df |>
+  summarise(max(slide_id)) |>
+  pull()
+
+slide_pca <- function(x) {
+  wide_df <- wdow_df |>
+    filter(slide_id == x) |>
+    pivot_wider(
+      id_cols = c(country, slide_id),
+      names_from = c(vote_id, vote),
+      values_from = value,
+      values_fill = 0
+    )
+
+  pca_fit <- wide_df |>
+    select(-c(country, slide_id)) |>
+    prcomp(scale = TRUE) |>
+    augment(wide_df) |>
+    select(slide_id, country, .fittedPC1, .fittedPC2)
+}
+
+pca_windows <- map_dfr(1:wdows, slide_pca)
+
+p <- pca_windows |>
+  mutate(east_west = if_else(country %in% c("China", "Russia"), 
+                             "East", "West")) |>
+  ggplot(aes(.fittedPC1, .fittedPC2)) +
+  geom_label(aes(label = country, fill = east_west)) +
+  scale_fill_manual(values = cols[c(1, 3)]) +
+  transition_time(slide_id) +
+  labs(
+    title = glue("P5 Distance for the Period {from} to {to}"),
+    subtitle = "Frame {frame} of {nframes}",
+    x = "Principal Component 1",
+    y = "Principal Component 2",
+    fill = NULL,
+    caption = "Source: unvotes"
+  ) +
+  shadow_wake(wake_length = 0.1, wrap = FALSE)
+  
+animate(p, fps = 5, end_pause = 10)
+```
+
+France and the UK, for example, have remained particularly close given their historical ties and geographical proximity.
+
+The UN's [Security Council Veto List](http://research.un.org/en/docs/sc/quick/veto) provides further insights on the changing profile of P5 voting over the decades.
+
+```{r}
+#| label: veto
+
+url <- "https://www.un.org/depts/dhl/resguide/scact_veto_table_en.htm"
+
+meeting_df <- url |>
+  read_html() |>
+  html_element(".tablefont") |>
+  html_table(fill = TRUE) |>
+  select(date = 1, draft = 2, meeting = 3, agenda = 4, vetoed_by = 5) |>
+  slice(-c(1:2))
+```
+
+```{r}
+#| label: longer
+
+meeting_df2 <- meeting_df |>
+  mutate(
+    date = str_remove(date, "-(?:\\d{2}|\\d)"),
+    date = date_parse(date, format = "%d %B %Y"),
+    date = if_else(get_year(date) == "86", date_build(1986, 01, 01), date),
+    vetoed_by = str_replace(vetoed_by, "USSR", "Russia"),
+    Russia = if_else(str_detect(vetoed_by, "Russia"), 1, 0),
+    China = if_else(str_detect(vetoed_by, "China"), 1, 0),
+    France = if_else(str_detect(vetoed_by, "France"), 1, 0),
+    US = if_else(str_detect(vetoed_by, "US"), 1, 0),
+    UK = if_else(str_detect(vetoed_by, "UK"), 1, 0)
+  ) |>
+  pivot_longer(c(Russia:UK), names_to = "country", values_to = "veto") |>
+  filter(veto == 1)
+
+country_df <- meeting_df2 |>
+  count(country) |>
+  mutate(country = fct_reorder(country, n))
+```
+
+```{r}
+#| label: plot
+
+cols2 <- wes_palette(5, name = "GrandBudapest2", type = "continuous")
+
+little_plot <- country_df |>
+  ggplot(aes(country, n, fill = country)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = cols2[c(1:5)]) +
+  geom_label(aes(label = n), colour = "white", hjust = "inward") +
+  labs(
+    x = NULL, y = NULL, fill = NULL, title = "Most Vetoes",
+    caption = "Source: research.un.org"
+  )
+
+year_df <- meeting_df2 |>
+  mutate(year = get_year(date)) |>
+  count(year, country)
+
+to_date <- format(max(meeting_df2$date), "%b %d, %y")
+
+big_plot <- year_df |>
+  ggplot(aes(year, n, fill = country)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = cols2[c(1:5)]) +
+  scale_x_continuous(breaks = (seq(1945, 2020, 5))) +
+  labs(
+    x = NULL, y = "Veto Count", fill = NULL,
+    title = glue("Security Council Vetoes to {to_date}")
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+layout <- "AAB"
+big_plot + little_plot + plot_layout(design = layout)
+```
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble",
+  "package:xml2", "read_html"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

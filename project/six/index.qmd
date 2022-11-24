@@ -1,0 +1,276 @@
+---
+title: "Six Months Later"
+date: "2018-04-02"
+categories: [R]
+description: "Exploring colour palettes and small multiples using cloud services spend data"
+image: "feature.jpg"
+bibliography: references.bib
+---
+
+![](feature.jpg)
+
+In September 2017 I wrote a post entitled [Let's Jitter](/project/jitter). It looked at how the SME share of sales evolved over time. I revisited this topic here six months later, along the way adding a splash of colour and some faceted plots.
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(clock)
+library(scales)
+library(wesanderson)
+```
+
+I'm using one of the beautiful range of [Wes Anderson Palettes](https://github.com/karthik/wesanderson). I often use the palettes provided by [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) too.
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+(cols <- wes_palette(9, name = "Chevalier1", type = "continuous"))
+```
+
+In [Let's Jitter](/project/jitter) I assumed the G-Cloud data file adopted the [UK Government standard](https://www.gov.uk/guidance/gds-api-technical-and-data-standards#use-unicode-for-encoding) of UTF-8. I used the stringr package to fix any issues.
+
+This time around, I'm importing the files for two frameworks (G-Cloud and DOS) after first checking the encoding to see if I can get a cleaner import. `guess_encoding` suggests these files use the ISO-8859-1 standard.
+
+```{r}
+#| label: encoding
+
+url <- 
+  "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/"
+
+gcloud_csv <- str_c(url, "678283/G-Cloud-spend-Dec2017.csv")
+
+dos_csv <- str_c(url, "678286/DOS-spend-Dec2017.csv")
+
+names <- c(gcloud_csv, dos_csv)
+
+map(names, guess_encoding)
+```
+
+Next I'll set up a vector of column names to apply consistently to both files, import the data with the suggested encoding, and bind them into one tibble.
+
+```{r}
+#| label: read
+
+colnam <-
+  c("sector",
+    "lot",
+    "month",
+    "spend",
+    "status",
+    "supplier",
+    "customer",
+    "framework")
+
+read_dm <- function(x){
+  read_csv(
+    x,
+    col_names = colnam,
+    skip = 1,
+    locale = locale(encoding = "ISO-8859-1"),
+    col_types = NULL,
+    show_col_types = FALSE)
+}
+
+combined_df <- map(names, read_dm) |> 
+  set_names(c("gcloud", "dos")) |> 
+  bind_rows() |> 
+  mutate(framework = if_else(is.na(framework), "DOS", framework))
+```
+
+I'd like to create some new features: Month-end dates, something to distinguish between the two frameworks (*G-Cloud* or *DOS*) and the framework version (i.e. G-Cloud 1 to 9). The spend has a messy format and needs a bit of cleaning too.
+
+```{r}
+#| label: clean
+
+clean_df <- combined_df |>
+  mutate(
+    month_end = date_parse(str_c(month, "01", sep = "-"), format = "%b-%y-%d") |> 
+      add_months(1) |> add_days(-1),
+    version = str_remove(framework, fixed("-Cloud ")),
+    version = str_replace(version, fixed("G-Cloud"), "G1"),
+    version = str_replace(version, fixed("GIII"), "G3"),
+    version = str_replace(version, fixed("GServices II"), "G2"),
+    framework = str_extract(framework, ".{3,7}"),
+    spend = str_remove(spend, fixed("£")),
+    spend = str_replace(spend, "^\\(", "-"),
+    spend = parse_number(spend),
+    SME_spend = if_else(status == "SME", spend, 0)
+  )
+```
+
+Finding the interval between G-Cloud versions will enable me to calculate and print the average in the next paragraph using inline r code.
+
+```{r}
+#| label: version
+
+version_df <- clean_df |>
+  filter(version != "DOS") |> 
+  group_by(version) |>
+  summarise(start = min(month_end)) |> 
+  mutate(next_start = lead(start),
+         interval = lubridate::interval(start, next_start) %/% months(1))
+```
+
+Every `r round(mean(version_df$interval, na.rm = TRUE), 1)` months, on average, suppliers are asked to resubmit their G-Cloud offerings with their latest pricing and service descriptions. It's a chance for new suppliers, often smaller ones, to join the existing list of suppliers and increase overall competitiveness for Cloud services.
+
+Let's visualise how each of these framework versions grows, matures and fades away as the next one takes over.
+
+```{r}
+#| label: lifecycle
+
+vers_summary <- clean_df |>
+  filter(version != "DOS") |> 
+  group_by(version, month_end) |>
+  summarise(sales = sum(spend) / 1000000)
+
+vers_summary |> 
+  ggplot(aes(month_end, sales, colour = version)) +
+  geom_line() +
+  geom_smooth(linewidth = 2) +
+  scale_x_date(date_breaks = "years", date_labels = "%Y") +
+  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_colour_manual(values = cols) +
+  labs(x = NULL, y = NULL, title = "The Lifecycle of G-Cloud Versions", 
+       subtitle = "Monthly Sales by Version") + 
+  labs(caption = "\nSource: GOV.UK's Digital Marketplace")
+```
+
+[Let's Jitter](/project/jitter) showed signs of a weakening in the SME share of G-Cloud sales by value. This plot shows this trend to have persisted, and also reflects the Digital Outcomes & Specialists (DOS) framework exhibiting a downward trend.
+
+```{r}
+#| label: trend
+
+fw_summary <- clean_df |>
+  group_by(framework, month_end) |>
+  summarise(pct = sum(SME_spend, na.rm = TRUE) / sum(spend, na.rm = TRUE))
+
+fw_summary |> 
+  ggplot(aes(month_end, pct, colour = framework)) +
+  geom_line() +
+  geom_smooth(linewidth = 2) +
+  scale_y_continuous(breaks = c(0.25, 0.5, 0.75, 1), labels = label_percent()) +
+  scale_x_date(date_breaks = "years", date_labels = "%Y") +
+  scale_colour_manual(values = cols[c(1, 9)]) +
+  labs(x = NULL, y = NULL, 
+       title = "The Waning SME Share of Sales", 
+       subtitle = "% Monthly Sales Value via SME (vs Large Enterprise) Suppliers") + 
+  labs(caption = "\nSource: GOV.UK's Digital Marketplace")
+```
+
+Overall spending via the combined frameworks however continues to grow across all parts of Public Sector. I'll use a [small multiples](https://en.wikipedia.org/wiki/Small_multiple) visualisation technique to show this using ggplot2's[@ggplot2] `facet_wrap`.
+
+```{r}
+#| label: multiples
+
+sect_summary <- 
+  clean_df |>
+  filter(!sector %in% c("Unregistered or Unknown",
+                        "Utility (Historic)",
+                        "Wider Public Sector")) |>
+  group_by(sector, month_end) |>
+  summarise(
+  sales = sum(spend) / 1000000,
+  pct = sum(SME_spend, na.rm = TRUE) / sum(spend, na.rm = TRUE)
+  )
+
+sect_summary |> 
+  ggplot(aes(month_end, sales, colour = sector)) +
+  geom_line() +
+  geom_smooth(size = 2) +
+  facet_wrap(~ sector, scales = "free_y") +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "years", date_labels = "%Y") +
+  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_colour_manual(values = cols) +
+  labs(x = NULL, y = NULL, 
+       title = "All Sectors Increase Digital Marketplace Spend", 
+       subtitle = "G-Cloud & DOS Spend by Sector") + 
+  labs(caption = "\nSource: GOV.UK's Digital Marketplace")
+```
+
+The decline in the proportion of spend via SMEs is also fairly broad-based.
+
+```{r}
+#| label: proportion
+
+sect_summary |> 
+  ggplot(aes(month_end, pct, colour = sector)) +
+  geom_line() +
+  geom_smooth(size = 2) +
+  facet_wrap(~ sector, scales = "free_y") +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "years", date_labels = "%Y") +
+  scale_y_continuous(labels = label_percent()) +
+  scale_colour_manual(values = cols) +
+  labs(x = NULL, y = NULL, 
+       title = "Most Sectors Spend Proportionately Less on SMEs", 
+       subtitle = "Pct SME G-Cloud & DOS Spend by Sector") + 
+  labs(caption = "\nSource: GOV.UK's Digital Marketplace")
+```
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:tibble", "tibble"
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

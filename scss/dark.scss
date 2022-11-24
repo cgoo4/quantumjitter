@@ -1,0 +1,40 @@
+/*-- scss:defaults --*/
+
+$body-bg:                                 #313745 !default;
+$body-color:                              #fdfdfd !default;
+$headings-color:                          $body-color !default;
+$code-block-bg:                           lighten($body-bg, 3%) !default;
+$navbar-bg:                               $body-bg !default;
+
+$link-color:                              darken($body-color, 30%) !default;
+$link-shade-percentage:                   15% !default;
+$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+
+$code-color:                              darken($body-color, 10%) !default;
+$code-bg:                                 lighten($body-bg, 10%) !default;
+
+$card-border-color:                       $body-color !default;
+$form-select-border-color:                $body-color !default;
+
+/*-- scss:rules --*/
+
+.card-footer {
+    color: lighten($body-bg, 30%);
+    background-color: lighten($body-bg, 2%);
+}
+
+.sherlock {
+    filter: brightness(2);
+}
+
+.navbar-logo {
+    filter: brightness(2);
+    max-height: 30px;
+}
+
+.fa-solid {
+    color: #9ea1a8;
+}
+
+.dark-mode { display: block; }
+.light-mode { display: none; }

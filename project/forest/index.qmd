@@ -1,0 +1,507 @@
+---
+title: "Criminal Goings-on in a Random Forest"
+date: "2018-03-01"
+categories: [R, machine learning]
+description: "Criminal goings-on in a random forest and predictions with tree-based and glm models"
+image: "feature.gif"
+bibliography: references.bib
+---
+
+![](feature.gif)
+
+When first posted in 2018 this project used the caret package to model [crime in London](https://data.gov.uk/dataset). Since then, the newer [tidymodels](https://www.tidymodels.org)[@tidymodels] framework, consistent with tidy data principles, has rapidly evolved.
+
+```{r}
+#| label: libraries
+
+library(tidyverse)
+library(tidymodels)
+library(janitor)
+library(scales)
+library(vip)
+library(poissonreg)
+```
+
+This custom palette was created in [Adobe Colour](https://color.adobe.com/create/color-wheel) as the basis for the feature image above and with the hex codes loaded for use in ggplot. `colorRampPalette` enables interpolation of an extended set of colours to support the number of offence types.
+
+```{r}
+#| label: theme
+#| fig-height: 2
+#| dev.args: { bg: "transparent" }
+
+theme_set(theme_bw())
+
+cols <- c("#798E87", "#C27D38", "#CCC591", "#29211F") |>
+  fct_inorder()
+
+tibble(x = 1:4, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col(colour = "white") +
+  geom_label(aes(label = cols), size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = 2.5, y = 0.5,
+    label = "Custom Pallette",
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
+
+cols10 <- colorRampPalette(cols)(10)
+```
+
+```{r}
+#| label: read
+
+url <- str_c(
+  "https://data.london.gov.uk/",
+  "download/recorded_crime_rates/",
+  "c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/",
+  "crime%20rates.csv"
+)
+
+raw_df <-
+  read_csv(url, col_types = "cfcfdn") |>
+  clean_names() |>
+  mutate(
+    year = str_extract(year, "(?:1999|200[0-9]|201[0-7])"), # 1999-2007
+    year = as.numeric(year)
+  ) |>
+  group_by(year, borough, offences) |>
+  summarise(number_of_offences = sum(number_of_offences)) |>
+  ungroup()
+```
+
+A faceted plot is one way to get a sense of the data.
+
+```{r}
+#| label: facet
+#| fig-height: 12
+
+raw_df |>
+  mutate(borough = str_wrap(borough, 11)) |>
+  ggplot(aes(year, number_of_offences, colour = offences, group = offences)) +
+  geom_line() +
+  facet_wrap(~borough, scales = "free_y", ncol = 4) +
+  labs(
+    x = NULL, y = NULL, title = "London Crime by Borough",
+    colour = "Offence", caption = "Source: data.gov.uk"
+  ) +
+  scale_colour_manual(values = cols10) +
+  guides(colour = guide_legend(nrow = 4)) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+Visualising data in small multiples using `facet_wrap` or `facet_grid` can be a useful way to explore data. When there are a larger number of these however, as we're starting to see in the example above, there are alternative techniques one can employ. This is explored in [Seeing the Wood for the Trees](/project/wood).
+
+Nonetheless, one can anyway see there are data aggregated at multiple levels. So to net these data down to purely borough-level, I'll filter out the summarised rows, for example, "England and Wales" and "Inner London".
+
+```{r}
+#| label: remove summary
+
+crime_df <- raw_df |>
+  filter(
+    offences != "All recorded offences",
+    !borough %in% c(
+      "England and Wales",
+      "Met Police Area", 
+      "Inner London", 
+      "Outer London"
+    )
+  )
+```
+
+There are `r n_distinct(crime_df$offences)` types of offence in `r n_distinct(crime_df$borough)` boroughs. The dataset covers the period `r min(crime_df$year)` to `r max(crime_df$year)`.
+
+The faceted plot hints at a potential interaction between borough and type of offence. In more affluent boroughs, and/or those attracting greater visitor numbers, e.g. Westminster and Kensington & Chelsea, "theft and handling" is the more dominant category. In Lewisham, for example, "violence against the person" exhibits higher counts. However, for the purpose of this basic model comparison, I'm going to set aside the potential interaction term.
+
+Before modelling, I'll visualise the dependent variable against each independent variable.
+
+```{r}
+#| label: by type
+
+crime_df |>
+  group_by(offences, borough) |>
+  summarise(number_of_offences = sum(number_of_offences)) |>
+  group_by(offences) |>
+  mutate(
+    median_offences = median(number_of_offences),
+    offences = str_wrap(offences, 10),
+  ) |>
+  ggplot(aes(fct_reorder(offences, median_offences), number_of_offences)) +
+  geom_boxplot(fill = cols[1]) +
+  scale_y_log10(labels = label_number(scale_cut = cut_short_scale())) +
+  labs(
+    x = NULL, y = NULL,
+    title = "Number of Offences by Type",
+    caption = "Source: data.gov.uk"
+  )
+```
+
+```{r}
+#| label: by borough
+
+crime_df |>
+  group_by(offences, borough) |>
+  summarise(number_of_offences = sum(number_of_offences)) |>
+  group_by(borough) |>
+  mutate(
+    median_offences = median(number_of_offences),
+    offences = str_wrap(offences, 10),
+  ) |>
+  ggplot(aes(fct_reorder(borough, median_offences), number_of_offences)) +
+  geom_boxplot(fill = cols[1]) +
+  scale_y_log10(labels = label_number(scale_cut = cut_short_scale())) +
+  coord_flip() +
+  labs(
+    x = NULL, y = NULL,
+    title = "Number of Offences by Borough",
+    caption = "Source: data.gov.uk"
+  )
+```
+
+The offences and borough variables show significant variation in crime counts. And there is also evidence of a change over time.
+
+```{r}
+#| label: by year
+
+crime_df |>
+  group_by(year) |>
+  summarise(number_of_offences = sum(number_of_offences)) |>
+  ggplot(aes(year, number_of_offences)) +
+  geom_line(colour = cols[4], linetype = "dashed") +
+  geom_smooth(colour = cols[5], fill = cols[1]) +
+  scale_y_continuous(labels = label_number(scale_cut = cut_short_scale())) +
+  labs(
+    x = NULL, y = NULL,
+    title = "Number of Offences by Year",
+    caption = "Source: data.gov.uk"
+  )
+```
+
+I'll separate out some test data so I can compare the performance of the models on data they have not see during model training.
+
+```{r}
+#| label: train-test
+
+set.seed(123)
+
+data_split <- 
+  crime_df |>
+  initial_split(strata = offences)
+
+crime_train <- data_split |>
+  training()
+
+crime_test <- data_split |>
+  testing()
+```
+
+I'm using the recipes package to establish the role of the variables. Alternatively I could have used a formula-based approach, i.e. `number_of_offences ~ borough + offences + year`.
+
+Whilst `borough` and `offences` are nominal, I'm not creating any dummy variables since I intend to use tree-based models which will anyway branch left and right based on groups of values.
+
+```{r}
+#| label: recipe
+
+crime_recipe <-
+  crime_train |>
+  recipe() |>
+  update_role(number_of_offences, new_role = "outcome") |>
+  update_role(-has_role("outcome"), new_role = "predictor")
+
+summary(crime_recipe)
+```
+
+I'll start with a Recursive Partitioning And Regression Trees (rpart) model. The feature importance plot tells me which variables are having the biggest influence on the model. The type of offence is the most important predictor in the rpart model, followed by the location of the offences. This makes intuitive sense.
+
+Clearly there is a temporal component too otherwise there would be no trend.
+
+```{r}
+#| label: rpart
+
+rp_model <- 
+  decision_tree() |>
+  set_engine("rpart") |>
+  set_mode("regression")
+
+rp_wflow <- workflow() |>
+  add_recipe(crime_recipe) |>
+  add_model(rp_model)
+
+rp_fit <- rp_wflow |> 
+  fit(crime_train)
+
+rp_fit |>
+  extract_fit_parsnip() |> 
+  vip(aesthetics = list(fill = cols[1])) +
+  labs(title = "Feature Importance -- rpart")
+
+rp_results <- rp_fit |> 
+  augment(crime_test) |> 
+  mutate(model = "rpart")
+```
+
+Ranger is an implementation of random forests or recursive partitioning that, according to the documentation, is particularly suited to high dimensional data. My data is not high-dimensional, but let's throw it into the mix.
+
+```{r}
+#| label: ranger
+
+ranger_model <- 
+  rand_forest() |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("regression")
+
+ranger_wflow <- workflow() |>
+  add_recipe(crime_recipe) |>
+  add_model(ranger_model)
+
+ranger_fit <- ranger_wflow |> 
+  fit(crime_train)
+
+ranger_fit |>
+  extract_fit_parsnip() |> 
+  vip(aesthetics = list(fill = cols[3])) +
+  labs(title = "Feature Importance -- Ranger")
+
+ranger_results <- ranger_fit |> 
+  augment(crime_test) |> 
+  mutate(model = "ranger")
+```
+
+And of course my project title would make little sense without a Random Forest.
+
+```{r}
+#| label: forest
+
+rf_model <- 
+  rand_forest() |>
+  set_engine("randomForest") |>
+  set_mode("regression")
+
+rf_wflow <- workflow() |>
+  add_recipe(crime_recipe) |>
+  add_model(rf_model)
+
+rf_fit <- rf_wflow |> 
+  fit(crime_train)
+
+rf_fit |>
+  extract_fit_parsnip() |> 
+  vip(aesthetics = list(fill = "grey60")) +
+  labs(title = "Feature Importance -- Random Forest")
+
+rf_results <- rf_fit |> 
+  augment(crime_test) |> 
+  mutate(model = "random forest")
+```
+
+For good measure, I'll also include a generalized linear model (glm)
+
+```{r}
+#| label: poisson
+
+poisson_model <- 
+  poisson_reg() |>
+  set_engine("glm") |>
+  set_mode("regression")
+
+poisson_wflow <- workflow() |>
+  add_recipe(crime_recipe) |>
+  add_model(poisson_model)
+
+poisson_fit <- poisson_wflow |> 
+  fit(crime_train)
+
+poisson_fit |>
+  extract_fit_parsnip() |> 
+  vip(aesthetics = list(fill = cols[4])) +
+  labs(title = "Feature Importance -- glm")
+
+poisson_results <- poisson_fit |> 
+  augment(crime_test) |> 
+  mutate(model = "glm")
+```
+
+The Random Forest and the glm models performed the best here, with the former edging the Mean Absolute Error and R Squared metrics, and the latter with its nose in front on the Root Mean Squared Error.
+
+```{r}
+#| label: results
+
+model_results <- 
+  rp_results |> 
+  bind_rows(ranger_results) |> 
+  bind_rows(rf_results) |> 
+  bind_rows(poisson_results) |> 
+  group_by(model) |> 
+  metrics(truth = number_of_offences, estimate = .pred)
+
+model_results |> 
+  ggplot(aes(model, .estimate, fill = model)) +
+  geom_col() +
+  geom_label(aes(label = round(.estimate, 2)), size = 3, fill = "white") +
+  facet_wrap(~ .metric, scales = "free_y") +
+  scale_fill_manual(values = as.character(cols[c(4, 5, 3, 1)])) +
+  labs(x = NULL, y = NULL, title = "Comparison of Model Metrics") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+```
+
+Another way of approaching all this would be to use time-series forecasting. This would major on auto-regression, i.e. looking at how the lagged number-of-offences influence future values. And one could further include exogenous data such as, say, the numbers of police. It would be reasonable to expect that increasing police numbers would, in time, lead to decreased crime levels.
+
+I explored time-series in other posts such as [Digging Deep](/project/planning), so I won't go down that path here.
+
+What I could do though is to strengthen my tree-based models above by engineering some additional temporal features. Let's try that just with the Random Forest to see if it improves the outcome.
+
+```{r}
+#| label: lags
+
+temp_df <- 
+  crime_df |> 
+  mutate(num_lag1 = lag(number_of_offences),
+         num_lag2 = lag(number_of_offences, 2),
+         num_lag3 = lag(number_of_offences, 3)) |> 
+  drop_na()
+```
+
+So, when predicting the number of offences, the model will now additionally consider, for each borough, type of offence and year, the number of offences in each of the three prior years.
+
+```{r}
+#| label: forest2
+
+set.seed(123)
+
+data_split <- 
+  temp_df |>
+  initial_split(strata = offences)
+
+temp_train <- data_split |>
+  training()
+
+temp_test <- data_split |>
+  testing()
+
+temp_recipe <-
+  temp_train |>
+  recipe() |>
+  update_role(number_of_offences, new_role = "outcome") |>
+  update_role(-has_role("outcome"), new_role = "predictor")
+
+summary(temp_recipe)
+
+temp_model <- 
+  rand_forest() |>
+  set_engine("randomForest") |>
+  set_mode("regression")
+
+temp_wflow <- workflow() |>
+  add_recipe(temp_recipe) |>
+  add_model(temp_model)
+
+temp_fit <- temp_wflow |> 
+  fit(temp_train)
+
+temp_fit |>
+  extract_fit_parsnip() |> 
+  vip(aesthetics = list(fill = cols[2])) +
+  labs(title = "Feature Importance -- Random Forest with Lags")
+
+temp_results <- temp_fit |> 
+  augment(temp_test) |> 
+  metrics(truth = number_of_offences, estimate = .pred) |> 
+  mutate(model = "rf with lags")
+```
+
+The recipe summary includes the three new predictors. And the feature importance plot shows the lags playing a larger role in the model than the `year` variable, so looks like we should anticipate a model improvement.
+
+```{r}
+#| label: results2
+
+updated_results <- 
+  model_results |> 
+  bind_rows(temp_results)
+
+updated_results |> 
+  ggplot(aes(model, .estimate, fill = model)) +
+  geom_col() +
+  geom_label(aes(label = round(.estimate, 2)), size = 3, fill = "white") +
+  facet_wrap(~ .metric, scales = "free_y") +
+  scale_fill_manual(values = as.character(cols[c(4, 5, 3, 2, 1)])) +
+  labs(x = NULL, y = NULL, title = "Comparison of Model Metrics") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+```
+
+The model metrics bear this out. The `mae` and `rmse` are markedly smaller, and the `rsq` significantly improved. We could have tried further lags. We could have tried tweaking some parameters. We could have tried time-series forecasting with, for example a statistical model like ARIMA, or a Neural Network model such as NNETAR.
+
+The best approach would depend upon a more precise definition of the objective. And some trial and error, comparing approaches after more extensive feature-engineering, validation, testing and tuning. For the purposes of this post though I wanted to merely explore some techniques. So I'll leave it there.
+
+## R Toolbox
+
+Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+
+```{r}
+#| label: toolbox
+#| echo: false
+
+pckg <- search() |> # Which packages are loaded?
+  as_tibble() |>
+  filter(str_detect(value, "package:"))
+
+func <- pckg$value |> # What are their functions?
+  map(possibly(ls, NA)) |>
+  set_names(pckg$value) |>
+  enframe("pckg", "func") |>
+  unnest() |> 
+  filter(func != "date")
+
+reexp <- tribble(
+  ~Package, ~func,
+  "package:tibble", "as_tibble",
+  "package:dplyr", "filter",
+  "package:dplyr", "lag",
+  "package:tibble", "tibble",
+  "package:broom", "augment",
+)
+
+# Remove non-code
+code_only <- tibble(line = "index.qmd" |>
+  str_remove(".*post/") |> read_lines()) |>
+  mutate(
+    marker = if_else(str_detect(line, "^```"), 1, 0),
+    marker = cumsum(marker),
+    marker = if_else(marker %% 2 == 0, "comment", "code")
+  ) |>
+  filter(marker == "code", !str_starts(line, "library")) |>
+  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
+
+toolkit <- # Which functions are used in the code?
+  map2_dfr(func$func, func$pckg, function(i, j) {
+    tibble(
+      Package = j,
+      func = i,
+      total = code_only |>
+        str_count(str_c("[^$.-_]", "\\b", "\\Q", i, "\\E", "\\b", "(?=\\(|\\))")) |>
+        sum()
+    )
+  }) |>
+  filter(total > 0) |>
+  arrange(Package, desc(total)) |>
+  mutate(
+    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
+    Function = str_c(func, "[", total, "]")
+  ) |>
+  arrange(desc(conflict), func) |> 
+  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
+  group_by(Package) |>
+  summarise(Function = str_c(Function, collapse = ";  ")) |>
+  mutate(Package = str_remove(Package, "package:"))
+
+toolkit
+```

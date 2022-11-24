@@ -1,0 +1,94 @@
+---
+title: "A Fresh Lick of Paint"
+author: "Carl Goodwin"
+date: "2022-04-09"
+categories: [R, website, hugo, blogdown]
+description: "Staying in Blogdown and renovating with the Hugo Apéro theme"
+image: "feature.gif"
+---
+
+![](feature.gif)
+
+## Motivation
+
+A couple of years ago I [moved house](/blog/plunge) from Wordpress to [Blogdown](https://bookdown.org/yihui/blogdown/). It's proved to be a much less stressful life and I plan to stay. [Hugo Academic](https://academic-demo.netlify.app) served me well, but sometimes you just need a fresh coat of paint. I liked the look of [Hugo Apéro](https://hugo-apero-docs.netlify.app).
+
+Apéro feels simpler and has an elegant design with well-chosen themes and fonts.
+
+I like to add my own digital art to both the site and Rmarkdown projects, and Apéro gives me more flexibility here. GIF animations, for example, on my [home page](/.) and in my project and [blog](/blog/) lists just work.
+
+The dark mode I had with Academic would be a nice-to-have, but not essential.
+
+## Plan of Attack
+
+The upgrade approach I took was to create a brand new blogdown project in RStudio with the Apéro theme and then copy over and re-knit my projects one by one. This worked well because every project needed at least one change as a direct consequence of the move and re-opening each project also prompted other beneficial updates.
+
+I focused first on manual deployment, i.e. dragging the Public folder to Netlify, rather than going straight to continuous deployment via Github. Doing it this way would narrow the potential cause of any problems when doing the latter. I also initially deployed to one of Netlify's auto-generated site names, so my live manually-deployed Academic blog remained unaffected whilst preparing the new site.
+
+## Set-up
+
+There's a very helpful [get started](https://hugo-apero-docs.netlify.app/start/) authored by the theme owner Alison Hill, so I'll comment here only on the personal touches I wanted to add.
+
+In Hugo Academic, each project's (or post's) feature image rendered automatically in both the project list page and in the individual project. In Apéro, I needed to add `![](pathname)` to the Rmarkdown file to render the image in an individual project or post. I actually prefer this approach because it means the image then also appears when re-publishing to a blog aggregator which frustratingly was not the case with Academic.
+
+Given the taxonomy differences, I created a `static/_redirects` file so that bookmarks for, say, `category/r` or `tag/statistical-inference` (under Academic) would go to `categories/r` or `tags/statistical-inference`.
+
+```{r}
+#| label: redirects
+#| echo: false
+
+cat(readLines("/Users/carl/R Projects/qj/_redirects", n = 2), 
+    sep = '\n')
+```
+
+I had customised my Academic site to show the *updated*, as well as *posted*, date for each project and post. So to get the same in Apéro, I copied the `themes > hugo-apero > layouts > partials > shared > post-details.html` file to `layouts > partials > shared > post-details.html`, duplicated lines 2-5 below and changed `.PublishDate` to `.Lastmod`. As my YAML header for all projects and posts already included `lastmod:`, the *details* twistie at the foot of each project (and post) now shows both dates.
+
+    <details {{ .Scratch.Get "details" }} class="f6 fw7 input-reset">
+      <dl class="f6 lh-copy">
+        <dt class="fw7">Posted:</dt>
+        <dd class="fw5 ml0">{{ .PublishDate.Format "January 2, 2006" }}</dd>
+      </dl>
+      <dl class="f6 lh-copy">
+        <dt class="fw7">Updated:</dt>
+        <dd class="fw5 ml0">{{ .Lastmod.Format "January 2, 2006" }}</dd>
+      </dl>
+
+I used a tag cloud in Academic and wanted to replicate this too. To do so, I also copied the `themes > hugo-apero > layouts > partials > shared > summary-li.html` file to `layouts > partials > shared` and changed the last section to refer to *tags* rather than *categories*. I removed most of the other code to simplify the About page, so my customised `summary-li.html` contained only the code below. This change also required a tweak to the `content > about > main > index.md` to replace `number_categories:` with a `number_tags:` parameter.
+
+    <section class="featured-content">
+    {{ $page := . }} <!--save current page-->
+
+    {{ $number_tags := $page.Params.number_tags | default 0 }}
+    {{ if ge $number_tags 1 }}
+      <article{{ if .Params.show_outro }} class="bb pb5"{{ end }}>
+      <h5 class="f4 mv4 ttu tracked lh-title bt pv3">Themes</h5>
+      {{ range first $number_tags site.Taxonomies.tags.ByCount }}
+          <a class="f6 link dim ba ph3 pv2 mb2 dib mr2" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a>
+      {{ end }}
+      </article>
+    {{ end }}
+    </section>
+
+[Formspree is removing support for email-based forms](https://help.formspree.io/hc/en-us/articles/360056076314-Phasing-out-legacy-forms-email-URLs-), so my `contact.md` required a randomly-generated `formspree_form_id:` rather than an email address.
+
+## Deployment
+
+### Manual
+
+Initially a few things did not render correctly, e.g. syntax highlighting, which it turned out required renaming the `index.Rmd` files to `index.Rmarkdown`. And when the manual deployment to Netlify got stuck uploading, I realised I also needed to change the `.Rprofile` to `blogdown.method = 'markdown'` rather than `blogdown.method = 'html'`.
+
+### Continuous
+
+Once the manual deployment to Netlify was working, I then moved on to continuous deployment via Github. I wanted to switch the commenting engine from Disqus to [utterance.es](https://utteranc.es) and, as is often the case, wanting one thing results in the need for a bunch of other things; in this case, a public repo on Github. [Installing](https://github.com/apps/utterances) the latter provides a more elegant fit with the Apéro design and has some nice advantages.
+
+And because I wanted to deploy a *pre-existing* RStudio project to Github, rather than following the usual Github-first practice, I found this [guidance](https://happygitwithr.com/existing-github-first.html) helpful.
+
+I played around a bit with the `.gitignore` file and found I could exclude quite a lot of stuff that Netlify would not need to do the Hugo build.
+
+The Netlify deployment via Github did initially fail with a "Base directory does not exist" message. The fix there was to leave the base directory in Netlify's build settings blank rather than using the repo URL (which it already had under current repository).
+
+![](netlify.png)
+
+Then finally I could flip my *live* site over to continuous deployment, pack away my paint pots, paint roller and step ladder, put my feet up in front of a roaring fire and bask in the warmth of my newly-renovated blogdown home.
+
+Post-deployment there was initially an issue with the RSS feed showing only the summary. Adding a `layouts/_default/rss.xml` file using the [Hugo default](https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/_default/rss.xml) with `.Summary` changed to `.Content` fixed that.
