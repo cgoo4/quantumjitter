@@ -369,7 +369,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A <a href="https://github.com/hafen/trelliscopejs/issues/122">Github issue</a> has been raised re the <code>trelliscope</code> no longer rendering in the published page. Running the code chunks <em>will</em> generate the expected <code>trelliscope</code>, but the <code>qmd</code> file <em>will not knit</em> with the expected output, so the following chunk is currently set to <code>#| eval: false</code>.</p>
+<p>A <a href="https://github.com/hafen/trelliscopejs/issues/122">Github issue</a> has been raised as the <code>trelliscope</code> will <em>not</em> render (knit) when publishing the page. Running the code chunks <em>will</em> however generate the expected <code>trelliscope</code>.</p>
+<p>So, to get the <code>trelliscope below</code>: 1) run all the code chunks to generate the <code>appfiles</code> folder. 2) Set the following chunk to <code>#| eval: false</code>. 3) Use an <code>iframe</code> to display the <code>index.html</code> in the <code>appfiles</code> folder. 4) Set <code>resources: project/wood/appfiles/</code> under <code>project:</code> in the <code>_quarto.yml</code> file to ensure the <code>appfiles</code> folder is included in `_static`.</p>
 </div>
 </div>
 <div class="cell">

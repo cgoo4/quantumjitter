@@ -143,7 +143,9 @@ plot_data <- crime_df |>
 ```
 
 ::: callout-note
-A [Github issue](https://github.com/hafen/trelliscopejs/issues/122) has been raised re the `trelliscope` no longer rendering in the published page. Running the code chunks *will* generate the expected `trelliscope`, but the `qmd` file *will not knit* with the expected output, so the following chunk is currently set to `#| eval: false`.
+A [Github issue](https://github.com/hafen/trelliscopejs/issues/122) has been raised as the `trelliscope` will *not* render (knit) when publishing the page. Running the code chunks *will* however generate the expected `trelliscope`.
+
+So, to get the `trelliscope below`: 1) run all the code chunks to generate the `appfiles` folder. 2) Set the following chunk to `#| eval: false`. 3) Use an `iframe` to display the `index.html` in the `appfiles` folder. 4) Set `resources: project/wood/appfiles/` under `project:` in the `_quarto.yml` file to ensure the `appfiles` folder is included in \`\_static\`.
 :::
 
 ```{r}
