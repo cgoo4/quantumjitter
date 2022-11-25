@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Quantum Jitter</title>
+<link>https://www.quantumjitter.com/blog/index.html</link>
+<atom:link href="https://www.quantumjitter.com/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
+<generator>quarto-1.3.24</generator>
+<lastBuildDate>Tue, 22 Nov 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Night Mode</title>
+  <dc:creator>Carl Goodwin</dc:creator>
+  <link>https://www.quantumjitter.com/blog/dark/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<p><img src="https://www.quantumjitter.com/blog/dark/feature.gif" class="img-fluid"></p>
+<p>It was only last April that I renovated my blog as described in <a href="../../blog/renovate">A Fresh Lick of Paint</a>. Following the launch of a new <a href="https://quarto.org">open-source scientific and technical publishing system</a>, it’s time to get the paint brush out again.</p>
+<p>I initially started to convert some of my projects and posts from <code>Rmarkdown</code> to <code>qmd</code> using <code>format: hugo-md</code>. The thought was to keep my existing site aesthetic, with its beautiful Hugo Apéro theme, unchanged. I found though that it wasn’t possible to make full use of “all the bells and whistles” offered by Quarto. For example <code>code-link: true</code> and <code>date-modified: last-modified</code>. This is because the document metadata is preserved as-is for formats like Hugo.</p>
+<p>So, I decided to start building a “full-on Quarto” version, i.e.&nbsp;<code>format: html</code>, with the intent of switching the website over only if I preferred the new versus the old when running the two side-by-side.</p>
+<p>I’ve switched over.</p>
+<p>I’ve given the site a unique look-and-feel by customising the <code>flatly</code> and <code>darkly</code> themes with a number of SASS variables in two <code>theme.scss</code> files, for example, to adopt my own reversible colour scheme.</p>
+<p>The landing page switches image based on the dark-mode setting by making the class of the first image <code>.dark-mode</code> and adding these two lines in the dark theme’s custom scss file:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb1-1"><span class="fu" style="color: #4758AB;">.dark-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">block</span><span class="op" style="color: #5E5E5E;">;</span> }</span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">.light-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">none</span><span class="op" style="color: #5E5E5E;">;</span> }</span></code></pre></div>
+<p>Then the second image has the class <code>.light-mode</code> and uses the mirror css code in the light theme’s custom scss file:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb2-1"><span class="fu" style="color: #4758AB;">.light-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">block</span><span class="op" style="color: #5E5E5E;">;</span> }</span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;">.dark-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">none</span><span class="op" style="color: #5E5E5E;">;</span> }</span></code></pre></div>
+<p>The mid-grey logo on the left-side of the navbar also darkens and lightens based on the dark-mode setting by adjusting the brightness based on the mode:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb3-1"><span class="fu" style="color: #4758AB;">.navbar-logo</span> {</span>
+<span id="cb3-2">    <span class="kw" style="color: #003B4F;">filter</span>: <span class="fu" style="color: #4758AB;">brightness(</span><span class="dv" style="color: #AD0000;">2</span><span class="fu" style="color: #4758AB;">)</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb3-3">    <span class="kw" style="color: #003B4F;">max-height</span>: <span class="dv" style="color: #AD0000;">30</span><span class="dt" style="color: #AD0000;">px</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb3-4">}</span>
+<span id="cb3-5"></span>
+<span id="cb3-6"><span class="fu" style="color: #4758AB;">.navbar-logo</span> {</span>
+<span id="cb3-7">    <span class="kw" style="color: #003B4F;">filter</span>: <span class="fu" style="color: #4758AB;">brightness(</span><span class="dv" style="color: #AD0000;">20</span><span class="dt" style="color: #AD0000;">%</span><span class="fu" style="color: #4758AB;">)</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb3-8">    <span class="kw" style="color: #003B4F;">max-height</span>: <span class="dv" style="color: #AD0000;">30</span><span class="dt" style="color: #AD0000;">px</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb3-9">}</span></code></pre></div>
+<p>As for “all the bells and whistles”, not only does the site now have the <code>code-link</code>, <code>date-modified</code>, and dark-mode, but it also restores the grid-based listing pages given up when moving from Hugo Academic. Many other Quarto features such as call-outs, citations, footnotes and freeze are also now deployed.</p>
+<p>Whilst refreshing the site, I took the opportunity to make my 404 page a little more welcoming as it seemed to be one of my more popular pages. Feel free to try it by visiting an imaginatively made-up page of your choice.</p>
+<p>The updated <a href="https://github.com/cgoo4/quantumjitter">repo</a> is public on github.</p>
+
+
+
+ ]]></description>
+  <category>R</category>
+  <category>website</category>
+  <category>quarto</category>
+  <guid>https://www.quantumjitter.com/blog/dark/index.html</guid>
+  <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://www.quantumjitter.com/blog/dark/feature.gif" medium="image" type="image/gif"/>
+</item>
+<item>
+  <title>Painting Tails</title>
+  <dc:creator>Carl Goodwin</dc:creator>
+  <link>https://www.quantumjitter.com/blog/tail/index.html</link>
+  <description><![CDATA[ <p><img src="https://www.quantumjitter.com/blog/tail/feature.gif" class="img-fluid"></p>
+<p>There are techniques for <a href="https://stackoverflow.com/questions/12429333/how-to-shade-a-region-under-a-curve-using-ggplot2">painting a region under a curve</a>. But the experimental <a href="https://ggfx.data-imaginist.com">ggfx</a> package offers an interesting alternative solution based on the blending modes familiar to users of Photoshop.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://scales.r-lib.org">scales</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://clock.r-lib.org">clock</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"Royal1"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>The advantage here is that the tail-painting aesthetic needs no information about the shape of the curve; only the limits on the x-axis.</p>
+<p>The left plot shows the raw components without blending. The right plot is only retaining the red where there is a layer below.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;">(</span>outcome <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fl" style="color: #AD0000;">10000</span>, <span class="fl" style="color: #AD0000;">20</span>, <span class="fl" style="color: #AD0000;">2</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">outcome</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op" style="color: #5E5E5E;">(</span>labels <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op" style="color: #5E5E5E;">(</span>adjust <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">2</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"rect"</span>,</span>
+<span>    xmin <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">15</span>, xmax <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">18</span>, ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">-</span><span class="cn" style="color: #8f5902;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">Inf</span>,</span>
+<span>    fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">2</span><span class="op" style="color: #5E5E5E;">]</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>title <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Without Blending"</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Density"</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p2</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggfx.data-imaginist.com/reference/as_reference.html">as_reference</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op" style="color: #5E5E5E;">(</span>adjust <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">2</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span>, id <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"density"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggfx.data-imaginist.com/reference/with_blend.html">with_blend</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"rect"</span>,</span>
+<span>    xmin <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">15</span>, xmax <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">18</span>, ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">-</span><span class="cn" style="color: #8f5902;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">Inf</span>,</span>
+<span>    fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">2</span><span class="op" style="color: #5E5E5E;">]</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span>, bg_layer <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"density"</span>, blend_type <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"atop"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>title <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"With Blending"</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">p2</span></span></code></pre></div>
+<div class="cell-output-display">
+<p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/blend-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>Of course the red box could also be layered behind a density curve with alpha applied so it shows through. But if the preference is tail-only colouring, it’s a neat solution.</p>
+<p>Blending is actually a handy solution for any awkward shape. The same technique is used here with a time series ribbon summarising the median, lower and upper quartiles of a set of closing stock prices.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try this <a href="https://stackoverflow.com/questions/72051854/quantmodgetsymbols-cannot-retrieve-data-from-yahoo-finance">patch</a> if having problems with <code>tq_get</code></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">tickrs</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"AAPL"</span>, <span class="st" style="color: #20794D;">"NFLX"</span>, <span class="st" style="color: #20794D;">"TSLA"</span>, <span class="st" style="color: #20794D;">"ADBE"</span>, <span class="st" style="color: #20794D;">"FB"</span>, <span class="st" style="color: #20794D;">"GOOG"</span>, <span class="st" style="color: #20794D;">"MSFT"</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">tickrs</span>, get <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"stock.prices"</span>, from <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"2022-01-01"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">!</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">close</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">date</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>    close <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">close</span>, <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fl" style="color: #AD0000;">0.25</span>, <span class="fl" style="color: #AD0000;">0.5</span>, <span class="fl" style="color: #AD0000;">0.75</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    quantile <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"lower"</span>, <span class="st" style="color: #20794D;">"median"</span>, <span class="st" style="color: #20794D;">"upper"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op" style="color: #5E5E5E;">(</span>names_from <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">quantile</span>, values_from <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">close</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">date</span>, <span class="va" style="color: #111111;">median</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"text"</span>,</span>
+<span>    x <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"2022-03-16"</span><span class="op" style="color: #5E5E5E;">)</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">100</span>,</span>
+<span>    label <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Helpful\nAnnotation"</span>, colour <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"black"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op" style="color: #5E5E5E;">(</span>limits <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fl" style="color: #AD0000;">0</span>, <span class="cn" style="color: #8f5902;">NA</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>x <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span>ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">lower</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">upper</span><span class="op" style="color: #5E5E5E;">)</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op" style="color: #5E5E5E;">(</span>colour <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"rect"</span>,</span>
+<span>    xmin <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"2022-03-01"</span><span class="op" style="color: #5E5E5E;">)</span>, xmax <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"2022-03-31"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">-</span><span class="cn" style="color: #8f5902;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">Inf</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">4</span><span class="op" style="color: #5E5E5E;">]</span>, colour <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"black"</span>, linetype <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"dashed"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>title <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Without Blending"</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Closing Price"</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p2</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">p0</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggfx.data-imaginist.com/reference/as_reference.html">as_reference</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span>ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">lower</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">upper</span><span class="op" style="color: #5E5E5E;">)</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span>, id <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"ribbon"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggfx.data-imaginist.com/reference/with_blend.html">with_blend</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>    <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>      <span class="st" style="color: #20794D;">"rect"</span>,</span>
+<span>      xmin <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"2022-03-01"</span><span class="op" style="color: #5E5E5E;">)</span>, xmax <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"2022-03-31"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>      ymin <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">-</span><span class="cn" style="color: #8f5902;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">Inf</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">4</span><span class="op" style="color: #5E5E5E;">]</span>, colour <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"black"</span>, linetype <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"dashed"</span></span>
+<span>      <span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    bg_layer <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"ribbon"</span>, blend_type <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"atop"</span></span>
+<span>    <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op" style="color: #5E5E5E;">(</span>colour <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fl" style="color: #AD0000;">3</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>title <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"With Blending"</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">p2</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op" style="color: #5E5E5E;">(</span>title <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Median Price Bounded by Upper &amp; Lower Quartiles"</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/tickers-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+
+
+
+ ]]></description>
+  <category>R</category>
+  <category>special effects</category>
+  <guid>https://www.quantumjitter.com/blog/tail/index.html</guid>
+  <pubDate>Mon, 25 Apr 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://www.quantumjitter.com/blog/tail/feature.gif" medium="image" type="image/gif"/>
+</item>
+<item>
+  <title>A Fresh Lick of Paint</title>
+  <dc:creator>Carl Goodwin</dc:creator>
+  <link>https://www.quantumjitter.com/blog/renovate/index.html</link>
+  <description><![CDATA[ <p><img src="https://www.quantumjitter.com/blog/renovate/feature.gif" class="img-fluid"></p>
+<section id="motivation" class="level2"><h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>A couple of years ago I <a href="../../blog/plunge">moved house</a> from Wordpress to <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>. It’s proved to be a much less stressful life and I plan to stay. <a href="https://academic-demo.netlify.app">Hugo Academic</a> served me well, but sometimes you just need a fresh coat of paint. I liked the look of <a href="https://hugo-apero-docs.netlify.app">Hugo Apéro</a>.</p>
+<p>Apéro feels simpler and has an elegant design with well-chosen themes and fonts.</p>
+<p>I like to add my own digital art to both the site and Rmarkdown projects, and Apéro gives me more flexibility here. GIF animations, for example, on my <a href="../../.">home page</a> and in my project and <a href="../../blog/">blog</a> lists just work.</p>
+<p>The dark mode I had with Academic would be a nice-to-have, but not essential.</p>
+</section><section id="plan-of-attack" class="level2"><h2 class="anchored" data-anchor-id="plan-of-attack">Plan of Attack</h2>
+<p>The upgrade approach I took was to create a brand new blogdown project in RStudio with the Apéro theme and then copy over and re-knit my projects one by one. This worked well because every project needed at least one change as a direct consequence of the move and re-opening each project also prompted other beneficial updates.</p>
+<p>I focused first on manual deployment, i.e.&nbsp;dragging the Public folder to Netlify, rather than going straight to continuous deployment via Github. Doing it this way would narrow the potential cause of any problems when doing the latter. I also initially deployed to one of Netlify’s auto-generated site names, so my live manually-deployed Academic blog remained unaffected whilst preparing the new site.</p>
+</section><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set-up</h2>
+<p>There’s a very helpful <a href="https://hugo-apero-docs.netlify.app/start/">get started</a> authored by the theme owner Alison Hill, so I’ll comment here only on the personal touches I wanted to add.</p>
+<p>In Hugo Academic, each project’s (or post’s) feature image rendered automatically in both the project list page and in the individual project. In Apéro, I needed to add <code>![](pathname)</code> to the Rmarkdown file to render the image in an individual project or post. I actually prefer this approach because it means the image then also appears when re-publishing to a blog aggregator which frustratingly was not the case with Academic.</p>
+<p>Given the taxonomy differences, I created a <code>static/_redirects</code> file so that bookmarks for, say, <code>category/r</code> or <code>tag/statistical-inference</code> (under Academic) would go to <code>categories/r</code> or <code>tags/statistical-inference</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>/category/*                         /project
+/tag/website                        /blog</code></pre>
+</div>
+</div>
+<p>I had customised my Academic site to show the <em>updated</em>, as well as <em>posted</em>, date for each project and post. So to get the same in Apéro, I copied the <code>themes &gt; hugo-apero &gt; layouts &gt; partials &gt; shared &gt; post-details.html</code> file to <code>layouts &gt; partials &gt; shared &gt; post-details.html</code>, duplicated lines 2-5 below and changed <code>.PublishDate</code> to <code>.Lastmod</code>. As my YAML header for all projects and posts already included <code>lastmod:</code>, the <em>details</em> twistie at the foot of each project (and post) now shows both dates.</p>
+<pre><code>&lt;details {{ .Scratch.Get "details" }} class="f6 fw7 input-reset"&gt;
+  &lt;dl class="f6 lh-copy"&gt;
+    &lt;dt class="fw7"&gt;Posted:&lt;/dt&gt;
+    &lt;dd class="fw5 ml0"&gt;{{ .PublishDate.Format "January 2, 2006" }}&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;dl class="f6 lh-copy"&gt;
+    &lt;dt class="fw7"&gt;Updated:&lt;/dt&gt;
+    &lt;dd class="fw5 ml0"&gt;{{ .Lastmod.Format "January 2, 2006" }}&lt;/dd&gt;
+  &lt;/dl&gt;</code></pre>
+<p>I used a tag cloud in Academic and wanted to replicate this too. To do so, I also copied the <code>themes &gt; hugo-apero &gt; layouts &gt; partials &gt; shared &gt; summary-li.html</code> file to <code>layouts &gt; partials &gt; shared</code> and changed the last section to refer to <em>tags</em> rather than <em>categories</em>. I removed most of the other code to simplify the About page, so my customised <code>summary-li.html</code> contained only the code below. This change also required a tweak to the <code>content &gt; about &gt; main &gt; index.md</code> to replace <code>number_categories:</code> with a <code>number_tags:</code> parameter.</p>
+<pre><code>&lt;section class="featured-content"&gt;
+{{ $page := . }} &lt;!--save current page--&gt;
+
+{{ $number_tags := $page.Params.number_tags | default 0 }}
+{{ if ge $number_tags 1 }}
+  &lt;article{{ if .Params.show_outro }} class="bb pb5"{{ end }}&gt;
+  &lt;h5 class="f4 mv4 ttu tracked lh-title bt pv3"&gt;Themes&lt;/h5&gt;
+  {{ range first $number_tags site.Taxonomies.tags.ByCount }}
+      &lt;a class="f6 link dim ba ph3 pv2 mb2 dib mr2" href="{{ .Page.RelPermalink }}"&gt;{{ .Page.Title }} ({{ .Count }})&lt;/a&gt;
+  {{ end }}
+  &lt;/article&gt;
+{{ end }}
+&lt;/section&gt;</code></pre>
+<p><a href="https://help.formspree.io/hc/en-us/articles/360056076314-Phasing-out-legacy-forms-email-URLs-">Formspree is removing support for email-based forms</a>, so my <code>contact.md</code> required a randomly-generated <code>formspree_form_id:</code> rather than an email address.</p>
+</section><section id="deployment" class="level2"><h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+<section id="manual" class="level3"><h3 class="anchored" data-anchor-id="manual">Manual</h3>
+<p>Initially a few things did not render correctly, e.g.&nbsp;syntax highlighting, which it turned out required renaming the <code>index.Rmd</code> files to <code>index.Rmarkdown</code>. And when the manual deployment to Netlify got stuck uploading, I realised I also needed to change the <code>.Rprofile</code> to <code>blogdown.method = 'markdown'</code> rather than <code>blogdown.method = 'html'</code>.</p>
+</section><section id="continuous" class="level3"><h3 class="anchored" data-anchor-id="continuous">Continuous</h3>
+<p>Once the manual deployment to Netlify was working, I then moved on to continuous deployment via Github. I wanted to switch the commenting engine from Disqus to <a href="https://utteranc.es">utterance.es</a> and, as is often the case, wanting one thing results in the need for a bunch of other things; in this case, a public repo on Github. <a href="https://github.com/apps/utterances">Installing</a> the latter provides a more elegant fit with the Apéro design and has some nice advantages.</p>
+<p>And because I wanted to deploy a <em>pre-existing</em> RStudio project to Github, rather than following the usual Github-first practice, I found this <a href="https://happygitwithr.com/existing-github-first.html">guidance</a> helpful.</p>
+<p>I played around a bit with the <code>.gitignore</code> file and found I could exclude quite a lot of stuff that Netlify would not need to do the Hugo build.</p>
+<p>The Netlify deployment via Github did initially fail with a “Base directory does not exist” message. The fix there was to leave the base directory in Netlify’s build settings blank rather than using the repo URL (which it already had under current repository).</p>
+<p><img src="https://www.quantumjitter.com/blog/renovate/netlify.png" class="img-fluid"></p>
+<p>Then finally I could flip my <em>live</em> site over to continuous deployment, pack away my paint pots, paint roller and step ladder, put my feet up in front of a roaring fire and bask in the warmth of my newly-renovated blogdown home.</p>
+<p>Post-deployment there was initially an issue with the RSS feed showing only the summary. Adding a <code>layouts/_default/rss.xml</code> file using the <a href="https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/_default/rss.xml">Hugo default</a> with <code>.Summary</code> changed to <code>.Content</code> fixed that.</p>
+
+
+</section></section> ]]></description>
+  <category>R</category>
+  <category>website</category>
+  <category>hugo</category>
+  <category>blogdown</category>
+  <guid>https://www.quantumjitter.com/blog/renovate/index.html</guid>
+  <pubDate>Fri, 08 Apr 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://www.quantumjitter.com/blog/renovate/feature.gif" medium="image" type="image/gif"/>
+</item>
+<item>
+  <title>Moving House</title>
+  <dc:creator>Carl Goodwin</dc:creator>
+  <link>https://www.quantumjitter.com/blog/plunge/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<p><img src="https://www.quantumjitter.com/blog/plunge/feature.gif" class="img-fluid"></p>
+<p>After reading up on <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>, I decided to take the plunge and leave Wordpress for a quieter life in Blogdown.</p>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>My former site looked pretty good. But it was expensive to maintain.</p>
+<p>I was spending more than I wished to get a performant site. I could have spent less, and perhaps I’m easily seduced by “bells &amp; whistles”, e.g.&nbsp;CloudFlare Plus and “GoGeek” hosting. But a non-speedy site is a bit of a turn-off.</p>
+<p>And it wasn’t just cost. It also took a lot of non-R effort to publish a post with Rmarkdown in the way I wanted. My main interest is in writing R code. Not wrestling Wordpress and multiple plugins into submission.</p>
+<p>A reboot was also a chance to re-brand. When I originally set up thinkr.biz I was initially unaware of a similarly-named site in France. Although my personal blog posed no threat across the Channel, and we co-existed for a few years, I anyway prefer having something a little more unique.</p>
+</section>
+<section id="why-blogdown" class="level2">
+<h2 class="anchored" data-anchor-id="why-blogdown">Why Blogdown?</h2>
+<p>I like Yihui Xie’s Blogdown primarily because it simplifies the path from Rmarkdown to blog. No more WWE-style detour. I can tweak a line of code in Rmarkdown, <code>serve_site</code>, and immediately see the updated blog locally. When I’m ready to publish, I just drag the public folder into Netlify, and voilà it’s live.</p>
+</section>
+<section id="my-personal-roadmap" class="level2">
+<h2 class="anchored" data-anchor-id="my-personal-roadmap">My personal roadmap</h2>
+<p>There are different routes one can take. Here’s mine.</p>
+<section id="choose-a-theme" class="level3">
+<h3 class="anchored" data-anchor-id="choose-a-theme">Choose a theme</h3>
+<p>In his book, Yihui advises asking yourself: “Do I like this fancy theme so much that I will definitely not change it in the next couple of years?” It’s very sound advice. Nonetheless, I’m easily seduced, so explored all possible fancy themes. In part because I like creating my own graphic art, so I wanted something that could help these little creations shine.</p>
+<p>Oddly, I started by looking at one of Yihui’s recommended themes and discarded it, only to return to it again much later after an exhaustive exploration of other themes. There are many superficially nice <a href="https://themes.gohugo.io">Hugo themes</a>. But when you actually play with them, there’s little below the surface and/or an absence of serious upkeep.</p>
+<p>Hugo Academic is not the most appealing in the “shop window”. But when you take it for a test spin, and really take it through its paces, it offers a richness, flexibility and investment that reeled me in. After customising it to my taste, and paring back optional bits I do not need, simply by switching them off, it gave me something I feel very happy with.</p>
+</section>
+<section id="migrate" class="level3">
+<h3 class="anchored" data-anchor-id="migrate">Migrate</h3>
+<p>There are assisted migration paths, e.g.&nbsp;from Wordpress, discussed in the Blogdown book. However I wanted to review and upgrade the R code in my original posts (only a dozen or so at the time). So, one-by-one, I copied each Rmd file into the projects folder of my new site, tweaked the code, and used <code>serve_site</code> to see the end product.</p>
+<p>I took this approach because R, especially the tidyverse and its ecosystem, is rapidly evolving. For example, the latest release of dplyr has some great new column-wise and row-wise functions. And <code>spread</code> and <code>gather</code> have been superseded by the more capable <code>pivot_wider</code> and <code>pivot_longer</code>. So it was a chance to upgrade my code.</p>
+<p>For one or two of the more processing-intensive projects, I used either <code>cache = TRUE</code> in the code chunk, or <code>saveRDS</code> and <code>readRDS</code> to load data prepared earlier.</p>
+</section>
+<section id="build" class="level3">
+<h3 class="anchored" data-anchor-id="build">Build</h3>
+<p>An option I haven’t yet pursued is to host all my website source files in a GIT repository. Then Netlify could call Hugo to render my website automatically. Right now, my site content is simple enough to be able to use the <em>Build Website</em> button in RStudio.</p>
+<p>The web-site is a static build, so it’s fast out-of-the-box, i.e.&nbsp;no need for speed-inducing wallet-slimming plugins.</p>
+</section>
+<section id="deploy" class="level3">
+<h3 class="anchored" data-anchor-id="deploy">Deploy</h3>
+<p>Netlify is recommended by bookdown.org. And it’s free for personal projects. The only small annual cost is my domain name.</p>
+<p>Choosing a domain name, which one can do via Netflify, is a little tricky. Many of the ideas one might have, have already occurred to someone else. And when you do find something available, there’s always that niggling feeling there may be something better out there.</p>
+<p>I chose <a href="../../">Quantum Jitter</a> for several reasons:</p>
+<ul>
+<li>I often use ggplot2’s <code>geom_jitter</code></li>
+<li>Like a Quant, I have an interest in using machine learning to assess stock fundamentals</li>
+<li>Like the quantum world, my work features statistics and randomness</li>
+<li>It was available</li>
+</ul>
+<p>After running the build in RStudio, which for my site only takes a few minutes, I can simply drag my newly-created public folder into Netlify’s <em>Deploys</em> page and bingo, the site’s live in a jiffy.</p>
+<p>So, if you are toying with the idea of moving house, I can recommend a quieter life in <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>website</category>
+  <category>hugo</category>
+  <category>blogdown</category>
+  <guid>https://www.quantumjitter.com/blog/plunge/index.html</guid>
+  <pubDate>Sat, 25 Jul 2020 23:00:00 GMT</pubDate>
+  <media:content url="https://www.quantumjitter.com/blog/plunge/feature.gif" medium="image" type="image/gif"/>
+</item>
+</channel>
+</rss>
