@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 21, 2022</p>
+      <p class="date-modified">November 27, 2022</p>
     </div>
   </div>
     
@@ -283,6 +283,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><a href="https://www.gov.uk/council-tax-bands">Property band</a> and <a href="https://landregistry.data.gov.uk/app/qonsole">price-paid</a> data are separately sourced. The free-form street address is the only way to bring the two together. The structure, content and even spelling of the address sometimes differ, for example: “FLAT C, 22 SOME STREET, SOME AREA, SW10 1AA” in one may be “22C 2ND FLR, HOUSE NAME, SOME STREET SW10 1AA” in the other.</p>
 <p>So, a little string manipulation is needed to create a common key. And reusable patterns will enable a consistent application to both.</p>
+<p><a href="https://en.wikipedia.org/wiki/Regular_expression">Regex</a> is used here to isolate pieces of text:</p>
+<ul>
+<li>
+<code>, London, SW10 .+$</code> finds for example <code>,&nbsp;London,&nbsp;SW10&nbsp;0ST</code> and all other <code>SW10</code> postcodes. See the difference by comparing the data frame <code>band_df</code> ( before) with <code>band_df2</code> (after).</li>
+<li>
+<code>(1ST|2ND|3RD|4TH|5TH|6TH) FLR</code> does the same for floor numbers irrespective of whether it’s the 1ST or 2ND etc.</li>
+<li>
+<code>(?&lt;=COURT|WALK).*</code> uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, the road name is redundant).</li>
+<li>
+<code>^([0-9]{1,3})([A-Z])(?= .*)</code> and <code>\\2 \\1</code> makes use of <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">remove_pattern</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
