@@ -2,7 +2,7 @@
 title: "Where Clouds Cross"
 date: "2017-11-14"
 categories: [R, sets, web scraping, regex]
-description: "When visualising a small number of overlapping sets, [Venn diagrams](https://en.wikipedia.org/wiki/Venn_diagram) work well. But what if there are more. Here's a [tidyverse](https://www.tidyverse.org) approach to the exploration of sets and their intersections."
+description: "Visualising the dozens of overlapping sets formed by categories of cloud services"
 image: "feature.gif"
 bibliography: references.bib
 ---
@@ -11,9 +11,7 @@ bibliography: references.bib
 
 When visualising a small number of overlapping sets, [Venn diagrams](https://en.wikipedia.org/wiki/Venn_diagram) work well. But what if there are more. Here's a [tidyverse](https://www.tidyverse.org) approach to the exploration of sets and their intersections.
 
-In [Let's Jitter](/project/jitter) I looked at a relatively simple set of cloud-service-related sales data. [G-Cloud data](https://www.digitalmarketplace.service.gov.uk/g-cloud/search)[^1] offers a much richer source with many thousands of services documented by several thousand suppliers and hosted across myriad web pages. These services straddle many categories. I'll use these data to explore the sets and where they cross.
-
-[^1]: All content is available under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+In [Let's Jitter](/project/jitter) I looked at a relatively simple set of cloud-service-related sales data. [G-Cloud data](https://www.digitalmarketplace.service.gov.uk/g-cloud/search) offers a much richer source with many thousands of services documented by several thousand suppliers and hosted across myriad web pages. These services straddle many categories. I'll use these data to explore the sets and where they cross.
 
 ```{r}
 #| label: libraries
@@ -46,6 +44,7 @@ I'll begin by harvesting the URL for each category's search results. And I'll al
 
 ```{r}
 #| label: categories
+#| eval: false
 
 path <- 
   "https://www.digitalmarketplace.service.gov.uk/g-cloud/search?lot=cloud-"
@@ -87,6 +86,11 @@ version <- lot_urls[[1]] |>
 So now I'm all set to parallel process through the data at two levels. At category level. And within each category, I'll iterate through the multiple pages of search results, harvesting 100 service IDs per page.
 
 I'll also auto-abbreviate the category names so I'll have the option of more concise names for less-cluttered plotting later on.
+
+[Regex](https://en.wikipedia.org/wiki/Regular_expression) is used here to isolate pieces of text:
+
+-   `[[:digit:]]{15}` finds the 15-digit service ID in the scraped link
+-   `\\Q+\\E` finds the *literal* `+` character rather than interpreting it as a *one or more* quantifier (i.e. if the `\\Q` and `\\E` were not specified)
 
 ```{r}
 #| label: service ids

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2017-11-14">
-<meta name="description" content="When visualising a small number of overlapping sets, Venn diagrams work well. But what if there are more. Here’s a tidyverse approach to the exploration of sets and their intersections.">
+<meta name="description" content="Visualising the dozens of overlapping sets formed by categories of cloud services">
 <title>Quantum Jitter - Where Clouds Cross</title>
 <style>
 code{white-space: pre-wrap;}
@@ -145,11 +145,11 @@ div.csl-indent {
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
 <meta property="og:title" content="Quantum Jitter - Where Clouds Cross">
-<meta property="og:description" content="When visualising a small number of overlapping sets, [Venn diagrams](https://en.wikipedia.org/wiki/Venn_diagram) work well. But what if there are more. Here's a [tidyverse](https://www.tidyverse.">
+<meta property="og:description" content="Visualising the dozens of overlapping sets formed by categories of cloud services">
 <meta property="og:image" content="https://www.quantumjitter.com/project/sets/feature.gif">
 <meta property="og:site-name" content="Quantum Jitter">
 <meta name="twitter:title" content="Quantum Jitter - Where Clouds Cross">
-<meta name="twitter:description" content="When visualising a small number of overlapping sets, [Venn diagrams](https://en.wikipedia.org/wiki/Venn_diagram) work well. But what if there are more. Here's a [tidyverse](https://www.tidyverse.">
+<meta name="twitter:description" content="Visualising the dozens of overlapping sets formed by categories of cloud services">
 <meta name="twitter:image" content="https://www.quantumjitter.com/project/sets/feature.gif">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -216,7 +216,7 @@ div.csl-indent {
 
 <div>
   <div class="description">
-    When visualising a small number of overlapping sets, <a href="https://en.wikipedia.org/wiki/Venn_diagram">Venn diagrams</a> work well. But what if there are more. Here’s a <a href="https://www.tidyverse.org">tidyverse</a> approach to the exploration of sets and their intersections.
+    Visualising the dozens of overlapping sets formed by categories of cloud services
   </div>
 </div>
 
@@ -240,7 +240,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 25, 2022</p>
+      <p class="date-modified">November 28, 2022</p>
     </div>
   </div>
     
@@ -249,7 +249,7 @@ div.csl-indent {
 
 </header><p><img src="feature.gif" class="img-fluid"></p>
 <p>When visualising a small number of overlapping sets, <a href="https://en.wikipedia.org/wiki/Venn_diagram">Venn diagrams</a> work well. But what if there are more. Here’s a <a href="https://www.tidyverse.org">tidyverse</a> approach to the exploration of sets and their intersections.</p>
-<p>In <a href="../../project/jitter">Let’s Jitter</a> I looked at a relatively simple set of cloud-service-related sales data. <a href="https://www.digitalmarketplace.service.gov.uk/g-cloud/search">G-Cloud data</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> offers a much richer source with many thousands of services documented by several thousand suppliers and hosted across myriad web pages. These services straddle many categories. I’ll use these data to explore the sets and where they cross.</p>
+<p>In <a href="../../project/jitter">Let’s Jitter</a> I looked at a relatively simple set of cloud-service-related sales data. <a href="https://www.digitalmarketplace.service.gov.uk/g-cloud/search">G-Cloud data</a> offers a much richer source with many thousands of services documented by several thousand suppliers and hosted across myriad web pages. These services straddle many categories. I’ll use these data to explore the sets and where they cross.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
@@ -311,6 +311,13 @@ div.csl-indent {
 </div>
 <p>So now I’m all set to parallel process through the data at two levels. At category level. And within each category, I’ll iterate through the multiple pages of search results, harvesting 100 service IDs per page.</p>
 <p>I’ll also auto-abbreviate the category names so I’ll have the option of more concise names for less-cluttered plotting later on.</p>
+<p><a href="https://en.wikipedia.org/wiki/Regular_expression">Regex</a> is used here to isolate pieces of text:</p>
+<ul>
+<li>
+<code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link</li>
+<li>
+<code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</li>
+</ul>
 <div class="cell" data-hash="index_cache/html/service ids_ea97dea148f5a21ce97f1735e9ae9452">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -763,10 +770,7 @@ Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2022. <span
 <div id="ref-tidyr" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.”</span> <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
 </div>
-</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-<ol>
-<li id="fn1"><p>All content is available under the&nbsp;<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
