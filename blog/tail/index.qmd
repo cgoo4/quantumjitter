@@ -69,21 +69,22 @@ Blending is actually a handy solution for any awkward shape. The same technique 
 
 ::: callout-note
 Try this [patch](https://stackoverflow.com/questions/72051854/quantmodgetsymbols-cannot-retrieve-data-from-yahoo-finance) if having problems with `tq_get`
+
+This chunk is using the development version of dplyr which introduces [temporary grouping with .by](https://www.tidyverse.org/blog/2022/11/dplyr-1-1-0-is-coming-soon/#temporary-grouping-with-by).
 :::
 
 ```{r}
 #| label: tickers
 
-tickrs <- c("AAPL", "NFLX", "TSLA", "ADBE", "FB", "GOOG", "MSFT")
+tickrs <- c("AAPL", "NFLX", "TSLA", "ADBE", "META", "GOOG", "MSFT")
 
 p0 <- tq_get(tickrs, get = "stock.prices", from = "2022-01-01") |>
   filter(!is.na(close)) |> 
-  group_by(date) |>
-  summarise(
+  reframe(
     close = quantile(close, c(0.25, 0.5, 0.75)),
-    quantile = c("lower", "median", "upper") |> factor()
+    quantile = c("lower", "median", "upper") |> factor(),
+    .by = date
   ) |>
-  ungroup() |>
   pivot_wider(names_from = quantile, values_from = close) |>
   ggplot(aes(date, median)) +
   annotate("text",
