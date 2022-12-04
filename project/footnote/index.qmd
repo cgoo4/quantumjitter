@@ -116,7 +116,7 @@ change_df <- pop_df |>
 
 The handling of footnotes is a particularly nice feature in [gt](https://gt.rstudio.com): The package automatically assigns, and maintains the order of, the superscripted numbers (could also be symbols) to ensure they flow naturally. And targeting offers a high degree of control and reproducibility.
 
-For example, two entries in the table below use the abbreviation *n.e.c.*. The footnote may be targeted at rows which *contain that string* rather than having to manually identify the rows. And once added, any subsequent footnotes would be renumbered to maintain the flow. So, if I were to change the source datasets to different years or countries, all references to *n.e.c.* would be auto-magically found and appropriately footnoted.
+For example, two entries (highlighted light blue) in the table below use the abbreviation *n.e.c.*. The footnote may be targeted at rows which *contain that string* rather than having to manually identify the rows. And once added, any subsequent footnotes would be renumbered to maintain the flow. So, if I were to change the source datasets to different years or countries, all references to *n.e.c.* would be auto-magically found and appropriately footnoted.
 
 ```{r}
 #| label: styled
@@ -150,7 +150,7 @@ gt_tbl <- change_df |>
   tab_footnote(
     footnote = "Not elsewhere classified",
     locations = cells_stub(rows = contains("n.e.c."))
-  ) |>
+  ) |> 
   tab_footnote(
     footnote = "Count of all persons",
     locations = cells_column_spanners()
@@ -172,7 +172,12 @@ gt_tbl <- change_df |>
   ) |>
   tab_source_note(source_note = "Source: Office for National Statistics (ONS)")
 
-gt_tbl |> 
+gt_tbl |>
+  tab_style_body(
+    style = cell_fill(color = "lightblue"),
+    pattern = "n.e.c.",
+    extents = "stub"
+  ) |> 
   opt_stylize(style = 6, color = "gray", add_row_striping = TRUE) |> 
   as_raw_html()
 ```

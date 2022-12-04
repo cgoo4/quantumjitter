@@ -238,7 +238,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 21, 2022</p>
+      <p class="date-modified">December 4, 2022</p>
     </div>
   </div>
     
@@ -329,7 +329,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The handling of footnotes is a particularly nice feature in <a href="https://gt.rstudio.com">gt</a>: The package automatically assigns, and maintains the order of, the superscripted numbers (could also be symbols) to ensure they flow naturally. And targeting offers a high degree of control and reproducibility.</p>
-<p>For example, two entries in the table below use the abbreviation <em>n.e.c.</em>. The footnote may be targeted at rows which <em>contain that string</em> rather than having to manually identify the rows. And once added, any subsequent footnotes would be renumbered to maintain the flow. So, if I were to change the source datasets to different years or countries, all references to <em>n.e.c.</em> would be auto-magically found and appropriately footnoted.</p>
+<p>For example, two entries (highlighted light blue) in the table below use the abbreviation <em>n.e.c.</em>. The footnote may be targeted at rows which <em>contain that string</em> rather than having to manually identify the rows. And once added, any subsequent footnotes would be renumbered to maintain the flow. So, if I were to change the source datasets to different years or countries, all references to <em>n.e.c.</em> would be auto-magically found and appropriately footnoted.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gt_tbl</span> <span class="op">&lt;-</span> <span class="va">change_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span>rowname_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"occupation"</span><span class="op">)</span>, groupname_col <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -360,7 +360,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Not elsewhere classified"</span>,</span>
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_stub.html">cells_stub</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"n.e.c."</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Count of all persons"</span>,</span>
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -382,12 +382,17 @@ div.csl-indent {
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html">tab_source_note</a></span><span class="op">(</span>source_note <span class="op">=</span> <span class="st">"Source: Office for National Statistics (ONS)"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">gt_tbl</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">gt_tbl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style_body.html">tab_style_body</a></span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_fill.html">cell_fill</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
+<span>    pattern <span class="op">=</span> <span class="st">"n.e.c."</span>,</span>
+<span>    extents <span class="op">=</span> <span class="st">"stub"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_stylize.html">opt_stylize</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fl">6</span>, color <span class="op">=</span> <span class="st">"gray"</span>, add_row_striping <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="spsqufxalh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ltlbvhfdhx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #5F5F5F; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #5F5F5F; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFFFFF">
 <thead class="gt_header"><tr>
@@ -421,7 +426,7 @@ div.csl-indent {
 <td headers="Risers stub_1_1 change" class="gt_row gt_right" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums; border-top-width: 2px;" valign="middle" align="right">+817%</td>
 </tr>
 <tr>
-<th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub" style="padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #D5D5D5; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D5D5D5; padding-left: 5px; padding-right: 5px; text-align: left;" valign="middle" bgcolor="#D5D5D5" align="left">Health professionals n.e.c.<sup class="gt_footnote_marks" style="font-style: italic; font-weight: normal; font-size: 75%; vertical-align: 0.4em;">4</sup>
+<th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub" style="padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; color: #333333; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D5D5D5; padding-left: 5px; padding-right: 5px; text-align: left; background-color: #ADD8E6;" bgcolor="#ADD8E6" valign="middle" align="left">Health professionals n.e.c.<sup class="gt_footnote_marks" style="font-style: italic; font-weight: normal; font-size: 75%; vertical-align: 0.4em;">4</sup>
 </th>
 <td headers="Risers stub_1_2 soc" class="gt_row gt_right gt_striped" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; background-color: #F4F4F4; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#F4F4F4" align="right">2219 </td>
 <td headers="Risers stub_1_2 2004" class="gt_row gt_right gt_striped" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; background-color: #F4F4F4; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#F4F4F4" align="right">9,000</td>
@@ -496,7 +501,7 @@ div.csl-indent {
 <td headers="Fallers stub_1_11 change" class="gt_row gt_right" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums; border-top-width: 2px;" valign="middle" align="right">−63%</td>
 </tr>
 <tr>
-<th id="stub_1_12" scope="row" class="gt_row gt_left gt_stub" style="padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #D5D5D5; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D5D5D5; padding-left: 5px; padding-right: 5px; text-align: left;" valign="middle" bgcolor="#D5D5D5" align="left">Process operatives n.e.c.<sup class="gt_footnote_marks" style="font-style: italic; font-weight: normal; font-size: 75%; vertical-align: 0.4em;">4</sup>
+<th id="stub_1_12" scope="row" class="gt_row gt_left gt_stub" style="padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; color: #333333; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D5D5D5; padding-left: 5px; padding-right: 5px; text-align: left; background-color: #ADD8E6;" bgcolor="#ADD8E6" valign="middle" align="left">Process operatives n.e.c.<sup class="gt_footnote_marks" style="font-style: italic; font-weight: normal; font-size: 75%; vertical-align: 0.4em;">4</sup>
 </th>
 <td headers="Fallers stub_1_12 soc" class="gt_row gt_right gt_striped" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; background-color: #F4F4F4; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#F4F4F4" align="right">8119 </td>
 <td headers="Fallers stub_1_12 2004" class="gt_row gt_right gt_striped" style="padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D5D5D5; border-left-style: none; border-left-width: 1px; border-left-color: #D5D5D5; border-right-style: none; border-right-width: 1px; border-right-color: #D5D5D5; vertical-align: middle; overflow-x: hidden; background-color: #F4F4F4; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" bgcolor="#F4F4F4" align="right">22,200</td>
@@ -675,7 +680,7 @@ div.csl-indent {
 <span><span class="va">gt_ft</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="eepvkknjnn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uhvxiaatom" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #262A33; font-size: 10px; font-weight: normal; font-style: normal; background-color: #FFF1E5; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #FFF1E5; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #FFF1E5; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFF1E5">
 <thead class="gt_header"><tr>
@@ -928,11 +933,11 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">gt</td>
-<td style="text-align: left;">as_raw_html[2]; cell_borders[2]; cell_text[9]; cells_body[4]; cells_column_labels[4]; cells_column_spanners[2]; cells_footnotes[1]; cells_row_groups[4]; cells_source_notes[1]; cells_stub[3]; cells_title[1]; fmt_number[1]; fmt_percent[1]; gt[1]; html[1]; local_image[1]; opt_stylize[1]; pct[1]; px[5]; sub_missing[1]; tab_footnote[5]; tab_header[2]; tab_options[2]; tab_source_note[1]; tab_spanner[1]; tab_style[10]</td>
+<td style="text-align: left;">as_raw_html[2]; cell_borders[2]; cell_fill[1]; cell_text[9]; cells_body[4]; cells_column_labels[4]; cells_column_spanners[2]; cells_footnotes[1]; cells_row_groups[4]; cells_source_notes[1]; cells_stub[3]; cells_title[1]; fmt_number[1]; fmt_percent[1]; gt[1]; html[1]; local_image[1]; opt_stylize[1]; pct[1]; px[5]; sub_missing[1]; tab_footnote[5]; tab_header[2]; tab_options[2]; tab_source_note[1]; tab_spanner[1]; tab_style[10]; tab_style_body[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map_dfr[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">map[1]; map2_dfr[1]; map_dfr[1]; possibly[1]; set_names[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">readr</td>
