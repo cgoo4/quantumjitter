@@ -33,7 +33,7 @@ Then the second image has the class `.light-mode` and uses the mirror css code i
 .dark-mode { display: none; }
 ```
 
-The mid-grey logo on the left-side of the navbar also darkens and lightens based on the dark-mode setting by adjusting the brightness based on the mode:
+For the navbar logo, my initial idea was to have a mid-grey logo which darkens and lightens by adjusting the brightness based on the mode:
 
 ``` scss
 .navbar-logo {
@@ -47,11 +47,15 @@ The mid-grey logo on the left-side of the navbar also darkens and lightens based
 }
 ```
 
+This worked nicely for some browsers, e.g. firefox, but not others, e.g. safari; perhaps because the cache is cleared for some but not all. I've instead implemented a dark-mode logo using a background image in `dark.scss`[^1].
+
+[^1]: As suggested in [Quarto Discussions](https://github.com/quarto-dev/quarto-cli/discussions/3428)
+
 As for other features, not only does the site now have the `code-link`, `date-modified`, and dark-mode, but it also restores the grid-based listing pages given up when moving from Hugo Academic. Many other Quarto features such as call-outs, citations, footnotes and freeze are also now deployed.
 
-[Lua Filters](https://quarto.org/docs/extensions/filters.html) are a powerful tool. The `_quarto.yml` file includes one to check my current installed version of Quarto and then insert that into the website's page-footer[^1].
+[Lua Filters](https://quarto.org/docs/extensions/filters.html) are a powerful tool. The `_quarto.yml` file includes one to check my current installed version of Quarto and then insert that into the website's page-footer[^2].
 
-[^1]: Suggested solution in [Stack Overflow](https://stackoverflow.com/questions/74734849/quarto-installed-version-in-website-page-footer)
+[^2]: Suggested solution in [Stack Overflow](https://stackoverflow.com/questions/74734849/quarto-installed-version-in-website-page-footer)
 
 Whilst refreshing the site, I took the opportunity to make my 404 page a little more welcoming as it seemed to be one of my more popular pages. Feel free to try it by visiting an imaginatively made-up page of your choice.
 
