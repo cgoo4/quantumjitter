@@ -31,7 +31,7 @@
 <p>Then the second image has the class <code>.light-mode</code> and uses the mirror css code in the light theme’s custom scss file:</p>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb2-1"><span class="fu" style="color: #4758AB;">.light-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">block</span><span class="op" style="color: #5E5E5E;">;</span> }</span>
 <span id="cb2-2"><span class="fu" style="color: #4758AB;">.dark-mode</span> { <span class="kw" style="color: #003B4F;">display</span>: <span class="dv" style="color: #AD0000;">none</span><span class="op" style="color: #5E5E5E;">;</span> }</span></code></pre></div>
-<p>The mid-grey logo on the left-side of the navbar also darkens and lightens based on the dark-mode setting by adjusting the brightness based on the mode:</p>
+<p>For the navbar logo, my initial idea was to have a mid-grey logo which darkens and lightens by adjusting the brightness based on the mode:</p>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb3-1"><span class="fu" style="color: #4758AB;">.navbar-logo</span> {</span>
 <span id="cb3-2">    <span class="kw" style="color: #003B4F;">filter</span>: <span class="fu" style="color: #4758AB;">brightness(</span><span class="dv" style="color: #AD0000;">2</span><span class="fu" style="color: #4758AB;">)</span><span class="op" style="color: #5E5E5E;">;</span></span>
 <span id="cb3-3">    <span class="kw" style="color: #003B4F;">max-height</span>: <span class="dv" style="color: #AD0000;">30</span><span class="dt" style="color: #AD0000;">px</span><span class="op" style="color: #5E5E5E;">;</span></span>
@@ -41,8 +41,9 @@
 <span id="cb3-7">    <span class="kw" style="color: #003B4F;">filter</span>: <span class="fu" style="color: #4758AB;">brightness(</span><span class="dv" style="color: #AD0000;">20</span><span class="dt" style="color: #AD0000;">%</span><span class="fu" style="color: #4758AB;">)</span><span class="op" style="color: #5E5E5E;">;</span></span>
 <span id="cb3-8">    <span class="kw" style="color: #003B4F;">max-height</span>: <span class="dv" style="color: #AD0000;">30</span><span class="dt" style="color: #AD0000;">px</span><span class="op" style="color: #5E5E5E;">;</span></span>
 <span id="cb3-9">}</span></code></pre></div>
+<p>This worked nicely for some browsers, e.g.&nbsp;firefox, but not others, e.g.&nbsp;safari; perhaps because the cache is cleared for some but not all. I’ve instead implemented a dark-mode logo using a background image in <code>dark.scss</code><sup>1</sup>.</p>
 <p>As for other features, not only does the site now have the <code>code-link</code>, <code>date-modified</code>, and dark-mode, but it also restores the grid-based listing pages given up when moving from Hugo Academic. Many other Quarto features such as call-outs, citations, footnotes and freeze are also now deployed.</p>
-<p><a href="https://quarto.org/docs/extensions/filters.html">Lua Filters</a> are a powerful tool. The <code>_quarto.yml</code> file includes one to check my current installed version of Quarto and then insert that into the website’s page-footer<sup>1</sup>.</p>
+<p><a href="https://quarto.org/docs/extensions/filters.html">Lua Filters</a> are a powerful tool. The <code>_quarto.yml</code> file includes one to check my current installed version of Quarto and then insert that into the website’s page-footer<sup>2</sup>.</p>
 <p>Whilst refreshing the site, I took the opportunity to make my 404 page a little more welcoming as it seemed to be one of my more popular pages. Feel free to try it by visiting an imaginatively made-up page of your choice.</p>
 <p>The updated <a href="https://github.com/cgoo4/quantumjitter">repo</a> is public on github.</p>
 
@@ -52,7 +53,8 @@
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Suggested solution in <a href="https://stackoverflow.com/questions/74734849/quarto-installed-version-in-website-page-footer">Stack Overflow</a>↩︎</p></li>
+<li id="fn1"><p>As suggested in <a href="https://github.com/quarto-dev/quarto-cli/discussions/3428">Quarto Discussions</a>↩︎</p></li>
+<li id="fn2"><p>Suggested solution in <a href="https://stackoverflow.com/questions/74734849/quarto-installed-version-in-website-page-footer">Stack Overflow</a>↩︎</p></li>
 </ol>
 </section></div> ]]></description>
   <category>R</category>
