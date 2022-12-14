@@ -175,8 +175,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Given the taxonomy differences, I created a <code>static/_redirects</code> file so that bookmarks for, say, <code>category/r</code> or <code>tag/statistical-inference</code> (under Academic) would go to <code>categories/r</code> or <code>tags/statistical-inference</code>.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>/category/*                         /project
-/tag/website                        /blog</code></pre>
+<pre><code>/index.xml                          /project/index-R.xml
+/categories/r/index.xml             /project/index-R.xml</code></pre>
 </div>
 </div>
 <p>I had customised my Academic site to show the <em>updated</em>, as well as <em>posted</em>, date for each project and post. So to get the same in Apéro, I copied the <code>themes &gt; hugo-apero &gt; layouts &gt; partials &gt; shared &gt; post-details.html</code> file to <code>layouts &gt; partials &gt; shared &gt; post-details.html</code>, duplicated lines 2-5 below and changed <code>.PublishDate</code> to <code>.Lastmod</code>. As my YAML header for all projects and posts already included <code>lastmod:</code>, the <em>details</em> twistie at the foot of each project (and post) now shows both dates.</p>
