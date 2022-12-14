@@ -3,11 +3,11 @@ title: "Cluster of Six"
 date: "2018-01-29"
 categories: [R, clustering, correlation]
 description: "Exploring parliamentary voting patterns with hierarchical clustering"
-image: "feature.jpg"
+image: "feature.gif"
 bibliography: references.bib
 ---
 
-![](feature.jpg)
+![](feature.gif)
 
 Before each vote, the Speaker of the House yells "Division! Clear the Lobby". I'd like to find which cluster of MPs (Members of Parliament) may be exiting the lobby and going their own way.
 
@@ -366,7 +366,7 @@ mod_df <- mod |>
 
 ggplot(mod_df, aes(title, .cooksd, colour = mp)) +
   geom_jitter() +
-  geom_label_repel(aes(label = if_else(.cooksd > 0.002, mp, NULL)), size = 4) +
+  geom_label_repel(aes(label = if_else(.cooksd > 0.002, mp, NA)), size = 4) +
   scale_colour_manual(values = wes_palette(220, name = "Moonrise2", type = "continuous")) +
   labs(title = "Cook's Distance") +
   coord_flip() +
@@ -385,7 +385,7 @@ mod_df |>
   mutate(title = str_wrap(title, 30)) |> 
   ggplot(aes(title, .cooksd, colour = mp)) +
   geom_point(size = 4) +
-  geom_label_repel(aes(label = if_else(.cooksd > 0.0015, mp, NULL)), size = 4) +
+  geom_label_repel(aes(label = if_else(.cooksd > 0.0015, mp, NA)), size = 4) +
   ggtitle("Cook's Distance") +
   theme(
     axis.line.x = element_line(color = "grey60"),

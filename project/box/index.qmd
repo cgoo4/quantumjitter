@@ -163,15 +163,17 @@ p1 <- packfun_df |>
     x = NULL, y = NULL
   )
 
+min_n <- 7
+
 p2 <- packfun_df |>
-  filter(name == "function", n >= 4) |> 
+  filter(name == "function", n >= min_n) |> 
   ggplot(aes(fct_reorder(packfun, n), n, fill = multiverse)) +
   geom_col() +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
   scale_fill_manual(values = cols[c(1, 2, 4)]) +
   labs(x = NULL, y = NULL, 
-       subtitle = "Function Usage >= 4")
+       subtitle = glue("Function Usage >= {min_n}"))
 
 p1 + p2
 ```
