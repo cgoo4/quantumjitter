@@ -9,7 +9,9 @@ description: "R packages & functions that make doing data science a joy based on
 
 Each [project](/project/) closes with a table summarising the R tools used. By visualising the most frequently used packages and functions I can get a sense of where I may most benefit from going deeper into the latest package versions.
 
-It's an opportunity to replace superseded functions e.g. `spread` and `gather` with `pivot_wider` and `pivot_longer`. Or to use newer packages, such as [tidyclust](https://github.com/EmilHvitfeldt/tidyclust) which brings cluster modelling to tidymodels (used in the latest quarto version of [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)), or [bslib](https://rstudio.github.io/bslib/) used in the latest shiny app embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/).
+Early on, it was an opportunity to replace superseded functions like `spread` and `gather` with `pivot_wider` and `pivot_longer`. More recently there have been examples of using newer packages such as [tidyclust](https://github.com/EmilHvitfeldt/tidyclust), which brings cluster modelling to tidymodels (used in the latest quarto version of [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)), or [bslib](https://rstudio.github.io/bslib/), used in the latest shiny app embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/).
+
+And in the latest refresh, the newest versions of dplyr and purrr have offered many opportunities for improvements. For example, the `.by` argument in `mutate` and friends as an alternative to `group_by` and `ungroup`. And changes in the `map_` family which introduce `list_rbind` and associates.
 
 ```{r}
 #| label: libraries
@@ -146,7 +148,9 @@ packfun_df <- pack_df |>
   )
 ```
 
-Clearly dplyr reigns supreme driven by `mutate` and `filter`.
+I've taken advantage of Quarto's `{{< include _foobar.qmd >}}` to lift, standardise and simplify the toolbox code from the end of every project. Previously, this code (broadly repeated 20 times) inflated the function usage numbers.
+
+With the latest versions of dplyr and purrr, `group_by` has dropped a significant number of places and `list_rbind` has taken a prominent position.
 
 ```{r}
 #| label: plot
