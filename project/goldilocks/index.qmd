@@ -3,10 +3,9 @@ title: "The Goldilocks Principle"
 date: "2020-08-09"
 categories: [R, sample distribution, simulation]
 description: "Simulating stock portfolio returns inspired by bowls of porridge left by three bears"
-image: "feature.gif"
 ---
 
-![](feature.gif)
+![](feature.gif){fig-alt="Three bowls of porridge rest on a long table. The small bowl has no heat rising from it, whilst the largest bowl is steaming hot. The middle bowl, with a spoon wedged in it, looks just right."}
 
 [The Goldilocks principle](https://en.wikipedia.org/wiki/Goldilocks_principle) has its origins in a children's story about a girl who tastes the bowls of porridge left by three bears. She prefers the one that is neither too hot nor too cold, but is just right.
 
@@ -68,7 +67,7 @@ Now suppose you share 2 stocks, selected at random, with 1,000 of your social ne
 ```{r}
 #| label: simulate
 
-portfolio <- function(x) {
+portfolio <- \(x) {
   stock_data |>
     slice_sample(n = x, replace = TRUE) |>
     summarise(
@@ -81,22 +80,22 @@ portfolio <- function(x) {
 set.seed(456)
 
 portfolios <-
-  map_dfr(c(
+  map(c(
     rep(2, 1000),
     rep(5, 1000),
     rep(10, 1000),
     rep(20, 1000),
     rep(50, 1000)
   ), portfolio) |>
+  list_rbind() |> 
   mutate(portfolio_size = factor(portfolio_size))
 
 mean_returns <- portfolios |>
-  group_by(portfolio_size) |>
   summarise(
     mean_return = mean(portfolio_return),
-    min_return = min(portfolio_return)
-  ) |>
-  ungroup()
+    min_return = min(portfolio_return),
+    .by = portfolio_size
+  )
 
 portfolios |>
   ggplot(aes(portfolio_size, portfolio_return, group = portfolio_size)) +
@@ -134,61 +133,4 @@ So perhaps the answer is to pick a worst-case scenario one would be prepared to 
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:tibble", "tribble",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]", "\\b", "\\Q", i, "\\E", "\\b", "(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  arrange(desc(conflict), func) |> 
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

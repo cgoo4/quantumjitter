@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Surprising Stories</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">geospatial</div>
@@ -239,7 +239,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 19, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
@@ -291,7 +291,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"stats.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ip_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2_df</a></span><span class="op">(</span><span class="va">stats</span><span class="op">$</span><span class="va">IP</span>, <span class="va">stats</span><span class="op">$</span><span class="va">Pages</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ip_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">stats</span><span class="op">$</span><span class="va">IP</span>, <span class="va">stats</span><span class="op">$</span><span class="va">Pages</span>, \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/rgeolocate/man/maxmind.html">maxmind</a></span><span class="op">(</span></span>
 <span>    <span class="va">x</span>,</span>
 <span>    <span class="st">"GeoLite2-City.mmdb"</span>,</span>
@@ -318,7 +318,8 @@ div.csl-indent {
 <span>        <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">4</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ip_df</span> <span class="op">&lt;-</span> <span class="va">ip_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">longitude</span><span class="op">)</span> <span class="op">|</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">latitude</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -407,66 +408,54 @@ div.csl-indent {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">R.oo</td>
-<td style="text-align: left;">Package[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">R.utils</td>
-<td style="text-align: left;">gunzip[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1]; basename[1]; c[3]; conflicts[1]; cumsum[1]; function[2]; getwd[1]; is.na[2]; list[1]; search[1]; sum[1]; url[1]</td>
+<td style="text-align: left;">R.utils[1]; gunzip[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[6]; arrange[3]; case_when[2]; desc[2]; group_by[1]; if_else[5]; mutate[7]; rename[1]; summarise[1]</td>
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.character[1]; basename[1]; c[5]; character[1]; file[2]; getwd[1]; is.na[2]; library[7]; list[1]; url[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">filter[1]; arrange[1]; case_when[2]; if_else[2]; mutate[3]; rename[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">theme_bw[1]; theme_set[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">htmlwidgets</td>
 <td style="text-align: left;">saveWidget[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">leaflet</td>
-<td style="text-align: left;">addCircleMarkers[1]; addLegend[1]; addPolygons[1]; addProviderTiles[1]; colorFactor[1]; highlightOptions[1]; labelOptions[1]; leaflet[1]; providerTileOptions[1]; setView[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_df[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">addCircleMarkers[1]; addLegend[1]; addPolygons[1]; addProviderTiles[1]; colorFactor[1]; highlightOptions[1]; labelOptions[1]; leaflet[2]; providerTileOptions[1]; setView[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_csv[1]; read_lines[1]</td>
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[1]; map2[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">read_csv[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">rgdal</td>
 <td style="text-align: left;">readOGR[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">rgeolocate</td>
 <td style="text-align: left;">maxmind[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[7]; str_count[1]; str_detect[2]; str_remove[2]; str_remove_all[1]; str_starts[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[2]; enframe[1]</td>
+<td style="text-align: left;">str_c[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">download.file[2]; unzip[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

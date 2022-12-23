@@ -3,10 +3,9 @@ title: "Favourite Things"
 date: "2020-07-26"
 categories: [R, web scraping]
 description: "R packages & functions that make doing data science a joy based on usage across projects"
-image: "feature-1.png"
 ---
 
-![](feature-1.png)
+![](feature-1.png){fig-alt="Wordcloud of this site's most used R packages and functions"}
 
 Each [project](/project/) closes with a table summarising the R tools used. By visualising the most frequently used packages and functions I can get a sense of where I may most benefit from going deeper into the latest package versions.
 
@@ -25,6 +24,7 @@ library(ggwordcloud)
 library(fpp3)
 library(tidymodels)
 library(patchwork)
+library(clock)
 ```
 
 ```{r}
@@ -35,12 +35,12 @@ library(patchwork)
 theme_set(theme_bw())
 
 n <- 4
-palette <- "harrypotter::always"
+palette <- "harrypotter::ronweasley2"
 
 cols <- paletteer_c(palette, n = n)
 
 tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = fct_rev(cols))) +
+  ggplot(aes(x, y, fill = cols)) +
   geom_col(colour = "white") +
   geom_label(aes(label = cols |> str_remove("FF$")), 
              size = 4, vjust = 2, fill = "white") +
@@ -76,12 +76,14 @@ This enables me to extract the package and function usage table for each one.
 ```{r}
 #| label: usage
 
-table_df <- map_dfr(urls, function(x) {
+table_df <- map(urls, \(x) {
   x |>
     read_html() |>
-    html_elements("#r-toolbox , table") |>
-    html_table()
+    html_elements("#r-toolbox , kable-table") |>
+    html_table() |> 
+    bind_rows()
 }) |>
+  list_rbind() |> 
   clean_names(replace = c("io" = "")) |>
   select(package, functn) |>
   drop_na()
@@ -136,11 +138,11 @@ n_url <- urls |> n_distinct()
 
 packfun_df <- pack_df |>
   bind_rows(fun_df) |>
-  group_by(name) |>
   arrange(desc(n)) |>
   mutate(
     packfun = coalesce(package, functn),
-    name = fct_rev(name)
+    name = fct_rev(name),
+    .by = name
   )
 ```
 
@@ -156,12 +158,8 @@ p1 <- packfun_df |>
   geom_col(show.legend = FALSE) +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(1, 2, 4)]) +
-  labs(
-    title = glue("Favourite Things\nAcross {n_url} Projects"),
-    subtitle = "Package Usage",
-    x = NULL, y = NULL
-  )
+  scale_fill_manual(values = cols[c(2, 3, 4)]) +
+  labs(x = NULL, y = NULL)
 
 min_n <- 7
 
@@ -171,11 +169,17 @@ p2 <- packfun_df |>
   geom_col() +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(1, 2, 4)]) +
+  scale_fill_manual(values = cols[c(2, 3, 4)]) +
   labs(x = NULL, y = NULL, 
        subtitle = glue("Function Usage >= {min_n}"))
 
-p1 + p2
+p1 + p2 +
+  plot_annotation(
+    title = glue(
+      "Favourite Things from {n_url} Projects as at ",
+      "{date_format(date_today('Europe/London'), format = '%B %d, %Y')}"
+    )
+  )
 ```
 
 I'd also like a word cloud generated as the new featured image for this project.
@@ -212,60 +216,4 @@ packfun_df |>
 
 A little bit circular, but I might as well include this code too in my "favourite things".
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  arrange(desc(conflict), func) |> 
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

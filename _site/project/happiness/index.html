@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Finding Happiness in The Smoke</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">dimension reduction</div>
@@ -242,14 +242,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A silhouette of the Houses of Parliament in bright yellow below a blue sky. Smoke wafts into the sky from several points and the peace symbol takes the place of Big Ben's clock."></p>
 <p><a href="https://www.theguardian.com/environment/2002/nov/30/uknews.pollution">The Smoke</a>, to use London’s nickname, has 32 boroughs plus the central business district known as the <a href="https://en.wikipedia.org/wiki/City_of_London">City of London</a>. What does Cluster Analysis tell us about the characteristics that bind them?</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -534,7 +534,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">assignments</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">k</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span>, fill <span class="op">=</span> <span class="va">.cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">area_name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">2</span>, hjust <span class="op">=</span> <span class="st">"inward"</span>, overlap <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">area_name</span><span class="op">)</span>, </span>
+<span>             size <span class="op">=</span> <span class="fl">2</span>, hjust <span class="op">=</span> <span class="st">"inward"</span>, overlap <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Closely-Related London Areas"</span>, fill <span class="op">=</span> <span class="st">"Cluster"</span>,</span>
@@ -669,11 +670,11 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[8]; c[6]; conflicts[1]; cumsum[1]; function[1]; identity[1]; is.character[1]; is.na[1]; is.numeric[1]; mean[1]; search[1]; seq[1]; set.seed[1]; sum[2]</td>
+<td style="text-align: left;">as.character[8]; c[10]; character[9]; identity[1]; is.character[1]; is.na[1]; is.numeric[1]; library[10]; mean[1]; numeric[1]; seq[1]; set.seed[1]; sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[10]; across[1]; arrange[3]; cur_data[1]; desc[3]; group_by[1]; if_else[6]; left_join[1]; mutate[11]; na_if[1]; recode[2]; rename[1]; rename_with[1]; rowwise[1]; select[5]; summarise[1]</td>
+<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; left_join[1]; mutate[7]; na_if[1]; recode[2]; rename[1]; rename_with[1]; rowwise[1]; select[5]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">forcats</td>
@@ -689,7 +690,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
+<td style="text-align: left;">glue[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">janitor</td>
@@ -697,61 +698,57 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[5]; map2_dfr[1]; pluck[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">map[4]; pluck[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">readxl</td>
 <td style="text-align: left;">read_xlsx[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">recipes</td>
 <td style="text-align: left;">recipe[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">rsample</td>
 <td style="text-align: left;">vfold_cv[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">label_percent[1]; percent[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">sf</td>
 <td style="text-align: left;">st_read[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">kmeans[1]; prcomp[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[2]; str_remove[4]; str_remove_all[2]; str_starts[2]</td>
+<td style="text-align: left;">str_remove[2]; str_remove_all[1]; str_starts[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[2]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[4]; enframe[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">tidyclust</td>
 <td style="text-align: left;">cluster_metric_set[1]; extract_centroids[1]; k_means[2]; sse_ratio[1]; tune_cluster[1]</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; unnest[4]</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; unnest[3]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">tidytext</td>
 <td style="text-align: left;">reorder_within[1]; scale_x_reordered[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tune</td>
 <td style="text-align: left;">control_grid[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">workflows</td>
 <td style="text-align: left;">add_model[1]; add_recipe[1]; update_model[1]; workflow[1]</td>
 </tr>

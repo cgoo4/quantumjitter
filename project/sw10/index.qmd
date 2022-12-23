@@ -3,11 +3,10 @@ title: "House Sales"
 date: "2017-12-17"
 categories: [R, time series]
 description: "A series of events, such as the Financial Crisis and the 2016 Brexit vote, that damped down residential property sales in London"
-image: "feature.jpg"
 bibliography: references.bib
 ---
 
-![](feature.jpg)
+![](feature.jpg){fig-alt="A painted map of part of central London including the border of SW10 sited next to Chelsea FC"}
 
 Various events have impacted house sales in London. There has been a series of increases in [stamp duty](https://www.gov.uk/stamp-duty-land-tax) and the impact of the financial crisis. More recently Brexit and the consequences of Covid-19.
 
@@ -80,7 +79,7 @@ WHERE
   OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }
 }'
 
-data_list <- SPARQL(endpoint, query)
+data_lst <- SPARQL(endpoint, query)
 ```
 
 The focus is on the [standard price paid](https://www.gov.uk/guidance/about-the-price-paid-data#explanations-of-column-headers-in-the-ppd).
@@ -88,10 +87,10 @@ The focus is on the [standard price paid](https://www.gov.uk/guidance/about-the-
 ```{r}
 #| label: query
 
-data_tidy <- data_list$results |>
+data_df <- data_lst$results |>
   as_tibble() |>
   mutate(
-    date = new_datetime(ppd_transactionDate) |> as_date(),
+    trans_date = new_datetime(ppd_transactionDate) |> as_date(),
     amount = ppd_pricePaid,
     prop_type = str_extract(ppd_propertyType, "(?<=common/)[\\w]+"),
     est_type = str_extract(ppd_estateType, "(?<=common/)[\\w]+"),
@@ -107,7 +106,7 @@ A Telegraph article entitled [Timeline: 20 years of stamp duty increases for hom
 #| label: events
 
 events <- tribble(
-  ~date, ~change,
+  ~event_date, ~change,
   "96-07-31", "Stamp Duty £250k (1.5%) £500k (2%)",
   "98-03-31", "£250k (2%) £500k (3%)",
   "99-03-31", "£250k (2.5%) £500k (3.5%)",
@@ -119,10 +118,10 @@ events <- tribble(
   "16-06-23", "Brexit Vote",
   "20-03-23", "Covid-19 Lockdown"
 ) |>
-  mutate(date = date_parse(date, format = "%y-%m-%d"))
+  mutate(event_date = date_parse(event_date, format = "%y-%m-%d"))
 
 events |> 
-  rename("Date" = date, "Event" = change)
+  rename("Date" = event_date, "Event" = change)
 ```
 
 Visually, it appears that the financial crisis had a big impact on sales volume, with the Brexit vote sucking much of the remaining oxygen out of the market. Stamp duty increases in between probably slowed any intermediate recovery.
@@ -130,13 +129,13 @@ Visually, it appears that the financial crisis had a big impact on sales volume,
 ```{r}
 #| label: trend
 
-to_date <- data_tidy |> 
-  summarise(max(date)) |> 
+to_date <- data_df |> 
+  summarise(max(trans_date)) |> 
   pull() |> 
   date_format(format = "%b %d, %Y")
 
-data_tidy |>
-  ggplot(aes(date, amount, colour = est_type)) +
+data_df |>
+  ggplot(aes(trans_date, amount, colour = est_type)) +
   geom_point(alpha = 0.2, size = 0.7, show.legend = FALSE) +
   geom_smooth(se = FALSE, aes(linetype = est_type), size = 1.2) +
   labs(
@@ -148,8 +147,9 @@ data_tidy |>
     colour = "Type", linetype = "Type",
     caption = "Source: HM Land Registry"
   ) +
-  geom_vline(xintercept = events$date, size = 0.5, lty = 2, alpha = 0.4) +
-  annotate("text", events$date, 5000000,
+  geom_vline(xintercept = events$event_date, 
+             size = 0.5, lty = 2, alpha = 0.4) +
+  annotate("text", events$event_date, 5000000,
     angle = 90,
     label = events$change, vjust = 1.4, hjust = 1, size = 3, fontface = 2
   ) +
@@ -166,23 +166,24 @@ An alternative way of looking at this is by median quarterly prices (with upper 
 #| label: median
 
 qtr_start <- date_today("Europe/London") |> 
-  lubridate::floor_date("quarter")
+  as_year_quarter_day() |> 
+  calendar_start("quarter") |> 
+  as.Date()
 
-data_qtile <- 
-  data_tidy |> 
-  filter(date < qtr_start) |> 
-  mutate(yr_qtr = yearquarter(date)) |> 
-  group_by(yr_qtr) |> 
+qtile_df <- 
+  data_df |> 
+  filter(trans_date < qtr_start) |> 
+  mutate(yr_qtr = yearquarter(trans_date)) |> 
   summarise(price = quantile(amount, c(0.25, 0.5, 0.75)), 
             quantile = c("lower", "median", "upper") |> factor(),
-            n = n()) |> 
-  ungroup() |> 
+            n = n(),
+            .by = yr_qtr) |> 
   pivot_wider(names_from = quantile, values_from = price)
 
-last <- data_qtile |> summarise(max(yr_qtr)) |> pull()
-first <- data_qtile |> summarise(min(yr_qtr)) |> pull()
+last <- qtile_df |> summarise(max(yr_qtr)) |> pull()
+first <- qtile_df |> summarise(min(yr_qtr)) |> pull()
 
-p1 <- data_qtile |> 
+p1 <- qtile_df |> 
   ggplot(aes(yr_qtr, median)) +
   geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[5]) +
   geom_line(colour = "white") +
@@ -195,11 +196,11 @@ p1 <- data_qtile |>
   labs(
     title = glue("Median Quarterly SW10 Property Prices ({first} to {last})"), 
     subtitle = "With Upper / Lower Price Quartiles & Sales Volume",
-    x = NULL, y = "Price (Log10 Scale)"
+    x = NULL, y = "Price (Log10)"
     ) +
   theme(axis.text.x = element_blank())
 
-p2 <- data_qtile |> 
+p2 <- qtile_df |> 
   ggplot(aes(yr_qtr, n)) +
   geom_line() +
   annotate("text", x = 14100, y = 180, label = "Financial\nCrisis", size = 3) +
@@ -217,16 +218,16 @@ A ggmosaic [@ggmosaic] visualisation of the composition of SW10 reveals the post
 ```{r}
 #| label: composition
 
-trans <- data_tidy |> nrow()
+num_trans <- data_df |> nrow()
 
-data_tidy |> 
+data_df |> 
   ggplot() +
   geom_mosaic(aes(product(prop_type, est_type), fill = prop_type), 
               offset = 0.02, divider = mosaic("h")) +
   scale_fill_manual(values = cols[c(2:5)]) + 
   labs(
     title = "SW10 Transactions by Estate & Property Types",
-    subtitle = glue("{comma(trans)} Transactions to {to_date}"),
+    subtitle = glue("{comma(num_trans)} Transactions to {to_date}"),
     x = "", y = "", fill = "Property Type", 
     caption = "Source: HM Land Registry"
   ) +
@@ -239,61 +240,4 @@ Other blog posts on [quantum jitter](/.) look at SW10 property from diffferent p
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:tibble", "tibble",
-  "package:tibble", "tribble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  arrange(desc(conflict), func) |> 
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

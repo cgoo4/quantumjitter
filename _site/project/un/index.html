@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">East-West Drift</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">dimension reduction</div>
@@ -240,14 +240,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="The enlarged face of a compass with West and East breaking off and repeatedly drifting away and drifting back"></p>
 <p>In <a href="../../project/happiness">Finding Happiness in ‘The Smoke’</a>, dimension reduction and cluster analysis are used to see how different characteristics group London boroughs.</p>
 <p>Dimension reduction is used here to visualise the grouping of UN members, for example <a href="https://research.un.org/en/unmembers/founders">five of the founding members</a>, based on their <a href="http://www.un.org/en/ga/">General Assembly</a> voting patterns. And by using animation, it’s possible to more easily see changes over time. Are they drifting closer or farther apart?</p>
 <p>General Assembly votes are obtained from unvotes<span class="citation" data-cites="unvotes">(<a href="#ref-unvotes" role="doc-biblioref">Robinson 2021</a>)</span> and the visualisation animated using gganimate<span class="citation" data-cites="gganimate">(<a href="#ref-gganimate" role="doc-biblioref">Pedersen and Robinson 2022</a>)</span>.</p>
@@ -272,8 +272,9 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">&lt;-</span> <span class="va">un_votes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">un_roll_calls</span>, by <span class="op">=</span> <span class="st">"rcid"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">&lt;-</span> <span class="va">un_votes</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">un_roll_calls</span>, by <span class="op">=</span> <span class="st">"rcid"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>vote_date <span class="op">=</span> <span class="va">date</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">country_code</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GB"</span>, <span class="st">"CN"</span>, <span class="st">"US"</span>, <span class="st">"FR"</span>, <span class="st">"RU"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    country <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span></span>
@@ -283,23 +284,24 @@ div.csl-indent {
 <span>      FR <span class="op">=</span> <span class="st">"France"</span>,</span>
 <span>      RU <span class="op">=</span> <span class="st">"Russia"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span>
+<span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span>, </span>
+<span>                           format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">from</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">to</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Applying a sliding window to the roll-calls from 1946 to 2019 will make it possible to show the temporal changes.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rcid</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rcid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>vote_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span>, year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="va">rcid</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="va">rcid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>vote_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span>, year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">country</span>, <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">nesting</a></span><span class="op">(</span><span class="va">vote_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>vote <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">vote</span><span class="op">)</span>, <span class="st">"na"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -319,12 +321,12 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">slide_id</span>, <span class="va">vote_id</span>, <span class="va">country</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dimensionality reduction may be performed on each window. And the voting patterns are then visualised as a two-dimensional animation.</p>
-<div class="cell" data-hash="index_cache/html/pca_63ae878019b1bf1014836bf1468d1d92">
+<div class="cell" data-hash="index_cache/html/pca_e97d2bcf856e68b8865330448d3c8ba2">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wdows</span> <span class="op">&lt;-</span> <span class="va">wdow_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">slide_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">slide_pca</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">slide_pca</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">wide_df</span> <span class="op">&lt;-</span> <span class="va">wdow_df</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">slide_id</span> <span class="op">==</span> <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -341,7 +343,7 @@ div.csl-indent {
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">slide_id</span>, <span class="va">country</span>, <span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">pca_windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">wdows</span>, <span class="va">slide_pca</span><span class="op">)</span></span>
+<span><span class="va">pca_windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">wdows</span>, <span class="va">slide_pca</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">pca_windows</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>east_west <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">country</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"China"</span>, <span class="st">"Russia"</span><span class="op">)</span>, </span>
@@ -374,15 +376,16 @@ div.csl-indent {
 <span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".tablefont"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fl">1</span>, draft <span class="op">=</span> <span class="fl">2</span>, meeting <span class="op">=</span> <span class="fl">3</span>, agenda <span class="op">=</span> <span class="fl">4</span>, vetoed_by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>vote_date <span class="op">=</span> <span class="fl">1</span>, draft <span class="op">=</span> <span class="fl">2</span>, meeting <span class="op">=</span> <span class="fl">3</span>, agenda <span class="op">=</span> <span class="fl">4</span>, vetoed_by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">meeting_df2</span> <span class="op">&lt;-</span> <span class="va">meeting_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"-(?:\\d{2}|\\d)"</span><span class="op">)</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%d %B %Y"</span><span class="op">)</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">==</span> <span class="st">"86"</span>, <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="fl">1986</span>, <span class="fl">01</span>, <span class="fl">01</span><span class="op">)</span>, <span class="va">date</span><span class="op">)</span>,</span>
+<span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="st">"-(?:\\d{2}|\\d)"</span><span class="op">)</span>,</span>
+<span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">vote_date</span>, format <span class="op">=</span> <span class="st">"%d %B %Y"</span><span class="op">)</span>,</span>
+<span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span> <span class="op">==</span> <span class="st">"86"</span>, </span>
+<span>                        <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="fl">1986</span>, <span class="fl">01</span>, <span class="fl">01</span><span class="op">)</span>, <span class="va">vote_date</span><span class="op">)</span>,</span>
 <span>    vetoed_by <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">vetoed_by</span>, <span class="st">"USSR"</span>, <span class="st">"Russia"</span><span class="op">)</span>,</span>
 <span>    Russia <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">vetoed_by</span>, <span class="st">"Russia"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    China <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">vetoed_by</span>, <span class="st">"China"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
@@ -412,10 +415,10 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">year_df</span> <span class="op">&lt;-</span> <span class="va">meeting_df2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">country</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">to_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">meeting_df2</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, <span class="st">"%b %d, %y"</span><span class="op">)</span></span>
+<span><span class="va">to_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">meeting_df2</span><span class="op">$</span><span class="va">vote_date</span><span class="op">)</span>, <span class="st">"%b %d, %y"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">big_plot</span> <span class="op">&lt;-</span> <span class="va">year_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">n</span>, fill <span class="op">=</span> <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -451,7 +454,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[2]; c[8]; conflicts[1]; cumsum[1]; format[1]; function[2]; max[3]; min[1]; search[1]; seq[1]; sum[1]</td>
+<td style="text-align: left;">as.character[2]; c[11]; character[2]; format[1]; library[10]; max[3]; min[1]; seq[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -459,7 +462,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[9]; arrange[4]; count[2]; desc[2]; group_by[2]; if_else[10]; inner_join[1]; mutate[12]; n[2]; n_distinct[1]; pull[3]; recode[1]; row_number[1]; select[4]; slice[1]; summarise[4]; ungroup[1]</td>
+<td style="text-align: left;">filter[4]; arrange[2]; count[2]; group_by[1]; if_else[7]; inner_join[1]; mutate[8]; n[2]; n_distinct[1]; pull[3]; recode[1]; row_number[1]; select[5]; slice[1]; summarise[3]; ungroup[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
@@ -467,7 +470,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">gganimate</td>
-<td style="text-align: left;">animate[1]; shadow_wake[1]; transition_time[1]</td>
+<td style="text-align: left;">animate[1]; gganimate[1]; shadow_wake[1]; transition_time[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
@@ -475,7 +478,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[2]</td>
+<td style="text-align: left;">glue[3]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">patchwork</td>
@@ -483,41 +486,37 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map_dfr[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">list_rbind[1]; map[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_element[1]; html_table[1]; read_html[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">prcomp[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[7]; str_remove[3]; str_remove_all[1]; str_replace[1]; str_starts[1]</td>
+<td style="text-align: left;">str_detect[5]; str_remove[1]; str_replace[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[2]; tibble[2]; enframe[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">complete[1]; fill[1]; nest[2]; nesting[1]; pivot_longer[1]; pivot_wider[1]; replace_na[1]; unnest[3]</td>
+<td style="text-align: left;">as_tibble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">as_tsibble[1]; slide_tsibble[1]</td>
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">complete[1]; fill[1]; nest[2]; nesting[1]; pivot_longer[1]; pivot_wider[1]; replace_na[1]; unnest[2]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">tsibble</td>
+<td style="text-align: left;">as_tsibble[1]; slide_tsibble[1]; tsibble[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">data[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[2]</td>
 </tr>

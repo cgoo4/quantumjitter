@@ -3,11 +3,10 @@ title: "Sea Monsters that Lost their Way"
 date: "2021-12-04"
 categories: [R, geospatial, machine learning, textual analysis]
 description: "Predicting uncertain species of cetacean strandings recorded by the Natural History Museum"
-image: "feature.gif"
 bibliography: references.bib
 ---
 
-![](feature.gif)
+![](feature.gif){fig-alt="A buoy sways in the sea water in front of the coastal cliff. On it, a sign points left for dolphins and right for orca. And a dolphin and orca are seen in the foreground reading the sign."}
 
 The Natural History Museum began recording cetacean (whales, dolphins and porpoises) strandings in 1913 [@naturalhistorymuseum2019]. Let's explore this 1913-1989 dataset.
 
@@ -49,10 +48,11 @@ theme_set(theme_bw())
 strandings_df <- read_csv("strandings.csv", show_col_types = FALSE) |>
   clean_names() |> 
   mutate(
-    date = date_parse(date, format = "%d/%m/%Y"),
+    date_rep = date_parse(date, format = "%d/%m/%Y"),
     length = parse_number(length_et),
     species_lumped = fct_lump_n(species, 20),
-    across(ends_with("_val"), as.integer)
+    across(ends_with("_val"), as.integer),
+    rep_comment = comment
   )
 
 # glimpse(strandings_df)
@@ -82,22 +82,21 @@ The `date` variable has many NA's. Fortunately, the components to construct many
 #| label: impute
 
 strandings_df2 |> 
-  select(date, year_val, month_val, day_val) |> 
+  select(date_rep, year_val, month_val, day_val) |> 
   summary()
 
 strandings_df3 <- strandings_df2 |>
-  group_by(species) |> 
   mutate(
     month_val = if_else(month_val == 0, mean(month_val) |> 
                           as.integer(), month_val),
     day_val = if_else(day_val == 0, mean(day_val) |> as.integer(), day_val),
     day_val = if_else(day_val == 0, 1L, day_val),
     date2 = date_build(year_val, month_val, day_val, invalid = "NA"),
+    .by = species
   ) |> 
-  ungroup() |> 
-  mutate(date3 = coalesce(date, date2)) |> 
-  arrange(id) |> 
-  mutate(date = if_else(is.na(date), lag(date3), date3)) |> 
+  mutate(date3 = coalesce(date_rep, date2),
+         date_rep = if_else(is.na(date_rep), lag(date3), date3)
+         ) |> 
   select(-date2, -date3, -ends_with("_val"))
 
 example_species <-
@@ -106,12 +105,12 @@ example_species <-
 known_species <- strandings_df3 |> 
   filter(species_uncertainty == "Known")
 
-plot_date_feature <- function(var) {
+plot_date_feature <- \(var) {
   known_species |>
     mutate(
-      year = get_year(date),
-      month = get_month(date),
-      week = as_iso_year_week_day(date) |> get_week()
+      year = get_year(date_rep),
+      month = get_month(date_rep),
+      week = as_iso_year_week_day(date_rep) |> get_week()
     ) |>
     filter(species %in% example_species) |>
     count(species, {{ var }}) |>
@@ -167,9 +166,8 @@ uki |>
 
 # Add history of mass stranding
 strandings_df4 <- strandings_df3 |> 
-  group_by(species) |>
-  mutate(mass_possible = min(mass_single, na.rm = TRUE)) |>
-  ungroup()
+  mutate(mass_possible = min(mass_single, na.rm = TRUE),
+         .by = species)
 ```
 
 Some records are missing the `length` measurement of the mammal. Nonetheless, where present, this is likely to be predictive, and may help, for example, separate species labelled as "delphis/coeruleoalba" where the `length` is at the extreme ends of the "delphis" range as we see below. And the range of `length` may differ by mammal `sex`.
@@ -262,7 +260,7 @@ So, I'll set aside the rows where the species is uncertain (to be used later for
 -   `county` may be useful, especially where the longitude and latitude are missing
 -   `fam_genus` which narrows the range of likely species
 
-I'd like to also make use of the textrecipes[@textrecipes] package. I can tokenise the textual information in `comment` and `location` to see if these add to the predictive power of the model.
+I'd like to also make use of the textrecipes[@textrecipes] package. I can tokenise the textual information in `rep_comment` and `location` to see if these add to the predictive power of the model.
 
 I'll tune the model using `tune_race_anova`[@finetune] which quickly discards hyperparameter combinations showing little early promise.
 
@@ -305,7 +303,7 @@ predictors <-
     "mass_possible",
     "county",
     "location",
-    "comment",
+    "rep_comment",
     "sex",
     "fam_genus"
   )
@@ -317,12 +315,12 @@ recipe <-
   update_role(all_of(predictors), new_role = "predictor") |>
   update_role(!has_role("outcome") & !has_role("predictor"), 
               new_role = "id") |>
-  step_date(date, features = c("decimal", "week", "month", "year"), 
+  step_date(date_rep, features = c("decimal", "week", "month", "year"), 
             label = FALSE) |>
-  step_tokenize(location, comment) |>
-  step_stopwords(location, comment) |>
-  step_tokenfilter(location, comment, max_tokens = tune()) |> #100
-  step_tf(location, comment) |>
+  step_tokenize(location, rep_comment) |>
+  step_stopwords(location, rep_comment) |>
+  step_tokenfilter(location, rep_comment, max_tokens = tune()) |> #100
+  step_tf(location, rep_comment) |>
   step_zv(all_predictors()) |>
   step_dummy(all_nominal_predictors())
 
@@ -399,7 +397,7 @@ xgb_results |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-The top variable importance scores include `fam_genus`, many of the `comment` tokens, plus `length`, `mass-possible`, `date_decimal`, `date_year`, and `latitude`.
+The top variable importance scores include `fam_genus`, many of the `rep_comment` tokens, plus `length`, `mass-possible`, `date_decimal`, `date_year`, and `latitude`.
 
 ```{r}
 #| label: importance
@@ -462,9 +460,7 @@ subset_df <- xgb_preds |>
   )
 
 subset_df |>
-  group_by(species, .class_pred) |> 
-  summarise(n = n()) |> 
-  ungroup() |> 
+  summarise(n = n(), .by = c(species, .class_pred)) |> 
   arrange(species, desc(n)) |> 
   rename("Actual" = species, "Predicted" = .class_pred, "Count" = n)
 ```
@@ -475,60 +471,4 @@ The majority of the `r nrow(subset_df)` uncertain records are predicted to be as
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  arrange(desc(conflict), func) |> 
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

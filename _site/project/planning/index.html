@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Digging Deep</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">time series</div>
@@ -243,14 +243,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 14, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A spade is seen tossing fresh dirt from a deep hole. A granted planning permission and an empty new spade box lie nearby."></p>
 <p>In <a href="../../project/sw10">House Sales</a> I looked at how a series of events damped down sales. By combining these sales data with planning applications I’d like to see if home owners “start digging” when they can’t sell.</p>
 <p>Planning data is harvested with the kind permission of The Royal Borough of Kensington and Chelsea (RBKC). The code for these code chunks is not rendered out of courtesy to RBKC.</p>
 <div class="cell">
@@ -494,27 +494,21 @@ div.csl-indent {
 <span>    date <span class="op">=</span> <span class="fu"><a href="https://vctrs.r-lib.org/reference/new_date.html">new_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    dataset <span class="op">=</span> <span class="st">"Sales"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">app_df</span> <span class="op">&lt;-</span> <span class="va">tidy_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    date <span class="op">=</span> <span class="va">dec_date</span>,</span>
 <span>    dataset <span class="op">=</span> <span class="st">"Planning"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">compare_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">app_df</span>, <span class="va">sales_df</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">compare_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">sales_df</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, <span class="st">"last"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">volume</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>volume <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">volume</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">dataset</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The visualisation below does suggest that home owners “start digging” when they can’t sell. At least in this part of London.</p>
 <div class="cell">
@@ -561,8 +555,7 @@ div.csl-indent {
 <p>The overall volumes of planning applications and house transactions in SW10 are fairly similar.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">summary_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">volume</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">volume</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"Dataset"</span> <span class="op">=</span> <span class="va">dataset</span>, <span class="st">"Count"</span> <span class="op">=</span> <span class="va">total</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -608,8 +601,8 @@ div.csl-indent {
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 7%">
-<col style="width: 92%">
+<col style="width: 8%">
+<col style="width: 91%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Package</th>
@@ -622,19 +615,19 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[1]</td>
+<td style="text-align: left;">SPARQL[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.numeric[1]; basename[1]; c[11]; conflicts[1]; cumsum[1]; factor[1]; function[3]; is.character[1]; is.na[3]; min[1]; readRDS[1]; saveRDS[1]; search[1]; sum[3]; url[1]</td>
+<td style="text-align: left;">as.numeric[1]; basename[1]; c[17]; character[1]; factor[1]; file[1]; is.character[1]; is.na[3]; library[12]; min[1]; numeric[1]; readRDS[1]; saveRDS[1]; sum[2]; url[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_date[1]; date_build[1]; date_parse[1]; get_month[1]; get_year[2]</td>
+<td style="text-align: left;">date_build[1]; date_parse[1]; get_month[1]; get_year[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[7]; across[4]; arrange[3]; bind_rows[2]; case_when[3]; count[1]; desc[3]; group_by[5]; if_else[6]; left_join[1]; mutate[13]; n[4]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[5]; ungroup[3]</td>
+<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; left_join[1]; mutate[9]; n[4]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fabletools</td>
@@ -650,65 +643,61 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">autoplot[2]; aes[3]; coord_flip[1]; element_text[1]; facet_wrap[1]; geom_bar[1]; geom_col[1]; geom_line[1]; ggplot[3]; labs[5]; scale_colour_manual[2]; scale_fill_manual[1]; theme[1]; theme_bw[1]; theme_set[1]</td>
+<td style="text-align: left;">aes[3]; coord_flip[1]; element_text[1]; facet_wrap[1]; geom_bar[1]; geom_col[1]; geom_line[1]; ggplot[3]; labs[5]; scale_colour_manual[2]; scale_fill_manual[1]; theme[1]; theme_bw[1]; theme_set[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">htmlwidgets</td>
-<td style="text-align: left;">saveWidget[1]</td>
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[2]; map[2]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; map_dfr[2]; possibly[1]; set_names[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">quanteda</td>
 <td style="text-align: left;">corpus[2]; dfm[1]; kwic[1]; phrase[1]; stopwords[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">quanteda.textstats</td>
 <td style="text-align: left;">textstat_frequency[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_csv[1]; read_lines[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">read_csv[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_attr[1]; html_element[2]; html_elements[2]; html_table[1]; html_text[1]; read_html[3]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">frequency[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[8]; str_count[1]; str_detect[13]; str_extract[1]; str_remove[2]; str_remove_all[3]; str_replace[2]; str_squish[1]; str_starts[1]; str_to_lower[1]; str_to_upper[1]; str_trim[1]</td>
+<td style="text-align: left;">str_c[3]; str_detect[11]; str_extract[1]; str_remove_all[2]; str_replace[2]; str_squish[1]; str_to_lower[1]; str_to_upper[1]; str_trim[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[2]; tibble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[3]; tibble[3]; enframe[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tictoc</td>
 <td style="text-align: left;">tic[2]; toc[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">pivot_wider[2]; replace_na[1]; unnest[1]</td>
+<td style="text-align: left;">pivot_wider[2]; replace_na[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tsibble</td>
+<td style="text-align: left;">yearmonth[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">as_tsibble[1]; yearmonth[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">download.file[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vctrs</td>
 <td style="text-align: left;">new_datetime[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Let’s Jitter</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
   </div>
@@ -238,14 +238,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A silhouette of the Houses of Parliament with the text &quot;G9&quot; instead of Big Ben's clock. In the sky, three clouds jitter and leaves are swept by the wind across the word &quot;Autumn&quot;."></p>
 <p>Welcome to the <a href="https://www.tidyverse.org">tidyverse</a> <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span> with data ingestion, cleaning and tidying. And some visualisations of sales data with a little jittering.</p>
 <p>This first little project uses the tidyverse collection of packages to import, explore and visualise some sales data. The UK Government’s Digital Marketplace provides a rich and varied source of public data <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">under the Open Government Licence</a> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>The marketplace was set up with an intent to break down barriers that impede Small and Medium Enterprises (SMEs) from bidding for Public Sector contracts. So, let’s see how that’s going.</p>
@@ -280,11 +280,11 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    evidenced_spend <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">evidenced_spend</span>, <span class="st">"[^0-9-]"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">return_month</span><span class="op">)</span>, origin <span class="op">=</span> <span class="st">"1899-12-30"</span><span class="op">)</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
+<span>    spend_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">return_month</span><span class="op">)</span>, origin <span class="op">=</span> <span class="st">"1899-12-30"</span><span class="op">)</span>,</span>
+<span>    spend_date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">spend_date</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">return_month</span>, format <span class="op">=</span> <span class="st">"%d/%m/%y"</span><span class="op">)</span>,</span>
-<span>      <span class="va">date</span></span>
+<span>      <span class="va">spend_date</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    sme_status <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">sme_status</span> <span class="op">==</span> <span class="st">"SME"</span>, <span class="st">"SME"</span>, <span class="st">"Non-SME"</span><span class="op">)</span>,</span>
 <span>    sme_spend <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">sme_status</span> <span class="op">==</span> <span class="st">"SME"</span>, <span class="va">evidenced_spend</span>, <span class="fl">0</span><span class="op">)</span></span>
@@ -293,21 +293,21 @@ div.csl-indent {
 <p>Now we can summarise and visualise how the SME share has changed over time using the ggplot2 package.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">share_df</span> <span class="op">&lt;-</span> <span class="va">gcloud_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    evidenced_spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">evidenced_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    sme_spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">sme_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    pct <span class="op">=</span> <span class="va">sme_spend</span> <span class="op">/</span> <span class="va">evidenced_spend</span></span>
-<span>  <span class="op">)</span></span>
+<span>    pct <span class="op">=</span> <span class="va">sme_spend</span> <span class="op">/</span> <span class="va">evidenced_spend</span>, </span>
+<span>    .by <span class="op">=</span> <span class="va">spend_date</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">spend_date</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">last_date</span> <span class="op">&lt;-</span> <span class="va">gcloud_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">spend_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://clock.r-lib.org/reference/date_format.html">date_format</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%B %d, %Y"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">share_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">spend_date</span>, <span class="va">pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -325,22 +325,21 @@ div.csl-indent {
 <p>Sales grew steadily to a cumulative £2.4B by July 2017. And as the volume of sales grew, an increasingly clearer picture of sustained growth in the SME share emerged. However, in those latter few months, SMEs lost a little ground.</p>
 <p>Dig a little deeper, and one can also see variation by sub-sector. And that’s after setting aside those buyers with cumulative G-Cloud spend below £100k, where large enterprise suppliers are less inclined to compete.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sector_df</span> <span class="op">&lt;-</span> <span class="va">gcloud_df</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sector_df</span> <span class="op">&lt;-</span> <span class="va">gcloud_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sector <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
-<span>    <span class="va">sector</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Central Government"</span>, <span class="st">"Local Government"</span>, <span class="st">"Police"</span>, <span class="st">"Health"</span><span class="op">)</span>,</span>
-<span>    <span class="va">sector</span>,</span>
-<span>    <span class="st">"Other Sector"</span></span>
-<span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">customer_name</span>, <span class="va">sector</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="va">sector</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Central Government"</span>, <span class="st">"Local Government"</span>, </span>
+<span>                  <span class="st">"Police"</span>, <span class="st">"Health"</span><span class="op">)</span>, <span class="va">sector</span>, <span class="st">"Other Sector"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">customer_name</span>, <span class="va">sector</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    evidenced_spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">evidenced_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    sme_spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">sme_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pct <span class="op">=</span> <span class="va">sme_spend</span> <span class="op">/</span> <span class="va">evidenced_spend</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">evidenced_spend</span> <span class="op">&gt;=</span> <span class="fl">100000</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>median_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">pct</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">evidenced_spend</span> <span class="op">&gt;=</span> <span class="fl">100000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>median_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">pct</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sector <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">median_pct</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n_df</span> <span class="op">&lt;-</span> <span class="va">sector_df</span> <span class="op">|&gt;</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -394,7 +393,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[1]; as.numeric[1]; c[1]; conflicts[1]; cumsum[1]; function[1]; is.na[1]; search[1]; sum[5]</td>
+<td style="text-align: left;">as.Date[1]; as.numeric[1]; c[1]; is.na[1]; library[6]; max[1]; numeric[1]; sum[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -402,7 +401,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[6]; arrange[3]; desc[3]; group_by[5]; if_else[7]; mutate[8]; n[1]; pull[1]; slice[1]; summarise[4]; ungroup[1]</td>
+<td style="text-align: left;">filter[1]; arrange[1]; group_by[3]; if_else[4]; mutate[4]; n[1]; pull[1]; summarise[4]; ungroup[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
@@ -414,41 +413,29 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[3]</td>
+<td style="text-align: left;">glue[4]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">parse_number[1]; read_csv[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">parse_number[1]; read_csv[1]; read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">label_percent[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">median[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[6]; str_count[1]; str_detect[2]; str_remove[2]; str_remove_all[2]; str_starts[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[2]; enframe[1]</td>
+<td style="text-align: left;">str_c[1]; str_remove_all[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

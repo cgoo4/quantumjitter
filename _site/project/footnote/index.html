@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">A Footnote in History</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">tables</div>
@@ -239,14 +239,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 4, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A caveman stands inside a cave viewing the wall. There are two paintings. A rabbit with a mark references a further picture below of bowl of steaming soup. The second painting is of a fearsome beast with a different mark referencing a picture of a stick man running for his life."></p>
 <p>The nature of employment has seen significant shifts over time. Occupations are being consigned to ‘footnotes in history’ whilst others grow driven by trends such as concern for the environment.</p>
 <p>Producing a journal-quality table requires fine-grained and reproducible control over presentation. Surgical targeting of footnotes, capable of adapting to changes in the underlying data, is one example.</p>
 <p>This post briefly explores the shifts in the nature of employment whilst at the same time more fully exploring the grammar of tables <a href="https://gt.rstudio.com">gt</a><span class="citation" data-cites="gt">(<a href="#ref-gt" role="doc-biblioref">Iannone et al. 2022</a>)</span>: The natural companion to the grammar of graphics <a href="https://ggplot2.tidyverse.org">ggplot2</a><span class="citation" data-cites="ggplot2">(<a href="#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span>.</p>
@@ -293,7 +293,7 @@ div.csl-indent {
 </div>
 <p>The labour market data are sourced from the <a href="https://www.nomisweb.co.uk/datasets/aps168/reports/employment-by-occupation?compare=K02000001">Office for National Statistics</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_data</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span></span>
 <span>    <span class="va">x</span>,</span>
 <span>    skip <span class="op">=</span> <span class="fl">12</span>,</span>
@@ -315,7 +315,8 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">".xlsx"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pop_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"2004.xlsx"</span>, <span class="st">"2021.xlsx"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">read_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">read_data</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There’s a hierarchy to the data, so I’ll extract the lowest level and then slice off the top and bottom occupations based on their percentage change over time.</p>
 <div class="cell">
@@ -393,7 +394,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ltlbvhfdhx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="hhukbzcgtq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #5F5F5F; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #5F5F5F; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFFFFF">
 <thead class="gt_header"><tr>
@@ -681,7 +682,7 @@ div.csl-indent {
 <span><span class="va">gt_ft</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="uhvxiaatom" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qptfjqwexx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #262A33; font-size: 10px; font-weight: normal; font-style: normal; background-color: #FFF1E5; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #FFF1E5; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #FFF1E5; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFF1E5">
 <thead class="gt_header"><tr>
@@ -918,11 +919,11 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1]; as.integer[1]; c[8]; conflicts[1]; cumsum[1]; function[2]; is.na[1]; list[5]; search[1]; sum[1]</td>
+<td style="text-align: left;">as.character[1]; as.integer[1]; c[8]; character[1]; integer[1]; is.na[1]; library[3]; list[5]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[6]; arrange[3]; desc[3]; group_by[1]; if_else[4]; mutate[7]; n[1]; relocate[1]; row_number[1]; slice[1]; summarise[1]</td>
+<td style="text-align: left;">filter[1]; arrange[1]; desc[1]; if_else[1]; mutate[3]; n[2]; relocate[1]; row_number[1]; slice[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">forcats</td>
@@ -934,31 +935,27 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">gt</td>
-<td style="text-align: left;">as_raw_html[2]; cell_borders[2]; cell_fill[1]; cell_text[9]; cells_body[4]; cells_column_labels[4]; cells_column_spanners[2]; cells_footnotes[1]; cells_row_groups[4]; cells_source_notes[1]; cells_stub[3]; cells_title[1]; fmt_number[1]; fmt_percent[1]; gt[1]; html[1]; local_image[1]; opt_stylize[1]; pct[1]; px[5]; sub_missing[1]; tab_footnote[5]; tab_header[2]; tab_options[2]; tab_source_note[1]; tab_spanner[1]; tab_style[10]; tab_style_body[1]</td>
+<td style="text-align: left;">as_raw_html[2]; cell_borders[2]; cell_fill[1]; cell_text[9]; cells_body[4]; cells_column_labels[4]; cells_column_spanners[2]; cells_footnotes[1]; cells_row_groups[4]; cells_source_notes[1]; cells_stub[3]; cells_title[1]; fmt_number[1]; fmt_percent[1]; gt[2]; html[1]; local_image[1]; opt_stylize[1]; pct[1]; px[5]; sub_missing[1]; tab_footnote[5]; tab_header[2]; tab_options[2]; tab_source_note[1]; tab_spanner[1]; tab_style[10]; tab_style_body[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; map_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">list_rbind[1]; map[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">readxl</td>
 <td style="text-align: left;">read_xlsx[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[2]; str_remove[3]; str_remove_all[1]; str_starts[2]</td>
+<td style="text-align: left;">str_remove[1]; str_starts[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[3]; enframe[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">pivot_wider[1]; separate[1]; unnest[1]</td>
+<td style="text-align: left;">pivot_wider[1]; separate[1]</td>
 </tr>
 </tbody>
 </table>

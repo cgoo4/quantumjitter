@@ -3,11 +3,10 @@ title: "Can Ravens Forecast?"
 date: "2018-07-29"
 categories: [R, time series, forecast]
 description: "Time series forecasting using cloud services spend data"
-image: "feature.gif"
 bibliography: references.bib
 ---
 
-![](feature.gif)
+![](feature.gif){fig-alt="A silhouette of the Houses of Parliament with rain pouring down on a man holding an umbrella and a raven swooping across the sky"}
 
 Humans have the magical ability to plan for future events, for future gain. It's [not quite a uniquely human trait](https://www.newscientist.com/article/2140668-ravens-can-plan-for-future-as-well-as-4-year-old-children-can/). Because apparently ravens can match a four-year-old.
 
@@ -55,7 +54,7 @@ names <- c(gcloud_csv, dos_csv)
 
 # Use walk to suppress the printing of list element numbers
 
-walk(names, function(x) {
+walk(names, \(x) {
   p <- guess_encoding(x)
   print(p)
 })
@@ -76,7 +75,7 @@ colnam <-
     "customer",
     "framework")
 
-read_dm <- function(x){
+read_dm <- \(x){
   read_csv(
     x,
     col_names = colnam,
@@ -128,8 +127,7 @@ The tsibble package combined with the newer fable[@fable] and feasts[@feasts] pa
 #| label: plot sales
 
 both_ts <- both |>
-  group_by(date, framework) |> 
-  summarise(spend = sum(spend)) |> 
+  summarise(spend = sum(spend), .by = c(date, framework)) |> 
   as_tsibble(key = framework, index = date)
 
 both_ts |> 
@@ -219,8 +217,7 @@ An alternative option is hierarchical time-series forecasting which models botto
 
 gcloud_ts <- both |>
   filter(framework == "G-Cloud") |> 
-  group_by(date, lot) |> 
-  summarise(spend = sum(spend)) |> 
+  summarise(spend = sum(spend), .by = c(date, lot)) |> 
   as_tsibble(key = lot, index = date)
 
 gc_ts <- gcloud_ts |>
@@ -268,61 +265,4 @@ So ravens are not yet ready for forecasting with R. But then neither are 4-year-
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:tsibble", "as_tsibble",
-  "package:dplyr", "filter",
-  "package:ggplot2", "autoplot",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]", "\\b", "\\Q", i, "\\E", "\\b", "(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">House Sales</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">time series</div>
@@ -239,14 +239,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.jpg" class="img-fluid"></p>
+</header><p><img src="feature.jpg" class="img-fluid" alt="A painted map of part of central London including the border of SW10 sited next to Chelsea FC"></p>
 <p>Various events have impacted house sales in London. There has been a series of increases in <a href="https://www.gov.uk/stamp-duty-land-tax">stamp duty</a> and the impact of the financial crisis. More recently Brexit and the consequences of Covid-19.</p>
 <p>How is London postal area SW10 coping with all this?</p>
 <div class="cell">
@@ -308,14 +308,14 @@ div.csl-indent {
 <span><span class="st">  OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }</span></span>
 <span><span class="st">}'</span></span>
 <span></span>
-<span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SPARQL/man/SPARQL.html">SPARQL</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">data_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SPARQL/man/SPARQL.html">SPARQL</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The focus is on the <a href="https://www.gov.uk/guidance/about-the-price-paid-data#explanations-of-column-headers-in-the-ppd">standard price paid</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_tidy</span> <span class="op">&lt;-</span> <span class="va">data_list</span><span class="op">$</span><span class="va">results</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_df</span> <span class="op">&lt;-</span> <span class="va">data_lst</span><span class="op">$</span><span class="va">results</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://vctrs.r-lib.org/reference/new_date.html">new_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    trans_date <span class="op">=</span> <span class="fu"><a href="https://vctrs.r-lib.org/reference/new_date.html">new_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    amount <span class="op">=</span> <span class="va">ppd_pricePaid</span>,</span>
 <span>    prop_type <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">ppd_propertyType</span>, <span class="st">"(?&lt;=common/)[\\w]+"</span><span class="op">)</span>,</span>
 <span>    est_type <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">ppd_estateType</span>, <span class="st">"(?&lt;=common/)[\\w]+"</span><span class="op">)</span>,</span>
@@ -327,7 +327,7 @@ div.csl-indent {
 <p>A Telegraph article entitled <a href="https://www.telegraph.co.uk/property/buy/timeline-20-years-of-stamp-duty-increases-for-home-buyers/">Timeline: 20 years of stamp duty increases for home buyers</a> pinpoints many of the key event dates.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">date</span>, <span class="op">~</span><span class="va">change</span>,</span>
+<span>  <span class="op">~</span><span class="va">event_date</span>, <span class="op">~</span><span class="va">change</span>,</span>
 <span>  <span class="st">"96-07-31"</span>, <span class="st">"Stamp Duty £250k (1.5%) £500k (2%)"</span>,</span>
 <span>  <span class="st">"98-03-31"</span>, <span class="st">"£250k (2%) £500k (3%)"</span>,</span>
 <span>  <span class="st">"99-03-31"</span>, <span class="st">"£250k (2.5%) £500k (3.5%)"</span>,</span>
@@ -339,10 +339,10 @@ div.csl-indent {
 <span>  <span class="st">"16-06-23"</span>, <span class="st">"Brexit Vote"</span>,</span>
 <span>  <span class="st">"20-03-23"</span>, <span class="st">"Covid-19 Lockdown"</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%y-%m-%d"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>event_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">event_date</span>, format <span class="op">=</span> <span class="st">"%y-%m-%d"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">events</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"Date"</span> <span class="op">=</span> <span class="va">date</span>, <span class="st">"Event"</span> <span class="op">=</span> <span class="va">change</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"Date"</span> <span class="op">=</span> <span class="va">event_date</span>, <span class="st">"Event"</span> <span class="op">=</span> <span class="va">change</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -398,13 +398,13 @@ div.csl-indent {
 </div>
 <p>Visually, it appears that the financial crisis had a big impact on sales volume, with the Brexit vote sucking much of the remaining oxygen out of the market. Stamp duty increases in between probably slowed any intermediate recovery.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">to_date</span> <span class="op">&lt;-</span> <span class="va">data_tidy</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">to_date</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">trans_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html">date_format</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%b %d, %Y"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data_tidy</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">amount</span>, colour <span class="op">=</span> <span class="va">est_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">data_df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">trans_date</span>, <span class="va">amount</span>, colour <span class="op">=</span> <span class="va">est_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">0.7</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="va">est_type</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -416,8 +416,9 @@ div.csl-indent {
 <span>    colour <span class="op">=</span> <span class="st">"Type"</span>, linetype <span class="op">=</span> <span class="st">"Type"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: HM Land Registry"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">events</span><span class="op">$</span><span class="va">date</span>, size <span class="op">=</span> <span class="fl">0.5</span>, lty <span class="op">=</span> <span class="fl">2</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, <span class="va">events</span><span class="op">$</span><span class="va">date</span>, <span class="fl">5000000</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">events</span><span class="op">$</span><span class="va">event_date</span>, </span>
+<span>             size <span class="op">=</span> <span class="fl">0.5</span>, lty <span class="op">=</span> <span class="fl">2</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, <span class="va">events</span><span class="op">$</span><span class="va">event_date</span>, <span class="fl">5000000</span>,</span>
 <span>    angle <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>    label <span class="op">=</span> <span class="va">events</span><span class="op">$</span><span class="va">change</span>, vjust <span class="op">=</span> <span class="fl">1.4</span>, hjust <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">3</span>, fontface <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -433,23 +434,24 @@ div.csl-indent {
 <p>An alternative way of looking at this is by median quarterly prices (with upper and lower quartiles), supplemented by sales volumes.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">qtr_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-today.html">date_today</a></span><span class="op">(</span><span class="st">"Europe/London"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="st">"quarter"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://clock.r-lib.org/reference/as_year_quarter_day.html">as_year_quarter_day</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://clock.r-lib.org/reference/calendar-boundary.html">calendar_start</a></span><span class="op">(</span><span class="st">"quarter"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data_qtile</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">data_tidy</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;</span> <span class="va">qtr_start</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yr_qtr <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">yr_qtr</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">qtile_df</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">data_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">trans_date</span> <span class="op">&lt;</span> <span class="va">qtr_start</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yr_qtr <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="va">trans_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">amount</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>            quantile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lower"</span>, <span class="st">"median"</span>, <span class="st">"upper"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>            .by <span class="op">=</span> <span class="va">yr_qtr</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quantile</span>, values_from <span class="op">=</span> <span class="va">price</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">last</span> <span class="op">&lt;-</span> <span class="va">data_qtile</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">yr_qtr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">first</span> <span class="op">&lt;-</span> <span class="va">data_qtile</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">yr_qtr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">last</span> <span class="op">&lt;-</span> <span class="va">qtile_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">yr_qtr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">first</span> <span class="op">&lt;-</span> <span class="va">qtile_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">yr_qtr</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">data_qtile</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">qtile_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">yr_qtr</span>, <span class="va">median</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -462,11 +464,11 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Median Quarterly SW10 Property Prices ({first} to {last})"</span><span class="op">)</span>, </span>
 <span>    subtitle <span class="op">=</span> <span class="st">"With Upper / Lower Price Quartiles &amp; Sales Volume"</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Price (Log10 Scale)"</span></span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Price (Log10)"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">data_qtile</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">qtile_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">yr_qtr</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">14100</span>, y <span class="op">=</span> <span class="fl">180</span>, label <span class="op">=</span> <span class="st">"Financial\nCrisis"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
@@ -483,16 +485,16 @@ div.csl-indent {
 </div>
 <p>A ggmosaic <span class="citation" data-cites="ggmosaic">(<a href="#ref-ggmosaic" role="doc-biblioref">Jeppson, Hofmann, and Cook 2021</a>)</span> visualisation of the composition of SW10 reveals the postal area to be overwhelmingly dominated by leasehold flats.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trans</span> <span class="op">&lt;-</span> <span class="va">data_tidy</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">num_trans</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data_tidy</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">data_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/product.html">product</a></span><span class="op">(</span><span class="va">prop_type</span>, <span class="va">est_type</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">prop_type</span><span class="op">)</span>, </span>
 <span>              offset <span class="op">=</span> <span class="fl">0.02</span>, divider <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="st">"h"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"SW10 Transactions by Estate &amp; Property Types"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{comma(trans)} Transactions to {to_date}"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{comma(num_trans)} Transactions to {to_date}"</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="st">"Property Type"</span>, </span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: HM Land Registry"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -518,48 +520,40 @@ div.csl-indent {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">c[4]; conflicts[1]; cumsum[1]; factor[1]; function[1]; max[2]; min[1]; nrow[1]; search[1]; sum[1]</td>
+<td style="text-align: left;">SPARQL</td>
+<td style="text-align: left;">SPARQL[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_date[1]; date_format[1]; date_parse[1]; date_today[1]</td>
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.Date[1]; c[6]; factor[1]; library[10]; max[2]; min[1]; nrow[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[7]; arrange[2]; desc[2]; group_by[2]; if_else[3]; mutate[7]; n[2]; pull[3]; recode[1]; rename[1]; summarise[5]; ungroup[1]</td>
+<td style="text-align: left;">clock</td>
+<td style="text-align: left;">as_date[1]; as_year_quarter_day[1]; calendar_start[1]; date_format[1]; date_parse[1]; date_today[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">filter[2]; mutate[3]; n[2]; pull[3]; recode[1]; rename[1]; summarise[4]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">ggmosaic</td>
 <td style="text-align: left;">geom_mosaic[1]; mosaic[1]; product[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[6]; annotate[4]; coord_cartesian[1]; element_blank[1]; element_text[1]; geom_hline[1]; geom_line[2]; geom_point[1]; geom_ribbon[1]; geom_smooth[1]; geom_vline[1]; ggplot[4]; labs[4]; Scale[1]; scale_colour_manual[1]; scale_fill_manual[1]; scale_x_date[1]; scale_y_continuous[1]; scale_y_log10[1]; theme[2]; theme_bw[1]; theme_minimal[1]; theme_set[1]</td>
+<td style="text-align: left;">aes[6]; annotate[4]; coord_cartesian[1]; element_blank[1]; element_text[1]; geom_hline[1]; geom_line[2]; geom_point[1]; geom_ribbon[1]; geom_smooth[1]; geom_vline[1]; ggplot[4]; labs[4]; scale_colour_manual[1]; scale_fill_manual[1]; scale_x_date[1]; scale_y_continuous[1]; scale_y_log10[1]; theme[2]; theme_bw[1]; theme_minimal[1]; theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[4]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[3]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">patchwork</td>
 <td style="text-align: left;">plot_layout[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
-</tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">comma[1]; cut_short_scale[2]; label_dollar[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stats</td>
@@ -567,19 +561,19 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[3]; str_extract[2]; str_remove[3]; str_remove_all[1]; str_starts[1]</td>
+<td style="text-align: left;">str_detect[1]; str_extract[2]; str_remove[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[2]; tibble[2]; tribble[2]; enframe[1]</td>
+<td style="text-align: left;">as_tibble[1]; tribble[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">pivot_wider[1]; unnest[1]</td>
+<td style="text-align: left;">pivot_wider[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">scale_x_yearquarter[2]; yearquarter[1]</td>
+<td style="text-align: left;">scale_x_yearquarter[2]; tsibble[1]; yearquarter[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vctrs</td>

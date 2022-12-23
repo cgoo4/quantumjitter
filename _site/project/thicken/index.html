@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Plots Thicken</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">apps</div>
@@ -240,14 +240,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="The keys of a typewriter with &quot;R&quot; highlighted and the word &quot;plot&quot; being typed"></p>
 <p>One could think of data science as “art grounded in facts”. It tells a story through visualisation. Both story and visualisation rely on a good plot. And an abundance of those has evolved over time. Many have their own dedicated Wikipedia page 😲.</p>
 <p>Which generate the most interest? How is the interest trending over time? Let’s build an interactive app to find out.</p>
 <div class="cell">
@@ -283,7 +283,7 @@ div.csl-indent {
 </div>
 <p>The pageviews <span class="citation" data-cites="pageviews">(<a href="#ref-pageviews" role="doc-biblioref">Keyes and Lewis 2020</a>)</span> package provides an API into Wikipedia. I’ll create a function wrapped around <code>article_pageviews</code> so I can later iterate through a subset of the list established in the prior code chunk.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/pageviews/man/article_pageviews.html">article_pageviews</a></span><span class="op">(</span></span>
 <span>    project <span class="op">=</span> <span class="st">"en.wikipedia"</span>,</span>
 <span>    <span class="va">article</span>,</span>
@@ -360,16 +360,17 @@ div.csl-indent {
 </div>
 <p>The server component outputs a faceted ggplot.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">subsetr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span><span class="op">)</span></span>
-<span>    <span class="va">pageviews</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span>, <span class="va">pv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="va">pageviews</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span>, <span class="va">pv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>        date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
 <span>        article <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">article</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span></span>
 <span>      <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">line</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
@@ -428,7 +429,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6]; conflicts[1]; cumsum[1]; function[3]; list[1]; search[1]; sum[1]; switch[1]</td>
+<td style="text-align: left;">c[6]; library[9]; list[1]; switch[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>
@@ -436,7 +437,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[6]; arrange[2]; desc[2]; group_by[1]; if_else[3]; mutate[5]; summarise[1]</td>
+<td style="text-align: left;">filter[1]; mutate[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
@@ -456,35 +457,27 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map_dfr[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">list_rbind[1]; map[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_elements[1]; html_text[1]; read_html[1]; session[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">cut_short_scale[1]; label_number[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">shiny</td>
 <td style="text-align: left;">dateRangeInput[1]; reactive[1]; renderPlot[1]; req[1]; selectInput[2]; selectizeInput[1]; shinyApp[1]</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[6]; str_count[1]; str_detect[2]; str_remove[2]; str_remove_all[1]; str_replace_all[1]; str_starts[1]</td>
-</tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[3]; tribble[1]; enframe[1]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[1]; str_replace_all[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">wesanderson</td>

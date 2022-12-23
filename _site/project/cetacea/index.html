@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Sea Monsters that Lost their Way</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">geospatial</div>
@@ -241,14 +241,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 7, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A buoy sways in the sea water in front of the coastal cliff. On it, a sign points left for dolphins and right for orca. And a dolphin and orca are seen in the foreground reading the sign."></p>
 <p>The Natural History Museum began recording cetacean (whales, dolphins and porpoises) strandings in 1913 <span class="citation" data-cites="naturalhistorymuseum2019">(<a href="#ref-naturalhistorymuseum2019" role="doc-biblioref">Natural History Museum 2019</a>)</span>. Let’s explore this 1913-1989 dataset.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -280,10 +280,11 @@ div.csl-indent {
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">strandings_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"strandings.csv"</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span>,</span>
+<span>    date_rep <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span>,</span>
 <span>    length <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">length_et</span><span class="op">)</span>,</span>
 <span>    species_lumped <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_n</a></span><span class="op">(</span><span class="va">species</span>, <span class="fl">20</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_val"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_val"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span>,</span>
+<span>    rep_comment <span class="op">=</span> <span class="va">comment</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># glimpse(strandings_df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -340,10 +341,10 @@ div.csl-indent {
 <p>The <code>date</code> variable has many NA’s. Fortunately, the components to construct many of these are in the <code>year_val</code>, <code>month_val</code> and <code>day_val</code> variables. With a little wrangling and imputation, we can coalesce these variables into a new date. This will be useful since plots of sample <code>species</code> by <code>year</code>, <code>month</code> and <code>week</code> of stranding suggest a de-constructed <code>date</code> could be a useful predictor.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">strandings_df2</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">year_val</span>, <span class="va">month_val</span>, <span class="va">day_val</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date_rep</span>, <span class="va">year_val</span>, <span class="va">month_val</span>, <span class="va">day_val</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      date               year_val      month_val         day_val     
+<pre><code>    date_rep             year_val      month_val         day_val     
  Min.   :1913-02-13   Min.   :   0   Min.   : 0.000   Min.   : 0.00  
  1st Qu.:1933-09-09   1st Qu.:1933   1st Qu.: 4.000   1st Qu.: 9.00  
  Median :1954-04-13   Median :1955   Median : 7.000   Median :16.00  
@@ -353,18 +354,17 @@ div.csl-indent {
  NA's   :121                                                         </code></pre>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">strandings_df3</span> <span class="op">&lt;-</span> <span class="va">strandings_df2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    month_val <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">month_val</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">month_val</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>                          <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">month_val</span><span class="op">)</span>,</span>
 <span>    day_val <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">day_val</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">day_val</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">day_val</span><span class="op">)</span>,</span>
 <span>    day_val <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">day_val</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">1L</span>, <span class="va">day_val</span><span class="op">)</span>,</span>
 <span>    date2 <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="va">year_val</span>, <span class="va">month_val</span>, <span class="va">day_val</span>, invalid <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">species</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date3 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">date2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">date3</span><span class="op">)</span>, <span class="va">date3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date3 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">date_rep</span>, <span class="va">date2</span><span class="op">)</span>,</span>
+<span>         date_rep <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date_rep</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">date3</span><span class="op">)</span>, <span class="va">date3</span><span class="op">)</span></span>
+<span>         <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">date2</span>, <span class="op">-</span><span class="va">date3</span>, <span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_val"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">example_species</span> <span class="op">&lt;-</span></span>
@@ -373,12 +373,12 @@ div.csl-indent {
 <span><span class="va">known_species</span> <span class="op">&lt;-</span> <span class="va">strandings_df3</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_uncertainty</span> <span class="op">==</span> <span class="st">"Known"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">plot_date_feature</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">plot_date_feature</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">known_species</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>      year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
-<span>      month <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
-<span>      week <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_iso_year_week_day.html">as_iso_year_week_day</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_week</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>      year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">date_rep</span><span class="op">)</span>,</span>
+<span>      month <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_month</a></span><span class="op">(</span><span class="va">date_rep</span><span class="op">)</span>,</span>
+<span>      week <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_iso_year_week_day.html">as_iso_year_week_day</a></span><span class="op">(</span><span class="va">date_rep</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_week</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">example_species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -433,9 +433,8 @@ div.csl-indent {
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add history of mass stranding</span></span>
 <span><span class="va">strandings_df4</span> <span class="op">&lt;-</span> <span class="va">strandings_df3</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mass_possible <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">mass_single</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mass_possible <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">mass_single</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>         .by <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Some records are missing the <code>length</code> measurement of the mammal. Nonetheless, where present, this is likely to be predictive, and may help, for example, separate species labelled as “delphis/coeruleoalba” where the <code>length</code> is at the extreme ends of the “delphis” range as we see below. And the range of <code>length</code> may differ by mammal <code>sex</code>.</p>
 <div class="cell">
@@ -588,9 +587,9 @@ div.csl-indent {
 <li>
 <code>fam_genus</code> which narrows the range of likely species</li>
 </ul>
-<p>I’d like to also make use of the textrecipes<span class="citation" data-cites="textrecipes">(<a href="#ref-textrecipes" role="doc-biblioref">Hvitfeldt 2022</a>)</span> package. I can tokenise the textual information in <code>comment</code> and <code>location</code> to see if these add to the predictive power of the model.</p>
+<p>I’d like to also make use of the textrecipes<span class="citation" data-cites="textrecipes">(<a href="#ref-textrecipes" role="doc-biblioref">Hvitfeldt 2022</a>)</span> package. I can tokenise the textual information in <code>rep_comment</code> and <code>location</code> to see if these add to the predictive power of the model.</p>
 <p>I’ll tune the model using <code>tune_race_anova</code><span class="citation" data-cites="finetune">(<a href="#ref-finetune" role="doc-biblioref">Kuhn 2022</a>)</span> which quickly discards hyperparameter combinations showing little early promise.</p>
-<div class="cell" data-hash="index_cache/html/model_81de3ab1425b2206ec882163750997cb">
+<div class="cell" data-hash="index_cache/html/model_14d201fd648095cd6b5f9716448d613b">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">known_species</span> <span class="op">&lt;-</span> <span class="va">strandings_df5</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_uncertainty</span> <span class="op">==</span> <span class="st">"Known"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -626,7 +625,7 @@ div.csl-indent {
 <span>    <span class="st">"mass_possible"</span>,</span>
 <span>    <span class="st">"county"</span>,</span>
 <span>    <span class="st">"location"</span>,</span>
-<span>    <span class="st">"comment"</span>,</span>
+<span>    <span class="st">"rep_comment"</span>,</span>
 <span>    <span class="st">"sex"</span>,</span>
 <span>    <span class="st">"fam_genus"</span></span>
 <span>  <span class="op">)</span></span>
@@ -638,12 +637,12 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">)</span>, new_role <span class="op">=</span> <span class="st">"predictor"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html">has_role</a></span><span class="op">(</span><span class="st">"outcome"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html">has_role</a></span><span class="op">(</span><span class="st">"predictor"</span><span class="op">)</span>, </span>
 <span>              new_role <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_date.html">step_date</a></span><span class="op">(</span><span class="va">date</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"decimal"</span>, <span class="st">"week"</span>, <span class="st">"month"</span>, <span class="st">"year"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_date.html">step_date</a></span><span class="op">(</span><span class="va">date_rep</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"decimal"</span>, <span class="st">"week"</span>, <span class="st">"month"</span>, <span class="st">"year"</span><span class="op">)</span>, </span>
 <span>            label <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">comment</span>, max_tokens <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co">#100</span></span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">rep_comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">rep_comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">rep_comment</span>, max_tokens <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co">#100</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">location</span>, <span class="va">rep_comment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_zv.html">step_zv</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html">all_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_dummy.html">step_dummy</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html">all_nominal_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -683,7 +682,7 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>400.4 sec elapsed</code></pre>
+<pre><code>396.407 sec elapsed</code></pre>
 </div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tune_result</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://finetune.tidymodels.org/reference/plot_race.html">plot_race</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -736,7 +735,7 @@ div.csl-indent {
 <p><img src="index_files/figure-html/results-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>The top variable importance scores include <code>fam_genus</code>, many of the <code>comment</code> tokens, plus <code>length</code>, <code>mass-possible</code>, <code>date_decimal</code>, <code>date_year</code>, and <code>latitude</code>.</p>
+<p>The top variable importance scores include <code>fam_genus</code>, many of the <code>rep_comment</code> tokens, plus <code>length</code>, <code>mass-possible</code>, <code>date_decimal</code>, <code>date_year</code>, and <code>latitude</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/vip/man/vi.html">vi</a></span><span class="op">(</span><span class="va">xgb_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Importance</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -762,7 +761,7 @@ div.csl-indent {
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_unidentified</td>
+<td style="text-align: left;">tf_rep_comment_unidentified</td>
 <td style="text-align: right;">0.0736307</td>
 <td style="text-align: right;">3</td>
 </tr>
@@ -777,7 +776,7 @@ div.csl-indent {
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_false</td>
+<td style="text-align: left;">tf_rep_comment_false</td>
 <td style="text-align: right;">0.0498405</td>
 <td style="text-align: right;">6</td>
 </tr>
@@ -787,17 +786,17 @@ div.csl-indent {
 <td style="text-align: right;">7</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_finned</td>
+<td style="text-align: left;">tf_rep_comment_finned</td>
 <td style="text-align: right;">0.0341306</td>
 <td style="text-align: right;">8</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_sided</td>
+<td style="text-align: left;">tf_rep_comment_sided</td>
 <td style="text-align: right;">0.0302409</td>
 <td style="text-align: right;">9</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_long</td>
+<td style="text-align: left;">tf_rep_comment_long</td>
 <td style="text-align: right;">0.0244866</td>
 <td style="text-align: right;">10</td>
 </tr>
@@ -817,22 +816,22 @@ div.csl-indent {
 <td style="text-align: right;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_beaked</td>
+<td style="text-align: left;">tf_rep_comment_beaked</td>
 <td style="text-align: right;">0.0219021</td>
 <td style="text-align: right;">14</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_lesser</td>
+<td style="text-align: left;">tf_rep_comment_lesser</td>
 <td style="text-align: right;">0.0215853</td>
 <td style="text-align: right;">15</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_rorqual</td>
+<td style="text-align: left;">tf_rep_comment_rorqual</td>
 <td style="text-align: right;">0.0199182</td>
 <td style="text-align: right;">16</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_dolphin</td>
+<td style="text-align: left;">tf_rep_comment_dolphin</td>
 <td style="text-align: right;">0.0198597</td>
 <td style="text-align: right;">17</td>
 </tr>
@@ -842,12 +841,12 @@ div.csl-indent {
 <td style="text-align: right;">18</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_porpoise</td>
+<td style="text-align: left;">tf_rep_comment_porpoise</td>
 <td style="text-align: right;">0.0192418</td>
 <td style="text-align: right;">19</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_bottle</td>
+<td style="text-align: left;">tf_rep_comment_bottle</td>
 <td style="text-align: right;">0.0165892</td>
 <td style="text-align: right;">20</td>
 </tr>
@@ -862,7 +861,7 @@ div.csl-indent {
 <td style="text-align: right;">22</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_risso’s</td>
+<td style="text-align: left;">tf_rep_comment_risso’s</td>
 <td style="text-align: right;">0.0131135</td>
 <td style="text-align: right;">23</td>
 </tr>
@@ -877,7 +876,7 @@ div.csl-indent {
 <td style="text-align: right;">25</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_fin</td>
+<td style="text-align: left;">tf_rep_comment_fin</td>
 <td style="text-align: right;">0.0122737</td>
 <td style="text-align: right;">26</td>
 </tr>
@@ -897,7 +896,7 @@ div.csl-indent {
 <td style="text-align: right;">29</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_killer</td>
+<td style="text-align: left;">tf_rep_comment_killer</td>
 <td style="text-align: right;">0.0099741</td>
 <td style="text-align: right;">30</td>
 </tr>
@@ -907,27 +906,27 @@ div.csl-indent {
 <td style="text-align: right;">31</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">date_decimal</td>
+<td style="text-align: left;">date_rep_decimal</td>
 <td style="text-align: right;">0.0081614</td>
 <td style="text-align: right;">32</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_nosed</td>
+<td style="text-align: left;">tf_rep_comment_nosed</td>
 <td style="text-align: right;">0.0075943</td>
 <td style="text-align: right;">33</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">date_year</td>
+<td style="text-align: left;">date_rep_year</td>
 <td style="text-align: right;">0.0072361</td>
 <td style="text-align: right;">34</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_whale</td>
+<td style="text-align: left;">tf_rep_comment_whale</td>
 <td style="text-align: right;">0.0071684</td>
 <td style="text-align: right;">35</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_white</td>
+<td style="text-align: left;">tf_rep_comment_white</td>
 <td style="text-align: right;">0.0067214</td>
 <td style="text-align: right;">36</td>
 </tr>
@@ -937,17 +936,17 @@ div.csl-indent {
 <td style="text-align: right;">37</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_common</td>
+<td style="text-align: left;">tf_rep_comment_common</td>
 <td style="text-align: right;">0.0041767</td>
 <td style="text-align: right;">38</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tf_comment_cuvier’s</td>
+<td style="text-align: left;">tf_rep_comment_cuvier’s</td>
 <td style="text-align: right;">0.0036603</td>
 <td style="text-align: right;">39</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tf_comment_sowerby’s</td>
+<td style="text-align: left;">tf_rep_comment_sowerby’s</td>
 <td style="text-align: right;">0.0036372</td>
 <td style="text-align: right;">40</td>
 </tr>
@@ -1004,9 +1003,7 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">subset_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">.class_pred</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">.class_pred</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">species</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"Actual"</span> <span class="op">=</span> <span class="va">species</span>, <span class="st">"Predicted"</span> <span class="op">=</span> <span class="va">.class_pred</span>, <span class="st">"Count"</span> <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1019,14 +1016,14 @@ div.csl-indent {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">acutorostrata?</td>
-<td style="text-align: right;">.pred_acutorostrata</td>
-<td style="text-align: right;">12</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">acutorostrata/borealis</td>
 <td style="text-align: right;">.pred_acutorostrata</td>
 <td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acutorostrata?</td>
+<td style="text-align: right;">.pred_acutorostrata</td>
+<td style="text-align: right;">12</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">acutus?</td>
@@ -1064,14 +1061,14 @@ div.csl-indent {
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">delphis?</td>
-<td style="text-align: right;">.pred_delphis</td>
-<td style="text-align: right;">18</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">delphis/coeruleoalba</td>
 <td style="text-align: right;">[EQ]</td>
 <td style="text-align: right;">48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">delphis?</td>
+<td style="text-align: right;">.pred_delphis</td>
+<td style="text-align: right;">18</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">griseus?</td>
@@ -1099,24 +1096,24 @@ div.csl-indent {
 <td style="text-align: right;">42</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">physalus?</td>
-<td style="text-align: right;">.pred_physalus</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">physalus/acutorostrata</td>
 <td style="text-align: right;">[EQ]</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">truncatus?</td>
-<td style="text-align: right;">.pred_truncatus</td>
-<td style="text-align: right;">18</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">physalus?</td>
+<td style="text-align: right;">.pred_physalus</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">truncatus/albirostris</td>
 <td style="text-align: right;">[EQ]</td>
 <td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">truncatus?</td>
+<td style="text-align: right;">.pred_truncatus</td>
+<td style="text-align: right;">18</td>
 </tr>
 </tbody>
 </table>
@@ -1141,7 +1138,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[2]; as.integer[3]; c[9]; comment[3]; conflicts[1]; cumsum[1]; function[2]; is.na[1]; length[2]; levels[1]; log10[1]; mean[2]; min[1]; names[1]; search[1]; seq[3]; set.seed[4]; sum[1]; summary[1]</td>
+<td style="text-align: left;">as.character[2]; as.integer[3]; c[13]; character[2]; factor[1]; integer[3]; is.na[1]; length[2]; levels[1]; library[14]; log10[1]; mean[2]; min[1]; names[1]; seq[3]; set.seed[4]; summary[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -1153,7 +1150,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[12]; across[2]; arrange[5]; case_when[1]; coalesce[1]; count[4]; desc[5]; group_by[4]; id[1]; if_else[9]; mutate[18]; n[4]; n_distinct[2]; recode[1]; rename[2]; row_number[1]; select[3]; slice_head[2]; summarise[4]; ungroup[3]</td>
+<td style="text-align: left;">filter[7]; across[2]; arrange[2]; case_when[1]; coalesce[1]; count[4]; desc[3]; if_else[6]; mutate[13]; n[4]; n_distinct[2]; recode[1]; rename[2]; row_number[1]; select[3]; slice_head[2]; summarise[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">finetune</td>
@@ -1169,7 +1166,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[2]</td>
+<td style="text-align: left;">glue[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">janitor</td>
@@ -1185,15 +1182,15 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">probably</td>
-<td style="text-align: left;">make_class_pred[1]</td>
+<td style="text-align: left;">class_pred[1]; make_class_pred[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[3]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">map[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readr</td>
-<td style="text-align: left;">parse_number[1]; read_csv[1]; read_lines[1]</td>
+<td style="text-align: left;">parse_number[1]; read_csv[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">recipes</td>
@@ -1208,16 +1205,16 @@ div.csl-indent {
 <td style="text-align: left;">var[3]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[6]; str_count[1]; str_detect[5]; str_remove[2]; str_remove_all[2]; str_starts[1]; str_to_title[2]</td>
+<td style="text-align: left;">stopwords</td>
+<td style="text-align: left;">stopwords[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">textrecipes</td>
-<td style="text-align: left;">step_stopwords[1]; step_tf[1]; step_tokenfilter[1]; step_tokenize[1]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[1]; str_detect[3]; str_remove_all[1]; str_to_title[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[2]; enframe[1]</td>
+<td style="text-align: left;">textrecipes</td>
+<td style="text-align: left;">step_stopwords[1]; step_tf[1]; step_tokenfilter[1]; step_tokenize[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tictoc</td>
@@ -1225,21 +1222,25 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; unnest[1]</td>
+<td style="text-align: left;">crossing[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tune</td>
 <td style="text-align: left;">finalize_workflow[1]; select_best[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">vip</td>
+<td style="text-align: left;">vip[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">workflows</td>
 <td style="text-align: left;">add_model[1]; add_recipe[1]; workflow[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">yardstick</td>
 <td style="text-align: left;">accuracy[2]; conf_mat[1]; metric_set[1]</td>
 </tr>

@@ -72,7 +72,7 @@ stats <- read_csv("stats.csv")
 ```{r}
 #| label: maxmind
 
-ip_df <- map2_df(stats$IP, stats$Pages, function(x, y) {
+ip_df <- map2(stats$IP, stats$Pages, \(x, y) {
   maxmind(
     x,
     "GeoLite2-City.mmdb",
@@ -99,7 +99,8 @@ ip_df <- map2_df(stats$IP, stats$Pages, function(x, y) {
         TRUE ~ 4
       )
     )
-})
+}) |>
+  list_rbind()
 
 ip_df <- ip_df |>
   filter(!is.na(longitude) | !is.na(latitude)) |>
@@ -202,60 +203,4 @@ MaxMind subsequently changed its default centre points to be the middle of bodie
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]\\b\\Q", i, "\\E\\b(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  arrange(desc(conflict), func) |> 
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}

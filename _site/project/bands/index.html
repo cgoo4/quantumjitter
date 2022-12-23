@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Bootstraps &amp; Bandings</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">statistical inference</div>
@@ -223,14 +223,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 27, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.jpg" class="img-fluid"></p>
+</header><p><img src="feature.jpg" class="img-fluid" alt="A boot with a strap leans against a pile of ribbon-rolls"></p>
 <p>Are the residential property bands of <a href="https://www.gov.uk/guidance/understand-how-council-tax-bands-are-assessed#council-tax-bands-in-england-based-on-1-april-1991-values">3 decades ago</a> becoming less so? Would a sample of those recently-sold reveal band convergence? And what may be inferred about those not sampled?</p>
 <p>Over the years, urban properties have been added to and divided up. And two streets of equal attractiveness, and with equivalently-banded properties, may have diverged as neighbourhoods evolved.</p>
 <p>Whilst properties can and do move to higher or lower bands following alteration, would a sample of those recently-sold reveal band convergence after so long? And what may be inferred about the wider housing stock?</p>
@@ -254,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span></span>
 <span><span class="va">col</span> <span class="op">&lt;-</span> <span class="st">"RdYlBu"</span></span>
 <span></span>
-<span><span class="va">scale_fill_continuous</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="va">col</span><span class="op">)</span></span>
+<span><span class="va">scale_fill_continuous</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="va">col</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">7</span>, <span class="va">col</span><span class="op">)</span></span>
 <span></span>
@@ -333,12 +333,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span></span>
 <span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span>band <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, page <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">band_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2_dfr</a></span><span class="op">(</span><span class="va">index</span><span class="op">$</span><span class="va">band</span>, <span class="va">index</span><span class="op">$</span><span class="va">page</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">possibly</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">band_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">index</span><span class="op">$</span><span class="va">band</span>, <span class="va">index</span><span class="op">$</span><span class="va">page</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/possibly.html">possibly</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">i</span>, <span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">url1</span>, <span class="va">i</span>, <span class="va">url2</span>, <span class="va">j</span>, <span class="va">url3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"#search-results-table"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>convert <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="op">}</span>, otherwise <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span>, otherwise <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">band_df2</span> <span class="op">&lt;-</span> </span>
@@ -451,8 +452,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A violin plot of the property values by band shows some bimodal distribution and oddly shows bands E &amp; F with lower mean prices than band D. This is worth closer inspection to ensure the sample is representative.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="va">joined_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">council_tax_band</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price_paid</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price_paid</span><span class="op">)</span>,</span>
+<span>            .by <span class="op">=</span> <span class="va">council_tax_band</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">transactions</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">joined_df</span> <span class="op">|&gt;</span></span>
@@ -591,8 +592,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This now feels like a representative sample of 312 property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the “drippy” band E still looking almost indistinguishable from band D.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="va">joined_df3</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">council_tax_band</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price_paid</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price_paid</span><span class="op">)</span>,</span>
+<span>            .by <span class="op">=</span> <span class="va">council_tax_band</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">transactions</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">joined_df3</span> <span class="op">|&gt;</span></span>
@@ -699,8 +700,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">RColorBrewer</td>
+<td style="text-align: left;">brewer.pal[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPARQL</td>
+<td style="text-align: left;">SPARQL[2]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[4]; conflicts[1]; cumsum[1]; factor[1]; function[3]; max[1]; mean[2]; min[1]; readRDS[1]; saveRDS[1]; scale[3]; search[1]; seq[1]; set.seed[2]; sum[1]</td>
+<td style="text-align: left;">c[6]; factor[1]; library[12]; max[1]; mean[2]; min[1]; readRDS[1]; saveRDS[1]; scale[3]; seq[1]; set.seed[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -708,7 +717,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[9]; across[1]; arrange[3]; count[4]; desc[2]; group_by[3]; if_else[4]; inner_join[1]; mutate[11]; n[2]; pull[7]; relocate[1]; rename_with[1]; select[4]; slice_head[1]; slice_sample[1]; summarise[5]</td>
+<td style="text-align: left;">filter[4]; across[1]; arrange[1]; count[4]; if_else[1]; inner_join[1]; mutate[7]; n[2]; pull[7]; relocate[1]; rename_with[1]; select[4]; slice_head[1]; slice_sample[1]; summarise[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggfx</td>
@@ -720,7 +729,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[8]</td>
+<td style="text-align: left;">glue[9]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">infer</td>
@@ -732,15 +741,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[2]; possibly[2]; set_names[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RColorBrewer</td>
-<td style="text-align: left;">brewer.pal[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
+<td style="text-align: left;">list_rbind[1]; map2[1]; possibly[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">rvest</td>
@@ -751,26 +752,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td style="text-align: left;">dollar[6]; label_dollar[4]; label_percent[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[9]; str_count[1]; str_detect[2]; str_extract[1]; str_remove[3]; str_remove_all[5]; str_replace[2]; str_replace_na[1]; str_squish[2]; str_starts[1]</td>
+<td style="text-align: left;">str_c[4]; str_extract[1]; str_remove[1]; str_remove_all[4]; str_replace[2]; str_replace_na[1]; str_squish[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[2]; tibble[3]; enframe[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; fill[1]; unnest[1]</td>
+<td style="text-align: left;">as_tibble[1]; tibble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">scale_x_yearquarter[1]; yearquarter[3]</td>
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">crossing[1]; fill[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">tsibble</td>
+<td style="text-align: left;">scale_x_yearquarter[1]; tsibble[1]; yearquarter[3]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">vctrs</td>
 <td style="text-align: left;">new_datetime[1]</td>
 </tr>

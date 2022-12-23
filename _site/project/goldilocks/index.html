@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">The Goldilocks Principle</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">sample distribution</div>
@@ -221,14 +221,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="Three bowls of porridge rest on a long table. The small bowl has no heat rising from it, whilst the largest bowl is steaming hot. The middle bowl, with a spoon wedged in it, looks just right."></p>
 <p><a href="https://en.wikipedia.org/wiki/Goldilocks_principle">The Goldilocks principle</a> has its origins in a children’s story about a girl who tastes the bowls of porridge left by three bears. She prefers the one that is neither too hot nor too cold, but is just right.</p>
 <p>When it comes to investing in stocks, how many is “just right”?</p>
 <div class="cell">
@@ -275,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Now suppose you share 2 stocks, selected at random, with 1,000 of your social network friends (selecting a different pair of stocks for each friend). Will they all still be friends a year later? And if you repeated the same scenario with portfolio sizes of 5, 10, 20 and 50 stocks per person, would that change the outcome? Let’s see.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">portfolio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">portfolio</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">stock_data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">x</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -288,22 +288,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">456</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">portfolios</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1000</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>, <span class="va">portfolio</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>portfolio_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">portfolio_size</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mean_returns</span> <span class="op">&lt;-</span> <span class="va">portfolios</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">portfolio_size</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    mean_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>,</span>
-<span>    min_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    min_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">portfolio_size</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">portfolios</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">portfolio_size</span>, <span class="va">portfolio_return</span>, group <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -351,11 +351,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[1]; chartr[1]; conflicts[1]; cumsum[1]; factor[1]; function[2]; mean[3]; min[1]; rep[5]; return[2]; sample[1]; search[1]; set.seed[2]; sum[1]</td>
+<td style="text-align: left;">c[2]; chartr[1]; factor[1]; library[4]; mean[3]; min[1]; rep[5]; return[2]; sample[1]; set.seed[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[5]; arrange[2]; bind_rows[1]; desc[2]; group_by[2]; if_else[3]; mutate[5]; slice_sample[1]; summarise[3]; ungroup[1]</td>
+<td style="text-align: left;">bind_rows[1]; mutate[1]; slice_sample[1]; summarise[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
@@ -363,33 +363,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map_dfr[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
+<td style="text-align: left;">list_rbind[1]; map[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">breaks_extended[1]; label_percent[2]; percent[2]</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[2]; str_remove[2]; str_remove_all[1]; str_starts[1]</td>
-</tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[3]; tribble[1]; enframe[1]</td>
+<td style="text-align: left;">tibble[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">truncnorm</td>
 <td style="text-align: left;">rtruncnorm[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

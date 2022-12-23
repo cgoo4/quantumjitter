@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Weathering the Storm</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">quant</div>
@@ -220,14 +220,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="Two meerkats cuddle under an umbrella shielded from the pouring rain"></p>
 <p>In 2020, Covid-19 began battering financial markets now further impacted by the war in Ukraine. Which sectors are faring best?</p>
 <p>I’ll compare each sector in the S&amp;P 500 with the overall market. Baselining each at zero as of February 19th, we’ll see which were the first to recover lost ground.</p>
 <div class="cell">
@@ -271,7 +271,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="va">symbols</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    norm_close <span class="op">=</span> <span class="va">adjusted</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    type <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"SPY"</span>, <span class="st">"Market"</span>, <span class="st">"Sector"</span><span class="op">)</span>,</span>
@@ -289,9 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLY"</span>  <span class="op">~</span> <span class="st">"Consumer Discretionary"</span>,</span>
 <span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLP"</span>  <span class="op">~</span> <span class="st">"Consumer Staples"</span>,</span>
 <span>      <span class="cn">TRUE</span>             <span class="op">~</span> <span class="st">"Other"</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="op">)</span>, .by <span class="op">=</span> <span class="va">symbol</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Perhaps not too surprising to see that Tech led the way back from Covid. But with the further impact of the situation in Ukraine, the Energy sector is now the strongest performer relative to February 2020. Comms, with all that home-working, benefited initially during the lockdown, but has faded since.</p>
@@ -335,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[1]; conflicts[1]; cumsum[1]; function[1]; search[1]; sign[1]; sum[1]</td>
+<td style="text-align: left;">c[1]; library[6]; sign[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -343,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[5]; arrange[2]; case_when[1]; desc[2]; group_by[2]; if_else[4]; mutate[6]; summarise[1]; ungroup[1]</td>
+<td style="text-align: left;">case_when[1]; if_else[1]; mutate[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
@@ -355,15 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; possibly[1]; set_names[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
+<td style="text-align: left;">glue[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
@@ -371,21 +361,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_count[1]; str_detect[2]; str_remove[2]; str_remove_all[1]; str_starts[1]; str_wrap[1]</td>
+<td style="text-align: left;">str_wrap[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[2]; enframe[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">tidyquant</td>
 <td style="text-align: left;">tq_get[1]</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">drop_na[1]; unnest[1]</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">drop_na[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">A Frosty Deal?</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">textual analysis</div>
@@ -241,14 +241,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="Two frosty fists bump"></p>
 <p>Before the post-Brexit trade negotiations concluded, what did quantitative textual analysis and word embeddings tell us about the shifting trade-talk sentiment?</p>
 <p>Reading news articles on the will-they-won’t-they post-Brexit trade negotiations with the EU sees days of optimism jarred by days of gloom. Do negative news articles, when one wants a positive outcome, leave a deeper impression?</p>
 <p>Is it possible to get a more objective view from <a href="https://quanteda.io">quantitative analysis of textual data</a>? To do this, I’m going to look at hundreds of articles published in the Guardian newspaper over the course of the year to see how trade-talk sentiment changed week-to-week.</p>
@@ -364,19 +364,20 @@ Important
 <p>Access to the Guardian’s API via <a href="https://github.com/cran/guardianapi">guardianapi</a><span class="citation" data-cites="guardianapi">(<a href="#ref-guardianapi" role="doc-biblioref">Odell 2019</a>)</span> requires a key which may be requested <a href="https://open-platform.theguardian.com/access/">here</a> and stored in the .Renviron file.</p>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/html/read_a4bd81af16fadb30b8c133929340e6a2">
+<div class="cell" data-hash="index_cache/html/read_b9a221b348136d61f0c7450830da90ee">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">read_slowly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/insistently.html">slowly</a></span><span class="op">(</span><span class="va">gu_content</span><span class="op">)</span></span>
+<span><span class="va">read_slowly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/slowly.html">slowly</a></span><span class="op">(</span><span class="va">gu_content</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">article_df</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_dfr</a></span><span class="op">(</span><span class="va">dates_df</span>, <span class="kw">function</span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap</a></span><span class="op">(</span><span class="va">dates_df</span>, \<span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu">read_slowly</span><span class="op">(</span></span>
 <span>      <span class="st">"brexit"</span>,</span>
 <span>      from_date <span class="op">=</span> <span class="va">start_date</span>,</span>
 <span>      to_date <span class="op">=</span> <span class="va">end_date</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -414,16 +415,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [08:42:44.383] epoch 1, loss 0.3820
-INFO  [08:42:46.699] epoch 2, loss 0.2577
-INFO  [08:42:49.027] epoch 3, loss 0.2292
-INFO  [08:42:51.414] epoch 4, loss 0.2092
-INFO  [08:42:53.866] epoch 5, loss 0.1923
-INFO  [08:42:56.296] epoch 6, loss 0.1793
-INFO  [08:42:58.640] epoch 7, loss 0.1695
-INFO  [08:43:01.009] epoch 8, loss 0.1620
-INFO  [08:43:03.414] epoch 9, loss 0.1558
-INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
+<pre><code>INFO  [18:34:49.549] epoch 1, loss 0.3788
+INFO  [18:34:52.104] epoch 2, loss 0.2570
+INFO  [18:34:54.707] epoch 3, loss 0.2292
+INFO  [18:34:57.111] epoch 4, loss 0.2090
+INFO  [18:34:59.608] epoch 5, loss 0.1921
+INFO  [18:35:02.073] epoch 6, loss 0.1791
+INFO  [18:35:04.703] epoch 7, loss 0.1694
+INFO  [18:35:07.077] epoch 8, loss 0.1619
+INFO  [18:35:09.569] epoch 9, loss 0.1557
+INFO  [18:35:12.014] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -450,40 +451,40 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <td style="text-align: right;">1.0000000</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">michel</td>
-<td style="text-align: right;">0.8263884</td>
+<td style="text-align: left;">negotiator</td>
+<td style="text-align: right;">0.8060194</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">negotiator</td>
-<td style="text-align: right;">0.8200934</td>
+<td style="text-align: left;">michel</td>
+<td style="text-align: right;">0.8060093</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">frost</td>
-<td style="text-align: right;">0.8180818</td>
+<td style="text-align: right;">0.8040999</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">negotiators</td>
-<td style="text-align: right;">0.7154735</td>
+<td style="text-align: left;">brussels</td>
+<td style="text-align: right;">0.7012591</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">brussels</td>
-<td style="text-align: right;">0.7154449</td>
+<td style="text-align: left;">negotiators</td>
+<td style="text-align: right;">0.6404119</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">chief</td>
-<td style="text-align: right;">0.6610545</td>
+<td style="text-align: right;">0.6399011</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">team</td>
-<td style="text-align: right;">0.6500327</td>
+<td style="text-align: left;">friday</td>
+<td style="text-align: right;">0.6363004</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">friday</td>
-<td style="text-align: right;">0.6436125</td>
+<td style="text-align: left;">team</td>
+<td style="text-align: right;">0.6253523</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">eus</td>
-<td style="text-align: right;">0.6404557</td>
+<td style="text-align: left;">negotiations</td>
+<td style="text-align: right;">0.6246642</td>
 </tr>
 </tbody>
 </table>
@@ -544,9 +545,9 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/dag4n</td>
-<td style="text-align: left;">the uk could not have the same</td>
-<td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">with the eu as canada he said</td>
+<td style="text-align: left;">expected from parties about to embark on</td>
+<td style="text-align: left;">trade talks</td>
+<td style="text-align: left;">eu member states are due to confirm</td>
 <td style="text-align: left;">Brexit deal ‘a different ball game’ to Canada agreement, warns EU</td>
 </tr>
 <tr class="odd">
@@ -558,9 +559,9 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/fptbj</td>
-<td style="text-align: left;">for their companies this is the first</td>
-<td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">in history that has been about erecting</td>
+<td style="text-align: left;">the eu followed the usual pattern of</td>
+<td style="text-align: left;">trade talks</td>
+<td style="text-align: left;">down the ages the negotiations seemed to</td>
 <td style="text-align: left;">Brexit talks followed common pattern but barrier-raising outcome is unique</td>
 </tr>
 <tr class="odd">
@@ -623,7 +624,7 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    pos <span class="op">=</span> <span class="va">positive</span> <span class="op">+</span> <span class="va">neg_negative</span>,</span>
 <span>    neg <span class="op">=</span> <span class="va">negative</span> <span class="op">+</span> <span class="va">neg_positive</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
+<span>    web_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
 <span>    pct_pos <span class="op">=</span> <span class="va">pos</span> <span class="op">/</span> <span class="op">(</span><span class="va">pos</span> <span class="op">+</span> <span class="va">neg</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -655,9 +656,9 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <td style="text-align: right;">27</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">https://www.theguardian.com/p/d9vjq</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">23</td>
+<td style="text-align: left;">https://www.theguardian.com/p/d79cn</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">51</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/d6t3c</td>
@@ -665,9 +666,9 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <td style="text-align: right;">26</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">https://www.theguardian.com/p/d79cn</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">51</td>
+<td style="text-align: left;">https://www.theguardian.com/p/d9vjq</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">23</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/d7n8b</td>
@@ -675,14 +676,14 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <td style="text-align: right;">35</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">https://www.theguardian.com/p/d9xtf</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/dag4n</td>
 <td style="text-align: right;">37</td>
 <td style="text-align: right;">38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">https://www.theguardian.com/p/d9xtf</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">14</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/d7d9t</td>
@@ -694,17 +695,18 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 </div>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">sent_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">pct_pos</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">pct_pos</span><span class="op">)</span>, </span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>            .by <span class="op">=</span> <span class="va">web_date</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.915 sec elapsed</code></pre>
+<pre><code>0.997 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
 <p>The upper plot shows a rolling 7-day mean with a narrowing ribbon representing a narrowing variation in sentiment.</p>
-<p>The lower plot shows the volume of articles. As we draw closer to the crunch-point the volume appears to be picking up.</p>
+<p>The lower plot shows the volume of articles. As we drew closer to the crunch-point the volume picked up.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">width</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
 <span></span>
@@ -733,7 +735,7 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">summary_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">web_date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Weeks"</span>, y <span class="op">=</span> <span class="st">"Article Count"</span>,</span>
 <span>       caption <span class="op">=</span> <span class="st">"Source: Guardian Newspaper"</span><span class="op">)</span></span>
@@ -744,35 +746,6 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <p><img src="index_files/figure-html/plot-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>Some writers exhibit more sentiment variation than others.</p>
-<div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">byline_df</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">sent_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>byline <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/word.html">word</a></span><span class="op">(</span><span class="va">byline</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">"[[:punct:]]"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">byline</span>, <span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">pct_pos</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">top_3</span> <span class="op">&lt;-</span> <span class="va">byline_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">byline</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">byline</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">byline_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">byline</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">top_3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">pct_pos</span>, colour <span class="op">=</span> <span class="va">byline</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span>, colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Changing Sentiment Towards a UK-EU Trade Deal"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Three Selected Bylines"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Weeks"</span>, y <span class="op">=</span> <span class="st">"Positive Sentiment"</span>, colour <span class="op">=</span> <span class="st">"Byline"</span>, </span>
-<span>       caption <span class="op">=</span> <span class="st">"Source: The Guardian"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/byline-1.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-</div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
@@ -780,8 +753,8 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 95%">
+<col style="width: 7%">
+<col style="width: 92%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Package</th>
@@ -790,7 +763,7 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6]; sum[3]; as.Date[2]; function[2]; mean[2]; set.seed[2]; conflicts[1]; cumsum[1]; search[1]; t[1]</td>
+<td style="text-align: left;">as.Date[2]; c[5]; library[12]; mean[1]; set.seed[2]; sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -798,15 +771,15 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">mutate[10]; filter[8]; group_by[4]; summarise[4]; if_else[3]; n[3]; left_join[2]; select[2]; arrange[1]; count[1]; desc[1]; pull[1]; rename[1]; slice[1]; slice_head[1]; slice_max[1]; slice_sample[1]; ungroup[1]</td>
+<td style="text-align: left;">filter[2]; group_by[1]; left_join[2]; mutate[5]; n[2]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[5]; geom_line[3]; ggplot[3]; labs[3]; geom_hline[2]; scale_y_continuous[2]; geom_ribbon[1]; scale_colour_manual[1]; theme_bw[1]; theme_set[1]</td>
+<td style="text-align: left;">aes[4]; geom_hline[1]; geom_line[2]; geom_ribbon[1]; ggplot[2]; labs[2]; scale_y_continuous[1]; theme_bw[1]; theme_set[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
+<td style="text-align: left;">glue[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">guardianapi</td>
@@ -818,47 +791,39 @@ INFO  [08:43:05.675] epoch 10, loss 0.1507</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[1]; map2_dfr[1]; pmap_dfr[1]; possibly[1]; set_names[1]; slowly[1]</td>
+<td style="text-align: left;">list_rbind[1]; pmap[1]; slowly[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">quanteda</td>
-<td style="text-align: left;">corpus[2]; tokens[2]; data_dictionary_LSD2015[1]; dfm[1]; fcm[1]; kwic[1]; phrase[1]</td>
+<td style="text-align: left;">t[1]; corpus[2]; data_dictionary_LSD2015[1]; dfm[1]; fcm[1]; kwic[1]; phrase[1]; tokens[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_lines[1]</td>
+<td style="text-align: left;">scales</td>
+<td style="text-align: left;">label_percent[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_percent[2]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">slider</td>
 <td style="text-align: left;">slide_dbl[3]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">quantile[2]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[5]; str_remove_all[5]; str_detect[4]; str_remove[2]; str_count[1]; str_starts[1]; str_to_lower[1]; word[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_detect[2]; str_remove_all[3]; str_to_lower[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">text2vec</td>
 <td style="text-align: left;">sim2[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[4]; tibble[3]; enframe[1]; rownames_to_column[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[3]; tibble[1]; rownames_to_column[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">tictoc</td>
 <td style="text-align: left;">tic[2]; toc[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">wesanderson</td>

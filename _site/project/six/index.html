@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Six Months Later</h1>
+<h1 class="title">Toolbox</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
   </div>
@@ -238,14 +238,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 14, 2022</p>
+      <p class="date-modified">December 23, 2022</p>
     </div>
   </div>
     
   </div>
   
 
-</header><p><img src="feature.gif" class="img-fluid"></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A silhouette of the Houses of Parliament and three clouds in Spring colours, e.g. yellow and green. Flowers shoot up from the word &quot;Spring&quot;."></p>
 <p>In September 2017 I wrote a post entitled <a href="../../project/jitter">Let’s Jitter</a>. It looked at how the SME share of sales evolved over time. I revisited this topic here six months later, along the way adding a splash of colour and some faceted plots.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -303,7 +303,7 @@ div.csl-indent {
 <span>    <span class="st">"customer"</span>,</span>
 <span>    <span class="st">"framework"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">read_dm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">read_dm</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>    <span class="va">x</span>,</span>
 <span>    col_names <span class="op">=</span> <span class="va">colnam</span>,</span>
@@ -322,7 +322,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clean_df</span> <span class="op">&lt;-</span> <span class="va">combined_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    month_end <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">month</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%b-%y-%d"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    month_end <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">month</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span>, </span>
+<span>                           format <span class="op">=</span> <span class="st">"%b-%y-%d"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_days</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>    version <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">framework</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"-Cloud "</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    version <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">version</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"G-Cloud"</span><span class="op">)</span>, <span class="st">"G1"</span><span class="op">)</span>,</span>
@@ -339,8 +340,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">version_df</span> <span class="op">&lt;-</span> <span class="va">clean_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">version</span> <span class="op">!=</span> <span class="st">"DOS"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">version</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">month_end</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">month_end</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">version</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>next_start <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span>,</span>
 <span>         interval <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/interval.html">interval</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">next_start</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -349,8 +349,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vers_summary</span> <span class="op">&lt;-</span> <span class="va">clean_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">version</span> <span class="op">!=</span> <span class="st">"DOS"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">version</span>, <span class="va">month_end</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>sales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>sales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,</span>
+<span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">version</span>, <span class="va">month_end</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">vers_summary</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">month_end</span>, <span class="va">sales</span>, colour <span class="op">=</span> <span class="va">version</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -369,8 +369,8 @@ div.csl-indent {
 <p><a href="../../project/jitter">Let’s Jitter</a> showed signs of a weakening in the SME share of G-Cloud sales by value. This plot shows this trend to have persisted, and also reflects the Digital Outcomes &amp; Specialists (DOS) framework exhibiting a downward trend.</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fw_summary</span> <span class="op">&lt;-</span> <span class="va">clean_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">framework</span>, <span class="va">month_end</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">SME_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">SME_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">framework</span>, <span class="va">month_end</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fw_summary</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">month_end</span>, <span class="va">pct</span>, colour <span class="op">=</span> <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -389,15 +389,17 @@ div.csl-indent {
 </div>
 <p>Overall spending via the combined frameworks however continues to grow across all parts of Public Sector. I’ll use a <a href="https://en.wikipedia.org/wiki/Small_multiple">small multiples</a> visualisation technique to show this using ggplot2’s<span class="citation" data-cites="ggplot2">(<a href="#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> <code>facet_wrap</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sect_summary</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sect_summary</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">clean_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">sector</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Unregistered or Unknown"</span>,</span>
-<span>                        <span class="st">"Utility (Historic)"</span>,</span>
-<span>                        <span class="st">"Wider Public Sector"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">month_end</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">sector</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Unregistered or Unknown"</span>,</span>
+<span>    <span class="st">"Utility (Historic)"</span>,</span>
+<span>    <span class="st">"Wider Public Sector"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>  sales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,</span>
-<span>  pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">SME_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    sales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,</span>
+<span>    pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">SME_spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">month_end</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">sect_summary</span> <span class="op">|&gt;</span> </span>
@@ -453,7 +455,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[5]; conflicts[1]; cumsum[1]; function[2]; is.na[1]; min[1]; months[1]; search[1]; sum[7]; version[2]</td>
+<td style="text-align: left;">c[9]; is.na[1]; library[4]; min[1]; months[1]; sum[6]; version[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -461,7 +463,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[8]; arrange[2]; bind_rows[1]; desc[2]; group_by[5]; if_else[5]; lead[1]; mutate[7]; summarise[5]</td>
+<td style="text-align: left;">filter[3]; bind_rows[1]; if_else[2]; lead[1]; mutate[3]; summarise[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
@@ -469,11 +471,11 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[3]; map2_dfr[1]; possibly[1]; set_names[2]</td>
+<td style="text-align: left;">map[2]; set_names[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readr</td>
-<td style="text-align: left;">guess_encoding[1]; locale[1]; parse_number[1]; read_csv[1]; read_lines[1]</td>
+<td style="text-align: left;">guess_encoding[1]; locale[1]; parse_number[1]; read_csv[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
@@ -485,15 +487,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">fixed[5]; str_c[8]; str_count[1]; str_detect[2]; str_extract[1]; str_remove[4]; str_remove_all[1]; str_replace[4]; str_starts[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tibble[2]; enframe[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">unnest[1]</td>
+<td style="text-align: left;">fixed[5]; str_c[3]; str_extract[1]; str_remove[2]; str_replace[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">wesanderson</td>

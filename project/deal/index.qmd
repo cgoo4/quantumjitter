@@ -3,11 +3,10 @@ title: "A Frosty Deal?"
 date: "2020-09-18"
 categories: [R, textual analysis, word embeddings, natural language processing]
 description: "Quantitative textual analysis, word embeddings and analysing shifting trade-talk sentiment?"
-image: "feature.gif"
 bibliography: references.bib
 ---
 
-![](feature.gif)
+![](feature.gif){fig-alt="Two frosty fists bump"}
 
 Before the post-Brexit trade negotiations concluded, what did quantitative textual analysis and word embeddings tell us about the shifting trade-talk sentiment?
 
@@ -74,13 +73,14 @@ tic()
 read_slowly <- slowly(gu_content)
 
 article_df <-
-  pmap_dfr(dates_df, function(start_date, end_date) {
+  pmap(dates_df, \(start_date, end_date) {
     read_slowly(
       "brexit",
       from_date = start_date,
       to_date = end_date
     )
-  })
+  }) |> 
+  list_rbind()
 
 toc()
 ```
@@ -197,7 +197,7 @@ sent_df <-
   mutate(
     pos = positive + neg_negative,
     neg = negative + neg_positive,
-    date = date_ceiling(as.Date(web_publication_date), "week"),
+    web_date = date_ceiling(as.Date(web_publication_date), "week"),
     pct_pos = pos / (pos + neg)
   )
 
@@ -206,8 +206,9 @@ sent_df |>
   slice(1:10)
 
 summary_df <- sent_df |> 
-  group_by(date) |> 
-  summarise(pct_pos = mean(pct_pos), n = n())
+  summarise(pct_pos = mean(pct_pos), 
+            n = n(),
+            .by = web_date)
 
 toc()
 ```
@@ -216,7 +217,7 @@ Plotting the changing proportion of positive sentiment over time did surprise me
 
 The upper plot shows a rolling 7-day mean with a narrowing ribbon representing a narrowing variation in sentiment.
 
-The lower plot shows the volume of articles. As we draw closer to the crunch-point the volume appears to be picking up.
+The lower plot shows the volume of articles. As we drew closer to the crunch-point the volume picked up.
 
 ```{r}
 #| label: plot
@@ -248,7 +249,7 @@ p1 <- sent_df2 |>
   )
 
 p2 <- summary_df |> 
-  ggplot(aes(date, n)) +
+  ggplot(aes(web_date, n)) +
   geom_line(colour = cols[1]) +
   labs(x = "Weeks", y = "Article Count",
        caption = "Source: Guardian Newspaper")
@@ -257,95 +258,8 @@ p1 / p2 +
   plot_layout(heights = c(2, 1))
 ```
 
-Some writers exhibit more sentiment variation than others.
-
-```{r}
-#| label: byline
-
-byline_df <- 
-  sent_df |> 
-  mutate(byline = word(byline, 1, 2) |> str_remove_all("[[:punct:]]")) |> 
-  group_by(byline, date) |> 
-  summarise(pct_pos = mean(pct_pos), n = n()) |> 
-  ungroup()
-
-top_3 <- byline_df |> 
-  count(byline, sort = TRUE) |> 
-  slice_head(n = 3) |> 
-  pull(byline)
-
-byline_df |> 
-  filter(byline %in% top_3) |> 
-  ggplot(aes(date, pct_pos, colour = byline)) +
-  geom_line() +
-  geom_hline(yintercept = 0.5, linetype = "dotted", colour = cols[2]) +
-  scale_y_continuous(labels = label_percent(), limits = c(0.2, 0.8)) +
-  scale_colour_manual(values = cols[c(1, 2, 4)]) +
-  labs(title = "Changing Sentiment Towards a UK-EU Trade Deal",
-       subtitle = "Three Selected Bylines",
-       x = "Weeks", y = "Positive Sentiment", colour = "Byline", 
-       caption = "Source: The Guardian")
-```
-
 ## R Toolbox
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-```{r}
-#| label: toolbox
-#| echo: false
-
-pckg <- search() |> # Which packages are loaded?
-  as_tibble() |>
-  filter(str_detect(value, "package:"))
-
-func <- pckg$value |> # What are their functions?
-  map(possibly(ls, NA)) |>
-  set_names(pckg$value) |>
-  enframe("pckg", "func") |>
-  unnest() |> 
-  filter(func != "date")
-
-reexp <- tribble(
-  ~Package, ~func,
-  "package:tibble", "as_tibble",
-  "package:dplyr", "filter",
-  "package:dplyr", "starts_with",
-  "package:base", "t",
-  "package:tibble", "tibble"
-)
-
-# Remove non-code
-code_only <- tibble(line = "index.qmd" |>
-  str_remove(".*post/") |> read_lines()) |>
-  mutate(
-    marker = if_else(str_detect(line, "^```"), 1, 0),
-    marker = cumsum(marker),
-    marker = if_else(marker %% 2 == 0, "comment", "code")
-  ) |>
-  filter(marker == "code", !str_starts(line, "library")) |>
-  mutate(line = str_remove_all(line, "(?<=\")[[:alpha:]]+(?=\")"))
-
-toolkit <- # Which functions are used in the code?
-  map2_dfr(func$func, func$pckg, function(i, j) {
-    tibble(
-      Package = j,
-      func = i,
-      total = code_only |>
-        str_count(str_c("[^$.-_]", "\\b", "\\Q", i, "\\E", "\\b", "(?=\\(|\\))")) |>
-        sum()
-    )
-  }) |>
-  filter(total > 0) |>
-  arrange(Package, desc(total)) |>
-  mutate(
-    conflict = if_else(func %in% conflicts(), 1, 0), # Remove conflicts
-    Function = str_c(func, "[", total, "]")
-  ) |>
-  filter(!(conflict == 1 & !str_c(Package, func) %in% str_c(reexp$Package, reexp$func))) |>
-  group_by(Package) |>
-  summarise(Function = str_c(Function, collapse = ";  ")) |>
-  mutate(Package = str_remove(Package, "package:"))
-
-toolkit
-```
+{{< include /project/_toolbox.qmd >}}
