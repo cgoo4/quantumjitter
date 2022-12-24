@@ -235,6 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Each <a href="../../project/">project</a> closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there’s an opportunity to:</p>
 <ul>
 <li><p>Spot the use of superseded functions like <code>map_dfr</code></p></li>
+<li><p>Identify variable names that conflict with function names, for example, reminding me not to use <code>date</code> as a variable name (it’s also a base function), but rather use something more explicit and informative like <code>date_start</code> or <code>date_observed</code></p></li>
 <li><p>Check for usage consistency, e.g.&nbsp;<code><a href="https://clock.r-lib.org/reference/date-today.html">clock::date_today</a></code> versus <code>Sys.Date</code></p></li>
 <li><p>See where it would be most useful to keep an eye on package version updates</p></li>
 </ul>
