@@ -147,11 +147,11 @@ div.csl-indent {
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Where Clouds Cross">
 <meta property="og:description" content="Visualising the dozens of overlapping sets formed by categories of cloud services">
-<meta property="og:image" content="https://www.quantumjitter.com/project/sets/feature.gif">
+<meta property="og:image" content="https://www.quantumjitter.com/project/CopyOfsets/feature.gif">
 <meta property="og:site-name" content="Quantum Jitter">
 <meta name="twitter:title" content="Quantum Jitter - Where Clouds Cross">
 <meta name="twitter:description" content="Visualising the dozens of overlapping sets formed by categories of cloud services">
-<meta name="twitter:image" content="https://www.quantumjitter.com/project/sets/feature.gif">
+<meta name="twitter:image" content="https://www.quantumjitter.com/project/CopyOfsets/feature.gif">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="nav-fixed fullcontent">
@@ -275,8 +275,7 @@ div.csl-indent {
 <p>I’ll begin by harvesting the URL for each category’s search results. And I’ll also capture the number of search pages for each category. This will enable me to later control how R iterates through the web pages to extract the required data.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"https://www.applytosupply.digitalmarketplace"</span>, </span>
-<span>        <span class="st">".service.gov.uk/g-cloud/search?lot=cloud-"</span><span class="op">)</span></span>
+<span>  <span class="st">"https://www.digitalmarketplace.service.gov.uk/g-cloud/search?lot=cloud-"</span></span>
 <span></span>
 <span><span class="va">lot_urls</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -285,7 +284,7 @@ div.csl-indent {
 <span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"support"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">cat_urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">lot_urls</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">cat_urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map_dfr</a></span><span class="op">(</span><span class="va">lot_urls</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">nodes</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">".app-lot-filter__last-list li a"</span><span class="op">)</span></span>
@@ -298,7 +297,6 @@ div.csl-indent {
 <span>      <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    pages <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">pages</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    pages <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">pages</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">30</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">pages</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">30</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">pages</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">30</span><span class="op">)</span>,</span>
@@ -321,21 +319,20 @@ div.csl-indent {
 <li>
 <code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</li>
 </ul>
-<div class="cell" data-hash="index_cache/html/service ids_7f41bc651695f0feb2f2d4dc9db871ee">
+<div class="cell" data-hash="index_cache/html/service ids_ea97dea148f5a21ce97f1735e9ae9452">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_df</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map2.html">future_pmap</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map2.html">future_pmap_dfr</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>      <span class="va">cat_urls</span><span class="op">$</span><span class="va">url</span>,</span>
 <span>      <span class="va">cat_urls</span><span class="op">$</span><span class="va">pages</span>,</span>
 <span>      <span class="va">cat_urls</span><span class="op">$</span><span class="va">lot</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">y</span>, \<span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">y</span>, <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">refs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
-<span>          <span class="st">"https://www.applytosupply.digitalmarketplace"</span>, </span>
-<span>          <span class="st">".service.gov.uk/g-cloud/search?page="</span>,</span>
+<span>          <span class="st">"https://www.digitalmarketplace.service.gov.uk/g-cloud/search?page="</span>,</span>
 <span>          <span class="va">y</span>,</span>
 <span>          <span class="va">x</span>,</span>
 <span>          <span class="st">"&amp;lot=cloud-"</span>,</span>
@@ -347,7 +344,7 @@ div.csl-indent {
 <span>        </span>
 <span>       <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>            lot <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"Cloud "</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            service_id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">refs</span>, <span class="st">"[[:digit:]]{15}"</span><span class="op">)</span>,</span>
+<span>            id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">refs</span>, <span class="st">"[[:digit:]]{15}"</span><span class="op">)</span>,</span>
 <span>            cat <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"&amp;serviceCategories="</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>              <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">"\\Q+\\E"</span>, <span class="st">" "</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>              <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"%28[[:print:]]+%29"</span><span class="op">)</span></span>
@@ -355,7 +352,6 @@ div.csl-indent {
 <span>      <span class="op">}</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">lot</span><span class="op">:</span><span class="va">cat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    cat <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -364,7 +360,7 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1355.652 sec elapsed</code></pre>
+<pre><code>1774.718 sec elapsed</code></pre>
 </div>
 </div>
 <p>Now that I have a nice tidy <a href="https://tibble.tidyverse.org">tibble</a> <span class="citation" data-cites="tibble">(<a href="#ref-tibble" role="doc-biblioref">Müller and Wickham 2022</a>)</span>, I can start to think about visualisations.</p>
@@ -380,7 +376,7 @@ div.csl-indent {
 <span></span>
 <span><span class="va">all_cats</span> <span class="op">&lt;-</span> <span class="va">host_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="st">"service_id"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="st">"id"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="va">keys</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Venn diagrams work best with a small number of sets. So we’ll select four categories.</p>
@@ -405,11 +401,10 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">four_cats</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">intersect</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "498337261767401" "735625897584273" "941404079421892" "468519278288161"
- [5] "528818827198493" "590998313986731" "745846238180953" "173163384195854"
- [9] "924318408511326" "920078916328776" "507106315499984" "247181335014212"
-[13] "760565690434196" "567990943722560" "674396953847294" "546389562586229"
-[17] "616594390875571" "720996025285364"</code></pre>
+<pre><code> [1] "616441239909908" "162482129495664" "905776993996934" "376219180313371"
+ [5] "407652487989048" "225809803026529" "351972947261871" "141467821661395"
+ [9] "428474094741326" "407756608170776" "124196562348938" "550690199626866"
+[13] "150223927888075" "860854746891399"</code></pre>
 </div>
 </div>
 <p>And if we wanted the IDs intersecting the “OBS” and “IND” categories?</p>
@@ -420,25 +415,23 @@ div.csl-indent {
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">intersect</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "498337261767401" "622063745429810" "146737546710992" "735625897584273"
- [5] "282378513056803" "824432812764583" "941404079421892" "924245378460936"
- [9] "468519278288161" "979714835327372" "528818827198493" "361367891935175"
-[13] "590998313986731" "964621745018513" "745846238180953" "406334290207572"
-[17] "173163384195854" "924318408511326" "226716894364641" "920078916328776"
-[21] "507106315499984" "247181335014212" "760565690434196" "567990943722560"
-[25] "390438216681657" "263304084312287" "133984215794494" "674396953847294"
-[29] "761608237467474" "426708477587492" "147659063793653" "546389562586229"
-[33] "616594390875571" "172104444338022" "720996025285364" "266583255948268"
-[37] "420184478022971" "647839522738604" "746066603748154" "829256437326217"
-[41] "455997758057773"</code></pre>
+<pre><code> [1] "616441239909908" "151022407134695" "852500112300305" "162482129495664"
+ [5] "905776993996934" "376219180313371" "407652487989048" "474814461260648"
+ [9] "225809803026529" "351972947261871" "576030340787556" "141467821661395"
+[13] "758507645451314" "428474094741326" "407756608170776" "774442655261342"
+[17] "853411470123271" "504203548963816" "100473171421762" "456595685823942"
+[21] "513866403672024" "110346802387127" "580227303306629" "911282351993476"
+[25] "948752760228442" "124196562348938" "496076310695431" "550690199626866"
+[29] "150223927888075" "675399761262086" "497814439666264" "615391229994933"
+[33] "860854746891399"</code></pre>
 </div>
 </div>
 <p>Sometimes though we need something a little more scalable than a Venn diagram. The ggupset package provides a good solution. Before we try more than four sets though, I’ll first use the same four categories so we may compare the visualisation to the Venn.</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set_df</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">abbr</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CAAH"</span>, <span class="st">"PAAS"</span>, <span class="st">"OBS"</span>, <span class="st">"IND"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">service_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">service_id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">category</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">set_df</span> <span class="op">|&gt;</span></span>
@@ -461,10 +454,13 @@ div.csl-indent {
 <p>Now let’s take a look at the intersections across all the categories. And let’s suppose that our particular interest is all services which appear in one, and only one, category.</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set_df</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">lot</span> <span class="op">==</span> <span class="st">"Cloud Hosting"</span>, .by <span class="op">=</span> <span class="va">service_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">service_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">service_id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">category</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">lot</span> <span class="op">==</span> <span class="st">"Cloud Hosting"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">set_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -488,8 +484,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cat_mix</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lot</span> <span class="op">==</span> <span class="st">"Cloud Hosting"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span><span class="va">service_id</span>, names_from <span class="op">=</span> <span class="va">cat</span>, values_from <span class="op">=</span> <span class="va">x</span>, values_fill <span class="op">=</span> <span class="st">"^"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">intersect</span>, <span class="op">-</span><span class="va">service_id</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span><span class="va">id</span>, names_from <span class="op">=</span> <span class="va">cat</span>, values_from <span class="op">=</span> <span class="va">x</span>, values_fill <span class="op">=</span> <span class="st">"^"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">intersect</span>, <span class="op">-</span><span class="va">id</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">intersect</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    intersect <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="st">"(?:\\Q/^\\E|\\Q^/\\E)"</span>, <span class="st">""</span><span class="op">)</span>,</span>
@@ -517,87 +513,87 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Platform As A Service</td>
-<td style="text-align: right;">501</td>
+<td style="text-align: right;">718</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Compute And Application Hosting</td>
-<td style="text-align: right;">182</td>
+<td style="text-align: right;">206</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Networking</td>
-<td style="text-align: right;">142</td>
+<td style="text-align: right;">146</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Archiving Backup And Disaster Recovery</td>
-<td style="text-align: right;">107</td>
+<td style="text-align: right;">124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compute And Application Hosting | Nosql Database | Relational Database | Other Database Services | Networking | Platform As A Service | Search | Block Storage | Object Storage | Other Storage Services</td>
+<td style="text-align: right;">115</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Logging And Analysis</td>
+<td style="text-align: right;">81</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Other Storage Services</td>
-<td style="text-align: right;">94</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Nosql Database | Other Database Services | Networking | Platform As A Service | Search | Block Storage | Object Storage | Other Storage Services</td>
-<td style="text-align: right;">76</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Logging And Analysis</td>
-<td style="text-align: right;">67</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Other Database Services</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Infrastructure And Platform Security</td>
-<td style="text-align: right;">57</td>
+<td style="text-align: right;">77</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Compute And Application Hosting | Platform As A Service</td>
-<td style="text-align: right;">51</td>
+<td style="text-align: right;">76</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Content Delivery Network | Data Warehousing | Distributed Denial Of Service Attack Protection | Firewall | Infrastructure And Platform Security | Intrusion Detection | Platform As A Service | Protective Monitoring</td>
-<td style="text-align: right;">39</td>
+<td style="text-align: left;">Infrastructure And Platform Security</td>
+<td style="text-align: right;">71</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Relational Database</td>
-<td style="text-align: right;">38</td>
+<td style="text-align: left;">Other Database Services</td>
+<td style="text-align: right;">66</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Container Service</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Content Delivery Network | Data Warehousing | Distributed Denial Of Service Attack Protection | Firewall | Infrastructure And Platform Security | Intrusion Detection | Platform As A Service | Protective Monitoring</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Relational Database</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Infrastructure And Platform Security | Intrusion Detection | Logging And Analysis | Protective Monitoring</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Message Queuing And Processing</td>
 <td style="text-align: right;">34</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Message Queuing And Processing</td>
-<td style="text-align: right;">29</td>
+<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Platform As A Service</td>
+<td style="text-align: right;">26</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Infrastructure And Platform Security | Intrusion Detection | Logging And Analysis | Protective Monitoring</td>
-<td style="text-align: right;">27</td>
+<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting</td>
+<td style="text-align: right;">22</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Nosql Database | Relational Database | Other Database Services | Networking | Platform As A Service | Search | Block Storage | Other Storage Services</td>
-<td style="text-align: right;">23</td>
+<td style="text-align: left;">Object Storage</td>
+<td style="text-align: right;">21</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Firewall | Infrastructure And Platform Security | Intrusion Detection | Load Balancing | Logging And Analysis | Networking | Platform As A Service | Protective Monitoring</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: left;">Protective Monitoring</td>
+<td style="text-align: right;">19</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Block Storage | Object Storage | Other Storage Services</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: right;">16</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Archiving Backup And Disaster Recovery | Other Storage Services</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Compute And Application Hosting | Container Service | Platform As A Service</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Infrastructure And Platform Security | Networking</td>
-<td style="text-align: right;">20</td>
+<td style="text-align: left;">Archiving Backup And Disaster Recovery | Compute And Application Hosting | Container Service | Distributed Denial Of Service Attack Protection | Firewall | Infrastructure And Platform Security | Load Balancing | Networking | Protective Monitoring | Block Storage</td>
+<td style="text-align: right;">15</td>
 </tr>
 </tbody>
 </table>
@@ -608,8 +604,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set_df</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lot</span> <span class="op">==</span> <span class="st">"Cloud Hosting"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">service_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">service_id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">cat</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">category</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">set_df</span> <span class="op">|&gt;</span></span>
@@ -634,31 +630,31 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">top5_int</span> <span class="op">&lt;-</span> <span class="va">data_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lot</span> <span class="op">==</span> <span class="st">"Cloud Hosting"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">service_id</span>, <span class="va">abbr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">abbr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">abbr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">abbr</span>, values_from <span class="op">=</span> <span class="va">x</span>, values_fill <span class="op">=</span> <span class="st">"^"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">intersect</span>, <span class="op">-</span><span class="va">service_id</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">intersect</span>, <span class="op">-</span><span class="va">id</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    intersect <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="st">"(?:\\Q/^\\E|\\Q^/\\E)"</span>, <span class="st">""</span><span class="op">)</span>,</span>
 <span>    intersect <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="st">"/"</span>, <span class="st">" | "</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">service_id</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">intersect</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">intersect</span>, <span class="va">service_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">intersect</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">intersect</span>, <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">intersect</span>, wt <span class="op">=</span> <span class="va">count</span>, name <span class="op">=</span> <span class="st">"temp"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>temp <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">dense_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">temp</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">service_id</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">top5_int</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>service_ids <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">service_id</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <thead><tr class="header">
-<th style="text-align: right;">service_ids</th>
+<th style="text-align: right;">ids</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td style="text-align: right;">1026</td>
+<td style="text-align: right;">1309</td>
 </tr></tbody>
 </table>
 </div>
@@ -672,7 +668,7 @@ div.csl-indent {
 <table class="table table-sm table-striped">
 <colgroup>
 <col style="width: 5%">
-<col style="width: 94%">
+<col style="width: 95%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Package</th>
@@ -681,15 +677,15 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">abbreviate[1]; as.character[1]; c[7]; cat[6]; library[8]; list[5]; rep[1]</td>
+<td style="text-align: left;">abbreviate[1]; as.character[1]; c[7]; cat[6]; function[2]; library[8]; list[5]; rep[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[7]; add_count[1]; arrange[2]; count[2]; dense_rank[1]; desc[3]; distinct[4]; group_by[1]; group_keys[1]; group_split[1]; if_else[1]; mutate[14]; n[8]; n_distinct[2]; pull[1]; rename[1]; select[2]; slice[1]; summarise[1]</td>
+<td style="text-align: left;">filter[7]; add_count[1]; arrange[2]; count[2]; dense_rank[1]; desc[3]; distinct[4]; group_by[3]; group_keys[1]; group_split[1]; id[7]; if_else[1]; mutate[14]; n[8]; n_distinct[2]; pull[1]; rename[1]; select[2]; slice[1]; summarise[1]; ungroup[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">furrr</td>
-<td style="text-align: left;">future_map[1]; future_map_dfr[1]; future_pmap[1]</td>
+<td style="text-align: left;">future_map_dfr[2]; future_pmap_dfr[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">future</td>
@@ -713,7 +709,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">list_rbind[2]; map[1]; reduce[2]; set_names[1]</td>
+<td style="text-align: left;">map[1]; reduce[2]; set_names[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readr</td>
@@ -725,7 +721,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[6]; str_extract[3]; str_remove[4]; str_replace[1]; str_replace_all[4]; str_to_title[2]; str_to_upper[1]; str_trim[1]</td>
+<td style="text-align: left;">str_c[5]; str_extract[3]; str_remove[4]; str_replace[1]; str_replace_all[4]; str_to_title[2]; str_to_upper[1]; str_trim[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tibble</td>

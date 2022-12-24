@@ -43,10 +43,10 @@ I'll begin by harvesting the URL for each category's search results. And I'll al
 
 ```{r}
 #| label: categories
-#| eval: false
 
 path <- 
-  "https://www.digitalmarketplace.service.gov.uk/g-cloud/search?lot=cloud-"
+  str_c("https://www.applytosupply.digitalmarketplace", 
+        ".service.gov.uk/g-cloud/search?lot=cloud-")
 
 lot_urls <-
   c(
@@ -55,7 +55,7 @@ lot_urls <-
     str_c(path, "support")
   )
 
-cat_urls <- future_map_dfr(lot_urls, \(x) {
+cat_urls <- future_map(lot_urls, \(x) {
   nodes <- x |>
     read_html() |>
     html_elements(".app-lot-filter__last-list li a")
@@ -68,6 +68,7 @@ cat_urls <- future_map_dfr(lot_urls, \(x) {
       html_text()
   )
 }) |>
+  list_rbind() |> 
   mutate(
     pages = parse_number(as.character(pages)),
     pages = if_else(pages %% 30 > 0, pages %/% 30 + 1, pages %/% 30),
@@ -80,13 +81,6 @@ version <- lot_urls[[1]] |>
   html_elements(".app-search-result:first-child") |> 
   html_text() |> 
   str_extract("G-Cloud \\d\\d")
-```
-
-```{r}
-#| label: version
-#| include: false
-
-version <- "G-Cloud 12"
 ```
 
 So now I'm all set to parallel process through the data at two levels. At category level. And within each category, I'll iterate through the multiple pages of search results, harvesting 100 service IDs per page.
@@ -105,16 +99,17 @@ I'll also auto-abbreviate the category names so I'll have the option of more con
 tic()
 
 data_df <-
-  future_pmap_dfr(
+  future_pmap(
     list(
       cat_urls$url,
       cat_urls$pages,
       cat_urls$lot
     ),
-    function(x, y, z) {
-      future_map_dfr(1:y, function(y) {
+    \(x, y, z) {
+      future_map_dfr(1:y, \(y) {
         refs <- str_c(
-          "https://www.digitalmarketplace.service.gov.uk/g-cloud/search?page=",
+          "https://www.applytosupply.digitalmarketplace", 
+          ".service.gov.uk/g-cloud/search?page=",
           y,
           x,
           "&lot=cloud-",
@@ -126,7 +121,7 @@ data_df <-
         
        tibble(
             lot = str_c("Cloud ", str_to_title(z)),
-            id = str_extract(refs, "[[:digit:]]{15}"),
+            service_id = str_extract(refs, "[[:digit:]]{15}"),
             cat = str_remove(x, "&serviceCategories=") |>
               str_replace_all("\\Q+\\E", " ") |>
               str_remove("%28[[:print:]]+%29")
@@ -134,6 +129,7 @@ data_df <-
       })
     }
   ) |>
+  list_rbind() |>
   select(lot:cat) |>
   mutate(
     cat = str_trim(cat) |> str_to_title(),
@@ -160,7 +156,7 @@ keys <- host_df |>
 
 all_cats <- host_df |> 
   group_split() |>
-  map("id") |> 
+  map("service_id") |> 
   set_names(keys)
 ```
 
@@ -210,8 +206,8 @@ Sometimes though we need something a little more scalable than a Venn diagram. T
 
 set_df <- data_df |>
   filter(abbr %in% c("CAAH", "PAAS", "OBS", "IND")) |>
-  mutate(category = list(cat), .by = id) |>
-  distinct(id, category) |>
+  mutate(category = list(cat), .by = service_id) |>
+  distinct(service_id, category) |>
   mutate(n = n(), .by = category)
 
 set_df |>
@@ -235,13 +231,10 @@ Now let's take a look at the intersections across all the categories. And let's 
 #| label: singles
 
 set_df <- data_df |>
-  group_by(id) |>
-  filter(n() == 1, lot == "Cloud Hosting") |>
-  mutate(category = list(cat)) |>
-  distinct(id, category) |>
-  group_by(category) |>
-  mutate(n = n()) |>
-  ungroup()
+  filter(n() == 1, lot == "Cloud Hosting", .by = service_id) |>
+  mutate(category = list(cat), .by = service_id) |>
+  distinct(service_id, category) |>
+  mutate(n = n(), .by = category)
 
 set_df |>
   ggplot(aes(category)) +
@@ -266,8 +259,8 @@ Suppose we want to extract the intersection data for the top intersections acros
 cat_mix <- data_df |>
   filter(lot == "Cloud Hosting") |>
   mutate(x = cat) |>
-  pivot_wider(id, names_from = cat, values_from = x, values_fill = "^") |>
-  unite(col = intersect, -id, sep = "/") |>
+  pivot_wider(service_id, names_from = cat, values_from = x, values_fill = "^") |>
+  unite(col = intersect, -service_id, sep = "/") |>
   count(intersect) |>
   mutate(
     intersect = str_replace_all(intersect, "(?:\\Q/^\\E|\\Q^/\\E)", ""),
@@ -291,8 +284,8 @@ And I can compare this table to the equivalent ggupset [@ggupset]visualisation.
 
 set_df <- data_df |>
   filter(lot == "Cloud Hosting") |>
-  mutate(category = list(cat), .by = id) |>
-  distinct(id, category) |>
+  mutate(category = list(cat), .by = service_id) |>
+  distinct(service_id, category) |>
   mutate(n = n(), .by = category)
 
 set_df |>
@@ -319,23 +312,23 @@ I won't print them all out though!
 
 top5_int <- data_df |>
   filter(lot == "Cloud Hosting") |>
-  select(id, abbr) |>
+  select(service_id, abbr) |>
   mutate(x = abbr) |>
   pivot_wider(names_from = abbr, values_from = x, values_fill = "^") |>
-  unite(col = intersect, -id, sep = "/") |>
+  unite(col = intersect, -service_id, sep = "/") |>
   mutate(
     intersect = str_replace_all(intersect, "(?:\\Q/^\\E|\\Q^/\\E)", ""),
     intersect = str_replace(intersect, "/", " | ")
   ) |>
-  mutate(count = n_distinct(id), .by = intersect) |>
-  arrange(desc(count), intersect, id) |>
+  mutate(count = n_distinct(service_id), .by = intersect) |>
+  arrange(desc(count), intersect, service_id) |>
   add_count(intersect, wt = count, name = "temp") |>
   mutate(temp = dense_rank(desc(temp))) |>
   filter(temp %in% 1:5) |>
-  distinct(id)
+  distinct(service_id)
 
 top5_int |>
-  summarise(ids = n_distinct(id))
+  summarise(service_ids = n_distinct(service_id))
 ```
 
 ## R Toolbox
