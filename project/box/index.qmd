@@ -5,7 +5,7 @@ categories: [R, web scraping]
 description: "R packages & functions that make doing data science a joy based on usage across projects"
 ---
 
-![](feature-1.png){fig-alt="Wordcloud of this site's most used R packages and functions"}
+![](feature-1.png){fig-alt="Wordcloud emphasising this site's most used R packages and functions"}
 
 Each [project](/project/) closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there's an opportunity to:
 
@@ -90,10 +90,10 @@ table_df <- map(urls, \(x) {
   x |>
     read_html() |>
     html_elements("#r-toolbox , kable-table") |>
-    html_table() |> 
-    bind_rows()
+    html_table()
 }) |>
-  list_rbind() |> 
+  list_flatten() |>
+  list_rbind() |>
   clean_names(replace = c("io" = "")) |>
   select(package, functn) |>
   drop_na()
