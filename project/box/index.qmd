@@ -7,11 +7,17 @@ description: "R packages & functions that make doing data science a joy based on
 
 ![](feature-1.png){fig-alt="Wordcloud of this site's most used R packages and functions"}
 
-Each [project](/project/) closes with a table summarising the R tools used. By visualising the most frequently used packages and functions I can get a sense of where I may most benefit from going deeper into the latest package versions.
+Each [project](/project/) closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there's an opportunity to:
 
-Early on, it was an opportunity to replace superseded functions like `spread` and `gather` with `pivot_wider` and `pivot_longer`. More recently there have been examples of using newer packages such as [tidyclust](https://github.com/EmilHvitfeldt/tidyclust), which brings cluster modelling to tidymodels (used in the latest quarto version of [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)), or [bslib](https://rstudio.github.io/bslib/), used in the latest shiny app embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/).
+-   Spot the use of superseded functions like `map_dfr`
 
-And in the latest refresh, the newest versions of dplyr and purrr have offered many opportunities for improvements. For example, the `.by` argument in `mutate` and friends as an alternative to `group_by` and `ungroup`. And changes in the `map_` family which introduce `list_rbind` and associates.
+-   Check for usage consistency, e.g. `clock::date_today` versus `Sys.Date`
+
+-   See where it would be most useful to keep an eye on package version updates
+
+Since starting this in 2017, functions like tidyr's `spread` and `gather` have been superseded by `pivot_wider` and `pivot_longer`. Newer packages have emerged like [tidyclust](https://github.com/EmilHvitfeldt/tidyclust), which brings cluster modelling to tidymodels (now used in [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)). [bslib](https://rstudio.github.io/bslib/) has brought improvements to the latest shiny app version embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/). The paletteer package has put it's arms around the myriad palette packages out there. And scales' `cut_short_scale` assisted with plot labelling.
+
+Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the `.by` argument in `mutate` and friends offers a neat alternative to `group_by` and `ungroup` in many situations. And changes in the `map_` family introduce `list_rbind` and associates with `map_dfr`, for example, now superseded.
 
 ```{r}
 #| label: libraries
@@ -59,7 +65,7 @@ tibble(x = 1:n, y = 1) |>
   theme(legend.position = "none")
 ```
 
-I'll start by grabbing the url for all projects.
+We need to web-scrape [all the projects on this web-site](https://www.quantumjitter.com/project/), starting by grabbing the url for each one.
 
 ```{r}
 #| label: urls
@@ -73,7 +79,7 @@ urls <- "https://www.quantumjitter.com/project/" |>
   pull()
 ```
 
-This enables me to extract the package and function usage table for each one.
+Then we can extract their package and function usage tables.
 
 ```{r}
 #| label: usage
@@ -91,7 +97,7 @@ table_df <- map(urls, \(x) {
   drop_na()
 ```
 
-A little "spring cleaning" is needed, and separation of tidyverse and non-tidyverse packages.
+Separation of tidyverse and non-tidyverse packages may be achieved by using the likes of `tidyverse_packages` which lists all packages in the tidyverse.
 
 -   [tidyverse](https://www.tidyverse.org/packages/)
 -   [tidymodels](https://www.tidymodels.org/packages/)
@@ -123,7 +129,7 @@ tidy_df <- table_df |>
   ))
 ```
 
-Then I can summarise usage and prepare for a faceted plot.
+Then we can summarise usage.
 
 ```{r}
 #| label: summarise
@@ -148,9 +154,9 @@ packfun_df <- pack_df |>
   )
 ```
 
-I've taken advantage of Quarto's `{{< include _foobar.qmd >}}` to lift, standardise and simplify the toolbox code from the end of every project. Previously, this code (broadly repeated 20 times) inflated the function usage numbers.
+Use of Quarto's `{{< include _foobar.qmd >}}` has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.
 
-With the latest versions of dplyr and purrr, `group_by` has dropped a significant number of places and `list_rbind` has taken a prominent position.
+With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and `map_dfr` has fallen away whilst `list_rbind` has newly appeared.
 
 ```{r}
 #| label: plot
@@ -163,9 +169,10 @@ p1 <- packfun_df |>
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
   scale_fill_manual(values = cols[c(2, 3, 4)]) +
-  labs(x = NULL, y = NULL)
+  labs(x = NULL, y = NULL, 
+       subtitle = glue("Package Usage"))
 
-min_n <- 7
+min_n <- 5
 
 p2 <- packfun_df |>
   filter(name == "function", n >= min_n) |> 
@@ -186,7 +193,7 @@ p1 + p2 +
   )
 ```
 
-I'd also like a word cloud generated as the new featured image for this project.
+This last code chunk generates the word cloud for use as the feature image for this project.
 
 ```{r}
 #| label: feature
@@ -218,6 +225,6 @@ packfun_df |>
 
 ## R Toolbox
 
-A little bit circular, but I might as well include this code too in my "favourite things".
+This project's code too should be included in my "favourite things".
 
 {{< include /project/_toolbox.qmd >}}

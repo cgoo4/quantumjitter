@@ -3828,9 +3828,14 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
   <dc:creator>Carl Goodwin</dc:creator>
   <link>https://www.quantumjitter.com/project/box/index.html</link>
   <description><![CDATA[ <p><img src="https://www.quantumjitter.com/project/box/feature-1.png" class="img-fluid" alt="Wordcloud of this site's most used R packages and functions"></p>
-<p>Each <a href="../../project/">project</a> closes with a table summarising the R tools used. By visualising the most frequently used packages and functions I can get a sense of where I may most benefit from going deeper into the latest package versions.</p>
-<p>Early on, it was an opportunity to replace superseded functions like <code>spread</code> and <code>gather</code> with <code>pivot_wider</code> and <code>pivot_longer</code>. More recently there have been examples of using newer packages such as <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a>, which brings cluster modelling to tidymodels (used in the latest quarto version of <a href="https://www.quantumjitter.com/project/happiness/">Finding Happiness in ‘The Smoke’</a>), or <a href="https://rstudio.github.io/bslib/">bslib</a>, used in the latest shiny app embedded in <a href="https://www.quantumjitter.com/project/thicken/">Plots Thicken</a>.</p>
-<p>And in the latest refresh, the newest versions of dplyr and purrr have offered many opportunities for improvements. For example, the <code>.by</code> argument in <code>mutate</code> and friends as an alternative to <code>group_by</code> and <code>ungroup</code>. And changes in the <code>map_</code> family which introduce <code>list_rbind</code> and associates.</p>
+<p>Each <a href="../../project/">project</a> closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there’s an opportunity to:</p>
+<ul>
+<li><p>Spot the use of superseded functions like <code>map_dfr</code></p></li>
+<li><p>Check for usage consistency, e.g.&nbsp;<code><a href="https://clock.r-lib.org/reference/date-today.html">clock::date_today</a></code> versus <code>Sys.Date</code></p></li>
+<li><p>See where it would be most useful to keep an eye on package version updates</p></li>
+</ul>
+<p>Since starting this in 2017, functions like tidyr’s <code>spread</code> and <code>gather</code> have been superseded by <code>pivot_wider</code> and <code>pivot_longer</code>. Newer packages have emerged like <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a>, which brings cluster modelling to tidymodels (now used in <a href="https://www.quantumjitter.com/project/happiness/">Finding Happiness in ‘The Smoke’</a>). <a href="https://rstudio.github.io/bslib/">bslib</a> has brought improvements to the latest shiny app version embedded in <a href="https://www.quantumjitter.com/project/thicken/">Plots Thicken</a>. The paletteer package has put it’s arms around the myriad palette packages out there. And scales’ <code>cut_short_scale</code> assisted with plot labelling.</p>
+<p>Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the <code>.by</code> argument in <code>mutate</code> and friends offers a neat alternative to <code>group_by</code> and <code>ungroup</code> in many situations. And changes in the <code>map_</code> family introduce <code>list_rbind</code> and associates with <code>map_dfr</code>, for example, now superseded.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
@@ -3872,7 +3877,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <p><img src="https://www.quantumjitter.com/project/box/index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>I’ll start by grabbing the url for all projects.</p>
+<p>We need to web-scrape <a href="https://www.quantumjitter.com/project/">all the projects on this web-site</a>, starting by grabbing the url for each one.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">urls</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="st" style="color: #20794D;">"https://www.quantumjitter.com/project/"</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
@@ -3882,7 +3887,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"https://www.quantumjitter.com/"</span>, <span class="va" style="color: #111111;">value</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>This enables me to extract the package and function usage table for each one.</p>
+<p>Then we can extract their package and function usage tables.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">table_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">urls</span>, \<span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">x</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">{</span></span>
 <span>  <span class="va" style="color: #111111;">x</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
@@ -3896,7 +3901,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">functn</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>A little “spring cleaning” is needed, and separation of tidyverse and non-tidyverse packages.</p>
+<p>Separation of tidyverse and non-tidyverse packages may be achieved by using the likes of <code>tidyverse_packages</code> which lists all packages in the tidyverse.</p>
 <ul>
 <li><a href="https://www.tidyverse.org/packages/">tidyverse</a></li>
 <li><a href="https://www.tidymodels.org/packages/">tidymodels</a></li>
@@ -3925,7 +3930,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <span>    <span class="cn" style="color: #8f5902;">TRUE</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"special"</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>Then I can summarise usage and prepare for a faceted plot.</p>
+<p>Then we can summarise usage.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">pack_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">tidy_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">multiverse</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
@@ -3946,8 +3951,8 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <span>    .by <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">name</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>I’ve taken advantage of Quarto’s <code>{{&lt; include _foobar.qmd &gt;}}</code> to lift, standardise and simplify the toolbox code from the end of every project. Previously, this code (broadly repeated 20 times) inflated the function usage numbers.</p>
-<p>With the latest versions of dplyr and purrr, <code>group_by</code> has dropped a significant number of places and <code>list_rbind</code> has taken a prominent position.</p>
+<p>Use of Quarto’s <code>{{&lt; include _foobar.qmd &gt;}}</code> has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.</p>
+<p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst <code>list_rbind</code> has newly appeared.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">name</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"package"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
@@ -3956,9 +3961,10 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span>label <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span>, hjust <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"inward"</span>, size <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">2</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op" style="color: #5E5E5E;">(</span>values <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">[</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fl" style="color: #AD0000;">2</span>, <span class="fl" style="color: #AD0000;">3</span>, <span class="fl" style="color: #AD0000;">4</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">]</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>x <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;">(</span>x <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">NULL</span>, </span>
+<span>       subtitle <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"Package Usage"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
-<span><span class="va" style="color: #111111;">min_n</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fl" style="color: #AD0000;">7</span></span>
+<span><span class="va" style="color: #111111;">min_n</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fl" style="color: #AD0000;">5</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;">p2</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">name</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"function"</span>, <span class="va" style="color: #111111;">n</span> <span class="op" style="color: #5E5E5E;">&gt;=</span> <span class="va" style="color: #111111;">min_n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
@@ -3981,7 +3987,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <p><img src="https://www.quantumjitter.com/project/box/index_files/figure-html/plot-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>I’d also like a word cloud generated as the new featured image for this project.</p>
+<p>This last code chunk generates the word cloud for use as the feature image for this project.</p>
 <div class="cell">
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">set.seed</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">123</span></span>
 <span></span>
@@ -4008,7 +4014,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 </div>
 </div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
-<p>A little bit circular, but I might as well include this code too in my “favourite things”.</p>
+<p>This project’s code too should be included in my “favourite things”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="kable-table">
@@ -4052,7 +4058,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[3]</td>
+<td style="text-align: left;">glue[4]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">janitor</td>
