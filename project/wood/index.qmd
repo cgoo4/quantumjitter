@@ -99,7 +99,7 @@ Pairing `trelliscope` with rbokeh permits the addition of some custom cognostics
 ```{r}
 #| label: trelliscope
 
-slope <- \(x, y) {coef(lm(y ~ x))[2]}
+slope <- \(x, y) coef(lm(y ~ x))[2]
 
 plot_data <- crime_df |>
   nest(data = -c(borough, offences)) |>

@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Toolbox</h1>
+<h1 class="title">Seeing the Wood for the Trees</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">apps</div>
@@ -239,7 +239,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">December 24, 2022</p>
     </div>
   </div>
     
@@ -319,7 +319,7 @@ div.csl-indent {
 <p>Switching <code>facet_wrap</code> for <code>facet_trelliscope</code> is a simple option. Or <code>trelliscope</code><span class="citation" data-cites="trelliscopejs">(<a href="#ref-trelliscopejs" role="doc-biblioref">Hafen and Schloerke 2021</a>)</span> may be used in combination with the rbokeh <span class="citation" data-cites="rbokeh">(<a href="#ref-rbokeh" role="doc-biblioref">Hafen 2021</a>)</span> (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred “small multiple” panels required to go deeper into the crime data.</p>
 <p>Pairing <code>trelliscope</code> with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">}</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">offences</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>

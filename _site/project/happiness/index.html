@@ -206,7 +206,7 @@ div.csl-indent {
     
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Toolbox</h1>
+<h1 class="title">Finding Happiness in The Smoke</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">dimension reduction</div>
@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">December 24, 2022</p>
     </div>
   </div>
     
@@ -549,7 +549,7 @@ div.csl-indent {
 </section><section id="using-tidymodels" class="level2"><h2 class="anchored" data-anchor-id="using-tidymodels">Using Tidymodels</h2>
 <p>An alternative approach is to use the new <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a><span class="citation" data-cites="tidyclust">(<a href="#ref-tidyclust" role="doc-biblioref">Hvitfeldt and Bodwin 2022</a>)</span> package which augments the tidymodels framework with a tidy unified interface to clustering models.</p>
 <p>First we tune the model with 1 to 6 clusters and review how well they capture the natural groupings.</p>
-<div class="cell" data-hash="index_cache/html/tidyclust tune_a9e57b25cb03b3394bd85998e555be9c">
+<div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
@@ -559,7 +559,7 @@ div.csl-indent {
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">kmeans_spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">kmeans_rec</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">kmeans_cv</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">pca_augmented</span>, v <span class="op">=</span> <span class="fl">5</span>, repeats <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">kmeans_cv</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">pca_augmented</span>, v <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/tune_cluster.html">tune_cluster</a></span><span class="op">(</span></span>
 <span>  <span class="va">kmeans_wflow</span>,</span>
@@ -567,7 +567,7 @@ div.csl-indent {
 <span>  grid <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span></span>
 <span>    num_clusters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  control <span class="op">=</span> <span class="fu">control_grid</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span>, extract <span class="op">=</span> <span class="va">identity</span><span class="op">)</span>,</span>
+<span>  control <span class="op">=</span> <span class="fu">control_grid</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/cluster_metric_set.html">cluster_metric_set</a></span><span class="op">(</span><span class="va">sse_total</span>, <span class="va">sse_ratio</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -670,7 +670,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[8]; c[10]; identity[1]; is.character[1]; is.na[1]; is.numeric[1]; library[10]; mean[1]; seq[1]; set.seed[1]; sum[1]</td>
+<td style="text-align: left;">as.character[8]; c[10]; is.character[1]; is.na[1]; is.numeric[1]; library[10]; mean[1]; seq[1]; set.seed[1]; sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>

@@ -274,7 +274,6 @@ First we tune the model with 1 to 6 clusters and review how well they capture th
 
 ```{r}
 #| label: tidyclust tune
-#| cache: true
 
 kmeans_spec <- k_means(num_clusters = tune()) |> 
   set_engine("stats", algorithm = "Hartigan-Wong")
@@ -285,7 +284,7 @@ kmeans_wflow <- workflow() |>
   add_model(kmeans_spec) |>
   add_recipe(kmeans_rec)
 
-kmeans_cv <- vfold_cv(pca_augmented, v = 5, repeats = 10)
+kmeans_cv <- vfold_cv(pca_augmented, v = 5)
 
 kmeans_res <- tune_cluster(
   kmeans_wflow,
@@ -293,7 +292,7 @@ kmeans_res <- tune_cluster(
   grid = crossing(
     num_clusters = seq(1, 6, 1)
   ),
-  control = control_grid(save_pred = TRUE, extract = identity),
+  control = control_grid(save_pred = TRUE),
   metrics = cluster_metric_set(sse_total, sse_ratio)
 )
 
