@@ -415,16 +415,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [18:34:49.549] epoch 1, loss 0.3788
-INFO  [18:34:52.104] epoch 2, loss 0.2570
-INFO  [18:34:54.707] epoch 3, loss 0.2292
-INFO  [18:34:57.111] epoch 4, loss 0.2090
-INFO  [18:34:59.608] epoch 5, loss 0.1921
-INFO  [18:35:02.073] epoch 6, loss 0.1791
-INFO  [18:35:04.703] epoch 7, loss 0.1694
-INFO  [18:35:07.077] epoch 8, loss 0.1619
-INFO  [18:35:09.569] epoch 9, loss 0.1557
-INFO  [18:35:12.014] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [10:55:29.131] epoch 1, loss 0.3788
+INFO  [10:55:31.562] epoch 2, loss 0.2570
+INFO  [10:55:34.000] epoch 3, loss 0.2292
+INFO  [10:55:36.460] epoch 4, loss 0.2090
+INFO  [10:55:38.941] epoch 5, loss 0.1921
+INFO  [10:55:41.461] epoch 6, loss 0.1791
+INFO  [10:55:43.957] epoch 7, loss 0.1694
+INFO  [10:55:46.435] epoch 8, loss 0.1619
+INFO  [10:55:48.919] epoch 9, loss 0.1557
+INFO  [10:55:51.435] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -701,7 +701,7 @@ INFO  [18:35:12.014] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.997 sec elapsed</code></pre>
+<pre><code>0.966 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
