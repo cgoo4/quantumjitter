@@ -112,19 +112,17 @@ sector_df <- gcloud_df |>
     sector %in% c("Central Government", "Local Government", 
                   "Police", "Health"), sector, "Other Sector")
     ) |>
-  group_by(customer_name, sector) |>
   summarise(
     evidenced_spend = sum(evidenced_spend, na.rm = TRUE),
     sme_spend = sum(sme_spend, na.rm = TRUE),
-    pct = sme_spend / evidenced_spend
+    pct = sme_spend / evidenced_spend,
+    .by = c(customer_name, sector)
   ) |>
   filter(evidenced_spend >= 100000) |>
-  group_by(sector) |>
-  mutate(median_pct = median(pct)) |>
-  ungroup() |>
+  mutate(median_pct = median(pct), .by = sector) |>
   mutate(sector = fct_reorder(sector, median_pct))
 
-n_df <- sector_df |>  group_by(sector) |>  summarise(n = n())
+n_df <- sector_df |> summarise(n = n(), .by = sector)
 
 sector_df |> 
   ggplot(aes(sector, pct)) +
