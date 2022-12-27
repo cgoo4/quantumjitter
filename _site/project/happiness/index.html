@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 24, 2022</p>
+      <p class="date-modified">December 27, 2022</p>
     </div>
   </div>
     
@@ -428,11 +428,15 @@ div.csl-indent {
 <p>Whilst we do lose ease of interpretation by distilling the information in this way, it is still possible to understand which of the original variables influenced their two-dimensional positioning.</p>
 <p>The axes depicted by the arrows below tell us that <strong>anxiety scores</strong> play a significant role in the placement of the City of London towards the upper-left. <strong>Average age</strong> pushes areas more towards the top. And <strong>happiness</strong> influences the bottom-right.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="st">"_\\d{4}|_st.+|_score|_rates|proportion_of_|_\\d{2}_out_of_\\d{2}"</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pattern</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"_\\d{4}|_st.+|_score|_rates|^percent(_of)?_|"</span>,</span>
+<span>        <span class="st">"^proportion_of_|^population(_of)?_|^number(_of)?_|"</span>, </span>
+<span>        <span class="st">"_\\d{2}_out_of_\\d{2}|_estimate|_percent"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pca_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>matrix <span class="op">=</span> <span class="st">"rotation"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"PC"</span>, names_prefix <span class="op">=</span> <span class="st">"PC"</span>, values_from <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"PC"</span>, names_prefix <span class="op">=</span> <span class="st">"PC"</span>, </span>
+<span>              values_from <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>column <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">column</span>, <span class="va">pattern</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span></span>
@@ -481,8 +485,8 @@ div.csl-indent {
 <span><span class="va">kclusts</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    kclust <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">k</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">pca_augmented</span> <span class="op">|&gt;</span> </span>
-<span>                               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span><span class="op">)</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    kclust <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">k</span>, \<span class="op">(</span><span class="va">k</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span></span>
+<span>      <span class="va">pca_augmented</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span><span class="op">)</span>, <span class="va">k</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    tidied <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">kclust</span>, <span class="va">tidy</span><span class="op">)</span>,</span>
 <span>    glanced <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">kclust</span>, <span class="va">glance</span><span class="op">)</span>,</span>
 <span>    augmented <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">kclust</span>, <span class="va">augment</span>, <span class="va">pca_augmented</span><span class="op">)</span></span>
@@ -553,7 +557,12 @@ div.csl-indent {
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">kmeans_rec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="op">~</span> <span class="va">.fittedPC1</span> <span class="op">+</span> <span class="va">.fittedPC2</span>, data <span class="op">=</span> <span class="va">pca_augmented</span><span class="op">)</span></span>
+<span><span class="va">kmeans_rec</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">recipe</span><span class="op">(</span><span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">step_zv</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">step_normalize</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">step_pca</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span>, threshold <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_wflow</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">kmeans_spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -598,12 +607,14 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">pca_augmented</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">kmeans_clust</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/extract_centroids.html">extract_centroids</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/extract_centroids.html">extract_centroids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">".fitted"</span>, <span class="va">.</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"PC"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_aug</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">pca_augmented</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_aug</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>.pred_cluster <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">.pred_cluster</span>, <span class="st">"Cluster_"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">area_name</span>, colour <span class="op">=</span> <span class="va">.pred_cluster</span><span class="op">)</span>,</span>
 <span>             size <span class="op">=</span> <span class="fl">2</span>, hjust <span class="op">=</span> <span class="st">"inward"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -613,6 +624,7 @@ div.csl-indent {
 <span>    title <span class="op">=</span> <span class="st">"Closely-Related London Areas"</span>, fill <span class="op">=</span> <span class="st">"Cluster"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"X Marks the Cluster Centre"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Principal Component 1"</span>, y <span class="op">=</span> <span class="st">"Principal Component 2"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"Cluster"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: data.london.gov.uk"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -670,11 +682,11 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[8]; c[10]; is.character[1]; is.na[1]; is.numeric[1]; library[10]; mean[1]; seq[1]; set.seed[1]; sum[1]</td>
+<td style="text-align: left;">as.character[8]; c[10]; is.character[1]; is.na[1]; is.numeric[2]; library[10]; mean[1]; seq[1]; set.seed[1]; sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; left_join[1]; mutate[7]; na_if[1]; recode[2]; rename[1]; rename_with[1]; rowwise[1]; select[5]</td>
+<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; left_join[1]; mutate[8]; na_if[1]; recode[2]; rename[1]; rename_with[2]; rowwise[1]; select[6]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">forcats</td>
@@ -706,7 +718,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">recipes</td>
-<td style="text-align: left;">recipe[1]</td>
+<td style="text-align: left;">all_predictors[3]; recipe[1]; step_normalize[1]; step_pca[1]; step_zv[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">rsample</td>
@@ -714,7 +726,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_percent[1]; percent[2]</td>
+<td style="text-align: left;">label_percent[1]; number[1]; percent[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sf</td>
@@ -726,7 +738,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_remove[2]; str_remove_all[1]; str_starts[1]</td>
+<td style="text-align: left;">str_c[2]; str_remove[3]; str_remove_all[1]; str_starts[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
@@ -738,7 +750,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; unnest[3]</td>
+<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; population[1]; unnest[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidytext</td>

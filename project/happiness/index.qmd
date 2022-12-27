@@ -145,11 +145,15 @@ The axes depicted by the arrows below tell us that **anxiety scores** play a sig
 ```{r}
 #| label: interpretation
 
-pattern <- "_\\d{4}|_st.+|_score|_rates|proportion_of_|_\\d{2}_out_of_\\d{2}"
+pattern <-
+  str_c("_\\d{4}|_st.+|_score|_rates|^percent(_of)?_|",
+        "^proportion_of_|^population(_of)?_|^number(_of)?_|", 
+        "_\\d{2}_out_of_\\d{2}|_estimate|_percent")
 
 pca_fit |>
   tidy(matrix = "rotation") |>
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") |>
+  pivot_wider(names_from = "PC", names_prefix = "PC", 
+              values_from = "value") |>
   mutate(column = str_remove_all(column, pattern)) |>
   ggplot(aes(PC1, PC2)) +
   geom_segment(
@@ -201,8 +205,8 @@ set.seed(2022)
 kclusts <-
   tibble(k = 1:6) |>
   mutate(
-    kclust = map(k, ~ kmeans(pca_augmented |> 
-                               select(.fittedPC1, .fittedPC2), .x)),
+    kclust = map(k, \(k) kmeans(
+      pca_augmented |> select(.fittedPC1, .fittedPC2), k)),
     tidied = map(kclust, tidy),
     glanced = map(kclust, glance),
     augmented = map(kclust, augment, pca_augmented)
@@ -278,7 +282,12 @@ First we tune the model with 1 to 6 clusters and review how well they capture th
 kmeans_spec <- k_means(num_clusters = tune()) |> 
   set_engine("stats", algorithm = "Hartigan-Wong")
 
-kmeans_rec <- recipe(~ .fittedPC1 + .fittedPC2, data = pca_augmented)
+kmeans_rec <- raw_df |> 
+  select(where(is.numeric)) |> 
+  recipe(~ .) |> 
+  step_zv(all_predictors()) |> 
+  step_normalize(all_predictors()) |> 
+  step_pca(all_predictors(), threshold = 0.9)
 
 kmeans_wflow <- workflow() |>
   add_model(kmeans_spec) |>
@@ -324,12 +333,14 @@ kmeans_fit <- kmeans_wflow |>
   fit(pca_augmented) 
 
 kmeans_clust <- kmeans_fit |> 
-  extract_centroids()
+  extract_centroids() |> 
+  rename_with(~ str_c(".fitted", .), starts_with("PC"))
 
 kmeans_aug <- kmeans_fit |> 
   augment(pca_augmented)
 
 kmeans_aug |>
+  mutate(.pred_cluster = str_remove(.pred_cluster, "Cluster_")) |> 
   ggplot(aes(.fittedPC1, .fittedPC2)) +
   geom_label(aes(label = area_name, colour = .pred_cluster),
              size = 2, hjust = "inward") +
@@ -339,6 +350,7 @@ kmeans_aug |>
     title = "Closely-Related London Areas", fill = "Cluster",
     subtitle = "X Marks the Cluster Centre",
     x = "Principal Component 1", y = "Principal Component 2",
+    colour = "Cluster",
     caption = "Source: data.london.gov.uk"
   )
 ```
