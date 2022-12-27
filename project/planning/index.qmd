@@ -151,8 +151,10 @@ The data need a bit of wrangling. And there is also the opportunity to try the n
 wide_df <- case_df |>
   pivot_wider(names_from = X1, values_from = X2) |>
   select(all_of(plan_colnames)) |>
-  mutate(across(c(property_list, property_cons), ~na_if(., "N/A")),
-         across(c(app_comp, decision), ~na_if(., "")))
+  mutate(
+    across(c(property_list, property_cons), \(vec) na_if(vec, "N/A")),
+    across(c(app_comp, decision), \(vec) na_if(vec, ""))
+  )
 
 tidy_df <- wide_df |>
   mutate(
