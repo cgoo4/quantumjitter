@@ -295,7 +295,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"london-borough-profiles.xlsx"</span>, sheet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">code</span>, <span class="st">"E"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"."</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    inner_outer_london <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">inner_outer_london</span>, <span class="st">" London"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -377,7 +377,7 @@ div.csl-indent {
 <p>Not surprisingly, the two-dimensional visualisation sets the City of London apart. And the other 32 are broadly, albeit with some mixing, divided into inner and outer London boroughs.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pca_fit</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pca_augmented</span> <span class="op">&lt;-</span></span>
@@ -558,7 +558,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_rec</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">step_zv</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">step_normalize</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -682,11 +682,11 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[8]; c[10]; is.character[1]; is.na[1]; is.numeric[2]; library[10]; mean[1]; seq[1]; set.seed[1]; sum[1]</td>
+<td style="text-align: left;">as.character[8]; c[10]; is.na[1]; library[10]; seq[1]; set.seed[1]; sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; left_join[1]; mutate[8]; na_if[1]; recode[2]; rename[1]; rename_with[2]; rowwise[1]; select[6]</td>
+<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; left_join[1]; mutate[8]; na_if[1]; recode[2]; rename[1]; rename_with[2]; rowwise[1]; select[6]; where[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">forcats</td>
@@ -702,7 +702,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[2]</td>
+<td style="text-align: left;">glue[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">janitor</td>
@@ -726,7 +726,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_percent[1]; number[1]; percent[3]</td>
+<td style="text-align: left;">label_percent[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sf</td>
@@ -746,11 +746,11 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidyclust</td>
-<td style="text-align: left;">cluster_metric_set[1]; extract_centroids[1]; k_means[2]; sse_ratio[1]; tune_cluster[1]</td>
+<td style="text-align: left;">cluster_metric_set[1]; extract_centroids[1]; k_means[2]; tune_cluster[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; population[1]; unnest[3]</td>
+<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; unnest[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidytext</td>

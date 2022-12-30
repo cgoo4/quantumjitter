@@ -415,16 +415,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [16:12:38.514] epoch 1, loss 0.3788
-INFO  [16:12:40.959] epoch 2, loss 0.2570
-INFO  [16:12:43.337] epoch 3, loss 0.2292
-INFO  [16:12:45.761] epoch 4, loss 0.2090
-INFO  [16:12:48.188] epoch 5, loss 0.1921
-INFO  [16:12:50.624] epoch 6, loss 0.1791
-INFO  [16:12:53.043] epoch 7, loss 0.1694
-INFO  [16:12:55.450] epoch 8, loss 0.1619
-INFO  [16:12:57.849] epoch 9, loss 0.1557
-INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [10:58:23.769] epoch 1, loss 0.3788
+INFO  [10:58:26.236] epoch 2, loss 0.2570
+INFO  [10:58:28.654] epoch 3, loss 0.2292
+INFO  [10:58:31.016] epoch 4, loss 0.2090
+INFO  [10:58:33.392] epoch 5, loss 0.1921
+INFO  [10:58:35.802] epoch 6, loss 0.1791
+INFO  [10:58:38.223] epoch 7, loss 0.1694
+INFO  [10:58:40.640] epoch 8, loss 0.1619
+INFO  [10:58:42.996] epoch 9, loss 0.1557
+INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -701,7 +701,7 @@ INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.945 sec elapsed</code></pre>
+<pre><code>0.941 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -771,7 +771,7 @@ INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; group_by[1]; left_join[2]; mutate[5]; n[2]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
+<td style="text-align: left;">filter[2]; group_by[1]; left_join[2]; mutate[5]; n[1]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
@@ -779,11 +779,11 @@ INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[2]</td>
+<td style="text-align: left;">glue[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">guardianapi</td>
-<td style="text-align: left;">gu_content[1]</td>
+<td style="text-align: left;">methods</td>
+<td style="text-align: left;">new[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">patchwork</td>
@@ -795,7 +795,7 @@ INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">quanteda</td>
-<td style="text-align: left;">t[1]; corpus[2]; data_dictionary_LSD2015[1]; dfm[1]; fcm[1]; kwic[1]; phrase[1]; tokens[2]</td>
+<td style="text-align: left;">t[1]; corpus[2]; dfm[1]; fcm[1]; kwic[1]; phrase[1]; tokens[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
@@ -815,7 +815,7 @@ INFO  [16:13:00.231] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">text2vec</td>
-<td style="text-align: left;">sim2[1]</td>
+<td style="text-align: left;">fit_transform[1]; sim2[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tibble</td>

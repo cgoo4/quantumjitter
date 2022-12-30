@@ -328,7 +328,7 @@ div.csl-indent {
 <span>    proposal_dev <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">proposal_dev</span> <span class="op">==</span> <span class="st">""</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">proposal_dev</span><span class="op">)</span>,</span>
 <span>      <span class="st">"None"</span>, <span class="va">proposal_dev</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span>, <span class="va">str_trim</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span>, <span class="va">str_trim</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"app_comp"</span>, <span class="st">"proposal_type"</span>, <span class="st">"property_cons"</span><span class="op">)</span>, <span class="va">factor</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">geocodes</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"property_pcode"</span> <span class="op">=</span> <span class="st">"postcode"</span><span class="op">)</span><span class="op">)</span></span>
@@ -599,6 +599,10 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in parse(text = code, keep.source = FALSE) : 
+  The pipe operator requires a function call as RHS</code></pre>
+</div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -617,11 +621,11 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[2]</td>
+<td style="text-align: left;">SPARQL[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.numeric[1]; basename[1]; c[17]; factor[1]; is.character[1]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]; url[1]</td>
+<td style="text-align: left;">as.numeric[1]; basename[1]; c[17]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -629,7 +633,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; left_join[1]; mutate[9]; n[4]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]</td>
+<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; left_join[1]; mutate[9]; n[2]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]; where[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fabletools</td>
@@ -668,38 +672,34 @@ div.csl-indent {
 <td style="text-align: left;">html_attr[1]; html_element[2]; html_elements[2]; html_table[1]; html_text[1]; read_html[3]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">frequency[2]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[3]; str_detect[11]; str_extract[1]; str_remove_all[2]; str_replace[2]; str_squish[1]; str_to_lower[1]; str_to_upper[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[3]; str_detect[11]; str_extract[1]; str_remove_all[2]; str_replace[2]; str_squish[1]; str_to_lower[1]; str_to_upper[1]; str_trim[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[2]; tibble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tictoc</td>
 <td style="text-align: left;">tic[2]; toc[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">pivot_wider[2]; replace_na[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tsibble</td>
 <td style="text-align: left;">yearmonth[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">download.file[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vctrs</td>
 <td style="text-align: left;">new_datetime[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>

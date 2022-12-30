@@ -188,7 +188,7 @@ p1 <- qtile_df |>
   geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[5]) +
   geom_line(colour = "white") +
   geom_hline(yintercept = 1000000, linetype = "dashed") +
-  annotate("text", x = 17700, y = 300000, 
+  annotate("text", x = yearquarter("2020 Q2"), y = 300000, 
            label = "Covid-19\nLockdown", size = 3) +
   scale_x_yearquarter(date_breaks = "2 years") +
   scale_y_log10(labels = label_dollar(prefix = "£", 
@@ -203,8 +203,10 @@ p1 <- qtile_df |>
 p2 <- qtile_df |> 
   ggplot(aes(yr_qtr, n)) +
   geom_line() +
-  annotate("text", x = 14100, y = 180, label = "Financial\nCrisis", size = 3) +
-  annotate("text", x = 17100, y = 130, label = "Brexit\nVote", size = 3) +
+  annotate("text", x = yearquarter("2007 Q3"), y = 180, 
+           label = "Financial\nCrisis", size = 3) +
+  annotate("text", x = yearquarter("2016 Q3"), y = 130, 
+           label = "Brexit\nVote", size = 3) +
   scale_x_yearquarter(date_breaks = "2 years") +
   labs(x = NULL, y = "Transactions",
        caption = "Source: HM Land Registry") +

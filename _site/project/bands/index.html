@@ -499,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`SW10 0JR` <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">postcode</span> <span class="op">==</span> <span class="st">"SW10 0JR"</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It turns out that the unusual transactions below £0.3m are almost entirely from one postcode as shown below when isolating “SW10 0JR”. This appears to be a single large new development with all sub-units sold in 2020.</p>
-<p>These specific transactions feel somewhat unusual at these banding levels. And irrespective of their accuracy, a sample of 169 postcodes heavily dominated by the transactions of just one would not be representative of the true population.</p>
+<p>These specific transactions feel somewhat unusual at these banding levels. And irrespective of their accuracy, a sample of 170 postcodes heavily dominated by the transactions of just one would not be representative of the true population.</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">joined_df2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">council_tax_band</span>, <span class="va">price_paid</span>, fill <span class="op">=</span> <span class="va">`SW10 0JR`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -589,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">joined_df3</span> <span class="op">&lt;-</span> <span class="va">joined_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">postcode</span> <span class="op">!=</span> <span class="st">"SW10 0JR"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This now feels like a representative sample of 312 property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the “drippy” band E still looking almost indistinguishable from band D.</p>
+<p>This now feels like a representative sample of 314 property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the “drippy” band E still looking almost indistinguishable from band D.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="va">joined_df3</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price_paid</span><span class="op">)</span>,</span>
@@ -705,11 +705,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[2]</td>
+<td style="text-align: left;">SPARQL[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6]; factor[1]; library[12]; max[1]; mean[2]; min[1]; readRDS[1]; saveRDS[1]; scale[3]; seq[1]; set.seed[2]</td>
+<td style="text-align: left;">c[6]; factor[1]; library[12]; max[1]; mean[2]; min[1]; readRDS[1]; seq[1]; set.seed[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -729,7 +729,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[9]</td>
+<td style="text-align: left;">glue[8]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">infer</td>
@@ -749,7 +749,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">dollar[6]; label_dollar[4]; label_percent[1]</td>
+<td style="text-align: left;">dollar[2]; label_dollar[4]; label_percent[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
@@ -761,11 +761,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; fill[1]</td>
+<td style="text-align: left;">crossing[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">scale_x_yearquarter[1]; tsibble[1]; yearquarter[3]</td>
+<td style="text-align: left;">scale_x_yearquarter[1]; yearquarter[3]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vctrs</td>
