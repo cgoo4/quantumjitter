@@ -186,7 +186,7 @@ tidy_df <- wide_df |>
     across(where(is.character), str_trim),
     across(c("app_comp", "proposal_type", "property_cons"), factor)
   ) |>
-  left_join(geocodes, by = c("property_pcode" = "postcode"))
+  left_join(geocodes, by = join_by(property_pcode == postcode))
 
 tidy_df |>
   count(dec_lump) |>

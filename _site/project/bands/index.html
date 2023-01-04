@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -421,7 +421,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">joined_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">prices_df2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">band_df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"address"</span>, <span class="st">"postcode"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">band_df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">address</span>, <span class="va">postcode</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">raw_band_address</span>, .after <span class="op">=</span> <span class="va">raw_price_address</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">postcode</span>, <span class="va">address</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>council_tax_band <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">council_tax_band</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -709,7 +709,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6]; factor[1]; library[12]; max[1]; mean[2]; min[1]; readRDS[1]; seq[1]; set.seed[2]</td>
+<td style="text-align: left;">c[5]; factor[1]; library[12]; max[1]; mean[2]; min[1]; readRDS[1]; seq[1]; set.seed[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -717,7 +717,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[4]; across[1]; arrange[1]; count[4]; if_else[1]; inner_join[1]; mutate[7]; n[2]; pull[7]; relocate[1]; rename_with[1]; select[4]; slice_head[1]; slice_sample[1]; summarise[4]</td>
+<td style="text-align: left;">filter[4]; across[1]; arrange[1]; count[4]; if_else[1]; inner_join[1]; join_by[1]; mutate[7]; n[2]; pull[7]; relocate[1]; rename_with[1]; select[4]; slice_head[1]; slice_sample[1]; summarise[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggfx</td>

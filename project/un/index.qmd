@@ -43,7 +43,7 @@ theme_set(theme_bw())
 #| label: ingest
 
 raw_df <- un_votes |> 
-  inner_join(un_roll_calls, by = "rcid") |> 
+  inner_join(un_roll_calls, by = join_by(rcid)) |> 
   select(vote_date = date, everything()) |> 
   filter(country_code %in% c("GB", "CN", "US", "FR", "RU")) |>
   mutate(

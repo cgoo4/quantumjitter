@@ -238,7 +238,7 @@ Now there's a common key to join the data.
 
 joined_df <-
   prices_df2 |>
-  inner_join(band_df2, by = c("address", "postcode")) |>
+  inner_join(band_df2, by = join_by(address, postcode)) |>
   relocate(raw_band_address, .after = raw_price_address) |>
   arrange(postcode, address) |>
   mutate(council_tax_band = factor(council_tax_band))

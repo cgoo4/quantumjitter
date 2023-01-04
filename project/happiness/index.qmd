@@ -367,7 +367,7 @@ shape_df <-
     as_tibble = TRUE, quiet = TRUE
   ) |>
   left_join(assignments |> 
-              filter(k == 3), by = c("GSS_CODE" = "code")) |>
+              filter(k == 3), by = join_by(GSS_CODE == code)) |>
   select(.cluster, inner_outer_london, NAME, geometry) |>
   pivot_longer(c(.cluster, inner_outer_london)) |>
   mutate(value = recode(value, "1" = "Cluster 1", 

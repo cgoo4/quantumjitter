@@ -3044,16 +3044,16 @@ Important
 <span></span>
 <span><span class="va" style="color: #111111;">wv_main</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">glove</span><span class="op" style="color: #5E5E5E;">$</span><span class="fu" style="color: #4758AB;">fit_transform</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">trade_fcm</span>, n_iter <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">10</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [10:58:23.769] epoch 1, loss 0.3788
-INFO  [10:58:26.236] epoch 2, loss 0.2570
-INFO  [10:58:28.654] epoch 3, loss 0.2292
-INFO  [10:58:31.016] epoch 4, loss 0.2090
-INFO  [10:58:33.392] epoch 5, loss 0.1921
-INFO  [10:58:35.802] epoch 6, loss 0.1791
-INFO  [10:58:38.223] epoch 7, loss 0.1694
-INFO  [10:58:40.640] epoch 8, loss 0.1619
-INFO  [10:58:42.996] epoch 9, loss 0.1557
-INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [10:44:57.040] epoch 1, loss 0.3788
+INFO  [10:44:59.542] epoch 2, loss 0.2570
+INFO  [10:45:01.973] epoch 3, loss 0.2292
+INFO  [10:45:04.397] epoch 4, loss 0.2090
+INFO  [10:45:06.795] epoch 5, loss 0.1921
+INFO  [10:45:09.257] epoch 6, loss 0.1791
+INFO  [10:45:11.692] epoch 7, loss 0.1694
+INFO  [10:45:14.189] epoch 8, loss 0.1619
+INFO  [10:45:16.635] epoch 9, loss 0.1557
+INFO  [10:45:19.094] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">wv_context</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">glove</span><span class="op" style="color: #5E5E5E;">$</span><span class="va" style="color: #111111;">components</span></span>
 <span><span class="va" style="color: #111111;">word_vectors</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">wv_main</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">wv_context</span><span class="op" style="color: #5E5E5E;">)</span></span>
@@ -3144,7 +3144,7 @@ INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op" style="color: #5E5E5E;">(</span>pattern <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://quanteda.io/reference/phrase.html">phrase</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"trade negotiation"</span>, <span class="st" style="color: #20794D;">"trade deal"</span>, <span class="st" style="color: #20794D;">"trade talks"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span>, </span>
 <span>       valuetype <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"regex"</span>, window <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">7</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">article_df</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"docname"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"short_url"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">article_df</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">docname</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">short_url</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op" style="color: #5E5E5E;">(</span>n <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">10</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">docname</span>, <span class="va" style="color: #111111;">pre</span>, <span class="va" style="color: #111111;">keyword</span>, <span class="va" style="color: #111111;">post</span>, <span class="va" style="color: #111111;">headline</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -3249,7 +3249,7 @@ INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op" style="color: #5E5E5E;">(</span>dictionary <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">data_dictionary_LSD2015</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">context_df</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"doc_id"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"short_url"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">context_df</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">doc_id</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">short_url</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
 <span>    pos <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">positive</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">neg_negative</span>,</span>
 <span>    neg <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">negative</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">neg_positive</span>,</span>
@@ -3330,7 +3330,7 @@ INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.941 sec elapsed</code></pre>
+<pre><code>0.934 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -3392,7 +3392,7 @@ INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[2]; c[5]; library[12]; mean[1]; set.seed[2]; sum[2]</td>
+<td style="text-align: left;">as.Date[2]; c[3]; library[12]; mean[1]; set.seed[2]; sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -3400,7 +3400,7 @@ INFO  [10:58:45.417] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; group_by[1]; left_join[2]; mutate[5]; n[1]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
+<td style="text-align: left;">filter[2]; group_by[1]; join_by[2]; left_join[2]; mutate[5]; n[1]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
@@ -4141,7 +4141,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">raw_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">un_votes</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">un_roll_calls</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"rcid"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">un_roll_calls</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">rcid</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;">(</span>vote_date <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">date</span>, <span class="fu" style="color: #4758AB;"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">country_code</span> <span class="op" style="color: #5E5E5E;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"GB"</span>, <span class="st" style="color: #20794D;">"CN"</span>, <span class="st" style="color: #20794D;">"US"</span>, <span class="st" style="color: #20794D;">"FR"</span>, <span class="st" style="color: #20794D;">"RU"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
@@ -4330,7 +4330,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[4]; arrange[2]; count[2]; group_by[1]; if_else[7]; inner_join[1]; mutate[8]; n_distinct[1]; pull[3]; recode[1]; row_number[1]; select[5]; slice[1]; summarise[3]; ungroup[1]</td>
+<td style="text-align: left;">filter[4]; arrange[2]; count[2]; group_by[1]; if_else[7]; inner_join[1]; join_by[1]; mutate[8]; n_distinct[1]; pull[3]; recode[1]; row_number[1]; select[5]; slice[1]; summarise[3]; ungroup[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
@@ -6422,7 +6422,7 @@ Wickham, Hadley. 2022. <span>“Rvest: Easily Harvest (Scrape) Web Pages.”</sp
 <p>Voting the opposite way to the majority of the party, as well as non-votes, will both be of interest when assessing which MPs are “most distant” from the wider party.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">votes_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">votes</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mps</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"mp"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"ID"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mps</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mp</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">ID</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;">(</span>about <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">about.x</span>, <span class="va" style="color: #111111;">title</span>, <span class="va" style="color: #111111;">date_value</span>, </span>
 <span>         <span class="va" style="color: #111111;">lobby</span>, <span class="va" style="color: #111111;">mp</span>, name <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">full_name_value</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
@@ -7289,7 +7289,7 @@ Wickham, Hadley. 2022. <span>“Rvest: Easily Harvest (Scrape) Web Pages.”</sp
 <p>Summarising and sorting the total votes by MP tells me that the “cluster of six” MPs are among the eight MPs voting the fewest times. And I can, for example, verify the record for Emma Reynolds directly via <a href="https://hansard.parliament.uk/search/MemberContributions?memberId=4077&amp;startDate=2017-06-08&amp;endDate=2018-01-27&amp;type=Divisions&amp;outputType=List"><em>Hansard</em></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">fewest_votes</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">votes</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mps</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"mp"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"ID"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mps</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">mp</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">ID</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;">(</span>n_lobby <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>, .by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">full_name_value</span>, <span class="va" style="color: #111111;">lobby</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op" style="color: #5E5E5E;">(</span>mp <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">full_name_value</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op" style="color: #5E5E5E;">(</span>names_from <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"lobby"</span>, values_from <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"n_lobby"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
@@ -7376,7 +7376,7 @@ Wickham, Hadley. 2022. <span>“Rvest: Easily Harvest (Scrape) Web Pages.”</sp
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[7]; cut[1]; labels[1]; library[10]; list[3]; max[2]; min[2]; nrow[1]; readRDS[2]; rev[2]; round[1]; saveRDS[2]</td>
+<td style="text-align: left;">c[5]; cut[1]; labels[1]; library[10]; list[3]; max[2]; min[2]; nrow[1]; readRDS[2]; rev[2]; round[1]; saveRDS[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">broom</td>
@@ -7396,7 +7396,7 @@ Wickham, Hadley. 2022. <span>“Rvest: Easily Harvest (Scrape) Web Pages.”</sp
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[3]; across[2]; c_across[4]; if_else[3]; left_join[2]; mutate[5]; n[1]; rename[2]; select[5]; slice_min[1]; summarise[2]; transmute[1]</td>
+<td style="text-align: left;">filter[3]; across[2]; c_across[4]; if_else[3]; join_by[2]; left_join[2]; mutate[5]; n[1]; rename[2]; select[5]; slice_min[1]; summarise[2]; transmute[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">factoextra</td>
@@ -7551,7 +7551,7 @@ Odell, Evan. 2017. <span>“<span></span>Hansard<span></span>: Provides Easy Dow
 <span>    <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">is.character</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="va" style="color: #111111;">str_trim</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"app_comp"</span>, <span class="st" style="color: #20794D;">"proposal_type"</span>, <span class="st" style="color: #20794D;">"property_cons"</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="va" style="color: #111111;">factor</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">geocodes</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"property_pcode"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"postcode"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">geocodes</span>, by <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">property_pcode</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">postcode</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;">tidy_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">dec_lump</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
@@ -7827,8 +7827,8 @@ Odell, Evan. 2017. <span>“<span></span>Hansard<span></span>: Provides Easy Dow
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 91%">
+<col style="width: 7%">
+<col style="width: 92%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Package</th>
@@ -7845,7 +7845,7 @@ Odell, Evan. 2017. <span>“<span></span>Hansard<span></span>: Provides Easy Dow
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.numeric[1]; basename[1]; c[17]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]</td>
+<td style="text-align: left;">as.numeric[1]; basename[1]; c[16]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -7853,7 +7853,7 @@ Odell, Evan. 2017. <span>“<span></span>Hansard<span></span>: Provides Easy Dow
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; left_join[1]; mutate[9]; n[2]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]; where[1]</td>
+<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; join_by[1]; left_join[1]; mutate[9]; n[2]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]; where[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fabletools</td>

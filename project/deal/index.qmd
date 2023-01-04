@@ -176,7 +176,7 @@ context_corp |>
   kwic(pattern = phrase(c("trade negotiation", "trade deal", "trade talks")), 
        valuetype = "regex", window = 7) |>
   as_tibble() |>
-  left_join(article_df, by = c("docname" = "short_url")) |> 
+  left_join(article_df, by = join_by(docname == short_url)) |> 
   slice_sample(n = 10) |> 
   select(docname, pre, keyword, post, headline)
 ```
@@ -193,7 +193,7 @@ sent_df <-
   tokens() |> 
   dfm(dictionary = data_dictionary_LSD2015) |> 
   as_tibble() |>
-  left_join(context_df, by = c("doc_id" = "short_url")) |> 
+  left_join(context_df, by = join_by(doc_id == short_url)) |> 
   mutate(
     pos = positive + neg_negative,
     neg = negative + neg_positive,

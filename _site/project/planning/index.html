@@ -243,7 +243,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 27, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -331,7 +331,7 @@ div.csl-indent {
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span>, <span class="va">str_trim</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"app_comp"</span>, <span class="st">"proposal_type"</span>, <span class="st">"property_cons"</span><span class="op">)</span>, <span class="va">factor</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">geocodes</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"property_pcode"</span> <span class="op">=</span> <span class="st">"postcode"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">geocodes</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">property_pcode</span> <span class="op">==</span> <span class="va">postcode</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tidy_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">dec_lump</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -607,8 +607,8 @@ div.csl-indent {
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 91%">
+<col style="width: 7%">
+<col style="width: 92%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Package</th>
@@ -625,7 +625,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.numeric[1]; basename[1]; c[17]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]</td>
+<td style="text-align: left;">as.numeric[1]; basename[1]; c[16]; is.na[3]; library[12]; min[1]; readRDS[1]; saveRDS[1]; sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -633,7 +633,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; left_join[1]; mutate[9]; n[2]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]; where[1]</td>
+<td style="text-align: left;">filter[2]; across[4]; arrange[1]; bind_rows[2]; case_when[3]; count[1]; desc[1]; if_else[3]; join_by[1]; left_join[1]; mutate[9]; n[2]; na_if[2]; rename[2]; select[2]; slice_head[1]; summarise[4]; where[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fabletools</td>

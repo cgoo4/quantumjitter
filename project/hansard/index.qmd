@@ -106,7 +106,7 @@ Voting the opposite way to the majority of the party, as well as non-votes, will
 #| label: pivot
 
 votes_df <- votes |>
-  left_join(mps, by = c("mp" = "ID")) |>
+  left_join(mps, by = join_by(mp == ID)) |>
   select(about = about.x, title, date_value, 
          lobby, mp, name = full_name_value) |>
   transmute(
@@ -328,7 +328,7 @@ Summarising and sorting the total votes by MP tells me that the "cluster of six"
 #| label: fewest
 
 fewest_votes <- votes |>
-  left_join(mps, by = c("mp" = "ID")) |>
+  left_join(mps, by = join_by(mp == ID)) |>
   summarise(n_lobby = n(), .by = c(full_name_value, lobby)) |>
   rename(mp = full_name_value) |> 
   pivot_wider(names_from = "lobby", values_from = "n_lobby") |>
