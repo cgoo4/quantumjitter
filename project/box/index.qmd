@@ -188,8 +188,9 @@ p2 <- packfun_df |>
 
 p1 + p2 +
   plot_annotation(
-    title = glue(
-      "Favourite Things from {n_url} Projects as at ",
+    title = glue("Favourite Things"),
+    subtitle = glue(
+      "Used Across {n_url} Projects as at ",
       "{date_format(date_today('Europe/London'), format = '%B %d, %Y')}"
     )
   )
