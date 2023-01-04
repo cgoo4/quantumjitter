@@ -19,7 +19,7 @@ Each [project](/project/) closes with a table summarising the R tools used. By a
 
 Since starting this in 2017, functions like tidyr's `spread` and `gather` have been superseded by `pivot_wider` and `pivot_longer`. Newer packages have emerged like [tidyclust](https://github.com/EmilHvitfeldt/tidyclust), which brings cluster modelling to tidymodels (now used in [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)). [bslib](https://rstudio.github.io/bslib/) has brought improvements to the latest shiny app version embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/). The paletteer package has put it's arms around the myriad palette packages out there. And scales' `cut_short_scale` assisted with plot labelling.
 
-Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the `.by` argument in `mutate` and friends offers a neat alternative to `group_by` and `ungroup` in many situations. And changes in the `map_` family introduce `list_rbind` and associates with `map_dfr`, for example, now superseded.
+Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the `.by` argument in `mutate` and friends offers a neat alternative to `group_by` and `ungroup` in many situations. Joins have been enhanced (e.g. to support inequality conditions) with the addition of `join_by` to dplyr. And changes in the `map_` family introduce `list_rbind` and associates with `map_dfr`, for example, now superseded.
 
 ```{r}
 #| label: libraries
@@ -158,7 +158,7 @@ packfun_df <- pack_df |>
 
 Use of Quarto's `{{< include _foobar.qmd >}}` has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.
 
-With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and `map_dfr` has fallen away whilst `list_rbind` has newly appeared.
+With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and `map_dfr` has fallen away whilst usage of `list_rbind` and `join_by` has freshly emerged.
 
 ```{r}
 #| label: plot

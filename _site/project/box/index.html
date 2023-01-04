@@ -224,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 24, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>See where it would be most useful to keep an eye on package version updates</p></li>
 </ul>
 <p>Since starting this in 2017, functions like tidyr’s <code>spread</code> and <code>gather</code> have been superseded by <code>pivot_wider</code> and <code>pivot_longer</code>. Newer packages have emerged like <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a>, which brings cluster modelling to tidymodels (now used in <a href="https://www.quantumjitter.com/project/happiness/">Finding Happiness in ‘The Smoke’</a>). <a href="https://rstudio.github.io/bslib/">bslib</a> has brought improvements to the latest shiny app version embedded in <a href="https://www.quantumjitter.com/project/thicken/">Plots Thicken</a>. The paletteer package has put it’s arms around the myriad palette packages out there. And scales’ <code>cut_short_scale</code> assisted with plot labelling.</p>
-<p>Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the <code>.by</code> argument in <code>mutate</code> and friends offers a neat alternative to <code>group_by</code> and <code>ungroup</code> in many situations. And changes in the <code>map_</code> family introduce <code>list_rbind</code> and associates with <code>map_dfr</code>, for example, now superseded.</p>
+<p>Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the <code>.by</code> argument in <code>mutate</code> and friends offers a neat alternative to <code>group_by</code> and <code>ungroup</code> in many situations. Joins have been enhanced (e.g.&nbsp;to support inequality conditions) with the addition of <code>join_by</code> to dplyr. And changes in the <code>map_</code> family introduce <code>list_rbind</code> and associates with <code>map_dfr</code>, for example, now superseded.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
@@ -357,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Use of Quarto’s <code>{{&lt; include _foobar.qmd &gt;}}</code> has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.</p>
-<p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst <code>list_rbind</code> has newly appeared.</p>
+<p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst usage of <code>list_rbind</code> and <code>join_by</code> has freshly emerged.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"package"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
