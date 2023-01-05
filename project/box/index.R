@@ -44,7 +44,7 @@ urls <- "https://www.quantumjitter.com/project/" |>
 table_df <- map(urls, \(x) {
   x |>
     read_html() |>
-    html_elements("#r-toolbox , kable-table") |>
+    html_elements(".usethese, .usedthese") |>
     html_table()
 }) |>
   list_flatten() |>
