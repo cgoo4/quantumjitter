@@ -18,6 +18,7 @@ library(tidyverse)
 library(wesanderson)
 library(scales)
 library(truncnorm)
+library(usedthese)
 ```
 
 I'll use this palette.
@@ -133,4 +134,8 @@ So perhaps the answer is to pick a worst-case scenario one would be prepared to 
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

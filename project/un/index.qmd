@@ -27,6 +27,7 @@ library(patchwork)
 library(wesanderson)
 library(rvest)
 library(glue)
+library(usedthese)
 ```
 
 ```{r}
@@ -226,4 +227,8 @@ big_plot + little_plot + plot_layout(design = layout)
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

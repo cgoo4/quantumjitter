@@ -31,10 +31,9 @@ library(paletteer)
 library(janitor)
 library(glue)
 library(ggwordcloud)
-library(fpp3)
-library(tidymodels)
 library(patchwork)
 library(clock)
+library(usedthese)
 ```
 
 ```{r}
@@ -110,9 +109,9 @@ Separation of tidyverse and non-tidyverse packages may be achieved by using the 
 
 tidy <-
   c(
-    tidyverse_packages(),
-    fpp3_packages(),
-    tidymodels_packages()
+    tidyverse::tidyverse_packages(),
+    fpp3::fpp3_packages(),
+    tidymodels::tidymodels_packages()
   ) |>
   unique()
 
@@ -230,4 +229,8 @@ packfun_df |>
 
 This project's code too should be included in my "favourite things".
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

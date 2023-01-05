@@ -17,6 +17,7 @@ library(tidyverse)
 library(clock)
 library(scales)
 library(wesanderson)
+library(usedthese)
 ```
 
 I'm using one of the beautiful range of [Wes Anderson Palettes](https://github.com/karthik/wesanderson). I often use the palettes provided by [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) too.
@@ -218,4 +219,8 @@ sect_summary |>
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

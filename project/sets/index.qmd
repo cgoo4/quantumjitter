@@ -23,6 +23,7 @@ library(tictoc)
 library(ggupset)
 library(ggVennDiagram)
 library(glue)
+library(usedthese)
 
 plan(multisession)
 ```
@@ -335,4 +336,8 @@ top5_int |>
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

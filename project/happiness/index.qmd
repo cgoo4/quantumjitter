@@ -23,6 +23,7 @@ library(janitor)
 library(ggrepel)
 library(sf)
 library(scales)
+library(usedthese)
 ```
 
 The graphics will use a custom palette created in [Adobe Colour](https://color.adobe.com).
@@ -398,4 +399,8 @@ Dimensionality reduction is further explored in [East-West Drift](/project/un) c
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

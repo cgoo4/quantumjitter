@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - House Sales">
 <meta property="og:description" content="A series of events, such as the Financial Crisis and the 2016 Brexit vote, that damped down residential property sales in London">
@@ -239,7 +240,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 29, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -259,7 +260,8 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vctrs.r-lib.org/">vctrs</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/haleyjeppson/ggmosaic">ggmosaic</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/haleyjeppson/ggmosaic">ggmosaic</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -509,85 +511,85 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 96%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">SPARQL</td>
-<td style="text-align: left;">SPARQL[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[1]; c[6]; factor[1]; library[10]; max[2]; min[1]; nrow[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_date[1]; as_year_quarter_day[1]; calendar_start[1]; date_format[1]; date_parse[1]; date_today[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; mutate[3]; n[1]; pull[3]; recode[1]; rename[1]; summarise[4]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ggmosaic</td>
-<td style="text-align: left;">geom_mosaic[1]; mosaic[1]; product[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[6]; annotate[4]; coord_cartesian[1]; element_blank[1]; element_text[1]; geom_hline[1]; geom_line[2]; geom_point[1]; geom_ribbon[1]; geom_smooth[1]; geom_vline[1]; ggplot[4]; labs[4]; scale_colour_manual[1]; scale_fill_manual[1]; scale_x_date[1]; scale_y_continuous[1]; scale_y_log10[1]; theme[2]; theme_bw[1]; theme_minimal[1]; theme_set[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[3]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">patchwork</td>
-<td style="text-align: left;">plot_layout[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">cut_short_scale[2]; label_dollar[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">quantile[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_detect[1]; str_extract[2]; str_remove[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1]; tribble[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">pivot_wider[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tsibble</td>
-<td style="text-align: left;">scale_x_yearquarter[2]; yearquarter[4]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vctrs</td>
-<td style="text-align: left;">new_datetime[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> SPARQL </td>
+   <td style="text-align:left;"> SPARQL[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.Date[1];  c[6];  factor[1];  library[11];  max[2];  min[1];  nrow[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> clock </td>
+   <td style="text-align:left;"> as_date[1];  as_year_quarter_day[1];  calendar_start[1];  date_format[1];  date_parse[1];  date_today[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> filter[2];  mutate[3];  n[1];  pull[3];  recode[1];  rename[1];  summarise[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggmosaic </td>
+   <td style="text-align:left;"> geom_mosaic[1];  mosaic[1];  product[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> aes[6];  annotate[4];  coord_cartesian[1];  element_blank[1];  element_text[1];  geom_hline[1];  geom_line[2];  geom_point[1];  geom_ribbon[1];  geom_smooth[1];  geom_vline[1];  ggplot[4];  labs[4];  scale_colour_manual[1];  scale_fill_manual[1];  scale_x_date[1];  scale_y_continuous[1];  scale_y_log10[1];  theme[2];  theme_bw[1];  theme_minimal[1];  theme_set[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> glue </td>
+   <td style="text-align:left;"> glue[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> patchwork </td>
+   <td style="text-align:left;"> plot_layout[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> comma[1];  cut_short_scale[2];  label_dollar[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stats </td>
+   <td style="text-align:left;"> quantile[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_detect[1];  str_extract[2];  str_remove[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tibble </td>
+   <td style="text-align:left;"> as_tibble[1];  tribble[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyr </td>
+   <td style="text-align:left;"> pivot_wider[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tsibble </td>
+   <td style="text-align:left;"> scale_x_yearquarter[2];  yearquarter[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> vctrs </td>
+   <td style="text-align:left;"> new_datetime[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> wesanderson </td>
+   <td style="text-align:left;"> wes_palette[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

@@ -28,6 +28,7 @@ library(vip)
 library(tictoc)
 library(patchwork)
 library(doParallel)
+library(usedthese)
 
 registerDoParallel(cores = 6)
 ```
@@ -471,4 +472,8 @@ The majority of the `r nrow(subset_df)` uncertain records are predicted to be as
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

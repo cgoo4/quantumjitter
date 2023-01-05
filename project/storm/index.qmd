@@ -18,8 +18,9 @@ library(tidyverse)
 library(wesanderson)
 library(scales, exclude = "date_format")
 library(glue)
-library(tidyquant)
+library(tidyquant, include.only = "tq_get")
 library(clock)
+library(usedthese)
 ```
 
 ```{r}
@@ -113,4 +114,8 @@ eod_sectors |>
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

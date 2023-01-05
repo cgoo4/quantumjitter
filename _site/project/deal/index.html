@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - A Frosty Deal?">
 <meta property="og:description" content="Quantitative textual analysis, word embeddings and analysing shifting trade-talk sentiment?">
@@ -264,7 +265,8 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://text2vec.org">text2vec</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">topicmodels</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/slider">slider</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -415,16 +417,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [10:44:57.040] epoch 1, loss 0.3788
-INFO  [10:44:59.542] epoch 2, loss 0.2570
-INFO  [10:45:01.973] epoch 3, loss 0.2292
-INFO  [10:45:04.397] epoch 4, loss 0.2090
-INFO  [10:45:06.795] epoch 5, loss 0.1921
-INFO  [10:45:09.257] epoch 6, loss 0.1791
-INFO  [10:45:11.692] epoch 7, loss 0.1694
-INFO  [10:45:14.189] epoch 8, loss 0.1619
-INFO  [10:45:16.635] epoch 9, loss 0.1557
-INFO  [10:45:19.094] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [18:48:08.691] epoch 1, loss 0.3788
+INFO  [18:48:11.048] epoch 2, loss 0.2570
+INFO  [18:48:13.504] epoch 3, loss 0.2292
+INFO  [18:48:15.950] epoch 4, loss 0.2090
+INFO  [18:48:18.365] epoch 5, loss 0.1921
+INFO  [18:48:20.831] epoch 6, loss 0.1791
+INFO  [18:48:23.278] epoch 7, loss 0.1694
+INFO  [18:48:25.771] epoch 8, loss 0.1619
+INFO  [18:48:28.325] epoch 9, loss 0.1557
+INFO  [18:48:30.825] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -701,7 +703,7 @@ INFO  [10:45:19.094] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.934 sec elapsed</code></pre>
+<pre><code>0.923 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -749,89 +751,89 @@ INFO  [10:45:19.094] epoch 10, loss 0.1506</code></pre>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 92%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[2]; c[3]; library[12]; mean[1]; set.seed[2]; sum[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">add_days[1]; add_months[1]; date_build[1]; date_ceiling[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2]; group_by[1]; join_by[2]; left_join[2]; mutate[5]; n[1]; rename[1]; select[2]; slice[1]; slice_max[1]; slice_sample[1]; summarise[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[4]; geom_hline[1]; geom_line[2]; geom_ribbon[1]; ggplot[2]; labs[2]; scale_y_continuous[1]; theme_bw[1]; theme_set[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">methods</td>
-<td style="text-align: left;">new[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">patchwork</td>
-<td style="text-align: left;">plot_layout[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">list_rbind[1]; pmap[1]; slowly[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quanteda</td>
-<td style="text-align: left;">t[1]; corpus[2]; dfm[1]; fcm[1]; kwic[1]; phrase[1]; tokens[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_percent[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">slider</td>
-<td style="text-align: left;">slide_dbl[3]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">quantile[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_detect[2]; str_remove_all[3]; str_to_lower[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">text2vec</td>
-<td style="text-align: left;">fit_transform[1]; sim2[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[3]; tibble[1]; rownames_to_column[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tictoc</td>
-<td style="text-align: left;">tic[2]; toc[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.Date[2];  c[3];  library[13];  mean[1];  set.seed[2];  sum[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> clock </td>
+   <td style="text-align:left;"> add_days[1];  add_months[1];  date_build[1];  date_ceiling[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> filter[2];  group_by[1];  join_by[2];  left_join[2];  mutate[5];  n[1];  rename[1];  select[2];  slice[1];  slice_max[1];  slice_sample[1];  summarise[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> aes[4];  geom_hline[1];  geom_line[2];  geom_ribbon[1];  ggplot[2];  labs[2];  scale_y_continuous[1];  theme_bw[1];  theme_set[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> glue </td>
+   <td style="text-align:left;"> glue[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> methods </td>
+   <td style="text-align:left;"> new[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> patchwork </td>
+   <td style="text-align:left;"> plot_layout[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> list_rbind[1];  pmap[1];  slowly[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> quanteda </td>
+   <td style="text-align:left;"> corpus[2];  dfm[1];  fcm[1];  kwic[1];  phrase[1];  t[1];  tokens[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> label_percent[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> slider </td>
+   <td style="text-align:left;"> slide_dbl[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stats </td>
+   <td style="text-align:left;"> quantile[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_detect[2];  str_remove_all[3];  str_to_lower[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> text2vec </td>
+   <td style="text-align:left;"> fit_transform[1];  sim2[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tibble </td>
+   <td style="text-align:left;"> as_tibble[3];  tibble[1];  rownames_to_column[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tictoc </td>
+   <td style="text-align:left;"> tic[2];  toc[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> wesanderson </td>
+   <td style="text-align:left;"> wes_palette[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

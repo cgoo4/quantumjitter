@@ -20,6 +20,7 @@ This post briefly explores the shifts in the nature of employment whilst at the 
 library(tidyverse)
 library(readxl)
 library(gt)
+library(usedthese)
 ```
 
 In [Digging Deep](https://www.quantumjitter.com/project/planning/), the [DT package](https://rstudio.github.io/DT/) is used to produce a *reactable* table; one with sortable and searchable columns. DT is intended as an R interface to the DataTables library, but reactivity is not yet supported in gt.
@@ -258,4 +259,8 @@ gt_ft |> as_raw_html()
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box/) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

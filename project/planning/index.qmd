@@ -24,9 +24,12 @@ library(wesanderson)
 library(tictoc)
 library(htmlwidgets)
 library(clock)
-library(fpp3)
+library(fabletools)
+library(feasts)
+library(tsibble)
 library(DT)
 library(vctrs)
+library(usedthese)
 ```
 
 ```{r}
@@ -464,4 +467,8 @@ tidy_df |>
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

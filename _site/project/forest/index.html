@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Criminal Goings-on in a Random Forest">
 <meta property="og:description" content="Criminal goings-on in a random forest and predictions with tree-based and glm models">
@@ -239,7 +240,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -254,7 +255,8 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/koalaverse/vip/">vip</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg">poissonreg</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg">poissonreg</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This custom palette was created in <a href="https://color.adobe.com/create/color-wheel">Adobe Colour</a> as the basis for the feature image above and with the hex codes loaded for use in ggplot. <code>colorRampPalette</code> enables interpolation of an extended set of colours to support the number of offence types.</p>
 <div class="cell">
@@ -735,93 +737,101 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 2%">
-<col style="width: 97%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[3]; as.numeric[1]; c[7]; library[6]; list[5]; round[2]; set.seed[2]; sum[4]; summary[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[1]; bind_rows[4]; group_by[1]; mutate[10]; summarise[4]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">forcats</td>
-<td style="text-align: left;">fct_inorder[1]; fct_reorder[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[10]; annotate[1]; coord_flip[1]; element_text[3]; facet_wrap[3]; geom_boxplot[2]; geom_col[3]; geom_label[3]; geom_line[2]; geom_smooth[1]; ggplot[7]; guide_legend[1]; guides[1]; labs[11]; scale_colour_manual[1]; scale_fill_manual[3]; scale_y_continuous[1]; scale_y_log10[2]; theme[4]; theme_bw[1]; theme_set[1]; theme_void[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">grDevices</td>
-<td style="text-align: left;">colorRampPalette[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">janitor</td>
-<td style="text-align: left;">clean_names[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">parsnip</td>
-<td style="text-align: left;">decision_tree[1]; poisson_reg[1]; rand_forest[3]; set_engine[5]; set_mode[5]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_csv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">recipes</td>
-<td style="text-align: left;">has_role[2]; recipe[2]; update_role[4]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">rsample</td>
-<td style="text-align: left;">initial_split[2]; testing[2]; training[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">cut_short_scale[3]; label_number[3]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">median[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[1]; str_extract[1]; str_wrap[3]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">tibble[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">drop_na[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">vip</td>
-<td style="text-align: left;">vip[5]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">workflows</td>
-<td style="text-align: left;">add_model[5]; add_recipe[5]; workflow[5]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">yardstick</td>
-<td style="text-align: left;">metrics[2]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.character[3];  as.numeric[1];  c[7];  library[7];  list[5];  round[2];  set.seed[2];  sum[4];  summary[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> bind_rows[4];  filter[1];  group_by[1];  lag[3];  mutate[10];  summarise[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> forcats </td>
+   <td style="text-align:left;"> fct_inorder[1];  fct_reorder[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> generics </td>
+   <td style="text-align:left;"> augment[5];  fit[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> aes[10];  annotate[1];  coord_flip[1];  element_text[3];  facet_wrap[3];  geom_boxplot[2];  geom_col[3];  geom_label[3];  geom_line[2];  geom_smooth[1];  ggplot[7];  guide_legend[1];  guides[1];  labs[11];  scale_colour_manual[1];  scale_fill_manual[3];  scale_y_continuous[1];  scale_y_log10[2];  theme[4];  theme_bw[1];  theme_set[1];  theme_void[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> grDevices </td>
+   <td style="text-align:left;"> colorRampPalette[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> hardhat </td>
+   <td style="text-align:left;"> extract_fit_parsnip[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> janitor </td>
+   <td style="text-align:left;"> clean_names[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> parsnip </td>
+   <td style="text-align:left;"> decision_tree[1];  poisson_reg[1];  rand_forest[3];  set_engine[5];  set_mode[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> readr </td>
+   <td style="text-align:left;"> read_csv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> recipes </td>
+   <td style="text-align:left;"> has_role[2];  recipe[2];  update_role[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rsample </td>
+   <td style="text-align:left;"> initial_split[2];  testing[2];  training[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> cut_short_scale[3];  label_number[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stats </td>
+   <td style="text-align:left;"> median[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_c[1];  str_extract[1];  str_wrap[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tibble </td>
+   <td style="text-align:left;"> tibble[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyr </td>
+   <td style="text-align:left;"> drop_na[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> vip </td>
+   <td style="text-align:left;"> vip[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> workflows </td>
+   <td style="text-align:left;"> add_model[5];  add_recipe[5];  workflow[5];  extract_fit_parsnip[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> yardstick </td>
+   <td style="text-align:left;"> metrics[2] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

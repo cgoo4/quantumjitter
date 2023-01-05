@@ -25,6 +25,7 @@ library(vctrs)
 library(tsibble)
 library(patchwork)
 library(ggmosaic)
+library(usedthese)
 ```
 
 ```{r}
@@ -242,4 +243,8 @@ Other blog posts on [quantum jitter](/.) look at SW10 property from diffferent p
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

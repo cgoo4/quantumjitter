@@ -25,6 +25,7 @@ library(janitor)
 library(scales, exclude = "date_format")
 library(wesanderson)
 library(glue)
+library(usedthese)
 ```
 
 ```{r}
@@ -160,4 +161,8 @@ These data are explored further in [Six months later](/project/six) and [Can Rav
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

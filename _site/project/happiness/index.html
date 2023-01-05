@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Finding Happiness in The Smoke">
 <meta property="og:description" content="Cluster analysis and the characteristics that bind London boroughs">
@@ -261,7 +262,8 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel">ggrepel</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The graphics will use a custom palette created in <a href="https://color.adobe.com">Adobe Colour</a>.</p>
 <div class="cell">
@@ -668,105 +670,121 @@ div.csl-indent {
 </section><section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 2%">
-<col style="width: 97%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[8]; c[9]; is.na[1]; library[10]; seq[1]; set.seed[1]; sum[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[5]; across[1]; arrange[1]; cur_data[1]; desc[1]; if_else[3]; join_by[1]; left_join[1]; mutate[8]; na_if[1]; recode[2]; rename[1]; rename_with[2]; rowwise[1]; select[6]; where[3]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">forcats</td>
-<td style="text-align: left;">fct_inorder[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[21]; annotate[1]; arrow[1]; coord_flip[2]; element_blank[1]; facet_wrap[3]; geom_col[2]; geom_label[6]; geom_line[2]; geom_point[6]; geom_segment[1]; geom_sf[1]; geom_sf_label[1]; ggplot[11]; labs[10]; scale_colour_manual[3]; scale_fill_manual[5]; scale_x_continuous[1]; scale_y_continuous[1]; theme[3]; theme_bw[1]; theme_minimal[1]; theme_set[1]; theme_void[2]; unit[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ggrepel</td>
-<td style="text-align: left;">geom_text_repel[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">janitor</td>
-<td style="text-align: left;">clean_names[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[4]; pluck[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">readxl</td>
-<td style="text-align: left;">read_xlsx[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">recipes</td>
-<td style="text-align: left;">all_predictors[3]; recipe[1]; step_normalize[1]; step_pca[1]; step_zv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">rsample</td>
-<td style="text-align: left;">vfold_cv[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_percent[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">sf</td>
-<td style="text-align: left;">st_read[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">kmeans[1]; prcomp[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[2]; str_remove[3]; str_remove_all[1]; str_starts[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">tibble[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidyclust</td>
-<td style="text-align: left;">cluster_metric_set[1]; extract_centroids[1]; k_means[2]; tune_cluster[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]; pivot_longer[2]; pivot_wider[1]; unnest[3]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tidytext</td>
-<td style="text-align: left;">reorder_within[1]; scale_x_reordered[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tune</td>
-<td style="text-align: left;">control_grid[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">workflows</td>
-<td style="text-align: left;">add_model[1]; add_recipe[1]; update_model[1]; workflow[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.character[8];  c[9];  is.na[1];  library[11];  seq[1];  set.seed[1];  sum[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> across[1];  arrange[1];  cur_data[1];  desc[1];  filter[5];  if_else[3];  join_by[1];  left_join[1];  mutate[8];  na_if[1];  recode[2];  rename[1];  rename_with[2];  rowwise[1];  select[6];  where[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> forcats </td>
+   <td style="text-align:left;"> fct_inorder[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> generics </td>
+   <td style="text-align:left;"> augment[2];  fit[1];  tidy[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> aes[21];  annotate[1];  arrow[1];  coord_flip[2];  element_blank[1];  facet_wrap[3];  geom_col[2];  geom_label[6];  geom_line[2];  geom_point[6];  geom_segment[1];  geom_sf[1];  geom_sf_label[1];  ggplot[11];  labs[10];  scale_colour_manual[3];  scale_fill_manual[5];  scale_x_continuous[1];  scale_y_continuous[1];  theme[3];  theme_bw[1];  theme_minimal[1];  theme_set[1];  theme_void[2];  unit[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggrepel </td>
+   <td style="text-align:left;"> geom_text_repel[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> glue </td>
+   <td style="text-align:left;"> glue[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> hardhat </td>
+   <td style="text-align:left;"> tune[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> janitor </td>
+   <td style="text-align:left;"> clean_names[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> parsnip </td>
+   <td style="text-align:left;"> set_engine[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> map[4];  pluck[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> readxl </td>
+   <td style="text-align:left;"> read_xlsx[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> recipes </td>
+   <td style="text-align:left;"> all_predictors[3];  recipe[1];  step_normalize[1];  step_pca[1];  step_zv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rsample </td>
+   <td style="text-align:left;"> vfold_cv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> label_percent[1];  number[1];  percent[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> sf </td>
+   <td style="text-align:left;"> st_read[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stats </td>
+   <td style="text-align:left;"> kmeans[1];  prcomp[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_c[2];  str_remove[3];  str_remove_all[1];  str_starts[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tibble </td>
+   <td style="text-align:left;"> tibble[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyclust </td>
+   <td style="text-align:left;"> cluster_metric_set[1];  extract_centroids[1];  k_means[2];  tune_cluster[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyr </td>
+   <td style="text-align:left;"> crossing[1];  pivot_longer[2];  pivot_wider[1];  population[1];  unnest[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyselect </td>
+   <td style="text-align:left;"> matches[1];  starts_with[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidytext </td>
+   <td style="text-align:left;"> reorder_within[1];  scale_x_reordered[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tune </td>
+   <td style="text-align:left;"> collect_metrics[1];  control_grid[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> workflows </td>
+   <td style="text-align:left;"> add_model[1];  add_recipe[1];  update_model[1];  workflow[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

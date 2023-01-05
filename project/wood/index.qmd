@@ -18,6 +18,7 @@ library(trelliscopejs)
 library(rbokeh)
 library(janitor)
 library(vangogh)
+library(usedthese)
 ```
 
 This time I'll use Van Gogh's "The Starry Night" palette for the feature image and plots. And there are 9 types of criminal offence, so `colorRampPalette` will enable the interpolation of an extended set.
@@ -168,4 +169,8 @@ plot_data |>
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

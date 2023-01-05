@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Surprising Stories">
 <meta property="og:description" content="A little interactive geospatial mapping and an unexpected find">
@@ -239,7 +240,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -257,7 +258,8 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://rgdal.r-forge.r-project.org">rgdal</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets">htmlwidgets</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets">htmlwidgets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -395,73 +397,73 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 93%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">R.utils</td>
-<td style="text-align: left;">gunzip[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1]; basename[1]; c[5]; getwd[1]; is.na[2]; library[7]; list[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[1]; arrange[1]; case_when[2]; if_else[2]; mutate[3]; rename[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">theme_bw[1]; theme_set[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">htmlwidgets</td>
-<td style="text-align: left;">saveWidget[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">leaflet</td>
-<td style="text-align: left;">addCircleMarkers[1]; addLegend[1]; addPolygons[1]; addProviderTiles[1]; colorFactor[1]; highlightOptions[1]; labelOptions[1]; leaflet[1]; providerTileOptions[1]; setView[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">list_rbind[1]; map2[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_csv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">rgdal</td>
-<td style="text-align: left;">readOGR[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">rgeolocate</td>
-<td style="text-align: left;">maxmind[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">utils</td>
-<td style="text-align: left;">download.file[2]; unzip[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> R.utils </td>
+   <td style="text-align:left;"> gunzip[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.character[1];  basename[1];  c[5];  getwd[1];  is.na[2];  library[8];  list[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> arrange[1];  case_when[2];  filter[1];  if_else[2];  mutate[3];  rename[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> theme_bw[1];  theme_set[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> htmlwidgets </td>
+   <td style="text-align:left;"> saveWidget[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> leaflet </td>
+   <td style="text-align:left;"> addCircleMarkers[1];  addLegend[1];  addPolygons[1];  addProviderTiles[1];  colorFactor[1];  highlightOptions[1];  labelOptions[1];  leaflet[1];  providerTileOptions[1];  setView[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> list_rbind[1];  map2[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> readr </td>
+   <td style="text-align:left;"> read_csv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rgdal </td>
+   <td style="text-align:left;"> readOGR[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rgeolocate </td>
+   <td style="text-align:left;"> maxmind[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_c[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> utils </td>
+   <td style="text-align:left;"> download.file[2];  unzip[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> wesanderson </td>
+   <td style="text-align:left;"> wes_palette[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

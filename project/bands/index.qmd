@@ -29,6 +29,7 @@ library(janitor)
 library(infer)
 library(tsibble)
 library(ggfx)
+library(usedthese)
 ```
 
 Setting the theme and colour palette for all graphics (with a little help from the [ggfx](https://ggfx.data-imaginist.com) package).
@@ -510,4 +511,8 @@ Bootstrapping with a 95% confidence interval suggests the true difference in mea
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

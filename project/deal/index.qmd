@@ -30,6 +30,7 @@ library(text2vec)
 library(topicmodels)
 library(slider)
 library(glue)
+library(usedthese)
 ```
 
 ```{r}
@@ -262,4 +263,8 @@ p1 / p2 +
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
 
-{{< include /project/_toolbox.qmd >}}
+```{r}
+#| label: toolbox
+
+used_here()
+```

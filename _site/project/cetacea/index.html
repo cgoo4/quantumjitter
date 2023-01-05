@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Sea Monsters that Lost their Way">
 <meta property="og:description" content="Predicting uncertain species of cetacean strandings recorded by the Natural History Museum">
@@ -241,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -265,6 +266,7 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/doparallel">doParallel</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span><span class="op">(</span>cores <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1124,117 +1126,133 @@ div.csl-indent {
 </section><section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 96%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">as.integer[2]; c[13]; is.na[1]; levels[1]; library[14]; mean[2]; min[1]; names[1]; seq[3]; set.seed[4]; summary[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_iso_year_week_day[1]; date_build[1]; date_parse[1]; get_month[1]; get_week[1]; get_year[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">doParallel</td>
-<td style="text-align: left;">registerDoParallel[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[7]; across[2]; arrange[2]; case_when[1]; coalesce[1]; count[4]; desc[3]; if_else[6]; mutate[13]; n[1]; n_distinct[2]; recode[1]; rename[2]; row_number[1]; select[3]; slice_head[2]; summarise[3]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">finetune</td>
-<td style="text-align: left;">control_race[1]; plot_race[1]; tune_race_anova[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">forcats</td>
-<td style="text-align: left;">fct_drop[1]; fct_lump_n[1]; fct_reorder[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[6]; coord_flip[3]; coord_map[1]; element_text[2]; facet_wrap[2]; geom_jitter[2]; geom_map[1]; geom_violin[2]; ggplot[4]; labs[6]; map_data[1]; scale_colour_manual[2]; scale_fill_gradient2[1]; scale_fill_manual[1]; scale_size_manual[1]; scale_y_log10[1]; theme[3]; theme_bw[1]; theme_set[1]; theme_void[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[2]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">janitor</td>
-<td style="text-align: left;">clean_names[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">parsnip</td>
-<td style="text-align: left;">boost_tree[1]; set_engine[1]; set_mode[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">patchwork</td>
-<td style="text-align: left;">wrap_plots[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">probably</td>
-<td style="text-align: left;">make_class_pred[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">parse_number[1]; read_csv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">recipes</td>
-<td style="text-align: left;">all_nominal_predictors[1]; all_predictors[1]; has_role[2]; step_date[1]; step_dummy[1]; step_zv[1]; update_role[3]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">rsample</td>
-<td style="text-align: left;">initial_split[1]; testing[1]; training[1]; vfold_cv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[1]; str_detect[3]; str_remove_all[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">textrecipes</td>
-<td style="text-align: left;">step_stopwords[1]; step_tf[1]; step_tokenfilter[1]; step_tokenize[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tictoc</td>
-<td style="text-align: left;">tic[1]; toc[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">crossing[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tune</td>
-<td style="text-align: left;">finalize_workflow[1]; select_best[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">workflows</td>
-<td style="text-align: left;">add_model[1]; add_recipe[1]; workflow[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">yardstick</td>
-<td style="text-align: left;">accuracy[1]; conf_mat[1]; metric_set[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> as.character[2];  as.integer[2];  c[13];  is.na[1];  levels[1];  library[15];  mean[2];  min[1];  names[1];  seq[3];  set.seed[4];  summary[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> clock </td>
+   <td style="text-align:left;"> as_iso_year_week_day[1];  date_build[1];  date_parse[1];  get_month[1];  get_week[1];  get_year[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> doParallel </td>
+   <td style="text-align:left;"> registerDoParallel[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> across[2];  arrange[2];  case_when[1];  coalesce[1];  count[4];  desc[3];  filter[7];  if_else[6];  lag[1];  mutate[13];  n[1];  n_distinct[2];  recode[1];  rename[2];  row_number[1];  select[3];  slice_head[2];  summarise[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> finetune </td>
+   <td style="text-align:left;"> control_race[1];  plot_race[1];  tune_race_anova[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> forcats </td>
+   <td style="text-align:left;"> fct_drop[1];  fct_lump_n[1];  fct_reorder[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> generics </td>
+   <td style="text-align:left;"> augment[2];  fit[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> autoplot[1];  aes[6];  coord_flip[3];  coord_map[1];  element_text[2];  facet_wrap[2];  geom_jitter[2];  geom_map[1];  geom_violin[2];  ggplot[4];  labs[6];  map_data[1];  scale_colour_manual[2];  scale_fill_gradient2[1];  scale_fill_manual[1];  scale_size_manual[1];  scale_y_log10[1];  theme[3];  theme_bw[1];  theme_set[1];  theme_void[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> glue </td>
+   <td style="text-align:left;"> glue[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> hardhat </td>
+   <td style="text-align:left;"> extract_fit_parsnip[1];  tune[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> janitor </td>
+   <td style="text-align:left;"> clean_names[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> parsnip </td>
+   <td style="text-align:left;"> boost_tree[1];  set_engine[1];  set_mode[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> patchwork </td>
+   <td style="text-align:left;"> wrap_plots[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> probably </td>
+   <td style="text-align:left;"> as.factor[1];  make_class_pred[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> map[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> readr </td>
+   <td style="text-align:left;"> parse_number[1];  read_csv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> recipes </td>
+   <td style="text-align:left;"> all_nominal_predictors[1];  all_predictors[1];  has_role[2];  recipe[1];  step_date[1];  step_dummy[1];  step_zv[1];  update_role[3] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rsample </td>
+   <td style="text-align:left;"> initial_split[1];  testing[1];  training[1];  vfold_cv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> str_c[1];  str_detect[3];  str_remove_all[1];  str_to_title[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> textrecipes </td>
+   <td style="text-align:left;"> step_stopwords[1];  step_tf[1];  step_tokenfilter[1];  step_tokenize[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tictoc </td>
+   <td style="text-align:left;"> tic[1];  toc[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyr </td>
+   <td style="text-align:left;"> crossing[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tidyselect </td>
+   <td style="text-align:left;"> all_of[1];  ends_with[2];  starts_with[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> tune </td>
+   <td style="text-align:left;"> finalize_workflow[1];  select_best[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> vip </td>
+   <td style="text-align:left;"> vi[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> wesanderson </td>
+   <td style="text-align:left;"> wes_palette[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> workflows </td>
+   <td style="text-align:left;"> add_model[1];  add_recipe[1];  workflow[1];  extract_fit_parsnip[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> yardstick </td>
+   <td style="text-align:left;"> accuracy[1];  conf_mat[1];  metric_set[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

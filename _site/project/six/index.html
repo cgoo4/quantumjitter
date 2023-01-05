@@ -144,6 +144,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Quantum Jitter - Six Months Later">
 <meta property="og:description" content="Exploring colour palettes and small multiples using cloud services spend data">
@@ -238,7 +239,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2022</p>
+      <p class="date-modified">January 4, 2023</p>
     </div>
   </div>
     
@@ -251,7 +252,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/usedthese">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I’m using one of the beautiful range of <a href="https://github.com/karthik/wesanderson">Wes Anderson Palettes</a>. I often use the palettes provided by <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">ColorBrewer</a> too.</p>
 <div class="cell">
@@ -441,57 +443,57 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 93%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Function</th>
-</tr></thead>
+
+<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Function </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">base</td>
-<td style="text-align: left;">c[9]; is.na[1]; library[4]; min[1]; months[1]; sum[6]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">add_days[1]; add_months[1]; date_parse[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[3]; bind_rows[1]; if_else[2]; lead[1]; mutate[3]; summarise[4]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[4]; facet_wrap[2]; geom_line[4]; geom_smooth[4]; ggplot[4]; labs[8]; scale_colour_manual[4]; scale_x_date[4]; scale_y_continuous[4]; theme[2]; theme_bw[1]; theme_set[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map[2]; set_names[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">locale[1]; parse_number[1]; read_csv[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_dollar[2]; label_percent[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">fixed[5]; str_c[3]; str_extract[1]; str_remove[2]; str_replace[4]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
+<tr>
+<td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> c[9];  is.na[1];  library[5];  min[1];  months[1];  sum[6] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> clock </td>
+   <td style="text-align:left;"> add_days[1];  add_months[1];  date_parse[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> bind_rows[1];  filter[3];  if_else[2];  lead[1];  mutate[3];  summarise[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> aes[4];  facet_wrap[2];  geom_line[4];  geom_smooth[4];  ggplot[4];  labs[8];  scale_colour_manual[4];  scale_x_date[4];  scale_y_continuous[4];  theme[2];  theme_bw[1];  theme_set[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> map[2];  set_names[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> readr </td>
+   <td style="text-align:left;"> locale[1];  parse_number[1];  read_csv[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> label_dollar[2];  label_percent[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> fixed[5];  str_c[3];  str_extract[1];  str_remove[2];  str_replace[4] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> usedthese </td>
+   <td style="text-align:left;"> used_here[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> wesanderson </td>
+   <td style="text-align:left;"> wes_palette[1] </td>
+  </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 
