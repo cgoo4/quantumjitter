@@ -88,7 +88,7 @@ Then we can extract their package and function usage tables.
 table_df <- map(urls, \(x) {
   x |>
     read_html() |>
-    html_elements(".usethese, .usedthese") |>
+    html_elements(".usedthese") |>
     html_table()
 }) |>
   list_flatten() |>
