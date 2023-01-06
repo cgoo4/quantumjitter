@@ -417,16 +417,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [18:48:08.691] epoch 1, loss 0.3788
-INFO  [18:48:11.048] epoch 2, loss 0.2570
-INFO  [18:48:13.504] epoch 3, loss 0.2292
-INFO  [18:48:15.950] epoch 4, loss 0.2090
-INFO  [18:48:18.365] epoch 5, loss 0.1921
-INFO  [18:48:20.831] epoch 6, loss 0.1791
-INFO  [18:48:23.278] epoch 7, loss 0.1694
-INFO  [18:48:25.771] epoch 8, loss 0.1619
-INFO  [18:48:28.325] epoch 9, loss 0.1557
-INFO  [18:48:30.825] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [19:40:03.268] epoch 1, loss 0.3788
+INFO  [19:40:05.687] epoch 2, loss 0.2570
+INFO  [19:40:08.150] epoch 3, loss 0.2292
+INFO  [19:40:10.665] epoch 4, loss 0.2090
+INFO  [19:40:13.159] epoch 5, loss 0.1921
+INFO  [19:40:15.670] epoch 6, loss 0.1791
+INFO  [19:40:18.175] epoch 7, loss 0.1694
+INFO  [19:40:20.681] epoch 8, loss 0.1619
+INFO  [19:40:23.174] epoch 9, loss 0.1557
+INFO  [19:40:25.663] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -703,7 +703,7 @@ INFO  [18:48:30.825] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.923 sec elapsed</code></pre>
+<pre><code>1.002 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -751,10 +751,10 @@ INFO  [18:48:30.825] epoch 10, loss 0.1506</code></pre>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/usedthese/man/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<table class="usethese table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;"> Package </th>
    <th style="text-align:left;"> Function </th>
