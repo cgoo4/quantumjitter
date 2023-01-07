@@ -225,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 6, 2023</p>
+      <p class="date-modified">January 7, 2023</p>
     </div>
   </div>
     
@@ -236,7 +236,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Each <a href="../../project/">project</a> closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there’s an opportunity to:</p>
 <ul>
 <li><p>Spot the use of superseded functions like <code>map_dfr</code></p></li>
-<li><p>Identify variable names that conflict with function names, for example, reminding me not to use <code>date</code> as a variable name (it’s also a base function), but rather use something more explicit and informative like <code>date_start</code> or <code>date_observed</code></p></li>
 <li><p>Check for usage consistency, e.g.&nbsp;<code><a href="https://clock.r-lib.org/reference/date-today.html">clock::date_today</a></code> versus <code>Sys.Date</code></p></li>
 <li><p>See where it would be most useful to keep an eye on package version updates</p></li>
 </ul>
@@ -282,30 +281,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>We need to web-scrape <a href="https://www.quantumjitter.com/project/">all the projects on this web-site</a>, starting by grabbing the url for each one.</p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">urls</span> <span class="op">&lt;-</span> <span class="st">"https://www.quantumjitter.com/project/"</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">".quarto-grid-link"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"https://www.quantumjitter.com/"</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then we can extract their package and function usage tables.</p>
-<div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">table_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">urls</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">x</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">".usedthese"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_flatten.html">list_flatten</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span>replace <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"io"</span> <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">package</span>, <span class="va">functn</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Separation of tidyverse and non-tidyverse packages may be achieved by using the likes of <code>tidyverse_packages</code> which lists all packages in the tidyverse.</p>
 <ul>
 <li><a href="https://www.tidyverse.org/packages/">tidyverse</a></li>
@@ -313,39 +288,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://tidyverts.org">tidyverts</a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu">tidyverse</span><span class="fu">::</span><span class="fu"><a href="https://tidyverse.tidyverse.org/reference/tidyverse_packages.html">tidyverse_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    <span class="fu">fpp3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fpp3/man/fpp3_packages.html">fpp3_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    <span class="fu">tidymodels</span><span class="fu">::</span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_packages.html">tidymodels_packages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here()</a></code> has already been used in <a href="https://www.quantumjitter.com/project/">Quantum Jitter projects</a> to generate a usage table at the foot of each project with the CSS class <em>usedthese</em>. <code><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there()</a></code> may now be used to web-scrape all the tables with this class to aggregate package and function usage data.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"stats"</span>,</span>
+<span>  <span class="st">"graphics"</span>,</span>
+<span>  <span class="st">"grDevices"</span>,</span>
+<span>  <span class="st">"utils"</span>,</span>
+<span>  <span class="st">"datasets"</span>,</span>
+<span>  <span class="st">"methods"</span>,</span>
+<span>  <span class="st">"base"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">table_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html">separate_rows</a></span><span class="op">(</span><span class="va">functn</span>, sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">functn</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"functn"</span>, <span class="st">"count"</span><span class="op">)</span>, <span class="st">"\\Q[\\E"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    count <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">count</span>, <span class="st">"]"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    functn <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="va">functn</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">package</span>, <span class="va">functn</span>, wt <span class="op">=</span> <span class="va">count</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">used_df</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there</a></span><span class="op">(</span><span class="st">"https://www.quantumjitter.com/project/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>multiverse <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
 <span>    <span class="va">package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tidy</span> <span class="op">~</span> <span class="st">"tidy"</span>,</span>
-<span>    <span class="va">package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"base"</span>, <span class="st">"graphics"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
+<span>    <span class="va">package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">base_packages</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
 <span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"special"</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then we can summarise usage.</p>
-<div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pack_df</span> <span class="op">&lt;-</span> <span class="va">tidy_df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">n_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pack_df</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">package</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"package"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">fun_df</span> <span class="op">&lt;-</span> <span class="va">tidy_df</span> <span class="op">|&gt;</span></span>
+<span><span class="va">fun_df</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">functn</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"function"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="va">urls</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">packfun_df</span> <span class="op">&lt;-</span> <span class="va">pack_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">fun_df</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -356,10 +335,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    .by <span class="op">=</span> <span class="va">name</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Use of Quarto’s <code>{{&lt; include _foobar.qmd &gt;}}</code> has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.</p>
 <p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst usage of <code>list_rbind</code> and <code>join_by</code> has freshly emerged.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"package"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">packfun</span>, <span class="va">n</span><span class="op">)</span>, <span class="va">n</span>, fill <span class="op">=</span> <span class="va">multiverse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -395,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This last code chunk generates the word cloud for use as the feature image for this project.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set.seed</span> <span class="op">=</span> <span class="fl">123</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set.seed</span> <span class="op">=</span> <span class="fl">123</span></span>
 <span></span>
 <span><span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, </span>
@@ -422,7 +400,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>This project’s code too should be included in my “favourite things”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -433,7 +411,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[1];  as.integer[1];  c[8];  library[10];  sample[1];  unique[1] </td>
+   <td style="text-align:left;"> as.character[1];  c[6];  library[10];  sample[1];  unique[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> clock </td>
@@ -441,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[3];  desc[1];  filter[2];  mutate[6];  n[1];  n_distinct[1];  pull[1];  select[1];  transmute[1] </td>
+   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[2];  desc[1];  filter[2];  first[1];  mutate[5];  n[1];  pull[1];  summarise[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
@@ -460,10 +438,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    <td style="text-align:left;"> glue[4] </td>
   </tr>
 <tr>
-<td style="text-align:left;"> janitor </td>
-   <td style="text-align:left;"> clean_names[1] </td>
-  </tr>
-<tr>
 <td style="text-align:left;"> paletteer </td>
    <td style="text-align:left;"> paletteer_c[1] </td>
   </tr>
@@ -472,24 +446,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    <td style="text-align:left;"> plot_annotation[1] </td>
   </tr>
 <tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_flatten[1];  list_rbind[1];  map[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_attr[1];  html_elements[2];  html_table[1];  read_html[2] </td>
-  </tr>
-<tr>
 <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[1];  str_remove[2];  str_squish[1] </td>
+   <td style="text-align:left;"> str_remove[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[1];  tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> drop_na[1];  separate[1];  separate_rows[1] </td>
+   <td style="text-align:left;"> tibble[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tidyverse </td>
@@ -497,7 +459,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </tr>
 <tr>
 <td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
+   <td style="text-align:left;"> used_here[1];  used_there[1] </td>
   </tr>
 </tbody>
 </table>

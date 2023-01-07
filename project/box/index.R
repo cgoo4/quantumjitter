@@ -33,26 +33,6 @@ tibble(x = 1:n, y = 1) |>
   theme_void() +
   theme(legend.position = "none")
 
-urls <- "https://www.quantumjitter.com/project/" |> 
-  read_html() |> 
-  html_elements(".quarto-grid-link") |> 
-  html_attr("href") |> 
-  as_tibble() |> 
-  transmute(str_c("https://www.quantumjitter.com/", value)) |> 
-  pull()
-
-table_df <- map(urls, \(x) {
-  x |>
-    read_html() |>
-    html_elements(".usedthese") |>
-    html_table()
-}) |>
-  list_flatten() |>
-  list_rbind() |>
-  clean_names(replace = c("io" = "")) |>
-  select(package, functn) |>
-  drop_na()
-
 tidy <-
   c(
     tidyverse::tidyverse_packages(),
@@ -61,29 +41,33 @@ tidy <-
   ) |>
   unique()
 
-tidy_df <- table_df |>
-  separate_rows(functn, sep = ";") |>
-  separate(functn, c("functn", "count"), "\\Q[\\E") |>
-  mutate(
-    count = str_remove(count, "]") |> as.integer(),
-    functn = str_squish(functn)
-  ) |>
-  count(package, functn, wt = count) |>
+base_packages <- c(
+  "stats",
+  "graphics",
+  "grDevices",
+  "utils",
+  "datasets",
+  "methods",
+  "base"
+)
+
+used_df <-
+  used_there("https://www.quantumjitter.com/project/") |>
   mutate(multiverse = case_when(
     package %in% tidy ~ "tidy",
-    package %in% c("base", "graphics") ~ "base",
+    package %in% base_packages ~ "base",
     TRUE ~ "special"
   ))
 
-pack_df <- tidy_df |>
+n_url <- used_df |> summarise(first(n_url)) |> pull()
+
+pack_df <- used_df |>
   count(package, multiverse, wt = n) |>
   mutate(name = "package")
 
-fun_df <- tidy_df |>
+fun_df <- used_df |>
   count(functn, multiverse, wt = n) |>
   mutate(name = "function")
-
-n_url <- urls |> n_distinct()
 
 packfun_df <- pack_df |>
   bind_rows(fun_df) |>
