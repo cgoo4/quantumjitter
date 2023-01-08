@@ -225,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 7, 2023</p>
+      <p class="date-modified">January 8, 2023</p>
     </div>
   </div>
     
@@ -311,26 +311,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="va">used_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there</a></span><span class="op">(</span><span class="st">"https://www.quantumjitter.com/project/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>multiverse <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>    <span class="va">package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tidy</span> <span class="op">~</span> <span class="st">"tidy"</span>,</span>
-<span>    <span class="va">package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">base_packages</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
+<span>    <span class="va">Package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tidy</span> <span class="op">~</span> <span class="st">"tidy"</span>,</span>
+<span>    <span class="va">Package</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">base_packages</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
 <span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"special"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">n_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pack_df</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">package</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">Package</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"package"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fun_df</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">functn</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">Function</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"function"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">packfun_df</span> <span class="op">&lt;-</span> <span class="va">pack_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">fun_df</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    packfun <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">package</span>, <span class="va">functn</span><span class="op">)</span>,</span>
+<span>    packfun <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">Package</span>, <span class="va">Function</span><span class="op">)</span>,</span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="va">name</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[2];  desc[1];  filter[2];  first[1];  mutate[5];  n[1];  pull[1];  summarise[1] </td>
+   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[2];  desc[1];  filter[2];  mutate[5];  n[1];  n_distinct[1];  pull[1];  summarise[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>

@@ -54,26 +54,26 @@ base_packages <- c(
 used_df <-
   used_there("https://www.quantumjitter.com/project/") |>
   mutate(multiverse = case_when(
-    package %in% tidy ~ "tidy",
-    package %in% base_packages ~ "base",
+    Package %in% tidy ~ "tidy",
+    Package %in% base_packages ~ "base",
     TRUE ~ "special"
   ))
 
-n_url <- used_df |> summarise(first(n_url)) |> pull()
+n_url <- used_df |> summarise(n_distinct(url)) |> pull()
 
 pack_df <- used_df |>
-  count(package, multiverse, wt = n) |>
+  count(Package, multiverse, wt = n) |>
   mutate(name = "package")
 
 fun_df <- used_df |>
-  count(functn, multiverse, wt = n) |>
+  count(Function, multiverse, wt = n) |>
   mutate(name = "function")
 
 packfun_df <- pack_df |>
   bind_rows(fun_df) |>
   arrange(desc(n)) |>
   mutate(
-    packfun = coalesce(package, functn),
+    packfun = coalesce(Package, Function),
     name = fct_rev(name),
     .by = name
   )
