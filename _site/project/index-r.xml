@@ -3878,7 +3878,6 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <p>Each <a href="../../project/">project</a> closes with a table summarising the R tools used. By aggregating the package and function usage across all projects, there’s an opportunity to:</p>
 <ul>
 <li><p>Spot the use of superseded functions like <code>map_dfr</code></p></li>
-<li><p>Identify variable names that conflict with function names, for example, reminding me not to use <code>date</code> as a variable name (it’s also a base function), but rather use something more explicit and informative like <code>date_start</code> or <code>date_observed</code></p></li>
 <li><p>Check for usage consistency, e.g.&nbsp;<code><a href="https://clock.r-lib.org/reference/date-today.html">clock::date_today</a></code> versus <code>Sys.Date</code></p></li>
 <li><p>See where it would be most useful to keep an eye on package version updates</p></li>
 </ul>
@@ -3924,30 +3923,6 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <p><img src="https://www.quantumjitter.com/project/box/index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>We need to web-scrape <a href="https://www.quantumjitter.com/project/">all the projects on this web-site</a>, starting by grabbing the url for each one.</p>
-<div class="cell">
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">urls</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="st" style="color: #20794D;">"https://www.quantumjitter.com/project/"</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">".quarto-grid-link"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"href"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"https://www.quantumjitter.com/"</span>, <span class="va" style="color: #111111;">value</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
-</div>
-<p>Then we can extract their package and function usage tables.</p>
-<div class="cell">
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">table_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">urls</span>, \<span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">x</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">{</span></span>
-<span>  <span class="va" style="color: #111111;">x</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>    <span class="fu" style="color: #4758AB;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>    <span class="fu" style="color: #4758AB;"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">".usethese, .usedthese"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>    <span class="fu" style="color: #4758AB;"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span><span class="op" style="color: #5E5E5E;">}</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://purrr.tidyverse.org/reference/list_flatten.html">list_flatten</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;">(</span>replace <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"io"</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">""</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">functn</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
-</div>
 <p>Separation of tidyverse and non-tidyverse packages may be achieved by using the likes of <code>tidyverse_packages</code> which lists all packages in the tidyverse.</p>
 <ul>
 <li><a href="https://www.tidyverse.org/packages/">tidyverse</a></li>
@@ -3955,53 +3930,56 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <li><a href="https://tidyverts.org">tidyverts</a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">tidy</span> <span class="op" style="color: #5E5E5E;">&lt;-</span></span>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">tidy</span> <span class="op" style="color: #5E5E5E;">&lt;-</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
 <span>    <span class="fu" style="color: #4758AB;">tidyverse</span><span class="fu" style="color: #4758AB;">::</span><span class="fu" style="color: #4758AB;"><a href="https://tidyverse.tidyverse.org/reference/tidyverse_packages.html">tidyverse_packages</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    <span class="fu" style="color: #4758AB;">fpp3</span><span class="fu" style="color: #4758AB;">::</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/fpp3/man/fpp3_packages.html">fpp3_packages</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    <span class="fu" style="color: #4758AB;">tidymodels</span><span class="fu" style="color: #4758AB;">::</span><span class="fu" style="color: #4758AB;"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_packages.html">tidymodels_packages</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;">tidy_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">table_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html">separate_rows</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">functn</span>, sep <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">";"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">functn</span>, <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"functn"</span>, <span class="st" style="color: #20794D;">"count"</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="st" style="color: #20794D;">"\\Q[\\E"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
-<span>    count <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">count</span>, <span class="st" style="color: #20794D;">"]"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
-<span>    functn <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">functn</span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">functn</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">count</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>multiverse <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
-<span>    <span class="va" style="color: #111111;">package</span> <span class="op" style="color: #5E5E5E;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va" style="color: #111111;">tidy</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"tidy"</span>,</span>
-<span>    <span class="va" style="color: #111111;">package</span> <span class="op" style="color: #5E5E5E;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"base"</span>, <span class="st" style="color: #20794D;">"graphics"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"base"</span>,</span>
-<span>    <span class="cn" style="color: #8f5902;">TRUE</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"special"</span></span>
-<span>  <span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>Then we can summarise usage.</p>
+<p><code><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here()</a></code> has already been used in <a href="https://www.quantumjitter.com/project/">Quantum Jitter projects</a> to generate a usage table at the foot of each project with the CSS class <em>usedthese</em>. <code><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there()</a></code> may now be used to web-scrape all the tables with this class to aggregate package and function usage data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">pack_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">tidy_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">multiverse</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">base_packages</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>  <span class="st" style="color: #20794D;">"stats"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"graphics"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"grDevices"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"utils"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"datasets"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"methods"</span>,</span>
+<span>  <span class="st" style="color: #20794D;">"base"</span></span>
+<span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">used_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"https://www.quantumjitter.com/project/"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>multiverse <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>    <span class="va" style="color: #111111;">Package</span> <span class="op" style="color: #5E5E5E;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va" style="color: #111111;">tidy</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"tidy"</span>,</span>
+<span>    <span class="va" style="color: #111111;">Package</span> <span class="op" style="color: #5E5E5E;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va" style="color: #111111;">base_packages</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"base"</span>,</span>
+<span>    <span class="cn" style="color: #8f5902;">TRUE</span> <span class="op" style="color: #5E5E5E;">~</span> <span class="st" style="color: #20794D;">"special"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">n_url</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">used_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">url</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">pack_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">used_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">Package</span>, <span class="va" style="color: #111111;">multiverse</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>name <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"package"</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
-<span><span class="va" style="color: #111111;">fun_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">tidy_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">functn</span>, <span class="va" style="color: #111111;">multiverse</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span><span class="va" style="color: #111111;">fun_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">used_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">Function</span>, <span class="va" style="color: #111111;">multiverse</span>, wt <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>name <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"function"</span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;">n_url</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">urls</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">pack_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">fun_df</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
-<span>    packfun <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">package</span>, <span class="va" style="color: #111111;">functn</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    packfun <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">Package</span>, <span class="va" style="color: #111111;">Function</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    name <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">name</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    .by <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">name</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 </div>
-<p>Use of Quarto’s <code>{{&lt; include _foobar.qmd &gt;}}</code> has enabled the lifting, standardisation and simplification of the toolbox code. Previously this code (essentially replicated across the 20 projects) inflated the usage numbers.</p>
 <p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst usage of <code>list_rbind</code> and <code>join_by</code> has freshly emerged.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">p1</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">name</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"package"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">packfun</span>, <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="va" style="color: #111111;">n</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">multiverse</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op" style="color: #5E5E5E;">(</span>show.legend <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">FALSE</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
@@ -4037,7 +4015,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 </div>
 <p>This last code chunk generates the word cloud for use as the feature image for this project.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">set.seed</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">123</span></span>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">set.seed</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">123</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;">packfun_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>angle <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">45</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">-</span><span class="fl" style="color: #AD0000;">2</span><span class="op" style="color: #5E5E5E;">:</span><span class="fl" style="color: #AD0000;">2</span>, <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>, </span>
@@ -4064,7 +4042,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>This project’s code too should be included in my “favourite things”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -4075,7 +4053,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[1];  as.integer[1];  c[8];  library[10];  sample[1];  unique[1] </td>
+   <td style="text-align:left;"> as.character[1];  c[6];  library[10];  sample[1];  unique[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> clock </td>
@@ -4083,7 +4061,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[3];  desc[1];  filter[2];  mutate[6];  n[1];  n_distinct[1];  pull[1];  select[1];  transmute[1] </td>
+   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[2];  desc[1];  filter[2];  mutate[5];  n[1];  n_distinct[1];  pull[1];  summarise[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
@@ -4102,10 +4080,6 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
    <td style="text-align:left;"> glue[4] </td>
   </tr>
 <tr>
-<td style="text-align:left;"> janitor </td>
-   <td style="text-align:left;"> clean_names[1] </td>
-  </tr>
-<tr>
 <td style="text-align:left;"> paletteer </td>
    <td style="text-align:left;"> paletteer_c[1] </td>
   </tr>
@@ -4114,24 +4088,12 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
    <td style="text-align:left;"> plot_annotation[1] </td>
   </tr>
 <tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_flatten[1];  list_rbind[1];  map[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_attr[1];  html_elements[2];  html_table[1];  read_html[2] </td>
-  </tr>
-<tr>
 <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[1];  str_remove[2];  str_squish[1] </td>
+   <td style="text-align:left;"> str_remove[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[1];  tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> drop_na[1];  separate[1];  separate_rows[1] </td>
+   <td style="text-align:left;"> tibble[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tidyverse </td>
@@ -4139,7 +4101,7 @@ Selivanov, Dmitriy, Manuel Bickel, and Qing Wang. 2022. <span>“Text2vec: Moder
   </tr>
 <tr>
 <td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
+   <td style="text-align:left;"> used_here[1];  used_there[1] </td>
   </tr>
 </tbody>
 </table>
