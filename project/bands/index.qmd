@@ -3,6 +3,7 @@ title: "Bootstraps & Bandings"
 date: "2022-03-08"
 categories: [R, statistical inference, regex, special effects, web scraping]
 description: "Decades-old residential property bands and inference using a sample of those recently sold"
+code-link: false
 ---
 
 ![](feature.jpg){fig-alt="A boot with a strap leans against a pile of ribbon-rolls"}
@@ -73,36 +74,38 @@ tibble(x = 1, y = 1, fill = 7:1) |>
 
 So, a little string manipulation is needed to create a common key. And reusable patterns will enable a consistent application to both.
 
-[Regex](https://en.wikipedia.org/wiki/Regular_expression) is used here to isolate pieces of text:
-
--   `, London, SW10 .+$` finds for example `, London, SW10 0ST` and all other `SW10` postcodes. See the difference by comparing the data frame `band_df` ( before) with `band_df2` (after).
--   `(1ST|2ND|3RD|4TH|5TH|6TH) FLR` does the same for floor numbers irrespective of whether it's the 1ST or 2ND etc.
--   `(?<=COURT|WALK).*` uses a [positive lookbehind](https://www.rexegg.com/regex-lookarounds.html) to find anything following the word `COURT` or `WALK` (since the postcode is stored in a separate variable and already isolates the road, the road name is redundant).
--   `^([0-9]{1,3})([A-Z])(?= .*)` and `\\2 \\1` makes use of [capture groups](https://www.rexegg.com/regex-capture.html) to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be `C22` in one dataset and `22C` in the other.
+::: callout-tip
+Hover over the numbered code annotation symbols for REGEX explanations.
+:::
 
 ```{r}
 #| label: pattern
 
 remove_pattern <-
   str_c(
-    ", London, SW10 .+$",
+    ", London, SW10 .+$", # <1>
     "FLAT ",
     "APARTMENT ",
     "CHELSEA HARBOUR",
-    "(?<=COURT|SANDHILLS| HOUSE|WALK|ESTATE|ROW).*",
+    "(?<=COURT|SANDHILLS| HOUSE|WALK|ESTATE|ROW).*", # <2>
     "[,'\\.]",
     "(?<= )AT ",
     "(?<=VINT)N",
     "(?<=FARRIER)S",
-    "(1ST|2ND|3RD|4TH|5TH|6TH) FLR ",
-    "FLR (1ST|2ND|3RD|4TH|5TH|6TH) ",
+    "(1ST|2ND|3RD|4TH|5TH|6TH) FLR ", # <3>
+    "FLR (1ST|2ND|3RD|4TH|5TH|6TH) ", # <3>
     " ?- ?[0-9]{1,3}",
     sep = "|"
   )
 
-swizzle_from <- "^([0-9]{1,3})([A-Z])(?= .*)" 
-swizzle_to <- "\\2 \\1"
+swizzle_from <- "^([0-9]{1,3})([A-Z])(?= .*)" # <4>
+swizzle_to <- "\\2 \\1" # <4>
 ```
+
+1.  Looks for *strings that end with 1 or more characters* following the London postcode district of "SW10".
+2.  Uses a [positive lookbehind](https://www.rexegg.com/regex-lookarounds.html) to find anything, for example, following the word `COURT` or `WALK` (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).
+3.  Finds any occurrences of `1ST FLR`, `FLR 1ST` etc.
+4.  Uses [capture groups](https://www.rexegg.com/regex-capture.html) to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be `C22` in one dataset and `22C` in the other.
 
 Council Tax band data are available for non-commercial use[^1].
 

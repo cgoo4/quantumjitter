@@ -43,23 +43,23 @@ tibble(x = 1, y = 1, fill = 7:1) |>
 
 remove_pattern <-
   str_c(
-    ", London, SW10 .+$",
+    ", London, SW10 .+$", # <1>
     "FLAT ",
     "APARTMENT ",
     "CHELSEA HARBOUR",
-    "(?<=COURT|SANDHILLS| HOUSE|WALK|ESTATE|ROW).*",
+    "(?<=COURT|SANDHILLS| HOUSE|WALK|ESTATE|ROW).*", # <2>
     "[,'\\.]",
     "(?<= )AT ",
     "(?<=VINT)N",
     "(?<=FARRIER)S",
-    "(1ST|2ND|3RD|4TH|5TH|6TH) FLR ",
-    "FLR (1ST|2ND|3RD|4TH|5TH|6TH) ",
+    "(1ST|2ND|3RD|4TH|5TH|6TH) FLR ", # <3>
+    "FLR (1ST|2ND|3RD|4TH|5TH|6TH) ", # <3>
     " ?- ?[0-9]{1,3}",
     sep = "|"
   )
 
-swizzle_from <- "^([0-9]{1,3})([A-Z])(?= .*)" 
-swizzle_to <- "\\2 \\1"
+swizzle_from <- "^([0-9]{1,3})([A-Z])(?= .*)" # <4>
+swizzle_to <- "\\2 \\1" # <4>
 
 url1 <-
   str_c(

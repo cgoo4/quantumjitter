@@ -77,9 +77,9 @@ data_df <-
         
        tibble(
             lot = str_c("Cloud ", str_to_title(z)),
-            service_id = str_extract(refs, "[[:digit:]]{15}"),
+            service_id = str_extract(refs, "[[:digit:]]{15}"), # <1>
             cat = str_remove(x, "&serviceCategories=") |>
-              str_replace_all("\\Q+\\E", " ") |>
+              str_replace_all("\\Q+\\E", " ") |> # <2>
               str_remove("%28[[:print:]]+%29")
           )
       })

@@ -4,6 +4,7 @@ date: "2017-11-14"
 categories: [R, sets, web scraping, regex]
 description: "Visualising the dozens of overlapping sets formed by categories of cloud services"
 bibliography: references.bib
+code-link: false
 ---
 
 ![](feature.gif){fig-alt="A silhouette of the Houses of Parliament with the text \"G9\" instead of Big Ben's clock. Three semi-transparent clouds move across the sky mimicing a Venn diagram."}
@@ -88,10 +89,9 @@ So now I'm all set to parallel process through the data at two levels. At catego
 
 I'll also auto-abbreviate the category names so I'll have the option of more concise names for less-cluttered plotting later on.
 
-[Regex](https://en.wikipedia.org/wiki/Regular_expression) is used here to isolate pieces of text:
-
--   `[[:digit:]]{15}` finds the 15-digit service ID in the scraped link
--   `\\Q+\\E` finds the *literal* `+` character rather than interpreting it as a *one or more* quantifier (i.e. if the `\\Q` and `\\E` were not specified)
+::: callout-tip
+Hover over the numbered code annotation symbols for REGEX explanations.
+:::
 
 ```{r}
 #| label: service ids
@@ -122,9 +122,9 @@ data_df <-
         
        tibble(
             lot = str_c("Cloud ", str_to_title(z)),
-            service_id = str_extract(refs, "[[:digit:]]{15}"),
+            service_id = str_extract(refs, "[[:digit:]]{15}"), # <1>
             cat = str_remove(x, "&serviceCategories=") |>
-              str_replace_all("\\Q+\\E", " ") |>
+              str_replace_all("\\Q+\\E", " ") |> # <2>
               str_remove("%28[[:print:]]+%29")
           )
       })
@@ -139,6 +139,9 @@ data_df <-
 
 toc()
 ```
+
+1.  `[[:digit:]]{15}` finds the 15-digit service ID in the scraped link.
+2.  `\\Q+\\E` finds the *literal* `+` character rather than interpreting it as a *one or more* quantifier (i.e. if the `\\Q` and `\\E` were not specified)
 
 Now that I have a nice tidy [tibble](https://tibble.tidyverse.org) [@tibble], I can start to think about visualisations.
 
