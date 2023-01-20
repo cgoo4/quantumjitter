@@ -1,7 +1,10 @@
+library(conflicted)
 library(tidyverse)
-library(scales, exclude = "date_format")
+conflict_prefer_all("dplyr")
+library(scales)
 library(SPARQL)
 library(clock)
+conflict_prefer("date_format", "clock")
 library(wesanderson)
 library(glue)
 library(vctrs)
@@ -9,6 +12,8 @@ library(tsibble)
 library(patchwork)
 library(ggmosaic)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

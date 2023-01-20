@@ -21,12 +21,16 @@ Without exogenous data, the forecast assumes one continues to do what one's doin
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(wesanderson)
 library(fpp3)
 library(scales)
 library(clock)
 library(usedthese)
+
+conflict_scout()
 ```
 
 ```{r}

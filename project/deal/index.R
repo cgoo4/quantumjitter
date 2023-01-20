@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(wesanderson)
 library(guardianapi)
 library(quanteda)
@@ -11,6 +13,8 @@ library(topicmodels)
 library(slider)
 library(glue)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

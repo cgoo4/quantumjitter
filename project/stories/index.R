@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rgeolocate)
 library(R.utils)
 library(leaflet)
@@ -6,6 +8,8 @@ library(rgdal)
 library(wesanderson)
 library(htmlwidgets)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

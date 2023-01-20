@@ -1,10 +1,14 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(janitor)
 library(scales)
 library(vip)
 library(poissonreg)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

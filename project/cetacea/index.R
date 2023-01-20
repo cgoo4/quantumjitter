@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(probably)
 library(finetune)
@@ -9,10 +11,13 @@ library(clock)
 library(glue)
 library(janitor)
 library(vip)
+conflict_prefer("vi", "vip")
 library(tictoc)
 library(patchwork)
 library(doParallel)
 library(usedthese)
+
+conflict_scout()
 
 registerDoParallel(cores = 6)
 

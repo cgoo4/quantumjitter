@@ -1,8 +1,11 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
-library(scales, exclude = "date_format")
+library(scales)
 library(SPARQL)
 library(clock)
+conflict_prefer("date_format", "clock")
 library(RColorBrewer)
 library(glue)
 library(vctrs)
@@ -11,6 +14,8 @@ library(infer)
 library(tsibble)
 library(ggfx)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

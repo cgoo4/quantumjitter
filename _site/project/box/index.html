@@ -227,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 8, 2023</p>
+      <p class="date-modified">January 20, 2023</p>
     </div>
   </div>
     
@@ -244,7 +244,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Since starting this in 2017, functions like tidyr’s <code>spread</code> and <code>gather</code> have been superseded by <code>pivot_wider</code> and <code>pivot_longer</code>. Newer packages have emerged like <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a>, which brings cluster modelling to tidymodels (now used in <a href="https://www.quantumjitter.com/project/happiness/">Finding Happiness in ‘The Smoke’</a>). <a href="https://rstudio.github.io/bslib/">bslib</a> has brought improvements to the latest shiny app version embedded in <a href="https://www.quantumjitter.com/project/thicken/">Plots Thicken</a>. The paletteer package has put it’s arms around the myriad palette packages out there. And scales’ <code>cut_short_scale</code> assisted with plot labelling.</p>
 <p>Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the <code>.by</code> argument in <code>mutate</code> and friends offers a neat alternative to <code>group_by</code> and <code>ungroup</code> in many situations. Joins have been enhanced (e.g.&nbsp;to support inequality conditions) with the addition of <code>join_by</code> to dplyr. And changes in the <code>map_</code> family introduce <code>list_rbind</code> and associates with <code>map_dfr</code>, for example, now superseded.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op">)</span></span>
@@ -253,10 +255,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lepennec/ggwordcloud">ggwordcloud</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5 conflicts:
+* `chisq.test`    : janitor, stats
+* `filter`        : [dplyr]
+* `fisher.test`   : janitor, stats
+* `guess_encoding`: rvest, readr
+* `lag`           : [dplyr]</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">palette</span> <span class="op">&lt;-</span> <span class="st">"harrypotter::ronweasley2"</span></span>
@@ -290,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://tidyverts.org">tidyverts</a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu">tidyverse</span><span class="fu">::</span><span class="fu"><a href="https://tidyverse.tidyverse.org/reference/tidyverse_packages.html">tidyverse_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    <span class="fu">fpp3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fpp3/man/fpp3_packages.html">fpp3_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -300,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><code><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here()</a></code> has already been used in <a href="https://www.quantumjitter.com/project/">Quantum Jitter projects</a> to generate a usage table at the foot of each project with the CSS class <em>usedthese</em>. <code><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there()</a></code> may now be used to web-scrape all the tables with this class to aggregate package and function usage data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"stats"</span>,</span>
 <span>  <span class="st">"graphics"</span>,</span>
 <span>  <span class="st">"grDevices"</span>,</span>
@@ -339,7 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>With the latest versions of dplyr and purrr, usage of <code>group_by</code>, <code>ungroup</code> and <code>map_dfr</code> has fallen away whilst usage of <code>list_rbind</code> and <code>join_by</code> has freshly emerged.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"package"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">packfun</span>, <span class="va">n</span><span class="op">)</span>, <span class="va">n</span>, fill <span class="op">=</span> <span class="va">multiverse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -375,7 +387,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This last code chunk generates the word cloud for use as the feature image for this project.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set.seed</span> <span class="op">=</span> <span class="fl">123</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set.seed</span> <span class="op">=</span> <span class="fl">123</span></span>
 <span></span>
 <span><span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, </span>
@@ -402,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>This project’s code too should be included in my “favourite things”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -413,23 +425,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[1];  c[6];  library[10];  sample[1];  unique[1] </td>
+   <td style="text-align:left;"> as.character[1], c[6], library[11], sample[1], unique[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> date_format[1];  date_today[1] </td>
+   <td style="text-align:left;"> date_format[1], date_today[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> conflicted </td>
+   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[1];  bind_rows[1];  case_when[1];  coalesce[1];  count[2];  desc[1];  filter[2];  mutate[5];  n[1];  n_distinct[1];  pull[1];  summarise[1] </td>
+   <td style="text-align:left;"> arrange[1], bind_rows[1], case_when[1], coalesce[1], count[2], desc[1], filter[2], mutate[5], n[1], n_distinct[1], pull[1], summarise[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
-   <td style="text-align:left;"> fct_reorder[2];  fct_rev[1] </td>
+   <td style="text-align:left;"> fct_reorder[2], fct_rev[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[7];  annotate[1];  coord_flip[2];  element_rect[1];  geom_col[3];  geom_label[3];  ggplot[4];  labs[2];  scale_colour_manual[1];  scale_fill_manual[3];  scale_size_area[1];  theme[2];  theme_bw[1];  theme_set[1];  theme_void[2] </td>
+   <td style="text-align:left;"> aes[7], annotate[1], coord_flip[2], element_rect[1], geom_col[3], geom_label[3], ggplot[4], labs[2], scale_colour_manual[1], scale_fill_manual[3], scale_size_area[1], theme[2], theme_bw[1], theme_set[1], theme_void[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> ggwordcloud </td>
@@ -456,12 +472,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    <td style="text-align:left;"> tibble[1] </td>
   </tr>
 <tr>
+<td style="text-align:left;"> tidymodels </td>
+   <td style="text-align:left;"> tidymodels_packages[1] </td>
+  </tr>
+<tr>
 <td style="text-align:left;"> tidyverse </td>
    <td style="text-align:left;"> tidyverse_packages[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1];  used_there[1] </td>
+   <td style="text-align:left;"> used_here[1], used_there[1] </td>
   </tr>
 </tbody>
 </table>

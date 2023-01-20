@@ -13,12 +13,16 @@ In [Criminal Goings-on](/project/forest) faceting offered a way to get a sense o
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(trelliscopejs)
 library(rbokeh)
 library(janitor)
 library(vangogh)
 library(usedthese)
+
+conflict_scout()
 ```
 
 This time I'll use Van Gogh's "The Starry Night" palette for the feature image and plots. And there are 9 types of criminal offence, so `colorRampPalette` will enable the interpolation of an extended set.

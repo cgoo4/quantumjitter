@@ -16,7 +16,9 @@ In [Let's Jitter](/project/jitter) I looked at a relatively simple set of cloud-
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
 library(furrr)
 library(wesanderson)
@@ -25,6 +27,8 @@ library(ggupset)
 library(ggVennDiagram)
 library(glue)
 library(usedthese)
+
+conflict_scout()
 
 plan(multisession)
 ```

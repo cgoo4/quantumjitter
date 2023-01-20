@@ -1,9 +1,13 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(trelliscopejs)
 library(rbokeh)
 library(janitor)
 library(vangogh)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

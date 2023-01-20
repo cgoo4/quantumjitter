@@ -15,7 +15,9 @@ Planning data is harvested with the kind permission of The Royal Borough of Kens
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
 library(SPARQL)
 library(quanteda)
@@ -30,6 +32,8 @@ library(tsibble)
 library(DT)
 library(vctrs)
 library(usedthese)
+
+conflict_scout()
 ```
 
 ```{r}

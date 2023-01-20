@@ -301,22 +301,18 @@
       el.style.width = "100%";
       el.style.height = "100%";
 
-      var rect = cel.getBoundingClientRect();
-
       return {
-        getWidth: function() { return rect.width; },
-        getHeight: function() { return rect.height; }
+        getWidth: function() { return cel.getBoundingClientRect().width; },
+        getHeight: function() { return cel.getBoundingClientRect().height; }
       };
 
     } else {
       el.style.width = px(sizing.width);
       el.style.height = px(sizing.height);
 
-      var rect = cel.getBoundingClientRect();
-
       return {
-        getWidth: function() { return rect.width; },
-        getHeight: function() { return rect.height; }
+        getWidth: function() { return cel.getBoundingClientRect().width; },
+        getHeight: function() { return cel.getBoundingClientRect().height; }
       };
     }
   }
@@ -918,6 +914,10 @@ background: none;
 
 table.dataTable {
 display: table;
+}
+
+.html-fill-container > .html-fill-item.datatables {
+flex-basis: 400px;
 }
 </style>
 <script>(function() {
@@ -1771,7 +1771,7 @@ HTMLWidgets.widget({
 
           if (immediate) $input.on('blur', function(e) {
             var valueNew = $input.val();
-            if (valueNew != value) {
+            if (valueNew !== value) {
               _cell.data(valueNew);
               if (HTMLWidgets.shinyMode) {
                 changeInput('cell_edit', [cellInfo(cell)], 'DT.cellInfo', null, {priority: 'event'});

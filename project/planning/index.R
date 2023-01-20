@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
 library(SPARQL)
 library(quanteda)
@@ -13,6 +15,8 @@ library(tsibble)
 library(DT)
 library(vctrs)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

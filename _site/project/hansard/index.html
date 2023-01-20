@@ -243,7 +243,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 4, 2023</p>
+      <p class="date-modified">January 20, 2023</p>
     </div>
   </div>
     
@@ -254,7 +254,9 @@ div.csl-indent {
 <p>Before each vote, the Speaker of the House yells “Division! Clear the Lobby”. I’d like to find which cluster of MPs (Members of Parliament) may be exiting the lobby and going their own way.</p>
 <p><a href="https://hansard.parliament.uk">Hansard</a> reports what’s said in the UK Parliament, sets out details of divisions, and records decisions taken during a sitting. The R package <a href="https://cran.r-project.org/web/packages/hansard/">hansard package</a> <span class="citation" data-cites="hansard">(<a href="#ref-hansard" role="doc-biblioref">Odell 2017</a>)</span> provides access to the data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.evanodell.com/hansard">hansard</a></span><span class="op">)</span></span>
@@ -264,10 +266,17 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel">ggrepel</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2 conflicts:
+* `filter`: [dplyr]
+* `lag`   : [dplyr]</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Moonrise2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -276,7 +285,7 @@ div.csl-indent {
 </div>
 <p>I’ll start by building a list of all Labour Party MPs.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url_prefix</span> <span class="op">&lt;-</span> <span class="st">"http://data.parliament.uk/members/"</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url_prefix</span> <span class="op">&lt;-</span> <span class="st">"http://data.parliament.uk/members/"</span></span>
 <span></span>
 <span><span class="va">mps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.evanodell.com/hansard/reference/members.html">commons_members</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">party_value</span> <span class="op">==</span> <span class="st">"Labour"</span> <span class="op">|</span> <span class="va">about</span> <span class="op">==</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">url_prefix</span>, <span class="st">"478"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -286,7 +295,7 @@ div.csl-indent {
 </div>
 <p>Creating a function will enable me to iterate through the MP list to extract their voting records.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="st">"2017-06-08"</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="st">"2017-06-08"</span></span>
 <span><span class="va">end_date</span> <span class="op">&lt;-</span> <span class="st">"2018-01-28"</span></span>
 <span></span>
 <span><span class="va">pull_votes</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -300,7 +309,7 @@ div.csl-indent {
 </div>
 <p>I’ll use it to extract the “aye” and “no” votes. Use of <code>possibly</code> prevents the code from stopping when it encounters former MPs for whom no data is returned.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">votes</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">votes</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">mps</span><span class="op">$</span><span class="va">ID</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/possibly.html">possibly</a></span><span class="op">(</span><span class="va">pull_votes</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">simplify</span>, <span class="st">"tibbles"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -311,7 +320,7 @@ div.csl-indent {
 </div>
 <p>Voting the opposite way to the majority of the party, as well as non-votes, will both be of interest when assessing which MPs are “most distant” from the wider party.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">votes_df</span> <span class="op">&lt;-</span> <span class="va">votes</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">votes_df</span> <span class="op">&lt;-</span> <span class="va">votes</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">mps</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">mp</span> <span class="op">==</span> <span class="va">ID</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>about <span class="op">=</span> <span class="va">about.x</span>, <span class="va">title</span>, <span class="va">date_value</span>, </span>
 <span>         <span class="va">lobby</span>, <span class="va">mp</span>, name <span class="op">=</span> <span class="va">full_name_value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -326,7 +335,7 @@ div.csl-indent {
 </div>
 <p>The data are standardised (i.e.&nbsp;scaled) to ensure comparability. This is verified by ensuring the mean and standard deviation are close to zero and one respectively.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">votes_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="op">-</span><span class="va">mp</span>, <span class="va">scale</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1008,7 +1017,7 @@ div.csl-indent {
 <p>I’d like to assess whether the data contain meaningful clusters rather than random noise. This is achieved quantitatively by calculating the Hopkins statistic, and visually by inspection.</p>
 <p>If the <a href="https://en.wikipedia.org/wiki/Hopkins_statistic">Hopkins statistic</a> is closer to 1 than 0, then we have data which may be clustered.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">mp</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/get_clust_tendency.html">get_clust_tendency</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">votes_df</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"hopkins_stat"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1018,7 +1027,7 @@ div.csl-indent {
 </div>
 <p>A visual assessment of clustering tendency reveals distance data exhibiting a visible structure.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">mp</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/dist.html">fviz_dist</a></span><span class="op">(</span></span>
@@ -1036,7 +1045,7 @@ div.csl-indent {
 <p>There are eight methods I could use for <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering">hierarchical clustering</a>, and I’ll need to determine which will yield results that best fit the data.</p>
 <p>The correlation plot below shows that the <em>median</em> and <em>ward</em> methods have a weaker correlation with the other five methods.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">orig_dist</span> <span class="op">&lt;-</span> <span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">orig_dist</span> <span class="op">&lt;-</span> <span class="va">scaled_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">mp</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -1079,7 +1088,7 @@ div.csl-indent {
 </div>
 <p>The above plot does not tell us which method is optimal. For that, I’ll take each of the cluster agglomeration methods and calculate their cophenetic distances. I can then correlate these with the original distance to see which offers the best fit.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="st">"complete"</span>,</span>
 <span>  <span class="st">"average"</span>,</span>
 <span>  <span class="st">"single"</span>,</span>
@@ -1104,7 +1113,7 @@ div.csl-indent {
 </div>
 <p>The plot below confirms the <em>ward</em> and <em>median</em> methods having a weaker fit. <em>Average</em> produces the strongest correlation coefficient of 0.98.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">best_method</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">best_method</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">method</span>, <span class="va">correlation</span><span class="op">)</span>, <span class="va">correlation</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, width <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">method</span>, <span class="st">"  "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">correlation</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1122,7 +1131,7 @@ div.csl-indent {
 </div>
 <p>I can now plot the full Labour Party dendrogram using the <em>average</em> method. This shows a “cluster of six” MPs which is the last to merge with the rest of the party based on their voting pattern.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dend_avg</span> <span class="op">&lt;-</span> <span class="va">orig_dist</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dend_avg</span> <span class="op">&lt;-</span> <span class="va">orig_dist</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="st">"average"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html">as.dendrogram</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -1152,7 +1161,7 @@ div.csl-indent {
 </div>
 <p>I’ll zoom in on the “cluster of six”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dend_cuts</span> <span class="op">&lt;-</span> <span class="va">dend</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dend_cuts</span> <span class="op">&lt;-</span> <span class="va">dend</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="http://talgalili.github.io/dendextend/reference/assign_values_to_leaves_nodePar.html">assign_values_to_leaves_nodePar</a></span><span class="op">(</span><span class="fl">19</span>, <span class="st">"pch"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="http://talgalili.github.io/dendextend/reference/assign_values_to_leaves_nodePar.html">assign_values_to_leaves_nodePar</a></span><span class="op">(</span><span class="fl">5</span>, <span class="st">"cex"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="http://talgalili.github.io/dendextend/reference/assign_values_to_leaves_nodePar.html">assign_values_to_leaves_nodePar</a></span><span class="op">(</span><span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"col"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1178,7 +1187,7 @@ div.csl-indent {
 </div>
 <p>Summarising and sorting the total votes by MP tells me that the “cluster of six” MPs are among the eight MPs voting the fewest times. And I can, for example, verify the record for Emma Reynolds directly via <a href="https://hansard.parliament.uk/search/MemberContributions?memberId=4077&amp;startDate=2017-06-08&amp;endDate=2018-01-27&amp;type=Divisions&amp;outputType=List"><em>Hansard</em></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fewest_votes</span> <span class="op">&lt;-</span> <span class="va">votes</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fewest_votes</span> <span class="op">&lt;-</span> <span class="va">votes</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">mps</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">mp</span> <span class="op">==</span> <span class="va">ID</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_lobby <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">full_name_value</span>, <span class="va">lobby</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>mp <span class="op">=</span> <span class="va">full_name_value</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1204,7 +1213,7 @@ div.csl-indent {
 <p>Non-voting will not be the only influencing factor. The “distant cluster” will be particularly influenced by a small minority of MPs voting in the opposite direction to the overwhelming majority.</p>
 <p><a href="https://en.wikipedia.org/wiki/Cook%27s_distance"><em>Cook’s Distance</em></a> visualises these influential outliers. This shows the voting of three MPs, all on the European Union Withdrawal Bill readings, to be particular outliers. All three MPs are in the “cluster of six”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">votes_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">votes_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">mp</span>, names_to <span class="op">=</span> <span class="st">"title"</span>, values_to <span class="op">=</span> <span class="st">"vote"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">vote</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">tidy_df</span><span class="op">)</span></span>
@@ -1229,7 +1238,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">"759161|824379|809989"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">title</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">title</span>, <span class="va">.cooksd</span>, colour <span class="op">=</span> <span class="va">mp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1252,7 +1261,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -1263,15 +1272,15 @@ div.csl-indent {
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> c[5];  cut[1];  labels[1];  library[11];  list[3];  max[2];  min[2];  nrow[1];  readRDS[2];  rev[2];  round[1];  saveRDS[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> broom </td>
-   <td style="text-align:left;"> augment[1] </td>
+   <td style="text-align:left;"> c[5], cut[1], labels[1], library[12], list[3], max[2], min[2], nrow[1], readRDS[2], rev[2], round[1], saveRDS[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> date_format[2];  date_parse[2] </td>
+   <td style="text-align:left;"> date_format[2], date_parse[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> conflicted </td>
+   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> corrplot </td>
@@ -1279,23 +1288,27 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> dendextend </td>
-   <td style="text-align:left;"> assign_values_to_leaves_nodePar[3];  color_branches[2];  cor.dendlist[1];  set[3] </td>
+   <td style="text-align:left;"> assign_values_to_leaves_nodePar[3], color_branches[2], cor.dendlist[1], set[3] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> across[2];  c_across[4];  filter[3];  if_else[3];  join_by[2];  left_join[2];  mutate[5];  n[1];  rename[2];  select[5];  slice_min[1];  summarise[2];  transmute[1] </td>
+   <td style="text-align:left;"> across[2], c_across[4], filter[3], if_else[3], join_by[2], left_join[2], mutate[5], n[1], rename[2], select[5], slice_min[1], summarise[2], transmute[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> factoextra </td>
-   <td style="text-align:left;"> fviz_dist[1];  get_clust_tendency[1] </td>
+   <td style="text-align:left;"> fviz_dist[1], get_clust_tendency[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
    <td style="text-align:left;"> fct_reorder[1] </td>
   </tr>
 <tr>
+<td style="text-align:left;"> generics </td>
+   <td style="text-align:left;"> augment[1] </td>
+  </tr>
+<tr>
 <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[8];  coord_flip[4];  element_blank[3];  element_line[1];  element_text[2];  geom_col[2];  geom_jitter[1];  geom_label[1];  geom_point[1];  geom_text[1];  ggplot[6];  ggtitle[1];  labs[5];  position_stack[1];  scale_colour_manual[2];  scale_fill_manual[1];  theme[4];  theme_bw[1];  theme_set[1];  theme_void[1];  unit[1] </td>
+   <td style="text-align:left;"> aes[8], coord_flip[4], element_blank[3], element_line[1], element_text[2], geom_col[2], geom_jitter[1], geom_label[1], geom_point[1], geom_text[1], ggplot[6], ggtitle[1], labs[5], position_stack[1], scale_colour_manual[2], scale_fill_manual[1], theme[4], theme_bw[1], theme_set[1], theme_void[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> ggrepel </td>
@@ -1306,28 +1319,36 @@ div.csl-indent {
    <td style="text-align:left;"> glue[1] </td>
   </tr>
 <tr>
+<td style="text-align:left;"> grid </td>
+   <td style="text-align:left;"> unit[1] </td>
+  </tr>
+<tr>
 <td style="text-align:left;"> hansard </td>
-   <td style="text-align:left;"> commons_members[1];  mp_vote_record[1] </td>
+   <td style="text-align:left;"> commons_members[1], mp_vote_record[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> compact[1];  list_rbind[2];  map[4];  pluck[1];  possibly[1];  reduce[1];  set_names[1] </td>
+   <td style="text-align:left;"> compact[1], list_rbind[2], map[4], pluck[1], possibly[1], reduce[1] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> rlang </td>
+   <td style="text-align:left;"> set_names[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> stats </td>
-   <td style="text-align:left;"> as.dendrogram[2];  cophenetic[1];  cor[1];  dist[2];  hclust[3];  lm[1];  order.dendrogram[1];  reorder[1] </td>
+   <td style="text-align:left;"> as.dendrogram[2], cophenetic[1], cor[1], dist[2], hclust[3], lm[1], order.dendrogram[1], reorder[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[4];  str_detect[1];  str_replace[2];  str_wrap[1] </td>
+   <td style="text-align:left;"> str_c[4], str_detect[1], str_replace[2], str_wrap[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[1];  tibble[1] </td>
+   <td style="text-align:left;"> as_tibble[1], tibble[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> pivot_longer[2];  pivot_wider[2] </td>
+   <td style="text-align:left;"> pivot_longer[2], pivot_wider[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tidyselect </td>

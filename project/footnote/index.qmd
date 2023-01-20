@@ -17,10 +17,14 @@ This post briefly explores the shifts in the nature of employment whilst at the 
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(readxl)
 library(gt)
 library(usedthese)
+
+conflict_scout()
 ```
 
 In [Digging Deep](https://www.quantumjitter.com/project/planning/), the [DT package](https://rstudio.github.io/DT/) is used to produce a *reactable* table; one with sortable and searchable columns. DT is intended as an R interface to the DataTables library, but reactivity is not yet supported in gt.

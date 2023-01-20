@@ -18,11 +18,14 @@ Whilst properties can and do move to higher or lower bands following alteration,
 #| label: libraries
 #| message: false
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
-library(scales, exclude = "date_format")
+library(scales)
 library(SPARQL)
 library(clock)
+conflict_prefer("date_format", "clock")
 library(RColorBrewer)
 library(glue)
 library(vctrs)
@@ -31,6 +34,8 @@ library(infer)
 library(tsibble)
 library(ggfx)
 library(usedthese)
+
+conflict_scout()
 ```
 
 Setting the theme and colour palette for all graphics (with a little help from the [ggfx](https://ggfx.data-imaginist.com) package).

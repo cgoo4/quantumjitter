@@ -1,13 +1,17 @@
+library(conflicted)
+library(tidyverse)
+conflict_prefer_all("dplyr")
 library(shiny)
 library(gridlayout)
 library(rvest)
-library(tidyverse)
 library(scales)
 library(pageviews)
 library(lubridate)
 library(bslib)
 library(wesanderson)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

@@ -243,7 +243,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 4, 2023</p>
+      <p class="date-modified">January 17, 2023</p>
     </div>
   </div>
     
@@ -255,20 +255,37 @@ div.csl-indent {
 <p>Dimension reduction is used here to visualise the grouping of UN members, for example <a href="https://research.un.org/en/unmembers/founders">five of the founding members</a>, based on their <a href="http://www.un.org/en/ga/">General Assembly</a> voting patterns. And by using animation, it’s possible to more easily see changes over time. Are they drifting closer or farther apart?</p>
 <p>General Assembly votes are obtained from unvotes<span class="citation" data-cites="unvotes">(<a href="#ref-unvotes" role="doc-biblioref">Robinson 2021</a>)</span> and the visualisation animated using gganimate<span class="citation" data-cites="gganimate">(<a href="#ref-gganimate" role="doc-biblioref">Pedersen and Robinson 2022</a>)</span>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gganimate.com">gganimate</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"date_format"</span>, <span class="st">"clock"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dgrtwo/unvotes">unvotes</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>9 conflicts:
+* `col_factor`    : scales, readr
+* `date_format`   : [clock]
+* `discard`       : scales, purrr
+* `filter`        : [dplyr]
+* `fixed`         : recipes, stringr
+* `guess_encoding`: rvest, readr
+* `lag`           : [dplyr]
+* `spec`          : yardstick, readr
+* `step`          : recipes, stats</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"GrandBudapest2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -276,7 +293,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">&lt;-</span> <span class="va">un_votes</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">&lt;-</span> <span class="va">un_votes</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">un_roll_calls</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">rcid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>vote_date <span class="op">=</span> <span class="va">date</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">country_code</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GB"</span>, <span class="st">"CN"</span>, <span class="st">"US"</span>, <span class="st">"FR"</span>, <span class="st">"RU"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -302,7 +319,7 @@ div.csl-indent {
 </div>
 <p>Applying a sliding window to the roll-calls from 1946 to 2019 will make it possible to show the temporal changes.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_df</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="va">rcid</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="va">rcid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>vote_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span>, year <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-getters.html">get_year</a></span><span class="op">(</span><span class="va">vote_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -326,7 +343,7 @@ div.csl-indent {
 </div>
 <p>Dimensionality reduction may be performed on each window. And the voting patterns are then visualised as a two-dimensional animation.</p>
 <div class="cell" data-hash="index_cache/html/pca_e97d2bcf856e68b8865330448d3c8ba2">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wdows</span> <span class="op">&lt;-</span> <span class="va">wdow_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wdows</span> <span class="op">&lt;-</span> <span class="va">wdow_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">slide_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -374,7 +391,7 @@ div.csl-indent {
 <p>France and the UK, for example, have remained particularly close given their historical ties and geographical proximity.</p>
 <p>The UN’s <a href="http://research.un.org/en/docs/sc/quick/veto">Security Council Veto List</a> provides further insights on the changing profile of P5 voting over the decades.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://www.un.org/depts/dhl/resguide/scact_veto_table_en.htm"</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://www.un.org/depts/dhl/resguide/scact_veto_table_en.htm"</span></span>
 <span></span>
 <span><span class="va">meeting_df</span> <span class="op">&lt;-</span> <span class="va">url</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -384,7 +401,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">meeting_df2</span> <span class="op">&lt;-</span> <span class="va">meeting_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">meeting_df2</span> <span class="op">&lt;-</span> <span class="va">meeting_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">vote_date</span>, <span class="st">"-(?:\\d{2}|\\d)"</span><span class="op">)</span>,</span>
 <span>    vote_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="va">vote_date</span>, format <span class="op">=</span> <span class="st">"%d %B %Y"</span><span class="op">)</span>,</span>
@@ -405,7 +422,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">5</span>, name <span class="op">=</span> <span class="st">"GrandBudapest2"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">5</span>, name <span class="op">=</span> <span class="st">"GrandBudapest2"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">little_plot</span> <span class="op">&lt;-</span> <span class="va">country_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">n</span>, fill <span class="op">=</span> <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -444,7 +461,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -455,15 +472,19 @@ div.csl-indent {
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[2];  c[11];  format[1];  library[11];  max[3];  min[1];  seq[1] </td>
+   <td style="text-align:left;"> as.character[2], c[11], format[1], library[12], max[3], min[1], seq[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> date_build[1];  date_parse[2];  get_year[5] </td>
+   <td style="text-align:left;"> date_build[1], date_parse[2], get_year[5] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> conflicted </td>
+   <td style="text-align:left;"> conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[2];  count[2];  filter[4];  group_by[1];  if_else[7];  inner_join[1];  join_by[1];  mutate[8];  n_distinct[1];  pull[3];  recode[1];  row_number[1];  select[5];  slice[1];  summarise[3];  ungroup[1] </td>
+   <td style="text-align:left;"> arrange[2], count[2], filter[4], group_by[1], if_else[7], inner_join[1], join_by[1], mutate[8], n_distinct[1], pull[3], recode[1], row_number[1], select[5], slice[1], summarise[3], ungroup[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
@@ -475,11 +496,11 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> gganimate </td>
-   <td style="text-align:left;"> animate[1];  shadow_wake[1];  transition_time[1] </td>
+   <td style="text-align:left;"> animate[1], shadow_wake[1], transition_time[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[5];  coord_flip[1];  element_text[1];  geom_col[2];  geom_label[2];  ggplot[3];  labs[3];  scale_fill_manual[3];  scale_x_continuous[1];  theme[1];  theme_bw[1];  theme_set[1] </td>
+   <td style="text-align:left;"> aes[5], coord_flip[1], element_text[1], geom_col[2], geom_label[2], ggplot[3], labs[3], scale_fill_manual[3], scale_x_continuous[1], theme[1], theme_bw[1], theme_set[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> glue </td>
@@ -491,11 +512,11 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_rbind[1];  map[1] </td>
+   <td style="text-align:left;"> list_rbind[1], map[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_element[1];  html_table[1];  read_html[1] </td>
+   <td style="text-align:left;"> html_element[1], html_table[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> stats </td>
@@ -503,7 +524,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_detect[5];  str_remove[1];  str_replace[1] </td>
+   <td style="text-align:left;"> str_detect[5], str_remove[1], str_replace[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tibble </td>
@@ -511,7 +532,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> complete[1];  fill[1];  nest[2];  nesting[1];  pivot_longer[1];  pivot_wider[1];  replace_na[1];  unnest[2] </td>
+   <td style="text-align:left;"> complete[1], fill[1], nest[2], nesting[1], pivot_longer[1], pivot_wider[1], replace_na[1], unnest[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tidyselect </td>
@@ -519,7 +540,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> tsibble </td>
-   <td style="text-align:left;"> as_tsibble[1];  slide_tsibble[1] </td>
+   <td style="text-align:left;"> as_tsibble[1], slide_tsibble[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> usedthese </td>
@@ -528,6 +549,10 @@ div.csl-indent {
 <tr>
 <td style="text-align:left;"> wesanderson </td>
    <td style="text-align:left;"> wes_palette[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> xml2 </td>
+   <td style="text-align:left;"> read_html[1] </td>
   </tr>
 </tbody>
 </table>

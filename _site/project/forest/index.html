@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 4, 2023</p>
+      <p class="date-modified">January 20, 2023</p>
     </div>
   </div>
     
@@ -252,17 +252,34 @@ div.csl-indent {
 </header><p><img src="feature.gif" class="img-fluid" alt="A micro-forest in the middle of nowhere has the sign &quot;Random Forest&quot; nailed to a tree. A white rabbit peers out at a thief tip-toeing away with a bag labelled &quot;swag&quot;.."></p>
 <p>When first posted in 2018 this project used the caret package to model <a href="https://data.gov.uk/dataset">crime in London</a>. Since then, the newer <a href="https://www.tidymodels.org">tidymodels</a><span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span> framework, consistent with tidy data principles, has rapidly evolved.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/koalaverse/vip/">vip</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg">poissonreg</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10 conflicts:
+* `chisq.test` : janitor, stats
+* `col_factor` : scales, readr
+* `discard`    : scales, purrr
+* `filter`     : [dplyr]
+* `fisher.test`: janitor, stats
+* `fixed`      : recipes, stringr
+* `lag`        : [dplyr]
+* `spec`       : yardstick, readr
+* `step`       : recipes, stats
+* `vi`         : vip, utils</code></pre>
+</div>
 </div>
 <p>This custom palette was created in <a href="https://color.adobe.com/create/color-wheel">Adobe Colour</a> as the basis for the feature image above and with the hex codes loaded for use in ggplot. <code>colorRampPalette</code> enables interpolation of an extended set of colours to support the number of offence types.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#798E87"</span>, <span class="st">"#C27D38"</span>, <span class="st">"#CCC591"</span>, <span class="st">"#29211F"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -285,10 +302,10 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://data.london.gov.uk/"</span>,</span>
 <span>  <span class="st">"download/recorded_crime_rates/"</span>,</span>
 <span>  <span class="st">"c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/"</span>,</span>
@@ -307,7 +324,7 @@ div.csl-indent {
 </div>
 <p>A faceted plot is one way to get a sense of the data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">raw_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>borough <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">borough</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">number_of_offences</span>, </span>
 <span>             colour <span class="op">=</span> <span class="va">offences</span>, group <span class="op">=</span> <span class="va">offences</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -330,7 +347,7 @@ div.csl-indent {
 <p>Visualising data in small multiples using <code>facet_wrap</code> or <code>facet_grid</code> can be a useful way to explore data. When there are a larger number of these however, as we’re starting to see in the example above, there are alternative techniques one can employ. This is explored in <a href="../../project/wood">Seeing the Wood for the Trees</a>.</p>
 <p>Nonetheless, one can anyway see there are data aggregated at multiple levels. So to net these data down to purely borough-level, I’ll filter out the summarised rows, for example, “England and Wales” and “Inner London”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">offences</span> <span class="op">!=</span> <span class="st">"All recorded offences"</span>,</span>
 <span>    <span class="op">!</span><span class="va">borough</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -345,7 +362,7 @@ div.csl-indent {
 <p>The faceted plot hints at a potential interaction between borough and type of offence. In more affluent boroughs, and/or those attracting greater visitor numbers, e.g.&nbsp;Westminster and Kensington &amp; Chelsea, “theft and handling” is the more dominant category. In Lewisham, for example, “violence against the person” exhibits higher counts. However, for the purpose of this basic model comparison, I’m going to set aside the potential interaction term.</p>
 <p>Before modelling, I’ll visualise the dependent variable against each independent variable.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>number_of_offences <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">number_of_offences</span><span class="op">)</span>,</span>
 <span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">offences</span>, <span class="va">borough</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -366,7 +383,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>number_of_offences <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">number_of_offences</span><span class="op">)</span>,</span>
 <span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">offences</span>, <span class="va">borough</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -389,7 +406,7 @@ div.csl-indent {
 </div>
 <p>The offences and borough variables show significant variation in crime counts. And there is also evidence of a change over time.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>number_of_offences <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">number_of_offences</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">number_of_offences</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -406,7 +423,7 @@ div.csl-indent {
 </div>
 <p>I’ll separate out some test data so I can compare the performance of the models on data they have not see during model training.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_split</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
@@ -421,7 +438,7 @@ div.csl-indent {
 <p>I’m using the recipes package to establish the role of the variables. Alternatively I could have used a formula-based approach, i.e.&nbsp;<code>number_of_offences ~ borough + offences + year</code>.</p>
 <p>Whilst <code>borough</code> and <code>offences</code> are nominal, I’m not creating any dummy variables since I intend to use tree-based models which will anyway branch left and right based on groups of values.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_recipe</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_recipe</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">crime_train</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">update_role</span><span class="op">(</span><span class="va">number_of_offences</span>, new_role <span class="op">=</span> <span class="st">"outcome"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -476,7 +493,7 @@ div.csl-indent {
 <p>I’ll start with a Recursive Partitioning And Regression Trees (rpart) model. The feature importance plot tells me which variables are having the biggest influence on the model. The type of offence is the most important predictor in the rpart model, followed by the location of the offences. This makes intuitive sense.</p>
 <p>Clearly there is a temporal component too otherwise there would be no trend.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rp_model</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rp_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/decision_tree.html">decision_tree</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"rpart"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
@@ -495,13 +512,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/rpart-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rp_results</span> <span class="op">&lt;-</span> <span class="va">rp_fit</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rp_results</span> <span class="op">&lt;-</span> <span class="va">rp_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"rpart"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ranger is an implementation of random forests or recursive partitioning that, according to the documentation, is particularly suited to high dimensional data. My data is not high-dimensional, but let’s throw it into the mix.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ranger_model</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ranger_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
@@ -520,13 +537,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/ranger-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ranger_results</span> <span class="op">&lt;-</span> <span class="va">ranger_fit</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ranger_results</span> <span class="op">&lt;-</span> <span class="va">ranger_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"ranger"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And of course my project title would make little sense without a Random Forest.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_model</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"randomForest"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
@@ -545,13 +562,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/forest-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_results</span> <span class="op">&lt;-</span> <span class="va">rf_fit</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_results</span> <span class="op">&lt;-</span> <span class="va">rf_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"random forest"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For good measure, I’ll also include a generalized linear model (glm)</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poisson_model</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poisson_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
@@ -570,13 +587,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/poisson-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poisson_results</span> <span class="op">&lt;-</span> <span class="va">poisson_fit</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poisson_results</span> <span class="op">&lt;-</span> <span class="va">poisson_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"glm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Random Forest and the glm models performed the best here, with the former edging the Mean Absolute Error and R Squared metrics, and the latter with its nose in front on the Root Mean Squared Error.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_results</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_results</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">rp_results</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">ranger_results</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">rf_results</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -601,7 +618,7 @@ div.csl-indent {
 <p>I explored time-series in other posts such as <a href="../../project/planning">Digging Deep</a>, so I won’t go down that path here.</p>
 <p>What I could do though is to strengthen my tree-based models above by engineering some additional temporal features. Let’s try that just with the Random Forest to see if it improves the outcome.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_df</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">crime_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>num_lag1 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">number_of_offences</span><span class="op">)</span>,</span>
 <span>         num_lag2 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">number_of_offences</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -610,7 +627,7 @@ div.csl-indent {
 </div>
 <p>So, when predicting the number of offences, the model will now additionally consider, for each borough, type of offence and year, the number of offences in each of the three prior years.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_split</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">temp_df</span> <span class="op">|&gt;</span></span>
@@ -691,7 +708,7 @@ div.csl-indent {
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_model</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"randomForest"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
@@ -710,14 +727,14 @@ div.csl-indent {
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/forest2-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_results</span> <span class="op">&lt;-</span> <span class="va">temp_fit</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_results</span> <span class="op">&lt;-</span> <span class="va">temp_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">temp_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">metrics</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">number_of_offences</span>, estimate <span class="op">=</span> <span class="va">.pred</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"rf with lags"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The recipe summary includes the three new predictors. And the feature importance plot shows the lags playing a larger role in the model than the <code>year</code> variable, so looks like we should anticipate a model improvement.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">updated_results</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">updated_results</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">model_results</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">temp_results</span><span class="op">)</span></span>
 <span></span>
@@ -739,7 +756,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
@@ -750,23 +767,27 @@ div.csl-indent {
 <tbody>
 <tr>
 <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[3];  as.numeric[1];  c[7];  library[7];  list[5];  round[2];  set.seed[2];  sum[4];  summary[2] </td>
+   <td style="text-align:left;"> as.character[3], as.numeric[1], c[7], library[8], list[5], round[2], set.seed[2], sum[4], summary[2] </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> conflicted </td>
+   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> bind_rows[4];  filter[1];  group_by[1];  lag[3];  mutate[10];  summarise[4] </td>
+   <td style="text-align:left;"> bind_rows[4], filter[1], group_by[1], lag[3], mutate[10], summarise[4] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> forcats </td>
-   <td style="text-align:left;"> fct_inorder[1];  fct_reorder[2] </td>
+   <td style="text-align:left;"> fct_inorder[1], fct_reorder[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> generics </td>
-   <td style="text-align:left;"> augment[5];  fit[5] </td>
+   <td style="text-align:left;"> augment[5], fit[5] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[10];  annotate[1];  coord_flip[1];  element_text[3];  facet_wrap[3];  geom_boxplot[2];  geom_col[3];  geom_label[3];  geom_line[2];  geom_smooth[1];  ggplot[7];  guide_legend[1];  guides[1];  labs[11];  scale_colour_manual[1];  scale_fill_manual[3];  scale_y_continuous[1];  scale_y_log10[2];  theme[4];  theme_bw[1];  theme_set[1];  theme_void[1] </td>
+   <td style="text-align:left;"> aes[10], annotate[1], coord_flip[1], element_text[3], facet_wrap[3], geom_boxplot[2], geom_col[3], geom_label[3], geom_line[2], geom_smooth[1], ggplot[7], guide_legend[1], guides[1], labs[11], scale_colour_manual[1], scale_fill_manual[3], scale_y_continuous[1], scale_y_log10[2], theme[4], theme_bw[1], theme_set[1], theme_void[1] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> grDevices </td>
@@ -782,7 +803,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> parsnip </td>
-   <td style="text-align:left;"> decision_tree[1];  poisson_reg[1];  rand_forest[3];  set_engine[5];  set_mode[5] </td>
+   <td style="text-align:left;"> decision_tree[1], poisson_reg[1], rand_forest[3], set_engine[5], set_mode[5] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> readr </td>
@@ -790,15 +811,15 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> recipes </td>
-   <td style="text-align:left;"> has_role[2];  recipe[2];  update_role[4] </td>
+   <td style="text-align:left;"> has_role[2], recipe[2], update_role[4] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> rsample </td>
-   <td style="text-align:left;"> initial_split[2];  testing[2];  training[2] </td>
+   <td style="text-align:left;"> initial_split[2], testing[2], training[2] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> scales </td>
-   <td style="text-align:left;"> cut_short_scale[3];  label_number[3] </td>
+   <td style="text-align:left;"> cut_short_scale[3], label_number[3] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> stats </td>
@@ -806,7 +827,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[1];  str_extract[1];  str_wrap[3] </td>
+   <td style="text-align:left;"> str_c[1], str_extract[1], str_wrap[3] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> tibble </td>
@@ -826,7 +847,7 @@ div.csl-indent {
   </tr>
 <tr>
 <td style="text-align:left;"> workflows </td>
-   <td style="text-align:left;"> add_model[5];  add_recipe[5];  workflow[5];  extract_fit_parsnip[5] </td>
+   <td style="text-align:left;"> add_model[5], add_recipe[5], extract_fit_parsnip[5], workflow[5] </td>
   </tr>
 <tr>
 <td style="text-align:left;"> yardstick </td>

@@ -1,14 +1,19 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(tsibble)
 library(gganimate)
 library(clock)
+conflict_prefer("date_format", "clock")
 library(unvotes)
 library(patchwork)
 library(wesanderson)
 library(rvest)
 library(glue)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

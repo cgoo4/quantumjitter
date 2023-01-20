@@ -1,10 +1,15 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(wesanderson)
-library(scales, exclude = "date_format")
+library(scales)
 library(glue)
-library(tidyquant, include.only = "tq_get")
+library(tidyquant)
 library(clock)
+conflict_prefer("date_format", "clock")
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

@@ -18,7 +18,9 @@ Is it possible to get a more objective view from [quantitative analysis of textu
 #| label: libraries
 #| message: false
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(wesanderson)
 library(guardianapi)
 library(quanteda)
@@ -31,6 +33,8 @@ library(topicmodels)
 library(slider)
 library(glue)
 library(usedthese)
+
+conflict_scout()
 ```
 
 ```{r}

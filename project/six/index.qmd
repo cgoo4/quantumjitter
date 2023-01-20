@@ -13,11 +13,15 @@ In September 2017 I wrote a post entitled [Let's Jitter](/project/jitter). It lo
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(clock)
 library(scales)
 library(wesanderson)
 library(usedthese)
+
+conflict_scout()
 ```
 
 I'm using one of the beautiful range of [Wes Anderson Palettes](https://github.com/karthik/wesanderson). I often use the palettes provided by [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) too.

@@ -1,8 +1,12 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(wesanderson)
 library(scales)
 library(truncnorm)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

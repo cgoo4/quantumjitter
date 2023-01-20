@@ -13,13 +13,17 @@ When first posted in 2018 this project used the caret package to model [crime in
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(janitor)
 library(scales)
 library(vip)
 library(poissonreg)
 library(usedthese)
+
+conflict_scout()
 ```
 
 This custom palette was created in [Adobe Colour](https://color.adobe.com/create/color-wheel) as the basis for the feature image above and with the hex codes loaded for use in ggplot. `colorRampPalette` enables interpolation of an extended set of colours to support the number of offence types.

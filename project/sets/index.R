@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(rvest)
 library(furrr)
 library(wesanderson)
@@ -7,6 +9,8 @@ library(ggupset)
 library(ggVennDiagram)
 library(glue)
 library(usedthese)
+
+conflict_scout()
 
 plan(multisession)
 

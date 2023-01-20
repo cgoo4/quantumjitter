@@ -1,4 +1,6 @@
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(tidytext)
 library(tidyclust)
@@ -9,6 +11,8 @@ library(ggrepel)
 library(sf)
 library(scales)
 library(usedthese)
+
+conflict_scout()
 
 theme_set(theme_bw())
 

@@ -13,7 +13,9 @@ bibliography: references.bib
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr")
 library(tidymodels)
 library(tidytext)
 library(tidyclust)
@@ -24,6 +26,8 @@ library(ggrepel)
 library(sf)
 library(scales)
 library(usedthese)
+
+conflict_scout()
 ```
 
 The graphics will use a custom palette created in [Adobe Colour](https://color.adobe.com).
