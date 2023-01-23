@@ -1,0 +1,33 @@
+---
+title: "Usedthese"
+author: "Carl Goodwin"
+date: "2023-01-22"
+categories: [R, website, quarto, package]
+description: "Hexcited to unveil [usedthese](https://cgoo4.github.io/usedthese/index.html): an R package that tells you what you just did in case you can't recall!"
+---
+
+![](feature.png){fig-alt="A hexagon standing on a blue-curtained stage holding up a CRAN badge. The hexagon contains 9 mini hexagons spelling usedthese."}
+
+Who ordered that? You may be wondering.
+
+## Motivation
+
+Usedthese was born of a selfish desire to better understand my personal package & function usage. I find it makes it easier for me to check for consistency of usage, acknowledge the packages I most need to keep abreast of (or go deeper on), and spot opportunities for updates to the latest and greatest.
+
+It started as a chunk of code that varied from project to project. Evolved into a common piece of code included in all projects. And finally, with the help and guidance of the [R Packages (2e)](https://r-pkgs.org) book, has entered the hallowed halls of CRAN.
+
+## Example Use Case
+
+Each [“little project”](https://www.quantumjitter.com/project/) on this Quarto site focuses on a data science technique or machine learning model to analyse real-world data. At the foot of each of these is a quantified view of the R packages and functions used in the associated code. This is achieved by including `used_here()` in each Quarto document.
+
+`used_there()` scrapes all the tables created by `used_here()` to enable a [Favourite Things](https://www.quantumjitter.com/project/box/) article on how R packages and functions are used across the website.
+
+When the [Tidyverse blog announced changes to dplyr](https://www.tidyverse.org/blog/2022/11/dplyr-1-1-0-is-coming-soon/) and [purrr](https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/) a quick review of my Favourite Things identified a number of opportunities to try out the exciting new features. For example, dplyr introduced temporary grouping with the `.by` argument for `mutate()` and amigos. `group_by()` and `ungroup()` had been used many times and most of these occurrences could be replaced with the new more concise approach.
+
+## Confllicted?
+
+Usethese is designed to work in conjunction with the [conflicted](https://conflicted.r-lib.org) package. Whilst `library()` supports `exclusion` and `include.only` arguments, it can feel a little awkward when dealing with pre-loaded base packages or meta-packages such as the tidyverse, tidymodels and fpp3. Conflicted tells you when you try to use a function whose name is shared by two or more loaded packages. And it offers fine-grained conflict resolution based on your preferences.
+
+## Multi-site Usage Analysis
+
+I'm considering adding a function that would enable analysis of usage across multiple opted-in sites. If you do deploy usedthese within your Quarto website and would willing to have the site included, then please [raise an issue](https://github.com/cgoo4/usedthese/issues) with your listing page as the title and select the "usedthese" label. The listing URL should link to one of more posts which include `used_here()` in the code.

@@ -10,7 +10,48 @@
 <atom:link href="https://www.quantumjitter.com/blog/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
 <generator>quarto-1.3.105</generator>
-<lastBuildDate>Tue, 22 Nov 2022 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 22 Jan 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Usedthese</title>
+  <dc:creator>Carl Goodwin</dc:creator>
+  <link>https://www.quantumjitter.com/blog/usedthese/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<p><img src="https://www.quantumjitter.com/blog/usedthese/feature.png" class="img-fluid" alt="A hexagon standing on a blue-curtained stage holding up a CRAN badge. The hexagon contains 9 mini hexagons spelling usedthese."></p>
+<p>Who ordered that? You may be wondering.</p>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Usedthese was born of a selfish desire to better understand my personal package &amp; function usage. I find it makes it easier for me to check for consistency of usage, acknowledge the packages I most need to keep abreast of (or go deeper on), and spot opportunities for updates to the latest and greatest.</p>
+<p>It started as a chunk of code that varied from project to project. Evolved into a common piece of code included in all projects. And finally, with the help and guidance of the <a href="https://r-pkgs.org">R Packages (2e)</a> book, has entered the hallowed halls of CRAN.</p>
+</section>
+<section id="example-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="example-use-case">Example Use Case</h2>
+<p>Each <a href="https://www.quantumjitter.com/project/">“little project”</a> on this Quarto site focuses on a data science technique or machine learning model to analyse real-world data. At the foot of each of these is a quantified view of the R packages and functions used in the associated code. This is achieved by including <code>used_here()</code> in each Quarto document.</p>
+<p><code>used_there()</code> scrapes all the tables created by <code>used_here()</code> to enable a <a href="https://www.quantumjitter.com/project/box/">Favourite Things</a> article on how R packages and functions are used across the website.</p>
+<p>When the <a href="https://www.tidyverse.org/blog/2022/11/dplyr-1-1-0-is-coming-soon/">Tidyverse blog announced changes to dplyr</a> and <a href="https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/">purrr</a> a quick review of my Favourite Things identified a number of opportunities to try out the exciting new features. For example, dplyr introduced temporary grouping with the <code>.by</code> argument for <code>mutate()</code> and amigos. <code>group_by()</code> and <code>ungroup()</code> had been used many times and most of these occurrences could be replaced with the new more concise approach.</p>
+</section>
+<section id="confllicted" class="level2">
+<h2 class="anchored" data-anchor-id="confllicted">Confllicted?</h2>
+<p>Usethese is designed to work in conjunction with the <a href="https://conflicted.r-lib.org">conflicted</a> package. Whilst <code>library()</code> supports <code>exclusion</code> and <code>include.only</code> arguments, it can feel a little awkward when dealing with pre-loaded base packages or meta-packages such as the tidyverse, tidymodels and fpp3. Conflicted tells you when you try to use a function whose name is shared by two or more loaded packages. And it offers fine-grained conflict resolution based on your preferences.</p>
+</section>
+<section id="multi-site-usage-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="multi-site-usage-analysis">Multi-site Usage Analysis</h2>
+<p>I’m considering adding a function that would enable analysis of usage across multiple opted-in sites. If you do deploy usedthese within your Quarto website and would willing to have the site included, then please <a href="https://github.com/cgoo4/usedthese/issues">raise an issue</a> with your listing page as the title and select the “usedthese” label. The listing URL should link to one of more posts which include <code>used_here()</code> in the code.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>website</category>
+  <category>quarto</category>
+  <category>package</category>
+  <guid>https://www.quantumjitter.com/blog/usedthese/index.html</guid>
+  <pubDate>Sun, 22 Jan 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://www.quantumjitter.com/blog/usedthese/feature.png" medium="image" type="image/png" height="77" width="144"/>
+</item>
 <item>
   <title>Night Mode</title>
   <dc:creator>Carl Goodwin</dc:creator>

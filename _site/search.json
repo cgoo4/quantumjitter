@@ -18,7 +18,7 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "Night Mode\n\n\n2 min\n\n\nMaking full use of Quarto and sprucing up an oft-visited 404 page\n\n\n\nNov 22, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPainting Tails\n\n\n2 min\n\n\nIf you’re a cat, go find the nearest open pot of paint. But if you’re a data scientist, what to do?\n\n\n\nApr 26, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Fresh Lick of Paint\n\n\n5 min\n\n\nStaying in Blogdown and renovating with the Hugo Apéro theme\n\n\n\nApr 9, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMoving House\n\n\n3 min\n\n\nLeaving Wordpress for a quieter life in Blogdown with the Hugo Academic theme\n\n\n\nJul 26, 2020\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Usedthese\n\n\n2 min\n\n\nHexcited to unveil usedthese: an R package that tells you what you just did in case you can’t recall!\n\n\n\nJan 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNight Mode\n\n\n2 min\n\n\nMaking full use of Quarto and sprucing up an oft-visited 404 page\n\n\n\nNov 22, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPainting Tails\n\n\n2 min\n\n\nIf you’re a cat, go find the nearest open pot of paint. But if you’re a data scientist, what to do?\n\n\n\nApr 26, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Fresh Lick of Paint\n\n\n5 min\n\n\nStaying in Blogdown and renovating with the Hugo Apéro theme\n\n\n\nApr 9, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMoving House\n\n\n3 min\n\n\nLeaving Wordpress for a quieter life in Blogdown with the Hugo Academic theme\n\n\n\nJul 26, 2020\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/tail/index.html",
@@ -26,6 +26,41 @@
     "title": "Painting Tails",
     "section": "",
     "text": "There are techniques for painting a region under a curve. But the experimental ggfx package offers an interesting alternative solution based on the blending modes familiar to users of Photoshop.\n\nlibrary(tidyverse)\nlibrary(scales)\nlibrary(ggfx)\nlibrary(patchwork)\nlibrary(wesanderson)\nlibrary(clock)\nlibrary(tidyquant)\n\n\ntheme_set(theme_bw())\n\n(cols <- wes_palette(\"Royal1\"))\n\n\n\n\nThe advantage here is that the tail-painting aesthetic needs no information about the shape of the curve; only the limits on the x-axis.\nThe left plot shows the raw components without blending. The right plot is only retaining the red where there is a layer below.\n\np0 <- tibble(outcome = rnorm(10000, 20, 2)) |>\n  ggplot(aes(outcome)) +\n  scale_y_continuous(labels = label_percent())\n\np1 <- p0 +\n  geom_density(adjust = 2, fill = cols[3]) +\n  annotate(\"rect\",\n    xmin = 15, xmax = 18, ymin = -Inf, ymax = Inf,\n    fill = cols[2]\n  ) + \n  labs(title = \"Without Blending\", y = \"Density\")\n\np2 <- p0 +\n  as_reference(geom_density(adjust = 2, fill = cols[3]), id = \"density\") +\n  with_blend(annotate(\"rect\",\n    xmin = 15, xmax = 18, ymin = -Inf, ymax = Inf,\n    fill = cols[2]\n  ), bg_layer = \"density\", blend_type = \"atop\") + \n  labs(title = \"With Blending\", y = NULL)\n\np1 + p2\n\n\n\n\nOf course the red box could also be layered behind a density curve with alpha applied so it shows through. But if the preference is tail-only colouring, it’s a neat solution.\nBlending is actually a handy solution for any awkward shape. The same technique is used here with a time series ribbon summarising the median, lower and upper quartiles of a set of closing stock prices.\n\n\n\n\n\n\nNote\n\n\n\nTry this patch if having problems with tq_get\nThis chunk is using the development version of dplyr which introduces temporary grouping with .by.\n\n\n\ntickrs <- c(\"AAPL\", \"NFLX\", \"TSLA\", \"ADBE\", \"META\", \"GOOG\", \"MSFT\")\n\np0 <- tq_get(tickrs, get = \"stock.prices\", from = \"2022-01-01\") |>\n  filter(!is.na(close)) |> \n  reframe(\n    close = quantile(close, c(0.25, 0.5, 0.75)),\n    quantile = c(\"lower\", \"median\", \"upper\") |> factor(),\n    .by = date\n  ) |>\n  pivot_wider(names_from = quantile, values_from = close) |>\n  ggplot(aes(date, median)) +\n  annotate(\"text\",\n    x = as.Date(\"2022-03-16\"), y = 100,\n    label = \"Helpful\\nAnnotation\", colour = \"black\"\n  ) +\n  scale_y_continuous(limits = c(0, NA)) +\n  labs(x = NULL)\n\np1 <- p0 +\n  geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[1]) +\n  geom_line(colour = cols[3]) +\n  annotate(\"rect\",\n    xmin = as.Date(\"2022-03-01\"), xmax = as.Date(\"2022-03-31\"),\n    ymin = -Inf, ymax = Inf, fill = cols[4], colour = \"black\", linetype = \"dashed\"\n  ) + \n  labs(title = \"Without Blending\", y = \"Closing Price\")\n\np2 <- p0 +\n  as_reference(geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[1]), id = \"ribbon\") +\n  with_blend(\n    annotate(\n      \"rect\",\n      xmin = as.Date(\"2022-03-01\"), xmax = as.Date(\"2022-03-31\"),\n      ymin = -Inf, ymax = Inf, fill = cols[4], colour = \"black\", linetype = \"dashed\"\n      ),\n    bg_layer = \"ribbon\", blend_type = \"atop\"\n    ) +\n  geom_line(colour = cols[3]) + \n  labs(title = \"With Blending\", y = NULL)\n\np1 + p2 +\n  plot_annotation(title = \"Median Price Bounded by Upper & Lower Quartiles\")"
+  },
+  {
+    "objectID": "blog/usedthese/index.html",
+    "href": "blog/usedthese/index.html",
+    "title": "Usedthese",
+    "section": "",
+    "text": "Who ordered that? You may be wondering."
+  },
+  {
+    "objectID": "blog/usedthese/index.html#motivation",
+    "href": "blog/usedthese/index.html#motivation",
+    "title": "Usedthese",
+    "section": "Motivation",
+    "text": "Motivation\nUsedthese was born of a selfish desire to better understand my personal package & function usage. I find it makes it easier for me to check for consistency of usage, acknowledge the packages I most need to keep abreast of (or go deeper on), and spot opportunities for updates to the latest and greatest.\nIt started as a chunk of code that varied from project to project. Evolved into a common piece of code included in all projects. And finally, with the help and guidance of the R Packages (2e) book, has entered the hallowed halls of CRAN."
+  },
+  {
+    "objectID": "blog/usedthese/index.html#example-use-case",
+    "href": "blog/usedthese/index.html#example-use-case",
+    "title": "Usedthese",
+    "section": "Example Use Case",
+    "text": "Example Use Case\nEach “little project” on this Quarto site focuses on a data science technique or machine learning model to analyse real-world data. At the foot of each of these is a quantified view of the R packages and functions used in the associated code. This is achieved by including used_here() in each Quarto document.\nused_there() scrapes all the tables created by used_here() to enable a Favourite Things article on how R packages and functions are used across the website.\nWhen the Tidyverse blog announced changes to dplyr and purrr a quick review of my Favourite Things identified a number of opportunities to try out the exciting new features. For example, dplyr introduced temporary grouping with the .by argument for mutate() and amigos. group_by() and ungroup() had been used many times and most of these occurrences could be replaced with the new more concise approach."
+  },
+  {
+    "objectID": "blog/usedthese/index.html#confllicted",
+    "href": "blog/usedthese/index.html#confllicted",
+    "title": "Usedthese",
+    "section": "Confllicted?",
+    "text": "Confllicted?\nUsethese is designed to work in conjunction with the conflicted package. Whilst library() supports exclusion and include.only arguments, it can feel a little awkward when dealing with pre-loaded base packages or meta-packages such as the tidyverse, tidymodels and fpp3. Conflicted tells you when you try to use a function whose name is shared by two or more loaded packages. And it offers fine-grained conflict resolution based on your preferences."
+  },
+  {
+    "objectID": "blog/usedthese/index.html#multi-site-usage-analysis",
+    "href": "blog/usedthese/index.html#multi-site-usage-analysis",
+    "title": "Usedthese",
+    "section": "Multi-site Usage Analysis",
+    "text": "Multi-site Usage Analysis\nI’m considering adding a function that would enable analysis of usage across multiple opted-in sites. If you do deploy usedthese within your Quarto website and would willing to have the site included, then please raise an issue with your listing page as the title and select the “usedthese” label. The listing URL should link to one of more posts which include used_here() in the code."
   },
   {
     "objectID": "blog/dark/index.html",
