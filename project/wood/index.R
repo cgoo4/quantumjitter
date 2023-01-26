@@ -61,7 +61,7 @@ crime_df |>
 slope <- \(x, y) coef(lm(y ~ x))[2]
 
 plot_data <- crime_df |>
-  nest(data = -c(borough, offences)) |>
+  nest(.by = c(borough, offences)) |>
   mutate(
     additional_cogs = map_cog(
       data,

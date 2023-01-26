@@ -45,7 +45,7 @@ to <- raw_df |>
 
 tidy_df <- raw_df |>
   arrange(vote_date, rcid) |>
-  nest(data = -c(vote_date, rcid)) |>
+  nest(.by = c(vote_date, rcid)) |>
   mutate(vote_id = row_number(), year = get_year(vote_date)) |>
   unnest(data) |>
   complete(country, nesting(vote_id)) |>
@@ -59,7 +59,7 @@ tidy_df <- raw_df |>
 
 wdow_df <- tidy_df |>
   as_tsibble(key = country, index = vote_id) |>
-  nest(data = -vote_id) |>
+  nest(.by = vote_id) |>
   slide_tsibble(.size = 1000, .step = 250, .id = "slide_id") |>
   unnest(data) |>
   as_tibble() |>

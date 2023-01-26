@@ -62,7 +62,8 @@ pop_df <- list("2004.xlsx", "2021.xlsx") |>
 change_df <- pop_df |> 
   filter(str_starts(occupation, "\\d{4} ")) |> 
   pivot_wider(names_from = year, values_from = persons) |> 
-  separate_wider_regex(occupation, c(soc = "\\d{4}", " ", occupation = ".*")) |> 
+  separate_wider_regex(occupation, 
+                       c(soc = "\\d{4}", " ", occupation = ".*")) |> 
   mutate(change = `2021` / `2004` - 1) |> 
   arrange(desc(change)) |> 
   mutate(group = if_else(row_number() <= 10, "Risers", "Fallers")) |> 
