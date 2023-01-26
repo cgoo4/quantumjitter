@@ -76,6 +76,7 @@ The labour market data are sourced from the [Office for National Statistics](htt
 
 ```{r}
 #| label: read
+#| warning: false
 
 read_data <- \(x) {
   read_xlsx(
@@ -111,7 +112,7 @@ There's a hierarchy to the data, so I'll extract the lowest level and then slice
 change_df <- pop_df |> 
   filter(str_starts(occupation, "\\d{4} ")) |> 
   pivot_wider(names_from = year, values_from = persons) |> 
-  separate(occupation, into = c("soc", "occupation"), sep = 5) |> 
+  separate_wider_regex(occupation, c(soc = "\\d{4}", " ", occupation = ".*")) |> 
   mutate(change = `2021` / `2004` - 1) |> 
   arrange(desc(change)) |> 
   mutate(group = if_else(row_number() <= 10, "Risers", "Fallers")) |> 
