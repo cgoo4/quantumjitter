@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2020-09-18">
@@ -256,7 +256,7 @@ div.csl-indent {
 <p>Reading news articles on the will-they-won’t-they post-Brexit trade negotiations with the EU sees days of optimism jarred by days of gloom. Do negative news articles, when one wants a positive outcome, leave a deeper impression?</p>
 <p>Is it possible to get a more objective view from <a href="https://quanteda.io">quantitative analysis of textual data</a>? To do this, I’m going to look at hundreds of articles published in the Guardian newspaper over the course of the year to see how trade-talk sentiment changed week-to-week.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
@@ -413,7 +413,7 @@ Important
 <p>A corpus then gives me a collection of texts whereby each document is a newspaper article.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_corp</span> <span class="op">&lt;-</span> <span class="va">trade_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, </span>
+<span>  <span class="fu">corpus</span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, </span>
 <span>         text_field <span class="op">=</span> <span class="st">"body"</span>, unique_docnames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although only articles mentioning Brexit have been imported, some of these will not be related to trade negotiations with the EU. For example, there are on-going negotiations with many countries around the world. So, word embeddings<span class="citation" data-cites="text2vec">(<a href="#ref-text2vec" role="doc-biblioref">Selivanov, Bickel, and Wang 2022</a>)</span> will help to narrow the focus to the specific context of the UK-EU trade deal.</p>
@@ -423,10 +423,10 @@ Important
 <span></span>
 <span><span class="va">trade_fcm</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">trade_corp</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
+<span>  <span class="fu">fcm</span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
 <span>      count <span class="op">=</span> <span class="st">"weighted"</span>, weights <span class="op">=</span> <span class="va">window</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html">GlobalVectors</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va">GlobalVectors</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span></span>
@@ -450,7 +450,7 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="va">word_vectors</span><span class="op">[</span><span class="st">"barnier"</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">word_vectors</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/similarities.html">sim2</a></span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">sim2</span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="st">"term"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>similarity <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -517,19 +517,19 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="va">context_corp</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">context_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, text_field <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">corpus</span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, text_field <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quanteda’s<span class="citation" data-cites="quanteda">(<a href="#ref-quanteda" role="doc-biblioref">Benoit et al. 2018</a>)</span> <code>kwic</code> function shows key phrases in context to ensure we’re homing in on the required texts. Short URLs are included below so one can click on any to read the actual article as presented by The Guardian.</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">context_corp</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tokens</span><span class="op">(</span></span>
 <span>    remove_punct <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_symbols <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_numbers <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://quanteda.io/reference/phrase.html">phrase</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trade negotiation"</span>, <span class="st">"trade deal"</span>, <span class="st">"trade talks"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  <span class="fu">kwic</span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu">phrase</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trade negotiation"</span>, <span class="st">"trade deal"</span>, <span class="st">"trade talks"</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>       valuetype <span class="op">=</span> <span class="st">"regex"</span>, window <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">article_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">docname</span> <span class="op">==</span> <span class="va">short_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -634,8 +634,8 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="va">sent_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">context_corp</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span>dictionary <span class="op">=</span> <span class="va">data_dictionary_LSD2015</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">tokens</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dfm</span><span class="op">(</span>dictionary <span class="op">=</span> <span class="va">data_dictionary_LSD2015</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">context_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">doc_id</span> <span class="op">==</span> <span class="va">short_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -768,97 +768,96 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> Matrix </td>
-   <td style="text-align:left;"> t[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.Date[2], c[3], library[14], mean[1], set.seed[2], sum[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> add_days[1], add_months[1], date_build[1], date_ceiling[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> filter[2], group_by[1], join_by[2], left_join[2], mutate[5], n[1], rename[1], select[2], slice[1], slice_max[1], slice_sample[1], summarise[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[4], geom_hline[1], geom_line[2], geom_ribbon[1], ggplot[2], labs[2], scale_y_continuous[1], theme_bw[1], theme_set[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> glue </td>
-   <td style="text-align:left;"> glue[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> methods </td>
-   <td style="text-align:left;"> new[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> mlapi </td>
-   <td style="text-align:left;"> fit_transform[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> patchwork </td>
-   <td style="text-align:left;"> plot_layout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_rbind[1], pmap[1], slowly[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> quanteda </td>
-   <td style="text-align:left;"> corpus[2], dfm[1], fcm[1], kwic[1], phrase[1], tokens[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> scales </td>
-   <td style="text-align:left;"> label_percent[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> slider </td>
-   <td style="text-align:left;"> slide_dbl[3] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stats </td>
-   <td style="text-align:left;"> quantile[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_detect[2], str_remove_all[3], str_to_lower[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> text2vec </td>
-   <td style="text-align:left;"> sim2[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[3], rownames_to_column[1], tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tictoc </td>
-   <td style="text-align:left;"> tic[2], toc[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> wesanderson </td>
-   <td style="text-align:left;"> wes_palette[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Matrix</td>
+<td style="text-align: left;">t[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.Date[2], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">clock</td>
+<td style="text-align: left;">add_days[1], add_months[1], date_build[1], date_ceiling[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">filter[2], group_by[1], join_by[2], left_join[2], mutate[5], n[1], rename[1], select[2], slice[1], slice_max[1], slice_sample[1], summarise[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[4], geom_hline[1], geom_line[2], geom_ribbon[1], ggplot[2], labs[2], scale_y_continuous[1], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">methods</td>
+<td style="text-align: left;">new[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mlapi</td>
+<td style="text-align: left;">fit_transform[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">patchwork</td>
+<td style="text-align: left;">plot_layout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[1], pmap[1], slowly[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quanteda</td>
+<td style="text-align: left;">corpus[2], dfm[1], fcm[1], kwic[1], phrase[1], tokens[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scales</td>
+<td style="text-align: left;">label_percent[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">slider</td>
+<td style="text-align: left;">slide_dbl[3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">quantile[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_detect[2], str_remove_all[3], str_to_lower[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">text2vec</td>
+<td style="text-align: left;">sim2[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tictoc</td>
+<td style="text-align: left;">tic[2], toc[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wesanderson</td>
+<td style="text-align: left;">wes_palette[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1124,8 +1123,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1135,8 +1134,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -1294,7 +1293,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

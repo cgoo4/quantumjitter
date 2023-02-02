@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2019-01-01">
@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 26, 2023</p>
+      <p class="date-modified">February 2, 2023</p>
     </div>
   </div>
     
@@ -252,9 +252,9 @@ div.csl-indent {
 </header><p><img src="feature.gif" class="img-fluid" alt="A small clump of trees with a &quot;Little Wood&quot; sign nailed to one of them. It's a dark starry night and a rabbit peers out at a thief tip-toeing away."></p>
 <p>In <a href="../../project/forest">Criminal Goings-on</a> faceting offered a way to get a sense of the data. This is a great visualisation tool building on the principle of small multiples. There may come a point though where the sheer volume of small multiples make it harder to “see the wood for the trees”. What’s an alternative strategy?</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hafen/trelliscopejs">trelliscopejs</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hafen.github.io/rbokeh/">rbokeh</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
@@ -262,27 +262,20 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>4 conflicts:
-* `chisq.test` : janitor, stats
-* `filter`     : [dplyr]
-* `fisher.test`: janitor, stats
-* `lag`        : [dplyr]</code></pre>
-</div>
 </div>
 <p>This time I’ll use Van Gogh’s “The Starry Night” palette for the feature image and plots. And there are 9 types of criminal offence, so <code>colorRampPalette</code> will enable the interpolation of an extended set.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vangogh/man/vangogh_palette.html">vangogh_palette</a></span><span class="op">(</span><span class="st">"StarryNight"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data need a little tidy-up.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://data.london.gov.uk/"</span>,</span>
 <span>  <span class="st">"download/recorded_crime_rates/"</span>,</span>
 <span>  <span class="st">"c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/"</span>,</span>
@@ -310,7 +303,7 @@ div.csl-indent {
 </div>
 <p>This was the original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>borough <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">borough</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">number_of_offences</span>, colour <span class="op">=</span> <span class="va">offences</span>, group <span class="op">=</span> <span class="va">offences</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -334,7 +327,7 @@ div.csl-indent {
 <p>Switching <code>facet_wrap</code> for <code>facet_trelliscope</code> is a simple option. Or <code>trelliscope</code><span class="citation" data-cites="trelliscopejs">(<a href="#ref-trelliscopejs" role="doc-biblioref">Hafen and Schloerke 2021</a>)</span> may be used in combination with the rbokeh <span class="citation" data-cites="rbokeh">(<a href="#ref-rbokeh" role="doc-biblioref">Hafen 2021</a>)</span> (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred “small multiple” panels required to go deeper into the crime data.</p>
 <p>Pairing <code>trelliscope</code> with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">offences</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -386,7 +379,7 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">plot_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">plot_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/trelliscopejs/man/trelliscope.html">trelliscope</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="st">"London Crime"</span>,</span>
 <span>    desc <span class="op">=</span> <span class="st">"Source: data.gov.uk"</span>,</span>
@@ -403,75 +396,74 @@ Note
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.numeric[1], c[4], library[7], list[2], mean[1], round[1], sum[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> filter[1], mutate[3], summarise[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[1], element_rect[1], element_text[1], facet_wrap[1], geom_line[1], ggplot[1], guide_legend[1], guides[1], labs[1], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> grDevices </td>
-   <td style="text-align:left;"> colorRampPalette[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> janitor </td>
-   <td style="text-align:left;"> clean_names[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rbokeh </td>
-   <td style="text-align:left;"> figure[1], ly_lines[1], ly_points[1], theme_plot[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> readr </td>
-   <td style="text-align:left;"> read_csv[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stats </td>
-   <td style="text-align:left;"> IQR[1], coef[1], lm[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[1], str_extract[1], str_wrap[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> nest[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> trelliscopejs </td>
-   <td style="text-align:left;"> cog[3], map_cog[1], map_plot[1], sort_spec[1], trelliscope[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> vangogh </td>
-   <td style="text-align:left;"> vangogh_palette[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.numeric[1], c[4], library[7], list[2], mean[1], round[1], sum[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">filter[1], mutate[3], summarise[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[1], element_rect[1], element_text[1], facet_wrap[1], geom_line[1], ggplot[1], guide_legend[1], guides[1], labs[1], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">grDevices</td>
+<td style="text-align: left;">colorRampPalette[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">janitor</td>
+<td style="text-align: left;">clean_names[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rbokeh</td>
+<td style="text-align: left;">figure[1], ly_lines[1], ly_points[1], theme_plot[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">read_csv[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">IQR[1], coef[1], lm[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[1], str_extract[1], str_wrap[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">nest[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trelliscopejs</td>
+<td style="text-align: left;">cog[3], map_cog[1], map_plot[1], sort_spec[1], trelliscope[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vangogh</td>
+<td style="text-align: left;">vangogh_palette[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -734,8 +726,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -745,8 +737,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -904,7 +896,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

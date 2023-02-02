@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -364,53 +364,55 @@ Tip
 </div>
 <div class="cell" data-hash="index_cache/html/service ids_1642c76aa2bf650de7d964e257f60561">
 <div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy"><code class="sourceCode r"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span></span>
-<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">future_pmap</span>(</span>
-<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
-<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>url,</span>
-<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>pages,</span>
-<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>lot</span>
-<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a>    \(x, y, z) {</span>
-<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">future_map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>y, \(y) {</span>
-<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a>        refs <span class="ot">&lt;-</span> <span class="fu">str_c</span>(</span>
-<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a>          <span class="st">"https://www.applytosupply.digitalmarketplace"</span>, </span>
-<span id="annotated-cell-5-13"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">".service.gov.uk/g-cloud/search?page="</span>,</span>
-<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a>          y,</span>
-<span id="annotated-cell-5-15"><a href="#annotated-cell-5-15" aria-hidden="true" tabindex="-1"></a>          x,</span>
-<span id="annotated-cell-5-16"><a href="#annotated-cell-5-16" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&amp;lot=cloud-"</span>,</span>
-<span id="annotated-cell-5-17"><a href="#annotated-cell-5-17" aria-hidden="true" tabindex="-1"></a>          z</span>
-<span id="annotated-cell-5-18"><a href="#annotated-cell-5-18" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-19"><a href="#annotated-cell-5-19" aria-hidden="true" tabindex="-1"></a>          <span class="fu">read_html</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-20"><a href="#annotated-cell-5-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">html_elements</span>(<span class="st">"#js-dm-live-search-results .govuk-link"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-21"><a href="#annotated-cell-5-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">html_attr</span>(<span class="st">"href"</span>) </span>
-<span id="annotated-cell-5-22"><a href="#annotated-cell-5-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="annotated-cell-5-23"><a href="#annotated-cell-5-23" aria-hidden="true" tabindex="-1"></a>       <span class="fu">tibble</span>(</span>
-<span id="annotated-cell-5-24"><a href="#annotated-cell-5-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">lot =</span> <span class="fu">str_c</span>(<span class="st">"Cloud "</span>, <span class="fu">str_to_title</span>(z)),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-25" class="code-annotation-target"><a href="#annotated-cell-5-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">service_id =</span> <span class="fu">str_extract</span>(refs, <span class="st">"[[:digit:]]{15}"</span>),</span>
-<span id="annotated-cell-5-26"><a href="#annotated-cell-5-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">cat =</span> <span class="fu">str_remove</span>(x, <span class="st">"&amp;serviceCategories="</span>) <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-27" class="code-annotation-target"><a href="#annotated-cell-5-27" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">Q+</span><span class="sc">\\</span><span class="st">E"</span>, <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-28"><a href="#annotated-cell-5-28" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove</span>(<span class="st">"%28[[:print:]]+%29"</span>)</span>
-<span id="annotated-cell-5-29"><a href="#annotated-cell-5-29" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="annotated-cell-5-30"><a href="#annotated-cell-5-30" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="annotated-cell-5-31"><a href="#annotated-cell-5-31" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="annotated-cell-5-32"><a href="#annotated-cell-5-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-33"><a href="#annotated-cell-5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-34"><a href="#annotated-cell-5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lot<span class="sc">:</span>cat) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-35"><a href="#annotated-cell-5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="annotated-cell-5-36"><a href="#annotated-cell-5-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">cat =</span> <span class="fu">str_trim</span>(cat) <span class="sc">|&gt;</span> <span class="fu">str_to_title</span>(),</span>
-<span id="annotated-cell-5-37"><a href="#annotated-cell-5-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">abbr =</span> <span class="fu">str_remove</span>(cat, <span class="st">"and"</span>) <span class="sc">|&gt;</span> <span class="fu">abbreviate</span>(<span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">str_to_upper</span>()</span>
-<span id="annotated-cell-5-38"><a href="#annotated-cell-5-38" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="annotated-cell-5-39"><a href="#annotated-cell-5-39" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span></span>
+<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">future_pmap</span>(</span>
+<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>url,</span>
+<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>pages,</span>
+<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>      cat_urls<span class="sc">$</span>lot</span>
+<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a>    \(x, y, z) {</span>
+<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">future_map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>y, \(y) {</span>
+<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a>        refs <span class="ot">&lt;-</span> <span class="fu">str_c</span>(</span>
+<span id="annotated-cell-5-13"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">"https://www.applytosupply.digitalmarketplace"</span>, </span>
+<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a>          <span class="st">".service.gov.uk/g-cloud/search?page="</span>,</span>
+<span id="annotated-cell-5-15"><a href="#annotated-cell-5-15" aria-hidden="true" tabindex="-1"></a>          y,</span>
+<span id="annotated-cell-5-16"><a href="#annotated-cell-5-16" aria-hidden="true" tabindex="-1"></a>          x,</span>
+<span id="annotated-cell-5-17"><a href="#annotated-cell-5-17" aria-hidden="true" tabindex="-1"></a>          <span class="st">"&amp;lot=cloud-"</span>,</span>
+<span id="annotated-cell-5-18"><a href="#annotated-cell-5-18" aria-hidden="true" tabindex="-1"></a>          z</span>
+<span id="annotated-cell-5-19"><a href="#annotated-cell-5-19" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-20"><a href="#annotated-cell-5-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">read_html</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-21"><a href="#annotated-cell-5-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">html_elements</span>(<span class="st">"#js-dm-live-search-results .govuk-link"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-22"><a href="#annotated-cell-5-22" aria-hidden="true" tabindex="-1"></a>          <span class="fu">html_attr</span>(<span class="st">"href"</span>) </span>
+<span id="annotated-cell-5-23"><a href="#annotated-cell-5-23" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="annotated-cell-5-24"><a href="#annotated-cell-5-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">tibble</span>(</span>
+<span id="annotated-cell-5-25"><a href="#annotated-cell-5-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">lot =</span> <span class="fu">str_c</span>(<span class="st">"Cloud "</span>, <span class="fu">str_to_title</span>(z)),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-26" class="code-annotation-target"><a href="#annotated-cell-5-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">service_id =</span> <span class="fu">str_extract</span>(refs, <span class="st">"[[:digit:]]{15}"</span>),</span>
+<span id="annotated-cell-5-27"><a href="#annotated-cell-5-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">cat =</span> <span class="fu">str_remove</span>(x, <span class="st">"&amp;serviceCategories="</span>) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-28" class="code-annotation-target"><a href="#annotated-cell-5-28" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">Q+</span><span class="sc">\\</span><span class="st">E"</span>, <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-29"><a href="#annotated-cell-5-29" aria-hidden="true" tabindex="-1"></a>              <span class="fu">str_remove</span>(<span class="st">"%28[[:print:]]+%29"</span>)</span>
+<span id="annotated-cell-5-30"><a href="#annotated-cell-5-30" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-5-31"><a href="#annotated-cell-5-31" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="annotated-cell-5-32"><a href="#annotated-cell-5-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="annotated-cell-5-33"><a href="#annotated-cell-5-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-34"><a href="#annotated-cell-5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-35"><a href="#annotated-cell-5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lot<span class="sc">:</span>cat) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-36"><a href="#annotated-cell-5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="annotated-cell-5-37"><a href="#annotated-cell-5-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">cat =</span> <span class="fu">str_trim</span>(cat) <span class="sc">|&gt;</span> <span class="fu">str_to_title</span>(),</span>
+<span id="annotated-cell-5-38"><a href="#annotated-cell-5-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">abbr =</span> <span class="fu">str_remove</span>(cat, <span class="st">"and"</span>) <span class="sc">|&gt;</span> <span class="fu">abbreviate</span>(<span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">str_to_upper</span>()</span>
+<span id="annotated-cell-5-39"><a href="#annotated-cell-5-39" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-5-40"><a href="#annotated-cell-5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-41"><a href="#annotated-cell-5-41" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-lines="25" data-code-cell="annotated-cell-5"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
+<span data-code-lines="26" data-code-cell="annotated-cell-5" data-code-annotation="1"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-lines="27" data-code-cell="annotated-cell-5"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
+<span data-code-lines="28" data-code-cell="annotated-cell-5" data-code-annotation="2"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
 </dd>
 </dl>
 </div>
@@ -727,97 +729,97 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">used_here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr>
- </thead>
+<table class="usedthese table table-striped table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> abbreviate[1], as.character[1], c[7], library[10], list[5], rep[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> add_count[1], arrange[2], count[1], dense_rank[1], desc[3], distinct[4], filter[7], group_by[1], group_keys[1], group_split[1], if_else[1], mutate[14], n[4], n_distinct[2], pull[1], rename[1], select[2], slice[1], summarise[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> furrr </td>
-   <td style="text-align:left;"> future_map[1], future_map_dfr[1], future_pmap[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> future </td>
-   <td style="text-align:left;"> plan[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> ggVennDiagram </td>
-   <td style="text-align:left;"> ggVennDiagram[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[6], element_blank[3], expansion[3], geom_bar[3], geom_label[3], ggplot[3], labs[4], scale_colour_manual[1], scale_fill_gradient[1], scale_y_continuous[3], theme[3], theme_bw[1], theme_set[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> ggupset </td>
-   <td style="text-align:left;"> scale_x_upset[3] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> glue </td>
-   <td style="text-align:left;"> glue[2] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_rbind[2], map[1], reduce[2] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> readr </td>
-   <td style="text-align:left;"> parse_number[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> rlang </td>
-   <td style="text-align:left;"> set_names[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_attr[2], html_elements[3], html_text[2] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[6], str_extract[3], str_remove[4], str_replace[1], str_replace_all[4], str_to_title[2], str_to_upper[1], str_trim[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> tibble[2] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> tictoc </td>
-   <td style="text-align:left;"> tic[1], toc[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> pivot_wider[2], unite[2] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> wesanderson </td>
-   <td style="text-align:left;"> wes_palette[1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> xml2 </td>
-   <td style="text-align:left;"> read_html[3] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">abbreviate[1], as.character[1], c[7], library[10], list[5], rep[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">add_count[1], arrange[2], count[1], dense_rank[1], desc[3], distinct[4], filter[7], group_by[1], group_keys[1], group_split[1], if_else[1], mutate[14], n[4], n_distinct[2], pull[1], rename[1], select[2], slice[1], summarise[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">furrr</td>
+<td style="text-align: left;">future_map[1], future_map_dfr[1], future_pmap[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">future</td>
+<td style="text-align: left;">plan[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggVennDiagram</td>
+<td style="text-align: left;">ggVennDiagram[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[6], element_blank[3], expansion[3], geom_bar[3], geom_label[3], ggplot[3], labs[4], scale_colour_manual[1], scale_fill_gradient[1], scale_y_continuous[3], theme[3], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggupset</td>
+<td style="text-align: left;">scale_x_upset[3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[2], map[1], reduce[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">parse_number[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rlang</td>
+<td style="text-align: left;">set_names[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rvest</td>
+<td style="text-align: left;">html_attr[2], html_elements[3], html_text[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[6], str_extract[3], str_remove[4], str_replace[1], str_replace_all[4], str_to_title[2], str_to_upper[1], str_trim[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tictoc</td>
+<td style="text-align: left;">tic[1], toc[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">pivot_wider[2], unite[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wesanderson</td>
+<td style="text-align: left;">wes_palette[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xml2</td>
+<td style="text-align: left;">read_html[3]</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -1091,8 +1093,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1102,8 +1104,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -1263,7 +1265,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

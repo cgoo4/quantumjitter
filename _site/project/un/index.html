@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2019-01-09">
@@ -255,7 +255,7 @@ div.csl-indent {
 <p>Dimension reduction is used here to visualise the grouping of UN members, for example <a href="https://research.un.org/en/unmembers/founders">five of the founding members</a>, based on their <a href="http://www.un.org/en/ga/">General Assembly</a> voting patterns. And by using animation, it’s possible to more easily see changes over time. Are they drifting closer or farther apart?</p>
 <p>General Assembly votes are obtained from unvotes<span class="citation" data-cites="unvotes">(<a href="#ref-unvotes" role="doc-biblioref">Robinson 2021</a>)</span> and the visualisation animated using gganimate<span class="citation" data-cites="gganimate">(<a href="#ref-gganimate" role="doc-biblioref">Pedersen and Robinson 2022</a>)</span>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
@@ -372,7 +372,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.fittedPC1</span>, <span class="va">.fittedPC2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">country</span>, fill <span class="op">=</span> <span class="va">east_west</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://gganimate.com/reference/transition_time.html">transition_time</a></span><span class="op">(</span><span class="va">slide_id</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">transition_time</span><span class="op">(</span><span class="va">slide_id</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"P5 Distance for the Period {from} to {to}"</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Frame {frame} of {nframes}"</span>,</span>
@@ -381,9 +381,9 @@ div.csl-indent {
 <span>    fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: unvotes"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://gganimate.com/reference/shadow_wake.html">shadow_wake</a></span><span class="op">(</span>wake_length <span class="op">=</span> <span class="fl">0.1</span>, wrap <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu">shadow_wake</span><span class="op">(</span>wake_length <span class="op">=</span> <span class="fl">0.1</span>, wrap <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://gganimate.com/reference/animate.html">animate</a></span><span class="op">(</span><span class="va">p</span>, fps <span class="op">=</span> <span class="fl">5</span>, end_pause <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">animate</span><span class="op">(</span><span class="va">p</span>, fps <span class="op">=</span> <span class="fl">5</span>, end_pause <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/pca-1.gif" class="img-fluid" style="width:100.0%"></p>
 </div>
@@ -463,97 +463,96 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[2], c[11], format[1], library[12], max[3], min[1], seq[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> date_build[1], date_parse[2], get_year[5] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[2], count[2], filter[4], group_by[1], if_else[7], inner_join[1], join_by[1], mutate[8], n_distinct[1], pull[3], recode[1], row_number[1], select[5], slice[1], summarise[3], ungroup[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> forcats </td>
-   <td style="text-align:left;"> fct_reorder[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> generics </td>
-   <td style="text-align:left;"> augment[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> gganimate </td>
-   <td style="text-align:left;"> animate[1], shadow_wake[1], transition_time[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[5], coord_flip[1], element_text[1], geom_col[2], geom_label[2], ggplot[3], labs[3], scale_fill_manual[3], scale_x_continuous[1], theme[1], theme_bw[1], theme_set[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> glue </td>
-   <td style="text-align:left;"> glue[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> patchwork </td>
-   <td style="text-align:left;"> plot_layout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> list_rbind[1], map[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rvest </td>
-   <td style="text-align:left;"> html_element[1], html_table[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stats </td>
-   <td style="text-align:left;"> prcomp[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_detect[5], str_remove[1], str_replace[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> as_tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> complete[1], fill[1], nest[2], nesting[1], pivot_longer[1], pivot_wider[1], replace_na[1], unnest[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyselect </td>
-   <td style="text-align:left;"> everything[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tsibble </td>
-   <td style="text-align:left;"> as_tsibble[1], slide_tsibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> wesanderson </td>
-   <td style="text-align:left;"> wes_palette[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> xml2 </td>
-   <td style="text-align:left;"> read_html[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.character[2], c[11], format[1], library[12], max[3], min[1], seq[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clock</td>
+<td style="text-align: left;">date_build[1], date_parse[2], get_year[5]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">arrange[2], count[2], filter[4], group_by[1], if_else[7], inner_join[1], join_by[1], mutate[8], n_distinct[1], pull[3], recode[1], row_number[1], select[5], slice[1], summarise[3], ungroup[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">forcats</td>
+<td style="text-align: left;">fct_reorder[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">generics</td>
+<td style="text-align: left;">augment[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gganimate</td>
+<td style="text-align: left;">animate[1], shadow_wake[1], transition_time[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[5], coord_flip[1], element_text[1], geom_col[2], geom_label[2], ggplot[3], labs[3], scale_fill_manual[3], scale_x_continuous[1], theme[1], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">patchwork</td>
+<td style="text-align: left;">plot_layout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[1], map[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rvest</td>
+<td style="text-align: left;">html_element[1], html_table[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">prcomp[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_detect[5], str_remove[1], str_replace[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">complete[1], fill[1], nest[2], nesting[1], pivot_longer[1], pivot_wider[1], replace_na[1], unnest[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tidyselect</td>
+<td style="text-align: left;">everything[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tsibble</td>
+<td style="text-align: left;">as_tsibble[1], slide_tsibble[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wesanderson</td>
+<td style="text-align: left;">wes_palette[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xml2</td>
+<td style="text-align: left;">read_html[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -816,8 +815,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -827,8 +826,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -986,7 +985,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

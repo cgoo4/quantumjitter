@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2022-03-19">
@@ -255,7 +255,7 @@ div.csl-indent {
 </header><p><img src="feature.gif" class="img-fluid" alt="A silhouette of the Houses of Parliament in bright yellow below a blue sky. Smoke wafts into the sky from several points and the peace symbol takes the place of Big Ben's clock."></p>
 <p><a href="https://www.theguardian.com/environment/2002/nov/30/uknews.pollution">The Smoke</a>, to use London’s nickname, has 32 boroughs plus the central business district known as the <a href="https://en.wikipedia.org/wiki/City_of_London">City of London</a>. What does Cluster Analysis tell us about the characteristics that bind them?</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
@@ -574,8 +574,8 @@ div.csl-indent {
 <p>An alternative approach is to use the new <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a><span class="citation" data-cites="tidyclust">(<a href="#ref-tidyclust" role="doc-biblioref">Hvitfeldt and Bodwin 2022</a>)</span> package which augments the tidymodels framework with a tidy unified interface to clustering models.</p>
 <p>First we tune the model with 1 to 6 clusters and review how well they capture the natural groupings.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu">k_means</span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_rec</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -590,14 +590,14 @@ div.csl-indent {
 <span></span>
 <span><span class="va">kmeans_cv</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">pca_augmented</span>, v <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/tune_cluster.html">tune_cluster</a></span><span class="op">(</span></span>
+<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu">tune_cluster</span><span class="op">(</span></span>
 <span>  <span class="va">kmeans_wflow</span>,</span>
 <span>  resamples <span class="op">=</span> <span class="va">kmeans_cv</span>,</span>
 <span>  grid <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span></span>
 <span>    num_clusters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  control <span class="op">=</span> <span class="fu">control_grid</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/cluster_metric_set.html">cluster_metric_set</a></span><span class="op">(</span><span class="va">sse_total</span>, <span class="va">sse_ratio</span><span class="op">)</span></span>
+<span>  metrics <span class="op">=</span> <span class="fu">cluster_metric_set</span><span class="op">(</span><span class="va">sse_total</span>, <span class="va">sse_ratio</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_metrics</span> <span class="op">&lt;-</span> <span class="va">kmeans_res</span> <span class="op">|&gt;</span> <span class="fu">collect_metrics</span><span class="op">(</span><span class="op">)</span></span>
@@ -617,17 +617,17 @@ div.csl-indent {
 </div>
 <p>Again we can visualise the 3 clusters suggested by the elbow method.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu">k_means</span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_wflow</span> <span class="op">&lt;-</span> <span class="va">kmeans_wflow</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">update_model</span><span class="op">(</span><span class="va">kmeans_spec</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_fit</span> <span class="op">&lt;-</span> <span class="va">kmeans_wflow</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">pca_augmented</span><span class="op">)</span> </span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">pca_augmented</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">kmeans_clust</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/extract_centroids.html">extract_centroids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">extract_centroids</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">".fitted"</span>, <span class="va">.</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"PC"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_aug</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
@@ -690,125 +690,124 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[8], c[9], is.na[1], library[12], seq[1], set.seed[1], sum[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> across[1], arrange[1], cur_data[1], desc[1], filter[5], if_else[3], join_by[1], left_join[1], mutate[8], na_if[1], recode[2], rename[1], rename_with[2], rowwise[1], select[6], starts_with[1], where[3] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> forcats </td>
-   <td style="text-align:left;"> fct_inorder[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> generics </td>
-   <td style="text-align:left;"> augment[2], fit[1], tidy[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[21], annotate[1], arrow[1], coord_flip[2], element_blank[1], facet_wrap[3], geom_col[2], geom_label[6], geom_line[2], geom_point[6], geom_segment[1], geom_sf[1], geom_sf_label[1], ggplot[11], labs[10], scale_colour_manual[3], scale_fill_manual[5], scale_x_continuous[1], scale_y_continuous[1], theme[3], theme_bw[1], theme_minimal[1], theme_set[1], theme_void[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggrepel </td>
-   <td style="text-align:left;"> geom_text_repel[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> glue </td>
-   <td style="text-align:left;"> glue[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> grid </td>
-   <td style="text-align:left;"> unit[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> hardhat </td>
-   <td style="text-align:left;"> tune[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> janitor </td>
-   <td style="text-align:left;"> clean_names[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> parsnip </td>
-   <td style="text-align:left;"> set_engine[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> map[4], pluck[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> readxl </td>
-   <td style="text-align:left;"> read_xlsx[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> recipes </td>
-   <td style="text-align:left;"> all_predictors[3], recipe[1], step_normalize[1], step_pca[1], step_zv[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rsample </td>
-   <td style="text-align:left;"> vfold_cv[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> scales </td>
-   <td style="text-align:left;"> label_percent[1], number[1], percent[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> sf </td>
-   <td style="text-align:left;"> st_read[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stats </td>
-   <td style="text-align:left;"> kmeans[1], prcomp[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_c[2], str_remove[3], str_remove_all[1], str_starts[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> tibble[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyclust </td>
-   <td style="text-align:left;"> cluster_metric_set[1], extract_centroids[1], k_means[2], tune_cluster[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyr </td>
-   <td style="text-align:left;"> crossing[1], pivot_longer[2], pivot_wider[1], population[1], unnest[3] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyselect </td>
-   <td style="text-align:left;"> matches[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidytext </td>
-   <td style="text-align:left;"> reorder_within[1], scale_x_reordered[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tune </td>
-   <td style="text-align:left;"> collect_metrics[1], control_grid[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> workflows </td>
-   <td style="text-align:left;"> add_model[1], add_recipe[1], update_model[1], workflow[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.character[8], c[9], is.na[1], library[12], seq[1], set.seed[1], sum[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">across[1], arrange[1], cur_data[1], desc[1], filter[5], if_else[3], join_by[1], left_join[1], mutate[8], na_if[1], recode[2], rename[1], rename_with[2], rowwise[1], select[6], starts_with[1], where[3]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">forcats</td>
+<td style="text-align: left;">fct_inorder[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">generics</td>
+<td style="text-align: left;">augment[2], fit[1], tidy[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[21], annotate[1], arrow[1], coord_flip[2], element_blank[1], facet_wrap[3], geom_col[2], geom_label[6], geom_line[2], geom_point[6], geom_segment[1], geom_sf[1], geom_sf_label[1], ggplot[11], labs[10], scale_colour_manual[3], scale_fill_manual[5], scale_x_continuous[1], scale_y_continuous[1], theme[3], theme_bw[1], theme_minimal[1], theme_set[1], theme_void[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggrepel</td>
+<td style="text-align: left;">geom_text_repel[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">grid</td>
+<td style="text-align: left;">unit[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hardhat</td>
+<td style="text-align: left;">tune[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">janitor</td>
+<td style="text-align: left;">clean_names[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">parsnip</td>
+<td style="text-align: left;">set_engine[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">map[4], pluck[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">readxl</td>
+<td style="text-align: left;">read_xlsx[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">recipes</td>
+<td style="text-align: left;">all_predictors[3], recipe[1], step_normalize[1], step_pca[1], step_zv[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rsample</td>
+<td style="text-align: left;">vfold_cv[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scales</td>
+<td style="text-align: left;">label_percent[1], number[1], percent[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf</td>
+<td style="text-align: left;">st_read[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">kmeans[1], prcomp[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[2], str_remove[3], str_remove_all[1], str_starts[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyclust</td>
+<td style="text-align: left;">cluster_metric_set[1], extract_centroids[1], k_means[2], tune_cluster[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">crossing[1], pivot_longer[2], pivot_wider[1], population[1], unnest[3]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyselect</td>
+<td style="text-align: left;">matches[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tidytext</td>
+<td style="text-align: left;">reorder_within[1], scale_x_reordered[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tune</td>
+<td style="text-align: left;">collect_metrics[1], control_grid[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">workflows</td>
+<td style="text-align: left;">add_model[1], add_recipe[1], update_model[1], workflow[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1068,8 +1067,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1079,8 +1078,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -1238,7 +1237,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

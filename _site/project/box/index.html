@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2020-07-26">
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Since starting this in 2017, functions like tidyr’s <code>spread</code> and <code>gather</code> have been superseded by <code>pivot_wider</code> and <code>pivot_longer</code>. Newer packages have emerged like <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a>, which brings cluster modelling to tidymodels (now used in <a href="https://www.quantumjitter.com/project/happiness/">Finding Happiness in ‘The Smoke’</a>). <a href="https://rstudio.github.io/bslib/">bslib</a> has brought improvements to the latest shiny app version embedded in <a href="https://www.quantumjitter.com/project/thicken/">Plots Thicken</a>. The paletteer package has put it’s arms around the myriad palette packages out there. And scales’ <code>cut_short_scale</code> assisted with plot labelling.</p>
 <p>Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the <code>.by</code> argument in <code>mutate</code> and friends offers a neat alternative to <code>group_by</code> and <code>ungroup</code> in many situations. Joins have been enhanced (e.g.&nbsp;to support inequality conditions) with the addition of <code>join_by</code> to dplyr. And changes in the <code>map_</code> family introduce <code>list_rbind</code> and associates with <code>map_dfr</code>, for example, now superseded.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
@@ -399,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    colour <span class="op">=</span> <span class="va">multiverse</span>,</span>
 <span>    angle <span class="op">=</span> <span class="va">angle</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://lepennec.github.io/ggwordcloud/reference/geom_text_wordcloud.html">geom_text_wordcloud</a></span><span class="op">(</span></span>
+<span>  <span class="fu">geom_text_wordcloud</span><span class="op">(</span></span>
 <span>    eccentricity <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    seed <span class="op">=</span> <span class="fl">789</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -416,73 +416,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> as.character[1], c[6], library[11], sample[1], unique[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> date_format[1], date_today[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> arrange[1], bind_rows[1], case_when[1], coalesce[1], count[2], desc[1], filter[2], mutate[5], n[1], n_distinct[1], pull[1], summarise[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> forcats </td>
-   <td style="text-align:left;"> fct_reorder[2], fct_rev[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[7], annotate[1], coord_flip[2], element_rect[1], geom_col[3], geom_label[3], ggplot[4], labs[2], scale_colour_manual[1], scale_fill_manual[3], scale_size_area[1], theme[2], theme_bw[1], theme_set[1], theme_void[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggwordcloud </td>
-   <td style="text-align:left;"> geom_text_wordcloud[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> glue </td>
-   <td style="text-align:left;"> glue[4] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> paletteer </td>
-   <td style="text-align:left;"> paletteer_c[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> patchwork </td>
-   <td style="text-align:left;"> plot_annotation[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> str_remove[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tibble </td>
-   <td style="text-align:left;"> tibble[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidymodels </td>
-   <td style="text-align:left;"> tidymodels_packages[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tidyverse </td>
-   <td style="text-align:left;"> tidyverse_packages[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1], used_there[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">as.character[1], c[6], library[11], sample[1], unique[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clock</td>
+<td style="text-align: left;">date_format[1], date_today[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">arrange[1], bind_rows[1], case_when[1], coalesce[1], count[2], desc[1], filter[2], mutate[5], n[1], n_distinct[1], pull[1], summarise[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">forcats</td>
+<td style="text-align: left;">fct_reorder[2], fct_rev[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[7], annotate[1], coord_flip[2], element_rect[1], geom_col[3], geom_label[3], ggplot[4], labs[2], scale_colour_manual[1], scale_fill_manual[3], scale_size_area[1], theme[2], theme_bw[1], theme_set[1], theme_void[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggwordcloud</td>
+<td style="text-align: left;">geom_text_wordcloud[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[4]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_c[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">patchwork</td>
+<td style="text-align: left;">plot_annotation[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_remove[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tidymodels</td>
+<td style="text-align: left;">tidymodels_packages[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyverse</td>
+<td style="text-align: left;">tidyverse_packages[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1], used_there[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -737,8 +736,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -748,8 +747,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -907,7 +906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

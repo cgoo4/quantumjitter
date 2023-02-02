@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.105">
+<meta name="generator" content="quarto-1.3.146">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-07-29">
@@ -257,11 +257,11 @@ div.csl-indent {
 <p>Why forecast sales? Business plans require a budget, e.g.&nbsp;for resources, marketing and office space. A good projection of revenue provides the foundation for the budget. And, for an established business, with historical data, time-series forecasting is one way to deliver a robust projection.</p>
 <p>Without exogenous data, the forecast assumes one continues to do what one’s doing. So, it provides a good starting-point. Then one might, for example, add assumptions about new products or services. And, if there is forward-looking data available, for example, market size projections (with past projections to train the model), then one could feed this into the forecast modelling too.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org">conflicted</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robjhyndman/fpp3-package">fpp3</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/robjhyndman/fpp3package">fpp3</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
@@ -754,77 +754,76 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="usedthese table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;"> Package </th>
-   <th style="text-align:left;"> Function </th>
-  </tr></thead>
+<table class="usedthese table table-striped table-sm">
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Function</th>
+</tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;"> base </td>
-   <td style="text-align:left;"> c[9], is.na[1], library[7], print[1], sum[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> clock </td>
-   <td style="text-align:left;"> add_days[1], add_months[1], date_parse[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> conflicted </td>
-   <td style="text-align:left;"> conflict_prefer_all[1], conflict_scout[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> dplyr </td>
-   <td style="text-align:left;"> bind_rows[3], filter[1], if_else[1], mutate[4], recode[1], rename[2], select[2], summarise[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> fable </td>
-   <td style="text-align:left;"> ARIMA[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> fabletools </td>
-   <td style="text-align:left;"> components[1], forecast[2], glance[2], hilo[4], model[3], tidy[2], unpack_hilo[2] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> feasts </td>
-   <td style="text-align:left;"> STL[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> ggplot2 </td>
-   <td style="text-align:left;"> aes[11], autoplot[1], element_text[2], facet_wrap[2], geom_line[5], geom_ribbon[4], ggplot[3], labs[4], scale_colour_manual[2], scale_y_continuous[3], theme[2], theme_bw[1], theme_set[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> purrr </td>
-   <td style="text-align:left;"> map[1], walk[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> readr </td>
-   <td style="text-align:left;"> guess_encoding[1], locale[1], parse_number[1], read_csv[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> rlang </td>
-   <td style="text-align:left;"> set_names[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> scales </td>
-   <td style="text-align:left;"> label_dollar[3] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> stringr </td>
-   <td style="text-align:left;"> coll[1], str_c[3], str_extract[1], str_remove[1], str_replace[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> tsibble </td>
-   <td style="text-align:left;"> as_tsibble[2], yearmonth[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> usedthese </td>
-   <td style="text-align:left;"> used_here[1] </td>
-  </tr>
-<tr>
-<td style="text-align:left;"> wesanderson </td>
-   <td style="text-align:left;"> wes_palette[1] </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">c[9], is.na[1], library[7], print[1], sum[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clock</td>
+<td style="text-align: left;">add_days[1], add_months[1], date_parse[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">bind_rows[3], filter[1], if_else[1], mutate[4], recode[1], rename[2], select[2], summarise[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fable</td>
+<td style="text-align: left;">ARIMA[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fabletools</td>
+<td style="text-align: left;">components[1], forecast[2], glance[2], hilo[4], model[3], tidy[2], unpack_hilo[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">feasts</td>
+<td style="text-align: left;">STL[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[11], autoplot[1], element_text[2], facet_wrap[2], geom_line[5], geom_ribbon[4], ggplot[3], labs[4], scale_colour_manual[2], scale_y_continuous[3], theme[2], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">map[1], walk[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">guess_encoding[1], locale[1], parse_number[1], read_csv[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rlang</td>
+<td style="text-align: left;">set_names[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scales</td>
+<td style="text-align: left;">label_dollar[3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">coll[1], str_c[3], str_extract[1], str_remove[1], str_replace[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tsibble</td>
+<td style="text-align: left;">as_tsibble[2], yearmonth[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wesanderson</td>
+<td style="text-align: left;">wes_palette[1]</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1093,8 +1092,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               div.style.position = 'absolute';
               parent.appendChild(div);
             }
-            div.style.top = top - 1 + "px";
-            div.style.height = height + "px";
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1104,8 +1103,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               const gutter = codeCell.querySelector('.code-annotation-gutter');
               gutter.appendChild(gutterDiv);
             }
-            gutterDiv.style.top = top - 1 + "px";
-            gutterDiv.style.height = height + "px";
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
           }
           selectedAnnoteEl = annoteEl;
         }
@@ -1263,7 +1262,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.105 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.146 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>
