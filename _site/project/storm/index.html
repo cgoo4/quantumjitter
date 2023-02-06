@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 20, 2023</p>
+      <p class="date-modified">February 6, 2023</p>
     </div>
   </div>
     
@@ -246,21 +246,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>9 conflicts:
-* `as_date`    : clock, lubridate
-* `col_factor` : scales, readr
-* `date_format`: [clock]
-* `discard`    : scales, purrr
-* `filter`     : [dplyr]
-* `first`      : [dplyr]
-* `lag`        : [dplyr]
-* `last`       : [dplyr]
-* `legend`     : PerformanceAnalytics, graphics</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"Moonrise2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -268,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">symbols</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">symbols</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"SPY"</span>,</span>
 <span>    <span class="st">"XLV"</span>,</span>
@@ -290,32 +278,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html">date_format</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%b %d, %Y"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">tq_get</span><span class="op">(</span><span class="va">symbols</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="va">symbols</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    norm_close <span class="op">=</span> <span class="va">adjusted</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    type <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"SPY"</span>, <span class="st">"Market"</span>, <span class="st">"Sector"</span><span class="op">)</span>,</span>
-<span>    sector <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"SPY"</span>  <span class="op">~</span> <span class="st">"S&amp;P 500"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLB"</span>  <span class="op">~</span> <span class="st">"Materials"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLE"</span>  <span class="op">~</span> <span class="st">"Energy"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLU"</span>  <span class="op">~</span> <span class="st">"Utilities"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLI"</span>  <span class="op">~</span> <span class="st">"Industrical"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLRE"</span> <span class="op">~</span> <span class="st">"Real Estate"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLV"</span>  <span class="op">~</span> <span class="st">"Health"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLK"</span>  <span class="op">~</span> <span class="st">"Technology"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLF"</span>  <span class="op">~</span> <span class="st">"Financial"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLC"</span>  <span class="op">~</span> <span class="st">"Communication"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLY"</span>  <span class="op">~</span> <span class="st">"Consumer Discretionary"</span>,</span>
-<span>      <span class="va">symbol</span> <span class="op">==</span> <span class="st">"XLP"</span>  <span class="op">~</span> <span class="st">"Consumer Staples"</span>,</span>
-<span>      <span class="cn">TRUE</span>             <span class="op">~</span> <span class="st">"Other"</span></span>
+<span>    sector <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match</a></span><span class="op">(</span></span>
+<span>      <span class="va">symbol</span>,</span>
+<span>      <span class="st">"SPY"</span>  <span class="op">~</span> <span class="st">"S&amp;P 500"</span>,</span>
+<span>      <span class="st">"XLB"</span>  <span class="op">~</span> <span class="st">"Materials"</span>,</span>
+<span>      <span class="st">"XLE"</span>  <span class="op">~</span> <span class="st">"Energy"</span>,</span>
+<span>      <span class="st">"XLU"</span>  <span class="op">~</span> <span class="st">"Utilities"</span>,</span>
+<span>      <span class="st">"XLI"</span>  <span class="op">~</span> <span class="st">"Industrical"</span>,</span>
+<span>      <span class="st">"XLRE"</span> <span class="op">~</span> <span class="st">"Real Estate"</span>,</span>
+<span>      <span class="st">"XLV"</span>  <span class="op">~</span> <span class="st">"Health"</span>,</span>
+<span>      <span class="st">"XLK"</span>  <span class="op">~</span> <span class="st">"Technology"</span>,</span>
+<span>      <span class="st">"XLF"</span>  <span class="op">~</span> <span class="st">"Financial"</span>,</span>
+<span>      <span class="st">"XLC"</span>  <span class="op">~</span> <span class="st">"Communication"</span>,</span>
+<span>      <span class="st">"XLY"</span>  <span class="op">~</span> <span class="st">"Consumer Discretionary"</span>,</span>
+<span>      <span class="st">"XLP"</span>  <span class="op">~</span> <span class="st">"Consumer Staples"</span>,</span>
+<span>      .default <span class="op">=</span> <span class="st">"Other"</span></span>
 <span>    <span class="op">)</span>, .by <span class="op">=</span> <span class="va">symbol</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Perhaps not too surprising to see that Tech led the way back from Covid. But with the further impact of the situation in Ukraine, the Energy sector is now the strongest performer relative to February 2020. Comms, with all that home-working, benefited initially during the lockdown, but has faded since.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    sector <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">sector</span>, <span class="fl">12</span><span class="op">)</span>,</span>
 <span>    sector <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">norm_close</span>, <span class="va">last</span>, .desc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -340,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped table-sm">
 <thead><tr class="header">
@@ -362,7 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">case_when[1], first[1], if_else[1], mutate[2]</td>
+<td style="text-align: left;">case_match[1], first[1], if_else[1], mutate[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">forcats</td>

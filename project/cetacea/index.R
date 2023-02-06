@@ -126,10 +126,11 @@ strandings_df4 <- strandings_df3 |>
          .by = species)
 
 known_species |>
-  mutate(sex = case_when(
-    sex == "M" ~ "Male",
-    sex == "F" ~ "Female",
-    TRUE       ~ "Unknown"
+  mutate(sex = case_match(
+    sex,
+    "M" ~ "Male",
+    "F" ~ "Female",
+    .default = "Unknown"
   )) |> 
   filter(species_lumped != "Other") |> 
   count(species_lumped, length, sex) |> 

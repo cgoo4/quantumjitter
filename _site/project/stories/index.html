@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 20, 2023</p>
+      <p class="date-modified">February 6, 2023</p>
     </div>
   </div>
     
@@ -266,16 +266,9 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>4 conflicts:
-* `extract`       : R.utils, tidyr
-* `filter`        : [dplyr]
-* `getDescription`: rgdal, R.oo
-* `lag`           : [dplyr]</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"Darjeeling2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -283,7 +276,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">zip_file</span> <span class="op">&lt;-</span> <span class="st">"world_shape_file.zip"</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">zip_file</span> <span class="op">&lt;-</span> <span class="st">"world_shape_file.zip"</span></span>
 <span><span class="va">shape_file</span> <span class="op">&lt;-</span> <span class="st">"TM_WORLD_BORDERS_SIMPL-0.3"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"http://thematicmapping.org/downloads/"</span>, <span class="va">shape_file</span>, <span class="st">".zip"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -291,23 +284,23 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op">(</span><span class="va">zip_file</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">world_spdf</span> <span class="op">&lt;-</span> <span class="fu">readOGR</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">shape_file</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">world_spdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://rgdal.r-forge.r-project.org/reference/rgdal-deprecated.html">readOGR</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">shape_file</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"</span></span>
 <span></span>
 <span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html">basename</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">file_name</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">gunzip</span><span class="op">(</span><span class="va">file_name</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/compressFile.html">gunzip</a></span><span class="op">(</span><span class="va">file_name</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"stats.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"stats.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ip_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">stats</span><span class="op">$</span><span class="va">IP</span>, <span class="va">stats</span><span class="op">$</span><span class="va">Pages</span>, \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">maxmind</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ip_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">stats</span><span class="op">$</span><span class="va">IP</span>, <span class="va">stats</span><span class="op">$</span><span class="va">Pages</span>, \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/rgeolocate/man/maxmind.html">maxmind</a></span><span class="op">(</span></span>
 <span>    <span class="va">x</span>,</span>
 <span>    <span class="st">"GeoLite2-City.mmdb"</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -330,7 +323,7 @@ div.csl-indent {
 <span>        <span class="va">Pages</span> <span class="op">&lt;</span> <span class="fl">500</span> <span class="op">~</span> <span class="fl">1</span>,</span>
 <span>        <span class="va">Pages</span> <span class="op">&lt;</span> <span class="fl">1000</span> <span class="op">~</span> <span class="fl">2</span>,</span>
 <span>        <span class="va">Pages</span> <span class="op">&lt;</span> <span class="fl">2000</span> <span class="op">~</span> <span class="fl">3</span>,</span>
-<span>        <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">4</span></span>
+<span>        .default <span class="op">=</span> <span class="fl">4</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -342,42 +335,43 @@ div.csl-indent {
 </div>
 <p>The concentration of page views in central London was of no immediate surprise as this was likely to be my site maintenance and blogging. What did strike me as odd though was the high concentration of page views in the centre of the US. More curious still, when I zoomed in on Kansas and found myself in the middle of the Cheney Reservoir.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pal</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">colorFactor</span><span class="op">(</span><span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pal</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/colorNumeric.html">colorFactor</a></span><span class="op">(</span><span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">map1</span> <span class="op">&lt;-</span> <span class="fu">leaflet</span><span class="op">(</span><span class="va">world_spdf</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># World view</span></span>
-<span>  <span class="fu">addProviderTiles</span><span class="op">(</span><span class="va">providers</span><span class="op">$</span><span class="va">CartoDB.Positron</span>,</span>
-<span>    options <span class="op">=</span> <span class="fu">providerTileOptions</span><span class="op">(</span>maxZoom <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">map1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="va">world_spdf</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># World view</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span><span class="va">providers</span><span class="op">$</span><span class="va">CartoDB.Positron</span>,</span>
+<span>    options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">providerTileOptions</a></span><span class="op">(</span>maxZoom <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">setView</span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>, <span class="fl">35</span>, zoom <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># World view</span></span>
-<span>  <span class="fu">addPolygons</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>, <span class="fl">35</span>, zoom <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># World view</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span></span>
 <span>    fillColor <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>    stroke <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    fillOpacity <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    color <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
 <span>    weight <span class="op">=</span> <span class="fl">0.3</span>,</span>
-<span>    highlight <span class="op">=</span> <span class="fu">highlightOptions</span><span class="op">(</span></span>
+<span>    highlight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">highlightOptions</a></span><span class="op">(</span></span>
 <span>      weight <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>      color <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>      fillOpacity <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>      bringToFront <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    label <span class="op">=</span> <span class="va">world_spdf</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">NAME</span>,</span>
-<span>    labelOptions <span class="op">=</span> <span class="fu">labelOptions</span><span class="op">(</span></span>
+<span>    labelOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-options.html">labelOptions</a></span><span class="op">(</span></span>
 <span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"font-weight"</span> <span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span>,</span>
 <span>      textsize <span class="op">=</span> <span class="st">"12px"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">addCircleMarkers</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addCircleMarkers</a></span><span class="op">(</span></span>
 <span>    lng <span class="op">=</span> <span class="va">ip_df</span><span class="op">$</span><span class="va">longitude</span>,</span>
 <span>    lat <span class="op">=</span> <span class="va">ip_df</span><span class="op">$</span><span class="va">latitude</span>,</span>
-<span>    radius <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>      <span class="va">ip_df</span><span class="op">$</span><span class="va">Views</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">5</span>,</span>
-<span>      <span class="va">ip_df</span><span class="op">$</span><span class="va">Views</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">~</span> <span class="fl">10</span>,</span>
-<span>      <span class="va">ip_df</span><span class="op">$</span><span class="va">Views</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">~</span> <span class="fl">15</span>,</span>
-<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">20</span></span>
+<span>    radius <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match</a></span><span class="op">(</span></span>
+<span>      <span class="va">ip_df</span><span class="op">$</span><span class="va">Views</span>,</span>
+<span>      <span class="fl">1</span> <span class="op">~</span> <span class="fl">5</span>,</span>
+<span>      <span class="fl">2</span> <span class="op">~</span> <span class="fl">10</span>,</span>
+<span>      <span class="fl">3</span> <span class="op">~</span> <span class="fl">15</span>,</span>
+<span>      .default <span class="op">=</span> <span class="fl">20</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    fillColor <span class="op">=</span> <span class="op">~</span> <span class="fu">pal</span><span class="op">(</span><span class="va">ip_df</span><span class="op">$</span><span class="va">Views</span><span class="op">)</span>,</span>
 <span>    color <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
@@ -395,7 +389,7 @@ div.csl-indent {
 <span>      <span class="st">"page views"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">addLegend</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addLegend.html">addLegend</a></span><span class="op">(</span></span>
 <span>    colors <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;500"</span>, <span class="st">"500+"</span>, <span class="st">"1,000+"</span>, <span class="st">"2,000+"</span><span class="op">)</span>,</span>
 <span>    opacity <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -410,7 +404,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped table-sm">
 <thead><tr class="header">
@@ -432,7 +426,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">arrange[1], case_when[2], filter[1], if_else[2], mutate[3], rename[1]</td>
+<td style="text-align: left;">arrange[1], case_match[1], case_when[1], filter[1], if_else[2], mutate[3], rename[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>

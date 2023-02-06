@@ -59,7 +59,7 @@ ip_df <- map2(stats$IP, stats$Pages, \(x, y) {
         Pages < 500 ~ 1,
         Pages < 1000 ~ 2,
         Pages < 2000 ~ 3,
-        TRUE ~ 4
+        .default = 4
       )
     )
 }) |>
@@ -104,11 +104,12 @@ map1 <- leaflet(world_spdf) |> # World view
   addCircleMarkers(
     lng = ip_df$longitude,
     lat = ip_df$latitude,
-    radius = ~ case_when(
-      ip_df$Views == 1 ~ 5,
-      ip_df$Views == 2 ~ 10,
-      ip_df$Views == 3 ~ 15,
-      TRUE ~ 20
+    radius = ~ case_match(
+      ip_df$Views,
+      1 ~ 5,
+      2 ~ 10,
+      3 ~ 15,
+      .default = 20
     ),
     fillColor = ~ pal(ip_df$Views),
     color = cols[5],

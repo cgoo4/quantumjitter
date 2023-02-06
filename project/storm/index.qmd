@@ -71,20 +71,21 @@ eod_sectors <-
   mutate(
     norm_close = adjusted / first(adjusted) - 1,
     type = if_else(symbol == "SPY", "Market", "Sector"),
-    sector = case_when(
-      symbol == "SPY"  ~ "S&P 500",
-      symbol == "XLB"  ~ "Materials",
-      symbol == "XLE"  ~ "Energy",
-      symbol == "XLU"  ~ "Utilities",
-      symbol == "XLI"  ~ "Industrical",
-      symbol == "XLRE" ~ "Real Estate",
-      symbol == "XLV"  ~ "Health",
-      symbol == "XLK"  ~ "Technology",
-      symbol == "XLF"  ~ "Financial",
-      symbol == "XLC"  ~ "Communication",
-      symbol == "XLY"  ~ "Consumer Discretionary",
-      symbol == "XLP"  ~ "Consumer Staples",
-      TRUE             ~ "Other"
+    sector = case_match(
+      symbol,
+      "SPY"  ~ "S&P 500",
+      "XLB"  ~ "Materials",
+      "XLE"  ~ "Energy",
+      "XLU"  ~ "Utilities",
+      "XLI"  ~ "Industrical",
+      "XLRE" ~ "Real Estate",
+      "XLV"  ~ "Health",
+      "XLK"  ~ "Technology",
+      "XLF"  ~ "Financial",
+      "XLC"  ~ "Communication",
+      "XLY"  ~ "Consumer Discretionary",
+      "XLP"  ~ "Consumer Staples",
+      .default = "Other"
     ), .by = symbol
   ) |>
   drop_na()

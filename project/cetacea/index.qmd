@@ -182,10 +182,11 @@ Some records are missing the `length` measurement of the mammal. Nonetheless, wh
 #| label: length
 
 known_species |>
-  mutate(sex = case_when(
-    sex == "M" ~ "Male",
-    sex == "F" ~ "Female",
-    TRUE       ~ "Unknown"
+  mutate(sex = case_match(
+    sex,
+    "M" ~ "Male",
+    "F" ~ "Female",
+    .default = "Unknown"
   )) |> 
   filter(species_lumped != "Other") |> 
   count(species_lumped, length, sex) |> 

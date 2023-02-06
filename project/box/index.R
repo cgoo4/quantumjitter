@@ -1,6 +1,6 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidytext)
 library(rvest)
 library(paletteer)
@@ -57,10 +57,11 @@ base_packages <- c(
 
 used_df <-
   used_there("https://www.quantumjitter.com/project/") |>
-  mutate(multiverse = case_when(
-    Package %in% tidy ~ "tidy",
-    Package %in% base_packages ~ "base",
-    TRUE ~ "special"
+  mutate(multiverse = case_match(
+    Package,
+    tidy ~ "tidy",
+    base_packages ~ "base",
+    .default = "special"
   ))
 
 n_url <- used_df |> summarise(n_distinct(url)) |> pull()
@@ -127,6 +128,7 @@ packfun_df |>
   )) +
   geom_text_wordcloud(
     eccentricity = 1,
+    grid_margin = 0.95,
     seed = 789
   ) +
   scale_size_area(max_size = 20) +

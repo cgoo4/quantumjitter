@@ -1,6 +1,6 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(rvest)
 library(SPARQL)
 library(quanteda)
@@ -117,10 +117,10 @@ tidy_df <- wide_df |>
     decision = str_replace(decision, "/", " / "),
     dec_lump = fct_lump(decision, prop = 0.03),
     basement = if_else(str_detect(proposal_dev, "basement"), "Yes", "No"),
-    property_listed = case_when(
-      property_list %in% c("II", "II*", "2", "2*") ~ "Yes",
-      is.na(property_list) ~ "No",
-      TRUE ~ "No"
+    property_listed = case_match(
+      property_list,
+      c("II", "II*", "2", "2*") ~ "Yes",
+      .default = "No"
     ),
     app_comp = replace_na(app_comp, "None"),
     property_cons = if_else(property_cons == "" | is.na(property_cons),
@@ -217,14 +217,14 @@ tidy_df <- tidy_df |>
       str_detect(proposal_dev, "window|door") ~ "Windows or Doors",
       str_detect(proposal_dev, "roof") ~ "Roof",
       str_detect(proposal_type, "Tree") |
-        str_detect(proposal_dev, "terrac|landscap|garden") ~ "Trees, Landscaping, \nGarden or Terrace",
-      TRUE ~ "Other"
+      str_detect(proposal_dev, "terrac|landscap|garden") ~ "Trees, Landscaping, \nGarden or Terrace",
+      .default = "Other"
     ),
     outcome = case_when(
       str_detect(decision, "Grant|No Obj|Accept|Lawful") ~ "Positive",
       str_detect(decision, "Refuse") ~ "Refuse",
       str_detect(decision, "Withdrawn") ~ "Withdrawn",
-      TRUE ~ "Other"
+      .default = "Other"
     )
   )
 
