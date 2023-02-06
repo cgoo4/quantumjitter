@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "LICENSE.html",
-    "href": "LICENSE.html",
-    "title": "MIT License",
+    "objectID": "project/wood/index.html",
+    "href": "project/wood/index.html",
+    "title": "Seeing the Wood for the Trees",
     "section": "",
-    "text": "MIT License\nCopyright (c) 2023 quantumjitter Carl Goodwin\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    "text": "In Criminal Goings-on faceting offered a way to get a sense of the data. This is a great visualisation tool building on the principle of small multiples. There may come a point though where the sheer volume of small multiples make it harder to “see the wood for the trees”. What’s an alternative strategy?\nThis time I’ll use Van Gogh’s “The Starry Night” palette for the feature image and plots. And there are 9 types of criminal offence, so colorRampPalette will enable the interpolation of an extended set.\nThe data need a little tidy-up.\nThis was the original visualisation in Criminal Goings-on using ggplot’s facet_wrap.\nThere are some nice alternatives which allow one to go deeper into the data whilst making the whole experience more consumable and engaging.\nSwitching facet_wrap for facet_trelliscope is a simple option. Or trelliscope(Hafen and Schloerke 2021) may be used in combination with the rbokeh (Hafen 2021) (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred “small multiple” panels required to go deeper into the crime data.\nPairing trelliscope with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends."
+  },
+  {
+    "objectID": "project/wood/index.html#r-toolbox",
+    "href": "project/wood/index.html#r-toolbox",
+    "title": "Seeing the Wood for the Trees",
+    "section": "R Toolbox",
+    "text": "R Toolbox\nSummarising below the packages and functions used in this post enables me to separately create a toolbox visualisation summarising the usage of packages and functions across all posts.\n\nused_here()\n\n\n\nPackage\nFunction\n\n\n\nbase\nas.numeric[1], c[4], library[7], list[2], mean[1], round[1], sum[1]\n\n\nconflicted\nconflict_prefer_all[1], conflict_scout[1]\n\n\ndplyr\nfilter[1], mutate[3], summarise[1]\n\n\nggplot2\naes[1], element_rect[1], element_text[1], facet_wrap[1], geom_line[1], ggplot[1], guide_legend[1], guides[1], labs[1], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]\n\n\ngrDevices\ncolorRampPalette[1]\n\n\njanitor\nclean_names[1]\n\n\nrbokeh\nfigure[1], ly_lines[1], ly_points[1], theme_plot[1]\n\n\nreadr\nread_csv[1]\n\n\nstats\nIQR[1], coef[1], lm[1]\n\n\nstringr\nstr_c[1], str_extract[1], str_wrap[1]\n\n\ntibble\ntibble[1]\n\n\ntidyr\nnest[1]\n\n\ntrelliscopejs\ncog[3], map_cog[1], map_plot[1], sort_spec[1], trelliscope[1]\n\n\nusedthese\nused_here[1]\n\n\nvangogh\nvangogh_palette[1]"
   },
   {
     "objectID": "about/index.html",
@@ -138,20 +145,6 @@
     "title": "Can Ravens Forecast?",
     "section": "R Toolbox",
     "text": "R Toolbox\nSummarising below the packages and functions used in this post enables me to separately create a toolbox visualisation summarising the usage of packages and functions across all posts.\n\nused_here()\n\n\n\nPackage\nFunction\n\n\n\nbase\nc[9], is.na[1], library[7], print[1], sum[2]\n\n\nclock\nadd_days[1], add_months[1], date_parse[1]\n\n\nconflicted\nconflict_prefer_all[1], conflict_scout[1]\n\n\ndplyr\nbind_rows[3], filter[1], if_else[1], mutate[4], recode[1], rename[2], select[2], summarise[2]\n\n\nfable\nARIMA[2]\n\n\nfabletools\ncomponents[1], forecast[2], glance[2], hilo[4], model[3], tidy[2], unpack_hilo[2]\n\n\nfeasts\nSTL[1]\n\n\nggplot2\naes[11], autoplot[1], element_text[2], facet_wrap[2], geom_line[5], geom_ribbon[4], ggplot[3], labs[4], scale_colour_manual[2], scale_y_continuous[3], theme[2], theme_bw[1], theme_set[1]\n\n\npurrr\nmap[1], walk[1]\n\n\nreadr\nguess_encoding[1], locale[1], parse_number[1], read_csv[1]\n\n\nrlang\nset_names[1]\n\n\nscales\nlabel_dollar[3]\n\n\nstringr\ncoll[1], str_c[3], str_extract[1], str_remove[1], str_replace[1]\n\n\ntsibble\nas_tsibble[2], yearmonth[1]\n\n\nusedthese\nused_here[1]\n\n\nwesanderson\nwes_palette[1]"
-  },
-  {
-    "objectID": "project/wood/index.html",
-    "href": "project/wood/index.html",
-    "title": "Seeing the Wood for the Trees",
-    "section": "",
-    "text": "In Criminal Goings-on faceting offered a way to get a sense of the data. This is a great visualisation tool building on the principle of small multiples. There may come a point though where the sheer volume of small multiples make it harder to “see the wood for the trees”. What’s an alternative strategy?\nThis time I’ll use Van Gogh’s “The Starry Night” palette for the feature image and plots. And there are 9 types of criminal offence, so colorRampPalette will enable the interpolation of an extended set.\nThe data need a little tidy-up.\nThis was the original visualisation in Criminal Goings-on using ggplot’s facet_wrap.\nThere are some nice alternatives which allow one to go deeper into the data whilst making the whole experience more consumable and engaging.\nSwitching facet_wrap for facet_trelliscope is a simple option. Or trelliscope(Hafen and Schloerke 2021) may be used in combination with the rbokeh (Hafen 2021) (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred “small multiple” panels required to go deeper into the crime data.\nPairing trelliscope with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends."
-  },
-  {
-    "objectID": "project/wood/index.html#r-toolbox",
-    "href": "project/wood/index.html#r-toolbox",
-    "title": "Seeing the Wood for the Trees",
-    "section": "R Toolbox",
-    "text": "R Toolbox\nSummarising below the packages and functions used in this post enables me to separately create a toolbox visualisation summarising the usage of packages and functions across all posts.\n\nused_here()\n\n\n\nPackage\nFunction\n\n\n\nbase\nas.numeric[1], c[4], library[7], list[2], mean[1], round[1], sum[1]\n\n\nconflicted\nconflict_prefer_all[1], conflict_scout[1]\n\n\ndplyr\nfilter[1], mutate[3], summarise[1]\n\n\nggplot2\naes[1], element_rect[1], element_text[1], facet_wrap[1], geom_line[1], ggplot[1], guide_legend[1], guides[1], labs[1], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]\n\n\ngrDevices\ncolorRampPalette[1]\n\n\njanitor\nclean_names[1]\n\n\nrbokeh\nfigure[1], ly_lines[1], ly_points[1], theme_plot[1]\n\n\nreadr\nread_csv[1]\n\n\nstats\nIQR[1], coef[1], lm[1]\n\n\nstringr\nstr_c[1], str_extract[1], str_wrap[1]\n\n\ntibble\ntibble[1]\n\n\ntidyr\nnest[1]\n\n\ntrelliscopejs\ncog[3], map_cog[1], map_plot[1], sort_spec[1], trelliscope[1]\n\n\nusedthese\nused_here[1]\n\n\nvangogh\nvangogh_palette[1]"
   },
   {
     "objectID": "project/hansard/index.html",
