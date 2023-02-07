@@ -209,21 +209,21 @@ words |>
        title = "Frequent Planning Proposal Words",
        caption = "Source: RBKC Planning Search")
 
-tidy_df <- tidy_df |>
+remapped_df <- tidy_df |>
   mutate(
     theme = case_when(
-      str_detect(proposal_dev, "basement|excav") ~ "Basement or Excavation",
-      str_detect(proposal_dev, "exten|conservatory|storey") ~ "Extension, Conservatory \nor Storey",
-      str_detect(proposal_dev, "window|door") ~ "Windows or Doors",
+      str_detect(proposal_dev, "basem|excav") ~ "Basement or Excavation",
+      str_detect(proposal_dev, "xten|vatory|torey") ~ "Extension, Conservatory \nor Storey",
+      str_detect(proposal_dev, "windo|doo") ~ "Windows or Doors",
       str_detect(proposal_dev, "roof") ~ "Roof",
-      str_detect(proposal_type, "Tree") |
-      str_detect(proposal_dev, "terrac|landscap|garden") ~ "Trees, Landscaping, \nGarden or Terrace",
+      str_detect(proposal_dev, "rrac|dsc|garde") | 
+        str_detect(proposal_type, "Tree") ~ "Trees, Landscaping, \nGarden or Terrace",
       .default = "Other"
     ),
     outcome = case_when(
-      str_detect(decision, "Grant|No Obj|Accept|Lawful") ~ "Positive",
-      str_detect(decision, "Refuse") ~ "Refuse",
-      str_detect(decision, "Withdrawn") ~ "Withdrawn",
+      str_detect(decision, "Gran|No Ob|Accep|Lawf") ~ "Positive",
+      str_detect(decision, "Refus") ~ "Refuse",
+      str_detect(decision, "Withdr") ~ "Withdrawn",
       .default = "Other"
     )
   )
@@ -279,7 +279,7 @@ sales_df <- sales$results |>
   ) |>
   summarise(volume = n(), .by = c(date, dataset))
 
-app_df <- tidy_df |>
+app_df <- remapped_df |>
   mutate(
     date = dec_date,
     dataset = "Planning"
@@ -324,7 +324,7 @@ summary_df |>
   summarise(total = sum(volume), .by = dataset) |> 
   rename("Dataset" = dataset, "Count" = total)
 
-tidy_df |>
+remapped_df |>
   ggplot(aes(dec_year, fill = outcome)) +
   geom_bar() +
   facet_wrap( ~ theme, nrow = 2) +
