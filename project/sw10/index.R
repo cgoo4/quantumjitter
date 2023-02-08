@@ -1,6 +1,6 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(scales)
 library(SPARQL)
 library(clock)
@@ -127,7 +127,7 @@ qtile_df <-
   data_df |> 
   filter(trans_date < qtr_start) |> 
   mutate(yr_qtr = yearquarter(trans_date)) |> 
-  summarise(price = quantile(amount, c(0.25, 0.5, 0.75)), 
+  reframe(price = quantile(amount, c(0.25, 0.5, 0.75)), 
             quantile = c("lower", "median", "upper") |> factor(),
             n = n(),
             .by = yr_qtr) |> 
