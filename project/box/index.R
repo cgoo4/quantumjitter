@@ -93,7 +93,7 @@ p1 <- packfun_df |>
   labs(x = NULL, y = NULL, 
        subtitle = glue("Package Usage"))
 
-min_n <- 5
+min_n <- 4
 
 p2 <- packfun_df |>
   filter(name == "function", n >= min_n) |> 

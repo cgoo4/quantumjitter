@@ -134,7 +134,7 @@ With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and 
 
 ```{r}
 #| label: plot
-#| fig-height: 20
+#| fig-height: 22
 
 p1 <- packfun_df |>
   filter(name == "package") |> 
@@ -146,7 +146,7 @@ p1 <- packfun_df |>
   labs(x = NULL, y = NULL, 
        subtitle = glue("Package Usage"))
 
-min_n <- 5
+min_n <- 4
 
 p2 <- packfun_df |>
   filter(name == "function", n >= min_n) |> 
