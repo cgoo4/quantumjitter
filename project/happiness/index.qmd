@@ -15,7 +15,7 @@ bibliography: references.bib
 
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidymodels)
 library(tidytext)
 library(tidyclust)
@@ -68,7 +68,7 @@ raw_df <-
   read_xlsx("london-borough-profiles.xlsx", sheet = 2) |>
   clean_names() |>
   filter(str_starts(code, "E")) |>
-  mutate(across(where(is.character), ~ na_if(., ".")),
+  mutate(across(where(is.character), \(x) na_if(x, ".")),
     inner_outer_london = str_remove(inner_outer_london, " London")
   )
 ```
