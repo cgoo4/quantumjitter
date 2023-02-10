@@ -300,7 +300,7 @@ joined_df3 |>
   )
 
 joined_df3 |>
-  filter(council_tax_band == "F", price_paid >= 1.1) |>
+  filter(council_tax_band == "E", price_paid >= 0.6) |>
   select(
     address = raw_price_address,
     postcode,
@@ -310,10 +310,8 @@ joined_df3 |>
     estate_type,
     property_type
   ) |>
-  mutate(across(
-    ends_with("type"),
-    ~ str_remove_all(., "<http://landregistry.data.gov.uk/def/common/|>")
-  ))
+  mutate(across(ends_with("type"), \(x) str_remove_all(x, "^.*mon/|>$"))) |> # <1>
+  select(-address)
 
 bands_ef <- 
   joined_df3 |>

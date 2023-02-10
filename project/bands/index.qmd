@@ -431,13 +431,13 @@ joined_df3 |>
   )
 ```
 
+Some band E examples:
+
 ```{r}
 #| label: examples
-#| eval: false
-#| include: false
 
 joined_df3 |>
-  filter(council_tax_band == "F", price_paid >= 1.1) |>
+  filter(council_tax_band == "E", price_paid >= 0.6) |>
   select(
     address = raw_price_address,
     postcode,
@@ -447,11 +447,11 @@ joined_df3 |>
     estate_type,
     property_type
   ) |>
-  mutate(across(
-    ends_with("type"),
-    ~ str_remove_all(., "<http://landregistry.data.gov.uk/def/common/|>")
-  ))
+  mutate(across(ends_with("type"), \(x) str_remove_all(x, "^.*mon/|>$"))) |> # <1>
+  select(-address)
 ```
+
+1. Removes the URL wrapped around the estate and property types, i.e. "<http://landregistry.data.gov.uk/def/common/" before and ">" after the type.
 
 Can we infer that the true population of band Es no longer exhibits any difference in mean values with respect to band D?
 
