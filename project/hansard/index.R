@@ -1,6 +1,6 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(clock)
 library(wesanderson)
 library(hansard)
@@ -69,12 +69,12 @@ scaled_df <-
   mutate(across(-mp, scale))
 
 scaled_df |>
+  summarise(across(-mp, list(mean = mean, sd = sd))) |> 
   summarise(
-    across(-mp, list(mean = mean, sd = sd)),
-    sd_min = min(c_across(ends_with("_sd"))),
-    sd_max = max(c_across(ends_with("_sd"))),
-    mean_min = min(c_across(ends_with("_mean"))),
-    mean_max = max(c_across(ends_with("_mean")))
+    sd_min = min(pick(ends_with("_sd"))),
+    sd_max = max(pick(ends_with("_sd"))),
+    mean_min = min(pick(ends_with("_mean"))) |> round(1),
+    mean_max = max(pick(ends_with("_mean"))) |> round(1)
   )
 
 scaled_df |>
