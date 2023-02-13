@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.189">
+<meta name="generator" content="quarto-1.3.196">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2020-09-18">
@@ -161,6 +161,7 @@ div.csl-indent {
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo"></a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -197,10 +198,9 @@ div.csl-indent {
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-<div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+<div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
@@ -273,18 +273,9 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>6 conflicts:
-* `col_factor` : scales, readr
-* `date_format`: clock, scales
-* `discard`    : scales, purrr
-* `filter`     : [dplyr]
-* `lag`        : [dplyr]
-* `perplexity` : topicmodels, text2vec</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Chevalier1"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -307,7 +298,7 @@ Note
 </div>
 <p>The Guardian newspaper asks for requests to span no more than 1 month at a time. Creating a set of monthly date ranges will enable the requests to be chunked.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dates_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">11</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dates_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_build.html">date_build</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">11</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>end_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_months</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_days</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dates_df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -382,7 +373,7 @@ Important
 </div>
 </div>
 <div class="cell" data-hash="index_cache/html/read_b9a221b348136d61f0c7450830da90ee">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">read_slowly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/slowly.html">slowly</a></span><span class="op">(</span><span class="va">gu_content</span><span class="op">)</span></span>
 <span></span>
@@ -400,7 +391,7 @@ Important
 </div>
 <p>The data need a little cleaning, for example, to remove multi-topic articles, html tags and non-breaking spaces.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_df</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">article_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"/live/"</span><span class="op">)</span>, </span>
 <span>         <span class="va">section_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"world"</span>, <span class="st">"politics"</span>, <span class="st">"business"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -412,45 +403,45 @@ Important
 </div>
 <p>A corpus then gives me a collection of texts whereby each document is a newspaper article.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_corp</span> <span class="op">&lt;-</span> <span class="va">trade_df</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_corp</span> <span class="op">&lt;-</span> <span class="va">trade_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, </span>
 <span>         text_field <span class="op">=</span> <span class="st">"body"</span>, unique_docnames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although only articles mentioning Brexit have been imported, some of these will not be related to trade negotiations with the EU. For example, there are on-going negotiations with many countries around the world. So, word embeddings<span class="citation" data-cites="text2vec">(<a href="#ref-text2vec" role="doc-biblioref">Selivanov, Bickel, and Wang 2022</a>)</span> will help to narrow the focus to the specific context of the UK-EU trade deal.</p>
 <p>The chief negotiator for the EU is Michel Barnier, so I’ll quantitatively identify words in close proximity to “Barnier” in the context of these Brexit news articles.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">window</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">window</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span></span>
 <span><span class="va">trade_fcm</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">trade_corp</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
 <span>      count <span class="op">=</span> <span class="st">"weighted"</span>, weights <span class="op">=</span> <span class="va">window</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va">GlobalVectors</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html">GlobalVectors</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [16:46:43.998] epoch 1, loss 0.3788
-INFO  [16:46:46.324] epoch 2, loss 0.2570
-INFO  [16:46:48.734] epoch 3, loss 0.2292
-INFO  [16:46:51.090] epoch 4, loss 0.2090
-INFO  [16:46:53.407] epoch 5, loss 0.1921
-INFO  [16:46:55.707] epoch 6, loss 0.1791
-INFO  [16:46:58.041] epoch 7, loss 0.1694
-INFO  [16:47:00.452] epoch 8, loss 0.1619
-INFO  [16:47:02.850] epoch 9, loss 0.1557
-INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [16:26:23.152] epoch 1, loss 0.3788
+INFO  [16:26:24.472] epoch 2, loss 0.2570
+INFO  [16:26:25.750] epoch 3, loss 0.2292
+INFO  [16:26:27.064] epoch 4, loss 0.2090
+INFO  [16:26:28.380] epoch 5, loss 0.1921
+INFO  [16:26:29.699] epoch 6, loss 0.1791
+INFO  [16:26:31.012] epoch 7, loss 0.1694
+INFO  [16:26:32.325] epoch 8, loss 0.1619
+INFO  [16:26:33.638] epoch 9, loss 0.1557
+INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">search_coord</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">word_vectors</span><span class="op">[</span><span class="st">"barnier"</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">word_vectors</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">sim2</span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/similarities.html">sim2</a></span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="st">"term"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>similarity <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -511,7 +502,7 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <p>Word embedding is a learned modelling technique placing words into a multi-dimensional vector space such that contextually-similar words may be found close by. Not surprisingly, one of the closest words contextually is “Michel”. And as he is the chief negotiator for the EU, we find “negotiator” and “brussels” also in the top most contextually-similar words.</p>
 <p>The word embeddings algorithm, through word co-occurrence, has identified the name of Michel Barnier’s UK counterpart David Frost. So filtering articles for “Barnier”, “Frost” and “UK-EU” should help narrow the focus.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">context_df</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">context_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">trade_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">body</span>, <span class="st">"barnier|frost|uk-eu"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
@@ -521,7 +512,7 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 </div>
 <p>Quanteda’s<span class="citation" data-cites="quanteda">(<a href="#ref-quanteda" role="doc-biblioref">Benoit et al. 2018</a>)</span> <code>kwic</code> function shows key phrases in context to ensure we’re homing in on the required texts. Short URLs are included below so one can click on any to read the actual article as presented by The Guardian.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">context_corp</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span></span>
@@ -630,7 +621,7 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 </div>
 <p>Quanteda provides a sentiment dictionary which, in addition to identifying positive and negative words, also finds negative-negatives and negative-positives such as, for example, “not effective”. For each week’s worth of articles, we can calculate the proportion of positive sentiments.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sent_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">context_corp</span> <span class="op">|&gt;</span> </span>
@@ -711,21 +702,21 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">sent_df</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">sent_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">pct_pos</span><span class="op">)</span>, </span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>            .by <span class="op">=</span> <span class="va">web_date</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.214 sec elapsed</code></pre>
+<pre><code>0.522 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
 <p>The upper plot shows a rolling 7-day mean with a narrowing ribbon representing a narrowing variation in sentiment.</p>
 <p>The lower plot shows the volume of articles. As we drew closer to the crunch-point the volume picked up.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">width</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">width</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
 <span></span>
 <span><span class="va">sent_df2</span> <span class="op">&lt;-</span> <span class="va">sent_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>web_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -766,7 +757,7 @@ INFO  [16:47:05.294] epoch 10, loss 0.1506</code></pre>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped table-sm">
 <thead><tr class="header">
@@ -1293,7 +1284,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.189 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.196 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

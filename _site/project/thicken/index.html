@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.189">
+<meta name="generator" content="quarto-1.3.196">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-02-07">
@@ -161,6 +161,7 @@ div.csl-indent {
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo"></a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -197,10 +198,9 @@ div.csl-indent {
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-<div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+<div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
@@ -268,18 +268,9 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>6 conflicts:
-* `col_factor`    : scales, readr
-* `discard`       : scales, purrr
-* `filter`        : [dplyr]
-* `guess_encoding`: rvest, readr
-* `lag`           : [dplyr]
-* `page`          : bslib, utils</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"IsleofDogs1"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -288,7 +279,7 @@ div.csl-indent {
 </div>
 <p>I’m going to start by harvesting some data from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams">Statistical charts and diagrams category</a>. I can use this to build a list of all chart types which have a dedicated Wikipedia article page. Using rvest <span class="citation" data-cites="rvest">(<a href="#ref-rvest" role="doc-biblioref">Wickham 2022</a>)</span> inside the app ensures it will respond to any newly-created articles.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">charts</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">charts</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>    chart <span class="op">=</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"https://en.wikipedia.org/wiki/"</span>,</span>
@@ -300,8 +291,8 @@ div.csl-indent {
 </div>
 <p>The pageviews <span class="citation" data-cites="pageviews">(<a href="#ref-pageviews" role="doc-biblioref">Keyes and Lewis 2020</a>)</span> package provides an API into Wikipedia. I’ll create a function wrapped around <code>article_pageviews</code> so I can later iterate through a subset of the list established in the prior code chunk.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">article_pageviews</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pageviews/man/article_pageviews.html">article_pageviews</a></span><span class="op">(</span></span>
 <span>    project <span class="op">=</span> <span class="st">"en.wikipedia"</span>,</span>
 <span>    <span class="va">article</span>,</span>
 <span>    user_type <span class="op">=</span> <span class="st">"user"</span>,</span>
@@ -313,7 +304,7 @@ div.csl-indent {
 <p>I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of <em>fixed</em> and <em>log10</em> is better for comparing plots. <em>Free</em> scaling reveals more detail in the individual trends.</p>
 <p>Although <a href="https://rstudio.github.io/shinyuieditor/">shinyuieditor</a> <span class="citation" data-cites="shinyuieditor">(<a href="#ref-shinyuieditor" role="doc-biblioref">Strayer 2022</a>)</span>&nbsp;is currently in Alpha at the time of this update, using <code>launch_editor("/content/project/thicken/")</code> helped me modify the basic grid layout of the UI for this pre-existing <code>app.R</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">grid_page</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_page.html">grid_page</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, bootswatch <span class="op">=</span> <span class="st">"simplex"</span><span class="op">)</span>,</span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"header  header"</span>,</span>
@@ -328,7 +319,7 @@ div.csl-indent {
 <span>    <span class="st">"1fr"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  gap_size <span class="op">=</span> <span class="st">"1rem"</span>,</span>
-<span>  <span class="fu">grid_card</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card.html">grid_card</a></span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"sidebar"</span>,</span>
 <span>    item_alignment <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Options"</span>,</span>
@@ -364,7 +355,7 @@ div.csl-indent {
 <span>      selected <span class="op">=</span> <span class="st">"log10"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">grid_card_text</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_text.html">grid_card_text</a></span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"header"</span>,</span>
 <span>    content <span class="op">=</span> <span class="st">"   Plot Plotter   "</span>,</span>
 <span>    alignment <span class="op">=</span> <span class="st">"center"</span>,</span>
@@ -372,12 +363,12 @@ div.csl-indent {
 <span>    icon <span class="op">=</span> <span class="st">"logo1.png"</span>,</span>
 <span>    img_height <span class="op">=</span> <span class="fl">30</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">grid_card_plot</span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_plot.html">grid_card_plot</a></span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The server component outputs a faceted ggplot.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">subsetr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span><span class="op">)</span></span>
 <span>    <span class="va">pageviews</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span>, <span class="va">pv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -432,7 +423,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped table-sm">
 <thead><tr class="header">
@@ -949,7 +940,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.189 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.196 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>
