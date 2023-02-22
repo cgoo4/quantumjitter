@@ -56,7 +56,7 @@ base_packages <- c(
 )
 
 used_df <-
-  used_there("https://www.quantumjitter.com/project/") |>
+  used_there("https://www.quantumjitter.com/project/", 21) |>
   mutate(multiverse = case_match(
     Package,
     tidy ~ "tidy",
