@@ -562,7 +562,7 @@ div.csl-indent {
 <p>An alternative approach is to use the new <a href="https://github.com/EmilHvitfeldt/tidyclust">tidyclust</a><span class="citation" data-cites="tidyclust">(<a href="#ref-tidyclust" role="doc-biblioref">Hvitfeldt and Bodwin 2022</a>)</span> package which augments the tidymodels framework with a tidy unified interface to clustering models.</p>
 <p>First we tune the model with 1 to 6 clusters and review how well they capture the natural groupings.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyclust.tidymodels.org/reference/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_rec</span> <span class="op">&lt;-</span> <span class="va">raw_df</span> <span class="op">|&gt;</span> </span>
@@ -578,14 +578,14 @@ div.csl-indent {
 <span></span>
 <span><span class="va">kmeans_cv</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">pca_augmented</span>, v <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/tune_cluster.html">tune_cluster</a></span><span class="op">(</span></span>
+<span><span class="va">kmeans_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyclust.tidymodels.org/reference/tune_cluster.html">tune_cluster</a></span><span class="op">(</span></span>
 <span>  <span class="va">kmeans_wflow</span>,</span>
 <span>  resamples <span class="op">=</span> <span class="va">kmeans_cv</span>,</span>
 <span>  grid <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span></span>
 <span>    num_clusters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  control <span class="op">=</span> <span class="fu">control_grid</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/cluster_metric_set.html">cluster_metric_set</a></span><span class="op">(</span><span class="va">sse_total</span>, <span class="va">sse_ratio</span><span class="op">)</span></span>
+<span>  metrics <span class="op">=</span> <span class="fu"><a href="https://tidyclust.tidymodels.org/reference/cluster_metric_set.html">cluster_metric_set</a></span><span class="op">(</span><span class="va">sse_total</span>, <span class="va">sse_ratio</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_metrics</span> <span class="op">&lt;-</span> <span class="va">kmeans_res</span> <span class="op">|&gt;</span> <span class="fu">collect_metrics</span><span class="op">(</span><span class="op">)</span></span>
@@ -605,7 +605,7 @@ div.csl-indent {
 </div>
 <p>Again we can visualise the 3 clusters suggested by the elbow method.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kmeans_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyclust.tidymodels.org/reference/k_means.html">k_means</a></span><span class="op">(</span>num_clusters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stats"</span>, algorithm <span class="op">=</span> <span class="st">"Hartigan-Wong"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_wflow</span> <span class="op">&lt;-</span> <span class="va">kmeans_wflow</span> <span class="op">|&gt;</span> </span>
@@ -615,7 +615,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">pca_augmented</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">kmeans_clust</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyclust/man/extract_centroids.html">extract_centroids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyclust.tidymodels.org/reference/extract_centroids.html">extract_centroids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">".fitted"</span>, <span class="va">.</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"PC"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kmeans_aug</span> <span class="op">&lt;-</span> <span class="va">kmeans_fit</span> <span class="op">|&gt;</span> </span>
