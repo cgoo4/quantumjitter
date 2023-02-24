@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.196">
+<meta name="generator" content="quarto-1.3.220">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -246,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 10, 2023</p>
+      <p class="date-modified">February 24, 2023</p>
     </div>
   </div>
     
@@ -263,14 +263,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer_all</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SPARQL)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clock)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"date_format"</span>, <span class="st">"clock"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vctrs)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"as_date"</span>, <span class="st">"lubridate"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SPARQL)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clock)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"date_format"</span>, <span class="st">"clock"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsibble)</span>
@@ -352,19 +352,19 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-3" data-code-lines="3">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-cell="annotated-cell-3" data-code-lines="7">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="2">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-annotation="3" data-code-cell="annotated-cell-3" data-code-lines="12,13">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="12,13" data-code-annotation="3">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-annotation="4" data-code-cell="annotated-cell-3" data-code-lines="18,19">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="18,19" data-code-annotation="4">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
 </dd>
 </dl>
 </div>
@@ -449,7 +449,7 @@ Tip
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">str_remove_all</span>(., <span class="st">"ppd_|property_address_"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">transaction_date =</span> <span class="fu">new_datetime</span>(transaction_date) <span class="sc">|&gt;</span> <span class="fu">as_date</span>(),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">transaction_date =</span> <span class="fu">as_datetime</span>(transaction_date) <span class="sc">|&gt;</span> <span class="fu">as_date</span>(),</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_paid =</span> price_paid <span class="sc">/</span> <span class="dv">1000000</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(transaction_date <span class="sc">&lt;</span> <span class="st">"2022-01-01"</span>) <span class="sc">|&gt;</span></span>
@@ -698,7 +698,7 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-16" data-code-lines="12">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
+<span data-code-cell="annotated-cell-16" data-code-lines="12" data-code-annotation="1">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
 </dd>
 </dl>
 </div>
@@ -734,7 +734,7 @@ Tip
 </tr>
 <tr class="even">
 <td style="text-align: left;">SW10 0AP</td>
-<td style="text-align: left;">2021-06-23</td>
+<td style="text-align: left;">2021-06-22</td>
 <td style="text-align: right;">0.67500</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -742,7 +742,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 0AW</td>
-<td style="text-align: left;">2021-03-30</td>
+<td style="text-align: left;">2021-03-29</td>
 <td style="text-align: right;">0.69500</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -758,7 +758,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 0BG</td>
-<td style="text-align: left;">2021-03-31</td>
+<td style="text-align: left;">2021-03-30</td>
 <td style="text-align: right;">0.76500</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -766,7 +766,7 @@ Tip
 </tr>
 <tr class="even">
 <td style="text-align: left;">SW10 0HP</td>
-<td style="text-align: left;">2021-10-13</td>
+<td style="text-align: left;">2021-10-12</td>
 <td style="text-align: right;">0.67500</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -774,7 +774,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 0LB</td>
-<td style="text-align: left;">2021-04-16</td>
+<td style="text-align: left;">2021-04-15</td>
 <td style="text-align: right;">0.63000</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -790,7 +790,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 9AD</td>
-<td style="text-align: left;">2021-06-22</td>
+<td style="text-align: left;">2021-06-21</td>
 <td style="text-align: right;">1.07500</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -806,7 +806,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 9JX</td>
-<td style="text-align: left;">2020-09-15</td>
+<td style="text-align: left;">2020-09-14</td>
 <td style="text-align: right;">1.00000</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -814,7 +814,7 @@ Tip
 </tr>
 <tr class="even">
 <td style="text-align: left;">SW10 9JY</td>
-<td style="text-align: left;">2021-08-31</td>
+<td style="text-align: left;">2021-08-30</td>
 <td style="text-align: right;">1.00000</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -822,7 +822,7 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW10 9JY</td>
-<td style="text-align: left;">2020-08-07</td>
+<td style="text-align: left;">2020-08-06</td>
 <td style="text-align: right;">0.67950</td>
 <td style="text-align: left;">E</td>
 <td style="text-align: left;">leasehold</td>
@@ -925,39 +925,39 @@ Tip
 </tr>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[5], factor[1], library[14], max[1], mean[2], min[1], readRDS[1], seq[1], set.seed[2]</td>
+<td style="text-align: left;">c[5], factor[1], library[13], max[1], mean[2], min[1], readRDS[1], seq[1], set.seed[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_date[1]</td>
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer[2], conflict_prefer_all[1], conflict_scout[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">dplyr</td>
 <td style="text-align: left;">across[1], arrange[1], count[4], filter[4], if_else[1], inner_join[1], join_by[1], mutate[7], n[2], pull[7], relocate[1], rename_with[1], select[5], slice_head[1], slice_sample[1], summarise[4]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">ggfx</td>
 <td style="text-align: left;">as_reference[1], with_blend[1], with_outer_glow[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[8], annotate[1], coord_flip[1], geom_col[2], geom_hline[1], geom_label[3], geom_text[1], geom_violin[3], geom_vline[1], ggplot[5], labs[5], position_fill[1], scale_fill_continuous[1], scale_fill_distiller[1], scale_fill_manual[2], scale_x_continuous[1], scale_y_continuous[1], scale_y_log10[3], theme_bw[1], theme_set[1], theme_void[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[8]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">infer</td>
 <td style="text-align: left;">calculate[2], generate[1], get_ci[1], shade_confidence_interval[1], specify[2], visualise[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">as_date[1], as_datetime[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
@@ -996,10 +996,6 @@ Tip
 <td style="text-align: left;">used_here[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">vctrs</td>
-<td style="text-align: left;">new_datetime[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">xml2</td>
 <td style="text-align: left;">read_html[1]</td>
 </tr>
@@ -1424,7 +1420,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1441,7 +1437,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.196 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.220 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

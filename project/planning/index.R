@@ -1,6 +1,7 @@
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
 library(rvest)
 library(SPARQL)
 library(quanteda)
@@ -13,7 +14,6 @@ library(fabletools)
 library(feasts)
 library(tsibble)
 library(DT)
-library(vctrs)
 library(usedthese)
 
 conflict_scout()
@@ -274,7 +274,7 @@ toc()
 sales_df <- sales$results |> 
   as_tibble() |>
   mutate(
-    date = new_datetime(ppd_transactionDate) |> as_date(),
+    date = as_datetime(ppd_transactionDate) |> as_date(),
     dataset = "Sales"
   ) |>
   summarise(volume = n(), .by = c(date, dataset))

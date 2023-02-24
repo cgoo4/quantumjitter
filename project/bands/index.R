@@ -1,6 +1,7 @@
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr")
+conflict_prefer("as_date", "lubridate")
 library(rvest)
 library(scales)
 library(SPARQL)
@@ -8,7 +9,6 @@ library(clock)
 conflict_prefer("date_format", "clock")
 library(RColorBrewer)
 library(glue)
-library(vctrs)
 library(janitor)
 library(infer)
 library(tsibble)
@@ -143,7 +143,7 @@ prices_df2 <-
   clean_names() |>
   rename_with(~ str_remove_all(., "ppd_|property_address_")) |>
   mutate(
-    transaction_date = new_datetime(transaction_date) |> as_date(),
+    transaction_date = as_datetime(transaction_date) |> as_date(),
     price_paid = price_paid / 1000000
   ) |>
   filter(transaction_date < "2022-01-01") |>

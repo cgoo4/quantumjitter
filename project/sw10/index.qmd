@@ -18,13 +18,13 @@ How is London postal area SW10 coping with all this?
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
 library(scales)
 library(SPARQL)
 library(clock)
 conflict_prefer("date_format", "clock")
 library(wesanderson)
 library(glue)
-library(vctrs)
 library(tsibble)
 library(patchwork)
 library(ggmosaic)
@@ -96,7 +96,7 @@ The focus is on the [standard price paid](https://www.gov.uk/guidance/about-the-
 data_df <- data_lst$results |>
   as_tibble() |>
   mutate(
-    trans_date = new_datetime(ppd_transactionDate) |> as_date(),
+    trans_date = as_datetime(ppd_transactionDate) |> as_date(),
     amount = ppd_pricePaid,
     prop_type = str_extract(ppd_propertyType, "(?<=common/)[\\w]+"),
     est_type = str_extract(ppd_estateType, "(?<=common/)[\\w]+"),
@@ -174,7 +174,7 @@ An alternative way of looking at this is by median quarterly prices (with upper 
 qtr_start <- date_today("Europe/London") |> 
   as_year_quarter_day() |> 
   calendar_start("quarter") |> 
-  as.Date()
+  as_date()
 
 qtile_df <- 
   data_df |> 
@@ -242,7 +242,7 @@ data_df |>
   theme_minimal()
 ```
 
-Other blog posts on [quantum jitter](/.) look at SW10 property from diffferent perspectives: [Digging Deep](/project/planning) considers the correlation between house sales and planning applications; and [Bootstraps & Bandings](/project/bands) uses a sample of recent house sales to infer whether property bands are as representative of property values today as they were three decades ago.
+Other blog posts on [quantum jitter](/.) look at SW10 property from different perspectives: [Digging Deep](/project/planning) considers the correlation between house sales and planning applications; and [Bootstraps & Bandings](/project/bands) uses a sample of recent house sales to infer whether property bands are as representative of property values today as they were three decades ago.
 
 ## R Toolbox
 

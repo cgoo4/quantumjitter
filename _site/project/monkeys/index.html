@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.196">
+<meta name="generator" content="quarto-1.3.220">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2023-02-24">
@@ -268,11 +268,11 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="va"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"as_date"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">SPARQL</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vctrs.r-lib.org/">vctrs</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quandl/quandl-r">Quandl</a></span><span class="op">)</span></span>
@@ -359,7 +359,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"results"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://vctrs.r-lib.org/reference/new_date.html">new_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    amount <span class="op">=</span> <span class="va">ppd_pricePaid</span>,</span>
 <span>    cat <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">ppd_transactionCategory</span>, </span>
 <span>                     <span class="st">"&lt;http://landregistry.data.gov.uk/def/ppi/"</span><span class="op">)</span>,</span>
@@ -511,23 +511,23 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">cpi_macro</td>
-<td style="text-align: right;">-0.6441753</td>
+<td style="text-align: right;">-0.6455062</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stamp_macro</td>
-<td style="text-align: right;">-0.5998462</td>
+<td style="text-align: right;">-0.6009742</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">inflation_macro</td>
-<td style="text-align: right;">-0.2268071</td>
+<td style="text-align: right;">-0.2273802</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sterling_macro</td>
-<td style="text-align: right;">0.5549617</td>
+<td style="text-align: right;">0.5551985</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">interest_macro</td>
-<td style="text-align: right;">0.5696276</td>
+<td style="text-align: right;">0.5702645</td>
 </tr>
 </tbody>
 </table>
@@ -568,170 +568,170 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">29.8512405</td>
-<td style="text-align: right;">-8.1553954</td>
-<td style="text-align: right;">59.7252950</td>
+<td style="text-align: right;">17.4009501</td>
+<td style="text-align: right;">-14.7567771</td>
+<td style="text-align: right;">59.4204115</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">cpi_macro</td>
-<td style="text-align: right;">0.9580161</td>
-<td style="text-align: right;">0.6027949</td>
-<td style="text-align: right;">1.8787206</td>
+<td style="text-align: right;">1.2033609</td>
+<td style="text-align: right;">0.5643921</td>
+<td style="text-align: right;">2.0407098</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sterling_macro</td>
-<td style="text-align: right;">0.4312031</td>
-<td style="text-align: right;">0.0796337</td>
-<td style="text-align: right;">0.6618524</td>
+<td style="text-align: right;">0.5006562</td>
+<td style="text-align: right;">0.0987317</td>
+<td style="text-align: right;">0.6939156</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">interest_macro</td>
-<td style="text-align: right;">-2.4044137</td>
-<td style="text-align: right;">-5.0371804</td>
-<td style="text-align: right;">1.4766377</td>
+<td style="text-align: right;">-2.7824965</td>
+<td style="text-align: right;">-5.7330986</td>
+<td style="text-align: right;">0.9568033</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stamp_macro</td>
-<td style="text-align: right;">-0.0474888</td>
-<td style="text-align: right;">-1.9358251</td>
-<td style="text-align: right;">0.6385081</td>
+<td style="text-align: right;">-0.8282729</td>
+<td style="text-align: right;">-2.0024868</td>
+<td style="text-align: right;">0.6587759</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">inflation_macro</td>
-<td style="text-align: right;">-0.6313869</td>
-<td style="text-align: right;">-3.4338927</td>
-<td style="text-align: right;">0.3739769</td>
+<td style="text-align: right;">-0.6752318</td>
+<td style="text-align: right;">-3.3044990</td>
+<td style="text-align: right;">1.1818529</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">month</td>
-<td style="text-align: right;">0.1004229</td>
-<td style="text-align: right;">-0.1221433</td>
-<td style="text-align: right;">0.8137300</td>
+<td style="text-align: right;">0.0937169</td>
+<td style="text-align: right;">-0.3222418</td>
+<td style="text-align: right;">0.9383533</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">yr_mon</td>
-<td style="text-align: right;">-0.0088893</td>
-<td style="text-align: right;">-0.0144496</td>
-<td style="text-align: right;">-0.0069467</td>
+<td style="text-align: right;">-0.0095708</td>
+<td style="text-align: right;">-0.0162135</td>
+<td style="text-align: right;">-0.0069172</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-18.2525135</td>
-<td style="text-align: right;">-63.4629684</td>
-<td style="text-align: right;">17.6085671</td>
+<td style="text-align: right;">-21.3647250</td>
+<td style="text-align: right;">-54.1113789</td>
+<td style="text-align: right;">22.7165990</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">cpi_macro</td>
-<td style="text-align: right;">0.9760556</td>
-<td style="text-align: right;">0.2898639</td>
-<td style="text-align: right;">2.0963554</td>
+<td style="text-align: right;">1.0272546</td>
+<td style="text-align: right;">0.3906825</td>
+<td style="text-align: right;">1.6199574</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sterling_macro</td>
-<td style="text-align: right;">0.7384881</td>
-<td style="text-align: right;">0.5635672</td>
-<td style="text-align: right;">1.0147638</td>
+<td style="text-align: right;">0.7949216</td>
+<td style="text-align: right;">0.5864052</td>
+<td style="text-align: right;">1.0089153</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">interest_macro</td>
-<td style="text-align: right;">-1.0273581</td>
-<td style="text-align: right;">-3.9305961</td>
-<td style="text-align: right;">0.5891337</td>
+<td style="text-align: right;">-1.2533022</td>
+<td style="text-align: right;">-2.8965037</td>
+<td style="text-align: right;">0.3466491</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stamp_macro</td>
-<td style="text-align: right;">-1.4719557</td>
-<td style="text-align: right;">-2.7430198</td>
-<td style="text-align: right;">-0.0366436</td>
+<td style="text-align: right;">-1.4047908</td>
+<td style="text-align: right;">-2.5197048</td>
+<td style="text-align: right;">-0.2199744</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">inflation_macro</td>
-<td style="text-align: right;">-0.8246830</td>
-<td style="text-align: right;">-1.8122858</td>
-<td style="text-align: right;">0.6321975</td>
+<td style="text-align: right;">-0.9364530</td>
+<td style="text-align: right;">-1.8156209</td>
+<td style="text-align: right;">0.7039052</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">month</td>
-<td style="text-align: right;">0.0041366</td>
-<td style="text-align: right;">-0.3624644</td>
-<td style="text-align: right;">0.4473986</td>
+<td style="text-align: right;">-0.0556925</td>
+<td style="text-align: right;">-0.3636425</td>
+<td style="text-align: right;">0.3755751</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">yr_mon</td>
-<td style="text-align: right;">-0.0060333</td>
-<td style="text-align: right;">-0.0125810</td>
-<td style="text-align: right;">-0.0031869</td>
+<td style="text-align: right;">-0.0064439</td>
+<td style="text-align: right;">-0.0101636</td>
+<td style="text-align: right;">-0.0041408</td>
 <td style="text-align: right;">0.50</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-63.0651372</td>
-<td style="text-align: right;">-183.1243447</td>
-<td style="text-align: right;">53.8870082</td>
+<td style="text-align: right;">-15.3193185</td>
+<td style="text-align: right;">-206.2506214</td>
+<td style="text-align: right;">66.5261549</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">cpi_macro</td>
-<td style="text-align: right;">1.7359368</td>
-<td style="text-align: right;">-0.2618504</td>
-<td style="text-align: right;">4.6074772</td>
+<td style="text-align: right;">1.6141478</td>
+<td style="text-align: right;">0.0050755</td>
+<td style="text-align: right;">4.9586657</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">sterling_macro</td>
-<td style="text-align: right;">1.0052881</td>
-<td style="text-align: right;">-0.0547939</td>
-<td style="text-align: right;">1.7578215</td>
+<td style="text-align: right;">0.8385557</td>
+<td style="text-align: right;">-0.1130984</td>
+<td style="text-align: right;">1.7694980</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">interest_macro</td>
-<td style="text-align: right;">0.2848307</td>
-<td style="text-align: right;">-5.4481775</td>
-<td style="text-align: right;">6.1603009</td>
+<td style="text-align: right;">-0.4391986</td>
+<td style="text-align: right;">-4.6575196</td>
+<td style="text-align: right;">5.9785501</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stamp_macro</td>
-<td style="text-align: right;">-2.5383337</td>
-<td style="text-align: right;">-7.0084580</td>
-<td style="text-align: right;">4.2745940</td>
+<td style="text-align: right;">-1.0817821</td>
+<td style="text-align: right;">-6.1706778</td>
+<td style="text-align: right;">4.0196441</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">inflation_macro</td>
-<td style="text-align: right;">-3.2817618</td>
-<td style="text-align: right;">-6.9443663</td>
-<td style="text-align: right;">1.2566696</td>
+<td style="text-align: right;">-2.6217660</td>
+<td style="text-align: right;">-8.0469028</td>
+<td style="text-align: right;">1.6613280</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">month</td>
-<td style="text-align: right;">0.4711956</td>
-<td style="text-align: right;">-1.4481003</td>
-<td style="text-align: right;">1.7677083</td>
+<td style="text-align: right;">0.0435900</td>
+<td style="text-align: right;">-1.3331433</td>
+<td style="text-align: right;">1.6996293</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">yr_mon</td>
-<td style="text-align: right;">-0.0075375</td>
-<td style="text-align: right;">-0.0192752</td>
-<td style="text-align: right;">0.0021335</td>
+<td style="text-align: right;">-0.0095591</td>
+<td style="text-align: right;">-0.0228147</td>
+<td style="text-align: right;">0.0044122</td>
 <td style="text-align: right;">0.95</td>
 </tr>
 </tbody>
@@ -742,9 +742,9 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Goodness-of-fit test for quantile regression based on the cusum process 
 A large test statistic (small p-value) is evidence of lack of fit 
-Quantile 0.05: Test statistic = 8e-04; p-value = 0.56 
-Quantile 0.5: Test statistic = 0.0068; p-value = 0.19 
-Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
+Quantile 0.05: Test statistic = 7e-04; p-value = 0.62 
+Quantile 0.5: Test statistic = 0.0061; p-value = 0.23 
+Quantile 0.95: Test statistic = 0.001; p-value = 0.53 </code></pre>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/quantreg/man/rq.html">rq</a></span><span class="op">(</span></span>
 <span>  <span class="va">n</span> <span class="op">~</span> <span class="va">cpi_macro</span> <span class="op">+</span> <span class="va">sterling_macro</span> <span class="op">+</span> <span class="va">interest_macro</span> <span class="op">+</span></span>
@@ -786,7 +786,7 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 <span>  <span class="fu"><a href="https://ggfx.data-imaginist.com/reference/with_blend.html">with_blend</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span></span>
 <span>      <span class="st">"rect"</span>,</span>
-<span>      xmin <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="st">"2022-12-31"</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="st">"2023-02-28"</span><span class="op">)</span>,</span>
+<span>      xmin <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-12-31"</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2023-02-28"</span><span class="op">)</span>,</span>
 <span>      ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    bg_layer <span class="op">=</span> <span class="st">"ribbon"</span>, blend_type <span class="op">=</span> <span class="st">"atop"</span></span>
@@ -794,26 +794,26 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">lm</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="st">"2008-09-06"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2008-09-06"</span><span class="op">)</span>, </span>
 <span>             linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>,</span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2008 Sep"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>    label <span class="op">=</span> <span class="st">"Lehman\nBrothers\nCollapses"</span>, size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="st">"2014-12-03"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-03"</span><span class="op">)</span>, </span>
 <span>             linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>,</span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2014 Dec"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>    label <span class="op">=</span> <span class="st">"Jump in\nTop-rate\nStamp\nDuty"</span>, size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="st">"2016-06-23"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2016-06-23"</span><span class="op">)</span>, </span>
 <span>             linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>,</span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2016 Jun"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">65</span>,</span>
 <span>    label <span class="op">=</span> <span class="st">"Brexit\nVote"</span>, size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>,</span>
-<span>    x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2020 Jun"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">125</span>,</span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2020 Jun"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">120</span>,</span>
 <span>    label <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Actual (Black)\nLinear (Dashed Orange)\n"</span>,</span>
 <span>      <span class="st">"Quantiles (Grey / White)\nPredicted (Red / White)"</span></span>
@@ -865,7 +865,7 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1], c[5], library[15], list[1], mean[1], options[1], set.seed[1]</td>
+<td style="text-align: left;">as.character[1], c[5], library[14], list[1], mean[1], options[1], set.seed[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">broom</td>
@@ -873,7 +873,7 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1], conflicts_prefer[1]</td>
+<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1], conflicts_prefer[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">corrr</td>
@@ -897,7 +897,7 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">lubridate</td>
-<td style="text-align: left;">as_date[6], dmy[2], month[2]</td>
+<td style="text-align: left;">as_date[1], as_datetime[1], dmy[2], month[2], ymd[5]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">paletteer</td>
@@ -952,10 +952,6 @@ Quantile 0.95: Test statistic = 8e-04; p-value = 0.63 </code></pre>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">vctrs</td>
-<td style="text-align: left;">new_datetime[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">xml2</td>
 <td style="text-align: left;">read_html[2]</td>
 </tr>
@@ -1382,7 +1378,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1397,7 +1393,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.196 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.220 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

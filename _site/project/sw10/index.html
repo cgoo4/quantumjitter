@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.196">
+<meta name="generator" content="quarto-1.3.220">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2017-12-17">
@@ -242,7 +242,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 8, 2023</p>
+      <p class="date-modified">February 24, 2023</p>
     </div>
   </div>
     
@@ -256,13 +256,13 @@ div.csl-indent {
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"as_date"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">SPARQL</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"date_format"</span>, <span class="st">"clock"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vctrs.r-lib.org/">vctrs</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/haleyjeppson/ggmosaic">ggmosaic</a></span><span class="op">)</span></span>
@@ -324,7 +324,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_df</span> <span class="op">&lt;-</span> <span class="va">data_lst</span><span class="op">$</span><span class="va">results</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    trans_date <span class="op">=</span> <span class="fu"><a href="https://vctrs.r-lib.org/reference/new_date.html">new_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    trans_date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="va">ppd_transactionDate</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    amount <span class="op">=</span> <span class="va">ppd_pricePaid</span>,</span>
 <span>    prop_type <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">ppd_propertyType</span>, <span class="st">"(?&lt;=common/)[\\w]+"</span><span class="op">)</span>,</span>
 <span>    est_type <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">ppd_estateType</span>, <span class="st">"(?&lt;=common/)[\\w]+"</span><span class="op">)</span>,</span>
@@ -445,7 +445,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">qtr_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-today.html">date_today</a></span><span class="op">(</span><span class="st">"Europe/London"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://clock.r-lib.org/reference/as_year_quarter_day.html">as_year_quarter_day</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://clock.r-lib.org/reference/calendar-boundary.html">calendar_start</a></span><span class="op">(</span><span class="st">"quarter"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">qtile_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">data_df</span> <span class="op">|&gt;</span> </span>
@@ -514,7 +514,7 @@ div.csl-indent {
 <p><img src="index_files/figure-html/composition-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>Other blog posts on <a href="../../.">quantum jitter</a> look at SW10 property from diffferent perspectives: <a href="../../project/planning">Digging Deep</a> considers the correlation between house sales and planning applications; and <a href="../../project/bands">Bootstraps &amp; Bandings</a> uses a sample of recent house sales to infer whether property bands are as representative of property values today as they were three decades ago.</p>
+<p>Other blog posts on <a href="../../.">quantum jitter</a> look at SW10 property from different perspectives: <a href="../../project/planning">Digging Deep</a> considers the correlation between house sales and planning applications; and <a href="../../project/bands">Bootstraps &amp; Bandings</a> uses a sample of recent house sales to infer whether property bands are as representative of property values today as they were three decades ago.</p>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
@@ -532,15 +532,15 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[1], c[6], factor[1], library[12], max[2], min[1], nrow[1]</td>
+<td style="text-align: left;">c[6], factor[1], library[11], max[2], min[1], nrow[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">clock</td>
-<td style="text-align: left;">as_date[1], as_year_quarter_day[1], calendar_start[1], date_format[1], date_parse[1], date_today[1]</td>
+<td style="text-align: left;">as_year_quarter_day[1], calendar_start[1], date_format[1], date_parse[1], date_today[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer[2], conflict_prefer_all[1], conflict_scout[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
@@ -559,40 +559,40 @@ div.csl-indent {
 <td style="text-align: left;">glue[3]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">as_date[2], as_datetime[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">patchwork</td>
 <td style="text-align: left;">plot_layout[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">comma[1], cut_short_scale[2], label_dollar[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">quantile[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
 <td style="text-align: left;">str_detect[1], str_extract[2], str_remove[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[1], tribble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">pivot_wider[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tsibble</td>
 <td style="text-align: left;">scale_x_yearquarter[2], yearquarter[4]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vctrs</td>
-<td style="text-align: left;">new_datetime[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">wesanderson</td>
@@ -1012,7 +1012,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1027,7 +1027,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.196 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.220 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-right">© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

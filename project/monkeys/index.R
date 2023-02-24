@@ -4,11 +4,11 @@ library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
 conflicts_prefer(purrr::map)
+conflict_prefer("as_date", "lubridate")
 library(scales)
 library(glue)
 library(SPARQL)
 library(paletteer)
-library(vctrs)
 library(tsibble)
 library(rvest)
 library(Quandl)
@@ -87,7 +87,7 @@ data_df <- data_lst |>
   pluck("results") |>
   as_tibble() |>
   mutate(
-    date = new_datetime(ppd_transactionDate) |> as_date(),
+    date = as_datetime(ppd_transactionDate) |> as_date(),
     amount = ppd_pricePaid,
     cat = str_remove(ppd_transactionCategory, 
                      "<http://landregistry.data.gov.uk/def/ppi/"),
@@ -275,7 +275,7 @@ rq_preds |>
   with_blend(
     annotate(
       "rect",
-      xmin = as_date("2022-12-31"), xmax = as_date("2023-02-28"),
+      xmin = ymd("2022-12-31"), xmax = ymd("2023-02-28"),
       ymin = -Inf, ymax = Inf, fill = cols[2], linetype = "dashed"
     ),
     bg_layer = "ribbon", blend_type = "atop"
@@ -283,26 +283,26 @@ rq_preds |>
   geom_line(aes(y = n), colour = "black") +
   geom_line(colour = "white", linewidth = 1) +
   geom_line(aes(y = lm), colour = cols[4], linetype = "dashed") +
-  geom_vline(xintercept = as_date("2008-09-06"), 
+  geom_vline(xintercept = ymd("2008-09-06"), 
              linetype = "dashed", colour = "grey30") +
   annotate("label",
     x = yearmonth("2008 Sep"), y = 100,
     label = "Lehman\nBrothers\nCollapses", size = 3
   ) +
-  geom_vline(xintercept = as_date("2014-12-03"), 
+  geom_vline(xintercept = ymd("2014-12-03"), 
              linetype = "dashed", colour = "grey30") +
   annotate("label",
     x = yearmonth("2014 Dec"), y = 100,
     label = "Jump in\nTop-rate\nStamp\nDuty", size = 3
   ) +
-  geom_vline(xintercept = as_date("2016-06-23"), 
+  geom_vline(xintercept = ymd("2016-06-23"), 
              linetype = "dashed", colour = "grey30") +
   annotate("label",
     x = yearmonth("2016 Jun"), y = 65,
     label = "Brexit\nVote", size = 3
   ) +
   annotate("label",
-    x = yearmonth("2020 Jun"), y = 125,
+    x = yearmonth("2020 Jun"), y = 120,
     label = glue(
       "Actual (Black)\nLinear (Dashed Orange)\n",
       "Quantiles (Grey / White)\nPredicted (Red / White)"

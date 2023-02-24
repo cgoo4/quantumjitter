@@ -1,13 +1,13 @@
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
 library(scales)
 library(SPARQL)
 library(clock)
 conflict_prefer("date_format", "clock")
 library(wesanderson)
 library(glue)
-library(vctrs)
 library(tsibble)
 library(patchwork)
 library(ggmosaic)
@@ -61,7 +61,7 @@ data_lst <- SPARQL(endpoint, query)
 data_df <- data_lst$results |>
   as_tibble() |>
   mutate(
-    trans_date = new_datetime(ppd_transactionDate) |> as_date(),
+    trans_date = as_datetime(ppd_transactionDate) |> as_date(),
     amount = ppd_pricePaid,
     prop_type = str_extract(ppd_propertyType, "(?<=common/)[\\w]+"),
     est_type = str_extract(ppd_estateType, "(?<=common/)[\\w]+"),
@@ -121,7 +121,7 @@ data_df |>
 qtr_start <- date_today("Europe/London") |> 
   as_year_quarter_day() |> 
   calendar_start("quarter") |> 
-  as.Date()
+  as_date()
 
 qtile_df <- 
   data_df |> 
