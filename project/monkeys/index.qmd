@@ -1,6 +1,6 @@
 ---
 title: "An Infinite Number of Monkeys"
-date: "2023-02-22"
+date: "2023-02-24"
 categories: [R, web scraping, quantile regression, linear regression, rolling join, special effects]
 description: "Quantile regression, property sales and anything could happen eventually"
 bibliography: references.bib
@@ -21,6 +21,8 @@ For now, the focus is on modelled house sales in London SW10 using quantile (and
 ```{r}
 #| label: libraries
 
+options(xts.warn_dplyr_breaks_lag = FALSE)
+
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
@@ -28,7 +30,7 @@ conflicts_prefer(purrr::map)
 library(scales)
 library(glue)
 library(SPARQL)
-library(wesanderson)
+library(paletteer)
 library(vctrs)
 library(tsibble)
 library(rvest)
@@ -49,7 +51,27 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Royal1"))
+n <- 4
+palette <- "wesanderson::Royal1"
+
+cols <- paletteer_d(palette, n = n)
+
+tibble(x = 1:n, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col(colour = "white") +
+  geom_label(aes(label = cols |> str_remove("FF$")), 
+             size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = (n + 1) / 2, y = 0.5,
+    label = palette,
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
 ```
 
 House transaction data are provided by [HM Land Registry Open Data](http://landregistry.data.gov.uk/app/qonsole#).

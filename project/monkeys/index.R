@@ -1,3 +1,5 @@
+options(xts.warn_dplyr_breaks_lag = FALSE)
+
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
@@ -5,7 +7,7 @@ conflicts_prefer(purrr::map)
 library(scales)
 library(glue)
 library(SPARQL)
-library(wesanderson)
+library(paletteer)
 library(vctrs)
 library(tsibble)
 library(rvest)
@@ -20,7 +22,27 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Royal1"))
+n <- 4
+palette <- "wesanderson::Royal1"
+
+cols <- paletteer_d(palette, n = n)
+
+tibble(x = 1:n, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col(colour = "white") +
+  geom_label(aes(label = cols |> str_remove("FF$")), 
+             size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = (n + 1) / 2, y = 0.5,
+    label = palette,
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
 
 endpoint <- "https://landregistry.data.gov.uk/landregistry/query"
 
