@@ -48,7 +48,7 @@ gcloud_df <-
   mutate(
     evidenced_spend = str_remove_all(evidenced_spend, "[^0-9-]") |>
       parse_number(),
-    spend_date = as_date(as.numeric(return_month), origin = "1899-12-30"),
+    spend_date = as.Date(as.numeric(return_month), origin = "1899-12-30"),
     spend_date = if_else(
       is.na(spend_date),
       dmy(return_month),
