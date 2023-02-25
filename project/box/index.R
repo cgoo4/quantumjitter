@@ -89,7 +89,7 @@ p1 <- packfun_df |>
   geom_col(show.legend = FALSE) +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 3, 2)]) +
+  scale_fill_manual(values = cols[c(4, 2, 1)]) +
   labs(x = NULL, y = NULL, 
        subtitle = glue("Package Usage"))
 
@@ -101,7 +101,7 @@ p2 <- packfun_df |>
   geom_col() +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 3, 2)]) +
+  scale_fill_manual(values = cols[c(4, 2, 1)]) +
   labs(x = NULL, y = NULL, 
        subtitle = glue("Function Usage >= {min_n}"))
 
