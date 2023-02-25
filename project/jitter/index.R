@@ -6,7 +6,7 @@ library(clock)
 conflict_prefer("date_format", "clock")
 library(janitor)
 library(scales)
-library(paletteer)
+library(wesanderson)
 library(glue)
 library(usedthese)
 
@@ -14,27 +14,7 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 4
-palette <- "wesanderson::Royal1"
-
-cols <- paletteer_d(palette, n = n)
-
-tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = (n + 1) / 2, y = 0.5,
-    label = palette,
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+(cols <- wes_palette("Royal1"))
 
 url <- str_c(
   "https://www.gov.uk/government/",
