@@ -14,7 +14,10 @@ There are techniques for [painting a region under a curve](https://stackoverflow
 ```{r}
 #| label: libraries
 
+library(conflicted)
 library(tidyverse)
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
 library(scales)
 library(ggfx)
 library(patchwork)
@@ -88,7 +91,7 @@ p0 <- tq_get(tickrs, get = "stock.prices", from = "2022-01-01") |>
   pivot_wider(names_from = quantile, values_from = close) |>
   ggplot(aes(date, median)) +
   annotate("text",
-    x = as.Date("2022-03-16"), y = 100,
+    x = ymd("2022-03-16"), y = 100,
     label = "Helpful\nAnnotation", colour = "black"
   ) +
   scale_y_continuous(limits = c(0, NA)) +
@@ -98,18 +101,21 @@ p1 <- p0 +
   geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[1]) +
   geom_line(colour = cols[3]) +
   annotate("rect",
-    xmin = as.Date("2022-03-01"), xmax = as.Date("2022-03-31"),
-    ymin = -Inf, ymax = Inf, fill = cols[4], colour = "black", linetype = "dashed"
+    xmin = ymd("2022-03-01"), xmax = ymd("2022-03-31"),
+    ymin = -Inf, ymax = Inf, 
+    fill = cols[4], colour = "black", linetype = "dashed"
   ) + 
   labs(title = "Without Blending", y = "Closing Price")
 
 p2 <- p0 +
-  as_reference(geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[1]), id = "ribbon") +
+  as_reference(geom_ribbon(aes(ymin = lower, ymax = upper), 
+                           fill = cols[1]), id = "ribbon") +
   with_blend(
     annotate(
       "rect",
-      xmin = as.Date("2022-03-01"), xmax = as.Date("2022-03-31"),
-      ymin = -Inf, ymax = Inf, fill = cols[4], colour = "black", linetype = "dashed"
+      xmin = ymd("2022-03-01"), xmax = ymd("2022-03-31"),
+      ymin = -Inf, ymax = Inf, 
+      fill = cols[4], colour = "black", linetype = "dashed"
       ),
     bg_layer = "ribbon", blend_type = "atop"
     ) +

@@ -1,11 +1,12 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
 library(clock)
 conflict_prefer("date_format", "clock")
 library(janitor)
 library(scales)
-library(wesanderson)
+library(paletteer)
 library(glue)
 library(usedthese)
 
@@ -13,7 +14,27 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("Royal1"))
+n <- 4
+palette <- "wesanderson::Royal1"
+
+cols <- paletteer_d(palette, n = n)
+
+tibble(x = 1:n, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col(colour = "white") +
+  geom_label(aes(label = cols |> str_remove("FF$")), 
+             size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = (n + 1) / 2, y = 0.5,
+    label = palette,
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
 
 url <- str_c(
   "https://www.gov.uk/government/",
@@ -25,12 +46,12 @@ gcloud_df <-
   read_csv(url) |> 
   clean_names() |> 
   mutate(
-    evidenced_spend = str_remove_all(evidenced_spend, "[^0-9-]") |> 
+    evidenced_spend = str_remove_all(evidenced_spend, "[^0-9-]") |>
       parse_number(),
-    spend_date = as.Date(as.numeric(return_month), origin = "1899-12-30"),
+    spend_date = as_date(as.numeric(return_month), origin = "1899-12-30"),
     spend_date = if_else(
       is.na(spend_date),
-      date_parse(return_month, format = "%d/%m/%y"),
+      dmy(return_month),
       spend_date
     ),
     sme_status = if_else(sme_status == "SME", "SME", "Non-SME"),

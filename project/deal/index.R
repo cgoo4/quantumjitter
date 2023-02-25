@@ -1,7 +1,8 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-library(wesanderson)
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflict_prefer("as_date", "lubridate")
+library(paletteer)
 library(guardianapi)
 library(quanteda)
 library(scales)
@@ -18,7 +19,27 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Chevalier1"))
+n <- 4
+palette <- "wesanderson::Chevalier1"
+
+cols <- paletteer_d(palette, n = n)
+
+tibble(x = 1:n, y = 1) |>
+  ggplot(aes(x, y, fill = cols)) +
+  geom_col(colour = "white") +
+  geom_label(aes(label = cols |> str_remove("FF$")), 
+             size = 4, vjust = 2, fill = "white") +
+  annotate(
+    "label",
+    x = (n + 1) / 2, y = 0.5,
+    label = palette,
+    fill = "white",
+    alpha = 0.8,
+    size = 6
+  ) +
+  scale_fill_manual(values = as.character(cols)) +
+  theme_void() +
+  theme(legend.position = "none")
 
 dates_df <- tibble(start_date = date_build(2020, 1:11, 25)) |> 
   mutate(end_date = add_months(start_date, 1) |> add_days(-1))
@@ -114,7 +135,7 @@ sent_df <-
   mutate(
     pos = positive + neg_negative,
     neg = negative + neg_positive,
-    web_date = date_ceiling(as.Date(web_publication_date), "week"),
+    web_date = date_ceiling(as_date(web_publication_date), "week"),
     pct_pos = pos / (pos + neg)
   )
 
@@ -132,7 +153,7 @@ toc()
 width <- 7
 
 sent_df2 <- sent_df |>
-  mutate(web_date = as.Date(web_publication_date)) |> 
+  mutate(web_date = as_date(web_publication_date)) |> 
   group_by(web_date) |>
   summarise(pct_pos = sum(pos) / sum(neg + pos)) |> 
   mutate(

@@ -1989,19 +1989,19 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-3" data-code-lines="3">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="2">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
+<span data-code-annotation="2" data-code-cell="annotated-cell-3" data-code-lines="7">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="12,13" data-code-annotation="3">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
+<span data-code-annotation="3" data-code-cell="annotated-cell-3" data-code-lines="12,13">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="18,19" data-code-annotation="4">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
+<span data-code-annotation="4" data-code-cell="annotated-cell-3" data-code-lines="18,19">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
 </dd>
 </dl>
 </div>
@@ -2335,7 +2335,7 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="12" data-code-annotation="1">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-16" data-code-lines="12">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
 </dd>
 </dl>
 </div>
@@ -3724,8 +3724,9 @@ Natural History Museum. 2019. <span>“Query on the Natural History Museum Data 
 <div class="cell">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"dplyr"</span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">TRUE</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"as_date"</span>, <span class="st" style="color: #20794D;">"lubridate"</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://docs.evanodell.com/guardianapi">guardianapi</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://quanteda.io">quanteda</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://scales.r-lib.org">scales</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
@@ -3743,7 +3744,27 @@ Natural History Museum. 2019. <span>“Query on the Natural History Museum Data 
 <div class="cell">
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;">(</span>name <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Chevalier1"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<span><span class="va" style="color: #111111;">n</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fl" style="color: #AD0000;">4</span></span>
+<span><span class="va" style="color: #111111;">palette</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="st" style="color: #20794D;">"wesanderson::Chevalier1"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">palette</span>, n <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;">(</span>x <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">:</span><span class="va" style="color: #111111;">n</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">x</span>, <span class="va" style="color: #111111;">y</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op" style="color: #5E5E5E;">(</span>colour <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span>label <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"FF$"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span>, </span>
+<span>             size <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">4</span>, vjust <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">2</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>    <span class="st" style="color: #20794D;">"label"</span>,</span>
+<span>    x <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">n</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">/</span> <span class="fl" style="color: #AD0000;">2</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">0.5</span>,</span>
+<span>    label <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">palette</span>,</span>
+<span>    fill <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span>,</span>
+<span>    alpha <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">0.8</span>,</span>
+<span>    size <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">6</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op" style="color: #5E5E5E;">(</span>values <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op" style="color: #5E5E5E;">(</span>legend.position <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"none"</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/deal/index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
@@ -3889,16 +3910,16 @@ Important
 <span></span>
 <span><span class="va" style="color: #111111;">wv_main</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">glove</span><span class="op" style="color: #5E5E5E;">$</span><span class="fu" style="color: #4758AB;">fit_transform</span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">trade_fcm</span>, n_iter <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">10</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [16:26:23.152] epoch 1, loss 0.3788
-INFO  [16:26:24.472] epoch 2, loss 0.2570
-INFO  [16:26:25.750] epoch 3, loss 0.2292
-INFO  [16:26:27.064] epoch 4, loss 0.2090
-INFO  [16:26:28.380] epoch 5, loss 0.1921
-INFO  [16:26:29.699] epoch 6, loss 0.1791
-INFO  [16:26:31.012] epoch 7, loss 0.1694
-INFO  [16:26:32.325] epoch 8, loss 0.1619
-INFO  [16:26:33.638] epoch 9, loss 0.1557
-INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [10:54:25.762] epoch 1, loss 0.3788
+INFO  [10:54:27.135] epoch 2, loss 0.2570
+INFO  [10:54:28.548] epoch 3, loss 0.2292
+INFO  [10:54:29.944] epoch 4, loss 0.2090
+INFO  [10:54:31.337] epoch 5, loss 0.1921
+INFO  [10:54:32.731] epoch 6, loss 0.1791
+INFO  [10:54:34.125] epoch 7, loss 0.1694
+INFO  [10:54:35.518] epoch 8, loss 0.1619
+INFO  [10:54:36.912] epoch 9, loss 0.1557
+INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">wv_context</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">glove</span><span class="op" style="color: #5E5E5E;">$</span><span class="va" style="color: #111111;">components</span></span>
 <span><span class="va" style="color: #111111;">word_vectors</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">wv_main</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">wv_context</span><span class="op" style="color: #5E5E5E;">)</span></span>
@@ -4098,7 +4119,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
 <span>    pos <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">positive</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">neg_negative</span>,</span>
 <span>    neg <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">negative</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">neg_positive</span>,</span>
-<span>    web_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">web_publication_date</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="st" style="color: #20794D;">"week"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    web_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">web_publication_date</span><span class="op" style="color: #5E5E5E;">)</span>, <span class="st" style="color: #20794D;">"week"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    pct_pos <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">pos</span> <span class="op" style="color: #5E5E5E;">/</span> <span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">pos</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">neg</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span>  <span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
@@ -4175,7 +4196,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.522 sec elapsed</code></pre>
+<pre><code>0.515 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -4185,7 +4206,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;">width</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fl" style="color: #AD0000;">7</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;">sent_df2</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="va" style="color: #111111;">sent_df</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>web_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">web_publication_date</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span>web_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">web_publication_date</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">web_date</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;">(</span>pct_pos <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">pos</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">/</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">neg</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">pos</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
@@ -4237,7 +4258,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[2], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
+<td style="text-align: left;">as.character[1], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">clock</td>
@@ -4245,7 +4266,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
@@ -4253,19 +4274,27 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[4], geom_hline[1], geom_line[2], geom_ribbon[1], ggplot[2], labs[2], scale_y_continuous[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[6], annotate[1], geom_col[1], geom_hline[1], geom_label[1], geom_line[2], geom_ribbon[1], ggplot[3], labs[2], scale_fill_manual[1], scale_y_continuous[1], theme[1], theme_bw[1], theme_set[1], theme_void[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">as_date[2]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">methods</td>
 <td style="text-align: left;">new[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">mlapi</td>
 <td style="text-align: left;">fit_transform[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">patchwork</td>
@@ -4293,7 +4322,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_detect[2], str_remove_all[3], str_to_lower[1]</td>
+<td style="text-align: left;">str_detect[2], str_remove[1], str_remove_all[3], str_to_lower[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">text2vec</td>
@@ -4301,7 +4330,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[1]</td>
+<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tictoc</td>
@@ -4310,10 +4339,6 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 </tbody>
 </table>
@@ -9056,11 +9081,11 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-lines="26" data-code-cell="annotated-cell-5"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="26" data-code-annotation="1"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-lines="28" data-code-cell="annotated-cell-5"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="28" data-code-annotation="2"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
 </dd>
 </dl>
 </div>
@@ -9512,12 +9537,13 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 <div class="cell">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"dplyr"</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;">=</span> <span class="cn" style="color: #8f5902;">TRUE</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"as_date"</span>, <span class="st" style="color: #20794D;">"lubridate"</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://clock.r-lib.org">clock</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="fu" style="color: #4758AB;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"date_format"</span>, <span class="st" style="color: #20794D;">"clock"</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://scales.r-lib.org">scales</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
-<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span><span class="kw" style="color: #003B4F;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
@@ -9526,7 +9552,27 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 <div class="cell">
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"Royal1"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
+<span><span class="va" style="color: #111111;">n</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fl" style="color: #AD0000;">4</span></span>
+<span><span class="va" style="color: #111111;">palette</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="st" style="color: #20794D;">"wesanderson::Royal1"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">&lt;-</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">palette</span>, n <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">n</span><span class="op" style="color: #5E5E5E;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;">(</span>x <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">:</span><span class="va" style="color: #111111;">n</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">x</span>, <span class="va" style="color: #111111;">y</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op" style="color: #5E5E5E;">(</span>colour <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;">(</span>label <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">cols</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="st" style="color: #20794D;">"FF$"</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span>, </span>
+<span>             size <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">4</span>, vjust <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">2</span>, fill <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
+<span>    <span class="st" style="color: #20794D;">"label"</span>,</span>
+<span>    x <span class="op" style="color: #5E5E5E;">=</span> <span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">n</span> <span class="op" style="color: #5E5E5E;">+</span> <span class="fl" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">/</span> <span class="fl" style="color: #AD0000;">2</span>, y <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">0.5</span>,</span>
+<span>    label <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">palette</span>,</span>
+<span>    fill <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"white"</span>,</span>
+<span>    alpha <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">0.8</span>,</span>
+<span>    size <span class="op" style="color: #5E5E5E;">=</span> <span class="fl" style="color: #AD0000;">6</span></span>
+<span>  <span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op" style="color: #5E5E5E;">(</span>values <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">cols</span><span class="op" style="color: #5E5E5E;">)</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op" style="color: #5E5E5E;">(</span>legend.position <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"none"</span><span class="op" style="color: #5E5E5E;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/jitter/index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
@@ -9544,12 +9590,12 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">url</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
-<span>    evidenced_spend <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">evidenced_spend</span>, <span class="st" style="color: #20794D;">"[^0-9-]"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span> </span>
+<span>    evidenced_spend <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">evidenced_spend</span>, <span class="st" style="color: #20794D;">"[^0-9-]"</span><span class="op" style="color: #5E5E5E;">)</span> <span class="op" style="color: #5E5E5E;">|&gt;</span></span>
 <span>      <span class="fu" style="color: #4758AB;"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
-<span>    spend_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">return_month</span><span class="op" style="color: #5E5E5E;">)</span>, origin <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"1899-12-30"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>    spend_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">return_month</span><span class="op" style="color: #5E5E5E;">)</span>, origin <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"1899-12-30"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    spend_date <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op" style="color: #5E5E5E;">(</span></span>
 <span>      <span class="fu" style="color: #4758AB;"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">spend_date</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
-<span>      <span class="fu" style="color: #4758AB;"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">return_month</span>, format <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"%d/%m/%y"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
+<span>      <span class="fu" style="color: #4758AB;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">return_month</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>      <span class="va" style="color: #111111;">spend_date</span></span>
 <span>    <span class="op" style="color: #5E5E5E;">)</span>,</span>
 <span>    sme_status <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op" style="color: #5E5E5E;">(</span><span class="va" style="color: #111111;">sme_status</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"SME"</span>, <span class="st" style="color: #20794D;">"SME"</span>, <span class="st" style="color: #20794D;">"Non-SME"</span><span class="op" style="color: #5E5E5E;">)</span>,</span>
@@ -9653,15 +9699,15 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[1], as.numeric[1], c[2], is.na[1], library[8], max[1], sum[4]</td>
+<td style="text-align: left;">as.character[1], as.numeric[1], c[2], is.na[1], library[8], max[1], sum[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
-<td style="text-align: left;">date_format[1], date_parse[1]</td>
+<td style="text-align: left;">date_format[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer[2], conflict_prefer_all[1], conflict_scout[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
@@ -9673,7 +9719,7 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[3], geom_boxplot[1], geom_jitter[1], geom_label[1], geom_point[1], geom_smooth[1], ggplot[2], labs[2], scale_x_date[1], scale_y_continuous[2], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[5], annotate[1], geom_boxplot[1], geom_col[1], geom_jitter[1], geom_label[2], geom_point[1], geom_smooth[1], ggplot[3], labs[2], scale_fill_manual[1], scale_x_date[1], scale_y_continuous[2], theme[1], theme_bw[1], theme_set[1], theme_void[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
@@ -9682,6 +9728,14 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 <tr class="even">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">as_date[1], dmy[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">readr</td>
@@ -9697,15 +9751,15 @@ Wickham, Hadley, and Maximilian Girlich. 2022. <span>“Tidyr: Tidy Messy Data.�
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[1], str_remove_all[1]</td>
+<td style="text-align: left;">str_c[1], str_remove[1], str_remove_all[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">usedthese</td>
-<td style="text-align: left;">used_here[1]</td>
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">tibble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
 </tr>
 </tbody>
 </table>

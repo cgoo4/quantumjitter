@@ -244,7 +244,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 20, 2023</p>
+      <p class="date-modified">February 25, 2023</p>
     </div>
   </div>
     
@@ -258,8 +258,9 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"as_date"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.evanodell.com/guardianapi">guardianapi</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://quanteda.io">quanteda</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
@@ -277,7 +278,27 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Chevalier1"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<span><span class="va">palette</span> <span class="op">&lt;-</span> <span class="st">"wesanderson::Chevalier1"</span></span>
+<span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">palette</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">cols</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"FF$"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>             size <span class="op">=</span> <span class="fl">4</span>, vjust <span class="op">=</span> <span class="fl">2</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span></span>
+<span>    <span class="st">"label"</span>,</span>
+<span>    x <span class="op">=</span> <span class="op">(</span><span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>, y <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    label <span class="op">=</span> <span class="va">palette</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">6</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
@@ -423,16 +444,16 @@ Important
 <span></span>
 <span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span><span class="va">trade_fcm</span>, n_iter <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [16:26:23.152] epoch 1, loss 0.3788
-INFO  [16:26:24.472] epoch 2, loss 0.2570
-INFO  [16:26:25.750] epoch 3, loss 0.2292
-INFO  [16:26:27.064] epoch 4, loss 0.2090
-INFO  [16:26:28.380] epoch 5, loss 0.1921
-INFO  [16:26:29.699] epoch 6, loss 0.1791
-INFO  [16:26:31.012] epoch 7, loss 0.1694
-INFO  [16:26:32.325] epoch 8, loss 0.1619
-INFO  [16:26:33.638] epoch 9, loss 0.1557
-INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [10:54:25.762] epoch 1, loss 0.3788
+INFO  [10:54:27.135] epoch 2, loss 0.2570
+INFO  [10:54:28.548] epoch 3, loss 0.2292
+INFO  [10:54:29.944] epoch 4, loss 0.2090
+INFO  [10:54:31.337] epoch 5, loss 0.1921
+INFO  [10:54:32.731] epoch 6, loss 0.1791
+INFO  [10:54:34.125] epoch 7, loss 0.1694
+INFO  [10:54:35.518] epoch 8, loss 0.1619
+INFO  [10:54:36.912] epoch 9, loss 0.1557
+INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wv_context</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="va">components</span></span>
 <span><span class="va">word_vectors</span> <span class="op">&lt;-</span> <span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">wv_context</span><span class="op">)</span></span>
@@ -632,7 +653,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    pos <span class="op">=</span> <span class="va">positive</span> <span class="op">+</span> <span class="va">neg_negative</span>,</span>
 <span>    neg <span class="op">=</span> <span class="va">negative</span> <span class="op">+</span> <span class="va">neg_positive</span>,</span>
-<span>    web_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
+<span>    web_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date-and-date-time-rounding.html">date_ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
 <span>    pct_pos <span class="op">=</span> <span class="va">pos</span> <span class="op">/</span> <span class="op">(</span><span class="va">pos</span> <span class="op">+</span> <span class="va">neg</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -709,7 +730,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.522 sec elapsed</code></pre>
+<pre><code>0.515 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -719,7 +740,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">width</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
 <span></span>
 <span><span class="va">sent_df2</span> <span class="op">&lt;-</span> <span class="va">sent_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>web_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>web_date <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="va">web_publication_date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">web_date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>pct_pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pos</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">neg</span> <span class="op">+</span> <span class="va">pos</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -771,7 +792,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.Date[2], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
+<td style="text-align: left;">as.character[1], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">clock</td>
@@ -779,7 +800,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
@@ -787,19 +808,27 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[4], geom_hline[1], geom_line[2], geom_ribbon[1], ggplot[2], labs[2], scale_y_continuous[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[6], annotate[1], geom_col[1], geom_hline[1], geom_label[1], geom_line[2], geom_ribbon[1], ggplot[3], labs[2], scale_fill_manual[1], scale_y_continuous[1], theme[1], theme_bw[1], theme_set[1], theme_void[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">as_date[2]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">methods</td>
 <td style="text-align: left;">new[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">mlapi</td>
 <td style="text-align: left;">fit_transform[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">patchwork</td>
@@ -827,7 +856,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_detect[2], str_remove_all[3], str_to_lower[1]</td>
+<td style="text-align: left;">str_detect[2], str_remove[1], str_remove_all[3], str_to_lower[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">text2vec</td>
@@ -835,7 +864,7 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[1]</td>
+<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tictoc</td>
@@ -844,10 +873,6 @@ INFO  [16:26:34.951] epoch 10, loss 0.1506</code></pre>
 <tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 </tbody>
 </table>
