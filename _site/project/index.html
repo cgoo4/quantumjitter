@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.220">
+<meta name="generator" content="quarto-1.3.264">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,7 +18,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -98,17 +98,16 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../scss/styles.css">
 <link rel="alternate" type="application/rss+xml" title="Quantum Jitter" href="index.xml"><meta property="og:title" content="Quantum Jitter - Little Projects">
 <meta property="og:description" content="With the tidyverse and tidymodels at their ">
-<meta property="og:image" content="https://www.quantumjitter.com/project/monkeys/feature.jpg">
 <meta property="og:site-name" content="Quantum Jitter">
 <meta name="twitter:title" content="Quantum Jitter - Little Projects">
 <meta name="twitter:description" content="With the tidyverse and tidymodels at their ">
-<meta name="twitter:image" content="https://www.quantumjitter.com/project/monkeys/feature.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -153,11 +152,23 @@ ul.task-list li input[type="checkbox"] {
 </i> 
  <span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/cgoo4/quantumjitter" rel="" target=""><i class="bi bi-github" role="img">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+      <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter" rel="" target="">
+ <span class="dropdown-text">Source Code</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter/issues" rel="" target="">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -219,18 +230,16 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </div>
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="R,web scraping,quantile regression,linear regression,rolling join,special effects" data-listing-date-sort="1677196800000" data-listing-file-modified-sort="1677270965748" data-listing-date-modified-sort="1677270965000" data-listing-reading-time-sort="9.895">
+<div class="g-col-1" data-index="0" data-categories="R,web scraping,quantile regression,linear regression,rolling join,special effects" data-listing-date-sort="1677196800000" data-listing-file-modified-sort="1677270965748" data-listing-date-modified-sort="1677270965000" data-listing-reading-time-sort="10">
 <a href="../project/monkeys/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/monkeys/feature.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="monkeys/feature.jpg" alt="A monkey with badge number 15 sits at a typewriter and types: 'To be. Or not to be. That is the gazornanplatt.'" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 An Infinite Number of Monkeys
 </h5>
 <div class="listing-reading-time card-text text-muted">
-9 min
+10 min
 </div>
 <div class="card-text listing-description">
 Quantile regression, property sales and anything could happen eventually
@@ -249,18 +258,16 @@ Feb 24, 2023
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="R,tables" data-listing-date-sort="1667260800000" data-listing-file-modified-sort="1674734550000" data-listing-date-modified-sort="1674734550000" data-listing-reading-time-sort="8.1">
+<div class="g-col-1" data-index="1" data-categories="R,tables" data-listing-date-sort="1667260800000" data-listing-file-modified-sort="1674734550000" data-listing-date-modified-sort="1674734550000" data-listing-reading-time-sort="9">
 <a href="../project/footnote/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/footnote/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="footnote/feature.gif" alt="A caveman stands inside a cave viewing the wall. There are two paintings. A rabbit with a mark references a further picture below of bowl of steaming soup. The second painting is of a fearsome beast with a different mark referencing a picture of a stick man running for his life." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 A Footnote in History
 </h5>
 <div class="listing-reading-time card-text text-muted">
-8 min
+9 min
 </div>
 <div class="card-text listing-description">
 The grammar of tables, footnotes and occupations consigned to history
@@ -279,18 +286,16 @@ Nov 1, 2022
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="R,dimension reduction,clustering,geospatial,machine learning" data-listing-date-sort="1647648000000" data-listing-file-modified-sort="1676029436349" data-listing-date-modified-sort="1676029436000" data-listing-reading-time-sort="9.13">
+<div class="g-col-1" data-index="2" data-categories="R,dimension reduction,clustering,geospatial,machine learning" data-listing-date-sort="1647648000000" data-listing-file-modified-sort="1676029436349" data-listing-date-modified-sort="1676029436000" data-listing-reading-time-sort="10">
 <a href="../project/happiness/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/happiness/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="happiness/feature.gif" alt="A silhouette of the Houses of Parliament in bright yellow below a blue sky. Smoke wafts into the sky from several points and the peace symbol takes the place of Big Ben's clock." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Finding Happiness in The Smoke
 </h5>
 <div class="listing-reading-time card-text text-muted">
-9 min
+10 min
 </div>
 <div class="card-text listing-description">
 Cluster analysis and the characteristics that bind London boroughs
@@ -309,18 +314,16 @@ Mar 19, 2022
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="R,statistical inference,regex,special effects,web scraping" data-listing-date-sort="1646697600000" data-listing-file-modified-sort="1677271770649" data-listing-date-modified-sort="1677271770000" data-listing-reading-time-sort="13.545">
+<div class="g-col-1" data-index="3" data-categories="R,statistical inference,regex,special effects,web scraping" data-listing-date-sort="1646697600000" data-listing-file-modified-sort="1678710811306" data-listing-date-modified-sort="1678710811000" data-listing-reading-time-sort="14">
 <a href="../project/bands/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/bands/feature.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="bands/feature.jpg" alt="A boot with a strap leans against a pile of ribbon-rolls" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Bootstraps &amp; Bandings
 </h5>
 <div class="listing-reading-time card-text text-muted">
-13 min
+14 min
 </div>
 <div class="card-text listing-description">
 Decades-old residential property bands and inference using a sample of those recently sold
@@ -333,24 +336,22 @@ Mar 8, 2022
 </div>
 <div class="card-footer">
 <div class="card-file-modified listing-file-modified">
-<p>Feb 24, 2023</p>
+<p>Mar 13, 2023</p>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="R,geospatial,machine learning,textual analysis" data-listing-date-sort="1638576000000" data-listing-file-modified-sort="1675694411177" data-listing-date-modified-sort="1675694411000" data-listing-reading-time-sort="12.155">
+<div class="g-col-1" data-index="4" data-categories="R,geospatial,machine learning,textual analysis" data-listing-date-sort="1638576000000" data-listing-file-modified-sort="1675694411177" data-listing-date-modified-sort="1675694411000" data-listing-reading-time-sort="13">
 <a href="../project/cetacea/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/cetacea/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="cetacea/feature.gif" alt="A buoy sways in the sea water in front of the coastal cliff. On it, a sign points left for dolphins and right for orca. And a dolphin and orca are seen in the foreground reading the sign." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Sea Monsters that Lost their Way
 </h5>
 <div class="listing-reading-time card-text text-muted">
-12 min
+13 min
 </div>
 <div class="card-text listing-description">
 Predicting uncertain species of cetacean strandings recorded by the Natural History Museum
@@ -369,18 +370,16 @@ Dec 4, 2021
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="5" data-categories="R,textual analysis,word embeddings,natural language processing" data-listing-date-sort="1600383600000" data-listing-file-modified-sort="1677322451389" data-listing-date-modified-sort="1677322451000" data-listing-reading-time-sort="6.78">
+<div class="g-col-1" data-index="5" data-categories="R,textual analysis,word embeddings,natural language processing" data-listing-date-sort="1600383600000" data-listing-file-modified-sort="1677322451389" data-listing-date-modified-sort="1677322451000" data-listing-reading-time-sort="7">
 <a href="../project/deal/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/deal/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="deal/feature.gif" alt="Two frosty fists bump" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 A Frosty Deal?
 </h5>
 <div class="listing-reading-time card-text text-muted">
-6 min
+7 min
 </div>
 <div class="card-text listing-description">
 Quantitative textual analysis, word embeddings and analysing shifting trade-talk sentiment?
@@ -399,18 +398,16 @@ Sep 18, 2020
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="6" data-categories="R,sample distribution,simulation" data-listing-date-sort="1596927600000" data-listing-file-modified-sort="1674217494000" data-listing-date-modified-sort="1674217494000" data-listing-reading-time-sort="4.14">
+<div class="g-col-1" data-index="6" data-categories="R,sample distribution,simulation" data-listing-date-sort="1596927600000" data-listing-file-modified-sort="1674217494000" data-listing-date-modified-sort="1674217494000" data-listing-reading-time-sort="5">
 <a href="../project/goldilocks/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/goldilocks/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="goldilocks/feature.gif" alt="Three bowls of porridge rest on a long table. The small bowl has no heat rising from it, whilst the largest bowl is steaming hot. The middle bowl, with a spoon wedged in it, looks just right." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 The Goldilocks Principle
 </h5>
 <div class="listing-reading-time card-text text-muted">
-4 min
+5 min
 </div>
 <div class="card-text listing-description">
 Simulating stock portfolio returns inspired by bowls of porridge left by three bears
@@ -429,18 +426,16 @@ Aug 9, 2020
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="7" data-categories="R,quant" data-listing-date-sort="1596322800000" data-listing-file-modified-sort="1675694733567" data-listing-date-modified-sort="1675694733000" data-listing-reading-time-sort="2.575">
+<div class="g-col-1" data-index="7" data-categories="R,quant" data-listing-date-sort="1596322800000" data-listing-file-modified-sort="1675694733567" data-listing-date-modified-sort="1675694733000" data-listing-reading-time-sort="3">
 <a href="../project/storm/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/storm/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="storm/feature.gif" alt="Two meerkats cuddle under an umbrella shielded from the pouring rain" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Weathering the Storm
 </h5>
 <div class="listing-reading-time card-text text-muted">
-2 min
+3 min
 </div>
 <div class="card-text listing-description">
 Timeseries comparison and the impact of Covid-19 on the financial markets by sector
@@ -459,18 +454,16 @@ Aug 2, 2020
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="8" data-categories="R,web scraping" data-listing-date-sort="1595718000000" data-listing-file-modified-sort="1677247111536" data-listing-date-modified-sort="1677247111000" data-listing-reading-time-sort="4.73">
+<div class="g-col-1" data-index="8" data-categories="R,web scraping" data-listing-date-sort="1595718000000" data-listing-file-modified-sort="1677324381687" data-listing-date-modified-sort="1677324381000" data-listing-reading-time-sort="5">
 <a href="../project/box/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/box/feature-1.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="box/feature-1.png" alt="Wordcloud emphasising this site's most used R packages and functions" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Favourite Things
 </h5>
 <div class="listing-reading-time card-text text-muted">
-4 min
+5 min
 </div>
 <div class="card-text listing-description">
 R packages &amp; functions that make doing data science a joy based on usage across projects
@@ -483,24 +476,22 @@ Jul 26, 2020
 </div>
 <div class="card-footer">
 <div class="card-file-modified listing-file-modified">
-<p>Feb 24, 2023</p>
+<p>Feb 25, 2023</p>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="9" data-categories="R,dimension reduction,animation" data-listing-date-sort="1546992000000" data-listing-file-modified-sort="1674734711000" data-listing-date-modified-sort="1674734711000" data-listing-reading-time-sort="5.11">
+<div class="g-col-1" data-index="9" data-categories="R,dimension reduction,animation" data-listing-date-sort="1546992000000" data-listing-file-modified-sort="1674734711000" data-listing-date-modified-sort="1674734711000" data-listing-reading-time-sort="6">
 <a href="../project/un/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/un/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="un/feature.gif" alt="The enlarged face of a compass with West and East breaking off and repeatedly drifting away and drifting back" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 East-West Drift
 </h5>
 <div class="listing-reading-time card-text text-muted">
-5 min
+6 min
 </div>
 <div class="card-text listing-description">
 Animated dimension reduction and East-West historical UN voting patterns
@@ -519,18 +510,16 @@ Jan 9, 2019
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="10" data-categories="R,apps" data-listing-date-sort="1546300800000" data-listing-file-modified-sort="1675768271635" data-listing-date-modified-sort="1675768271000" data-listing-reading-time-sort="4.88">
+<div class="g-col-1" data-index="10" data-categories="R,apps" data-listing-date-sort="1546300800000" data-listing-file-modified-sort="1675768271635" data-listing-date-modified-sort="1675768271000" data-listing-reading-time-sort="5">
 <a href="../project/wood/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/wood/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="wood/feature.gif" alt="A small clump of trees with a "Little Wood" sign nailed to one of them. It's a dark starry night and a rabbit peers out at a thief tip-toeing away." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Seeing the Wood for the Trees
 </h5>
 <div class="listing-reading-time card-text text-muted">
-4 min
+5 min
 </div>
 <div class="card-text listing-description">
 Visualising small multiples when crime data leave you unable to see the wood for the trees
@@ -549,18 +538,16 @@ Jan 1, 2019
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="11" data-categories="R,time series,forecast" data-listing-date-sort="1532818800000" data-listing-file-modified-sort="1674304409000" data-listing-date-modified-sort="1674304409000" data-listing-reading-time-sort="7.875">
+<div class="g-col-1" data-index="11" data-categories="R,time series,forecast" data-listing-date-sort="1532818800000" data-listing-file-modified-sort="1674304409000" data-listing-date-modified-sort="1674304409000" data-listing-reading-time-sort="8">
 <a href="../project/forecast/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/forecast/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="forecast/feature.gif" alt="A silhouette of the Houses of Parliament with rain pouring down on a man holding an umbrella and a raven swooping across the sky" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Can Ravens Forecast?
 </h5>
 <div class="listing-reading-time card-text text-muted">
-7 min
+8 min
 </div>
 <div class="card-text listing-description">
 Time series forecasting using cloud services spend data
@@ -579,18 +566,16 @@ Jul 29, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="12" data-categories="R" data-listing-date-sort="1522623600000" data-listing-file-modified-sort="1674215975000" data-listing-date-modified-sort="1674215975000" data-listing-reading-time-sort="5.945">
+<div class="g-col-1" data-index="12" data-categories="R" data-listing-date-sort="1522623600000" data-listing-file-modified-sort="1674215975000" data-listing-date-modified-sort="1674215975000" data-listing-reading-time-sort="6">
 <a href="../project/six/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/six/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="six/feature.gif" alt="A silhouette of the Houses of Parliament and three clouds in Spring colours, e.g. yellow and green. Flowers shoot up from the word "Spring"." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Six Months Later
 </h5>
 <div class="listing-reading-time card-text text-muted">
-5 min
+6 min
 </div>
 <div class="card-text listing-description">
 Exploring colour palettes and small multiples using cloud services spend data
@@ -609,18 +594,16 @@ Apr 2, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="13" data-categories="R,machine learning" data-listing-date-sort="1519862400000" data-listing-file-modified-sort="1674217607000" data-listing-date-modified-sort="1674217607000" data-listing-reading-time-sort="10.285">
+<div class="g-col-1" data-index="13" data-categories="R,machine learning" data-listing-date-sort="1519862400000" data-listing-file-modified-sort="1674217607000" data-listing-date-modified-sort="1674217607000" data-listing-reading-time-sort="11">
 <a href="../project/forest/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/forest/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="forest/feature.gif" alt="A micro-forest in the middle of nowhere has the sign "Random Forest" nailed to a tree. A white rabbit peers out at a thief tip-toeing away with a bag labelled "swag".." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Criminal Goings-on in a Random Forest
 </h5>
 <div class="listing-reading-time card-text text-muted">
-10 min
+11 min
 </div>
 <div class="card-text listing-description">
 Criminal goings-on in a random forest and predictions with tree-based and glm models
@@ -639,18 +622,16 @@ Mar 1, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="14" data-categories="R,apps,web scraping" data-listing-date-sort="1517961600000" data-listing-file-modified-sort="1673980632000" data-listing-date-modified-sort="1673980632000" data-listing-reading-time-sort="6.15">
+<div class="g-col-1" data-index="14" data-categories="R,apps,web scraping" data-listing-date-sort="1517961600000" data-listing-file-modified-sort="1673980632000" data-listing-date-modified-sort="1673980632000" data-listing-reading-time-sort="7">
 <a href="../project/thicken/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/thicken/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="thicken/feature.gif" alt="The keys of a typewriter with "R" highlighted and the word "plot" being typed" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Plots Thicken
 </h5>
 <div class="listing-reading-time card-text text-muted">
-6 min
+7 min
 </div>
 <div class="card-text listing-description">
 Every story needs a good plot. Which plot types generate the most interest on Wikipedia?
@@ -669,18 +650,16 @@ Feb 7, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="15" data-categories="R,clustering,correlation" data-listing-date-sort="1517184000000" data-listing-file-modified-sort="1676028761127" data-listing-date-modified-sort="1676028761000" data-listing-reading-time-sort="8.07">
+<div class="g-col-1" data-index="15" data-categories="R,clustering,correlation" data-listing-date-sort="1517184000000" data-listing-file-modified-sort="1676028761127" data-listing-date-modified-sort="1676028761000" data-listing-reading-time-sort="9">
 <a href="../project/hansard/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/hansard/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="hansard/feature.gif" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Cluster of Six
 </h5>
 <div class="listing-reading-time card-text text-muted">
-8 min
+9 min
 </div>
 <div class="card-text listing-description">
 Exploring parliamentary voting patterns with hierarchical clustering
@@ -699,18 +678,16 @@ Jan 29, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="16" data-categories="R,time series,correlation,apps,tables,textual analysis" data-listing-date-sort="1515542400000" data-listing-file-modified-sort="1677272088508" data-listing-date-modified-sort="1677272088000" data-listing-reading-time-sort="9.595">
+<div class="g-col-1" data-index="16" data-categories="R,time series,correlation,apps,tables,textual analysis" data-listing-date-sort="1515542400000" data-listing-file-modified-sort="1677272088508" data-listing-date-modified-sort="1677272088000" data-listing-reading-time-sort="10">
 <a href="../project/planning/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/planning/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="planning/feature.gif" alt="A spade is seen tossing fresh dirt from a deep hole. A granted planning permission and an empty new spade box lie nearby." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Digging Deep
 </h5>
 <div class="listing-reading-time card-text text-muted">
-9 min
+10 min
 </div>
 <div class="card-text listing-description">
 Do we see more planning applications when house sales are depressed?
@@ -729,18 +706,16 @@ Jan 10, 2018
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="17" data-categories="R,geospatial" data-listing-date-sort="1513728000000" data-listing-file-modified-sort="1675694960491" data-listing-date-modified-sort="1675694960000" data-listing-reading-time-sort="4.945">
+<div class="g-col-1" data-index="17" data-categories="R,geospatial" data-listing-date-sort="1513728000000" data-listing-file-modified-sort="1675694960491" data-listing-date-modified-sort="1675694960000" data-listing-reading-time-sort="5">
 <a href="../project/stories/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/stories/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="stories/feature.gif" alt="Young woman in a black dress, with a pony-tail moving in the gentle breeze, lies in a rowing boat in the middle of a still lake reading "Carl's Blog". A sandwich box sits nearby." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Surprising Stories
 </h5>
 <div class="listing-reading-time card-text text-muted">
-4 min
+5 min
 </div>
 <div class="card-text listing-description">
 A little interactive geospatial mapping and an unexpected find
@@ -759,18 +734,16 @@ Dec 20, 2017
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="18" data-categories="R,time series" data-listing-date-sort="1513468800000" data-listing-file-modified-sort="1677270308952" data-listing-date-modified-sort="1677270308000" data-listing-reading-time-sort="6.665">
+<div class="g-col-1" data-index="18" data-categories="R,time series" data-listing-date-sort="1513468800000" data-listing-file-modified-sort="1677270308952" data-listing-date-modified-sort="1677270308000" data-listing-reading-time-sort="7">
 <a href="../project/sw10/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/sw10/feature.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="sw10/feature.jpg" alt="A painted map of part of central London including the border of SW10 sited next to Chelsea FC" style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 House Sales
 </h5>
 <div class="listing-reading-time card-text text-muted">
-6 min
+7 min
 </div>
 <div class="card-text listing-description">
 A series of events, such as the Financial Crisis and the 2016 Brexit vote, that damped down residential property sales in London
@@ -789,18 +762,16 @@ Dec 17, 2017
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="19" data-categories="R,sets,web scraping,regex" data-listing-date-sort="1510617600000" data-listing-file-modified-sort="1674216163000" data-listing-date-modified-sort="1674216163000" data-listing-reading-time-sort="8.79">
+<div class="g-col-1" data-index="19" data-categories="R,sets,web scraping,regex" data-listing-date-sort="1510617600000" data-listing-file-modified-sort="1674216163000" data-listing-date-modified-sort="1674216163000" data-listing-reading-time-sort="9">
 <a href="../project/sets/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/sets/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="sets/feature.gif" alt="A silhouette of the Houses of Parliament with the text "G9" instead of Big Ben's clock. Three semi-transparent clouds move across the sky mimicing a Venn diagram." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Where Clouds Cross
 </h5>
 <div class="listing-reading-time card-text text-muted">
-8 min
+9 min
 </div>
 <div class="card-text listing-description">
 Visualising the dozens of overlapping sets formed by categories of cloud services
@@ -819,12 +790,10 @@ Nov 14, 2017
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="20" data-categories="R" data-listing-date-sort="1505170800000" data-listing-file-modified-sort="1677321944542" data-listing-date-modified-sort="1677321944000" data-listing-reading-time-sort="5.36">
+<div class="g-col-1" data-index="20" data-categories="R" data-listing-date-sort="1505170800000" data-listing-file-modified-sort="1677358269545" data-listing-date-modified-sort="1677358269000" data-listing-reading-time-sort="5">
 <a href="../project/jitter/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../project/jitter/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
+<img src="jitter/feature.gif" alt="A silhouette of the Houses of Parliament with the text "G9" instead of Big Ben's clock. In the sky, three clouds jitter and leaves are swept by the wind across the word "Autumn"." style="height: 150px;" />
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Let’s Jitter
@@ -1002,9 +971,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1258,7 +1241,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp(/https:\/\/www\.quantumjitter\.com/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
@@ -1278,7 +1261,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.220 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.264 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">© 2023 <a href="../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>

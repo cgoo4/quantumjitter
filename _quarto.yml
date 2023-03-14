@@ -1,7 +1,6 @@
 project:
   type: website
-
-resources:
+  resources:
     -  project/wood/appfiles/
 
 execute:
@@ -32,7 +31,11 @@ website:
       - icon: rss
         href: project/index-R.xml
       - icon: github
-        href: https://github.com/cgoo4/quantumjitter
+        menu:
+          - text: Source Code
+            url:  https://github.com/cgoo4/quantumjitter
+          - text: Report a Bug
+            url:  https://github.com/cgoo4/quantumjitter/issues
   page-footer:
     border: false
     left: "Published with [Quarto](https://quarto.org/) v<?quarto.version?> | Hosted by [{{< iconify simple-icons netlify >}}](https://www.netlify.com)"
