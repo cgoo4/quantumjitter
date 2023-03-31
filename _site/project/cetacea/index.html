@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.264">
+<meta name="generator" content="quarto-1.3.299">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2021-12-04">
@@ -234,7 +234,7 @@ div.csl-indent {
   </div>
   
 
-</header><p><img src="feature.gif" class="quarto-discovered-preview-image img-fluid" alt="A buoy sways in the sea water in front of the coastal cliff. On it, a sign points left for dolphins and right for orca. And a dolphin and orca are seen in the foreground reading the sign."></p>
+</header><p><img src="feature.gif" class="img-fluid" alt="A buoy sways in the sea water in front of the coastal cliff. On it, a sign points left for dolphins and right for orca. And a dolphin and orca are seen in the foreground reading the sign."></p>
 <p>The Natural History Museum began recording cetacean (whales, dolphins and porpoises) strandings in 1913 <span class="citation" data-cites="naturalhistorymuseum2019">(<a href="#ref-naturalhistorymuseum2019" role="doc-biblioref">Natural History Museum 2019</a>)</span>. Let’s explore this 1913-1989 dataset.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
@@ -295,7 +295,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
 <th style="text-align: right;">Count</th>
@@ -461,7 +461,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>County <span class="op">=</span> <span class="va">county</span>, Count <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">County</th>
 <th style="text-align: right;">Count</th>
@@ -523,7 +523,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>counties_before <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">county</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">counties_before</th>
 </tr></thead>
@@ -537,7 +537,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>counties_after <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">county</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">counties_after</th>
 </tr></thead>
@@ -709,7 +709,7 @@ div.csl-indent {
 <span>  <span class="fu">accuracy</span><span class="op">(</span><span class="va">species</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">.metric</th>
 <th style="text-align: left;">.estimator</th>
@@ -745,7 +745,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">Variable</th>
 <th style="text-align: right;">Importance</th>
@@ -1010,7 +1010,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"Actual"</span> <span class="op">=</span> <span class="va">species</span>, <span class="st">"Predicted"</span> <span class="op">=</span> <span class="va">.class_pred</span>, <span class="st">"Count"</span> <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">Actual</th>
 <th style="text-align: right;">Predicted</th>
@@ -1128,7 +1128,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="usedthese table table-striped table-sm" data-quarto-postprocess="true">
+<table class="usedthese table table-striped table-sm small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -1703,7 +1703,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.264 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.299 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

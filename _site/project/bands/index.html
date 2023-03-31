@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.264">
+<meta name="generator" content="quarto-1.3.299">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="feature.jpg" class="quarto-discovered-preview-image img-fluid" alt="A boot with a strap leans against a pile of ribbon-rolls"></p>
+<p><img src="feature.jpg" class="img-fluid" alt="A boot with a strap leans against a pile of ribbon-rolls"></p>
 <p>Are the residential property bands of <a href="https://www.gov.uk/guidance/understand-how-council-tax-bands-are-assessed#council-tax-bands-in-england-based-on-1-april-1991-values">3 decades ago</a> becoming less so? Would a sample of those recently-sold reveal band convergence? And what may be inferred about those not sampled?</p>
 <p>Over the years, urban properties have been added to and divided up. And two streets of equal attractiveness, and with equivalently-banded properties, may have diverged as neighbourhoods evolved.</p>
 <p>Whilst properties can and do move to higher or lower bands following alteration, would a sample of those recently-sold reveal band convergence after so long? And what may be inferred about the wider housing stock?</p>
@@ -335,19 +335,19 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="1" data-code-lines="3">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
+<span data-code-annotation="1" data-code-lines="3" data-code-cell="annotated-cell-3">Looks for <em>strings that end with 1 or more characters</em> following the London postcode district of “SW10”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="2" data-code-lines="7">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
+<span data-code-annotation="2" data-code-lines="7" data-code-cell="annotated-cell-3">Uses a <a href="https://www.rexegg.com/regex-lookarounds.html">positive lookbehind</a> to find anything, for example, following the word <code>COURT</code> or <code>WALK</code> (since the postcode is stored in a separate variable and already isolates the road, so the road name is redundant).</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="3" data-code-lines="12,13">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
+<span data-code-annotation="3" data-code-lines="12,13" data-code-cell="annotated-cell-3">Finds any occurrences of <code>1ST FLR</code>, <code>FLR 1ST</code> etc.</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="4" data-code-lines="18,19">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
+<span data-code-annotation="4" data-code-lines="18,19" data-code-cell="annotated-cell-3">Uses <a href="https://www.rexegg.com/regex-capture.html">capture groups</a> to temporarily memorise a number (capture group 1) followed by a letter (capture group 2), then swap them around. This is because a flat number may be <code>C22</code> in one dataset and <code>22C</code> in the other.</span>
 </dd>
 </dl>
 </div>
@@ -569,7 +569,7 @@ Tip
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">postcode</th>
@@ -681,13 +681,13 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-annotation="1" data-code-lines="12">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
+<span data-code-annotation="1" data-code-lines="12" data-code-cell="annotated-cell-16">Removes the URL wrapped around the estate and property types, i.e.&nbsp;“&lt;http://landregistry.data.gov.uk/def/common/” before and “&gt;” after the type.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 12%">
 <col style="width: 22%">
@@ -890,7 +890,7 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">used_here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="usedthese table table-striped table-sm" data-quarto-postprocess="true">
+<table class="usedthese table table-striped table-sm small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
@@ -1434,7 +1434,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.264 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.299 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.264">
+<meta name="generator" content="quarto-1.3.299">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -256,7 +256,7 @@ div.csl-indent {
 
 </header>
 
-<p><img src="feature.gif" class="quarto-discovered-preview-image img-fluid" alt="A silhouette of the Houses of Parliament with the text &quot;G9&quot; instead of Big Ben's clock. Three semi-transparent clouds move across the sky mimicing a Venn diagram."></p>
+<p><img src="feature.gif" class="img-fluid" alt="A silhouette of the Houses of Parliament with the text &quot;G9&quot; instead of Big Ben's clock. Three semi-transparent clouds move across the sky mimicing a Venn diagram."></p>
 <p>When visualising a small number of overlapping sets, <a href="https://en.wikipedia.org/wiki/Venn_diagram">Venn diagrams</a> work well. But what if there are more. Here’s a <a href="https://www.tidyverse.org">tidyverse</a> approach to the exploration of sets and their intersections.</p>
 <p>In <a href="../../project/jitter">Let’s Jitter</a> I looked at a relatively simple set of cloud-service-related sales data. <a href="https://www.digitalmarketplace.service.gov.uk/g-cloud/search">G-Cloud data</a> offers a much richer source with many thousands of services documented by several thousand suppliers and hosted across myriad web pages. These services straddle many categories. I’ll use these data to explore the sets and where they cross.</p>
 <div class="cell">
@@ -391,11 +391,11 @@ Tip
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="26" data-code-annotation="1" data-code-cell="annotated-cell-5"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
+<span data-code-annotation="1" data-code-lines="26" data-code-cell="annotated-cell-5"><code>[[:digit:]]{15}</code> finds the 15-digit service ID in the scraped link.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="28" data-code-annotation="2" data-code-cell="annotated-cell-5"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
+<span data-code-annotation="2" data-code-lines="28" data-code-cell="annotated-cell-5"><code>\\Q+\\E</code> finds the <em>literal</em> <code>+</code> character rather than interpreting it as a <em>one or more</em> quantifier (i.e.&nbsp;if the <code>\\Q</code> and <code>\\E</code> were not specified)</span>
 </dd>
 </dl>
 </div>
@@ -541,7 +541,7 @@ Tip
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 95%">
 <col style="width: 4%">
@@ -691,7 +691,7 @@ Tip
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">service_ids =</span> <span class="fu">n_distinct</span>(service_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">service_ids</th>
@@ -712,7 +712,7 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">used_here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="usedthese table table-striped table-sm" data-quarto-postprocess="true">
+<table class="usedthese table table-striped table-sm small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
@@ -1262,7 +1262,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.264 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.299 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
