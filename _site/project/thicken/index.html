@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.51">
+<meta name="generator" content="quarto-1.4.74">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-02-07">
@@ -275,7 +275,7 @@ div.csl-indent {
 <p>The pageviews <span class="citation" data-cites="pageviews">(<a href="#ref-pageviews" role="doc-biblioref">Keyes and Lewis 2020</a>)</span> package provides an API into Wikipedia. I’ll create a function wrapped around <code>article_pageviews</code> so I can later iterate through a subset of the list established in the prior code chunk.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/pageviews/man/article_pageviews.html">article_pageviews</a></span><span class="op">(</span></span>
+<span>  <span class="fu">article_pageviews</span><span class="op">(</span></span>
 <span>    project <span class="op">=</span> <span class="st">"en.wikipedia"</span>,</span>
 <span>    <span class="va">article</span>,</span>
 <span>    user_type <span class="op">=</span> <span class="st">"user"</span>,</span>
@@ -287,7 +287,7 @@ div.csl-indent {
 <p>I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of <em>fixed</em> and <em>log10</em> is better for comparing plots. <em>Free</em> scaling reveals more detail in the individual trends.</p>
 <p>Although <a href="https://rstudio.github.io/shinyuieditor/">shinyuieditor</a> <span class="citation" data-cites="shinyuieditor">(<a href="#ref-shinyuieditor" role="doc-biblioref">Strayer 2022</a>)</span>&nbsp;is currently in Alpha at the time of this update, using <code>launch_editor("/content/project/thicken/")</code> helped me modify the basic grid layout of the UI for this pre-existing <code>app.R</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_page.html">grid_page</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">grid_page</span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, bootswatch <span class="op">=</span> <span class="st">"simplex"</span><span class="op">)</span>,</span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"header  header"</span>,</span>
@@ -302,7 +302,7 @@ div.csl-indent {
 <span>    <span class="st">"1fr"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  gap_size <span class="op">=</span> <span class="st">"1rem"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card.html">grid_card</a></span><span class="op">(</span></span>
+<span>  <span class="fu">grid_card</span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"sidebar"</span>,</span>
 <span>    item_alignment <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Options"</span>,</span>
@@ -338,7 +338,7 @@ div.csl-indent {
 <span>      selected <span class="op">=</span> <span class="st">"log10"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_text.html">grid_card_text</a></span><span class="op">(</span></span>
+<span>  <span class="fu">grid_card_text</span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"header"</span>,</span>
 <span>    content <span class="op">=</span> <span class="st">"   Plot Plotter   "</span>,</span>
 <span>    alignment <span class="op">=</span> <span class="st">"center"</span>,</span>
@@ -346,7 +346,7 @@ div.csl-indent {
 <span>    icon <span class="op">=</span> <span class="st">"logo1.png"</span>,</span>
 <span>    img_height <span class="op">=</span> <span class="fl">30</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_plot.html">grid_card_plot</a></span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
+<span>  <span class="fu">grid_card_plot</span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The server component outputs a faceted ggplot.</p>
@@ -994,7 +994,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.51 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.74 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

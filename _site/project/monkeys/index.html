@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.51">
+<meta name="generator" content="quarto-1.4.74">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2023-02-24">
@@ -273,7 +273,7 @@ div.csl-indent {
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">palette</span> <span class="op">&lt;-</span> <span class="st">"wesanderson::Royal1"</span></span>
 <span></span>
-<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">palette</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">paletteer_d</span><span class="op">(</span><span class="va">palette</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -334,7 +334,7 @@ div.csl-indent {
 <span><span class="st">  OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }</span></span>
 <span><span class="st">}'</span></span>
 <span></span>
-<span><span class="va">data_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SPARQL/man/SPARQL.html">SPARQL</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">data_lst</span> <span class="op">&lt;-</span> <span class="fu">SPARQL</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I intend to model the data by year-month and project two months beyond the last recorded actuals.</p>
 <div class="cell">
@@ -530,7 +530,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">rq_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/quantreg/man/rq.html">rq</a></span><span class="op">(</span></span>
+<span><span class="va">rq_fit</span> <span class="op">&lt;-</span> <span class="fu">rq</span><span class="op">(</span></span>
 <span>  <span class="va">n</span> <span class="op">~</span> <span class="va">cpi_macro</span> <span class="op">+</span> <span class="va">sterling_macro</span> <span class="op">+</span> <span class="va">interest_macro</span> <span class="op">+</span></span>
 <span>    <span class="va">stamp_macro</span> <span class="op">+</span> <span class="va">inflation_macro</span> <span class="op">+</span> <span class="va">month</span> <span class="op">+</span> <span class="va">yr_mon</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">join_df</span>,</span>
@@ -721,7 +721,7 @@ div.csl-indent {
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Qtools/man/GOFTest.html">GOFTest</a></span><span class="op">(</span><span class="va">rq_fit</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">GOFTest</span><span class="op">(</span><span class="va">rq_fit</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Goodness-of-fit test for quantile regression based on the cusum process 
 A large test statistic (small p-value) is evidence of lack of fit 
@@ -729,7 +729,7 @@ Quantile 0.05: Test statistic = 7e-04; p-value = 0.62
 Quantile 0.5: Test statistic = 0.0061; p-value = 0.23 
 Quantile 0.95: Test statistic = 0.001; p-value = 0.53 </code></pre>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/quantreg/man/rq.html">rq</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu">rq</span><span class="op">(</span></span>
 <span>  <span class="va">n</span> <span class="op">~</span> <span class="va">cpi_macro</span> <span class="op">+</span> <span class="va">sterling_macro</span> <span class="op">+</span> <span class="va">interest_macro</span> <span class="op">+</span></span>
 <span>    <span class="va">stamp_macro</span> <span class="op">+</span> <span class="va">inflation_macro</span> <span class="op">+</span> <span class="va">month</span> <span class="op">+</span> <span class="va">yr_mon</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">join_df</span></span>
@@ -1448,7 +1448,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.51 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.74 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

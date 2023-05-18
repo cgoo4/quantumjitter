@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.51">
+<meta name="generator" content="quarto-1.4.74">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2017-12-17">
@@ -300,7 +300,7 @@ div.csl-indent {
 <span><span class="st">  OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }</span></span>
 <span><span class="st">}'</span></span>
 <span></span>
-<span><span class="va">data_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SPARQL/man/SPARQL.html">SPARQL</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">data_lst</span> <span class="op">&lt;-</span> <span class="fu">SPARQL</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The focus is on the <a href="https://www.gov.uk/guidance/about-the-price-paid-data#explanations-of-column-headers-in-the-ppd">standard price paid</a>.</p>
 <div class="cell">
@@ -483,8 +483,8 @@ div.csl-indent {
 <span></span>
 <span><span class="va">data_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/product.html">product</a></span><span class="op">(</span><span class="va">prop_type</span>, <span class="va">est_type</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">prop_type</span><span class="op">)</span>, </span>
-<span>              offset <span class="op">=</span> <span class="fl">0.02</span>, divider <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmosaic/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="st">"h"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu">product</span><span class="op">(</span><span class="va">prop_type</span>, <span class="va">est_type</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">prop_type</span><span class="op">)</span>, </span>
+<span>              offset <span class="op">=</span> <span class="fl">0.02</span>, divider <span class="op">=</span> <span class="fu">mosaic</span><span class="op">(</span><span class="st">"h"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"SW10 Transactions by Estate &amp; Property Types"</span>,</span>
@@ -1081,7 +1081,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.51 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.74 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.51">
+<meta name="generator" content="quarto-1.4.74">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2022-11-01">
@@ -331,66 +331,65 @@ div.csl-indent {
 <p>For example, two entries (highlighted light blue) in the table below use the abbreviation <em>n.e.c.</em>. The footnote may be targeted at rows which <em>contain that string</em> rather than having to manually identify the rows. And once added, any subsequent footnotes would be renumbered to maintain the flow. So, if I were to change the source datasets to different years or countries, all references to <em>n.e.c.</em> would be auto-magically found and appropriately footnoted.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gt_tbl</span> <span class="op">&lt;-</span> <span class="va">change_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span>rowname_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"occupation"</span><span class="op">)</span>, groupname_col <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"UK Employment by Occupation"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op">(</span>table.width <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/pct.html">pct</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span></span>
+<span>  <span class="fu">gt</span><span class="op">(</span>rowname_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"occupation"</span><span class="op">)</span>, groupname_col <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tab_header</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"UK Employment by Occupation"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">tab_options</span><span class="op">(</span>table.width <span class="op">=</span> <span class="fu">pct</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">fmt_number</span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">0</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_percent.html">fmt_percent</a></span><span class="op">(</span></span>
+<span>  <span class="fu">fmt_percent</span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    force_sign <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html">sub_missing</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span></span>
+<span>  <span class="fu">sub_missing</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tab_spanner</span><span class="op">(</span></span>
 <span>    label <span class="op">=</span> <span class="st">"Year"</span>,</span>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>transform <span class="op">=</span> <span class="st">"capitalize"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>transform <span class="op">=</span> <span class="st">"capitalize"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_column_labels</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>transform <span class="op">=</span> <span class="st">"uppercase"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="st">"soc"</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>transform <span class="op">=</span> <span class="st">"uppercase"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_column_labels</span><span class="op">(</span><span class="st">"soc"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_footnote</span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Not elsewhere classified"</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_stub.html">cells_stub</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"n.e.c."</span><span class="op">)</span><span class="op">)</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_stub</span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"n.e.c."</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_footnote</span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Count of all persons"</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_column_spanners</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_footnote</span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Standard Occupational Classification 2020"</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"soc"</span><span class="op">)</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_column_labels</span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"soc"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_footnote</span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Top &amp; bottom 10 occupations ordered by percent change"</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_row_groups.html">cells_row_groups</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Risers"</span>, <span class="st">"Fallers"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_row_groups</span><span class="op">(</span>groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Risers"</span>, <span class="st">"Fallers"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_footnote</span><span class="op">(</span></span>
 <span>    footnote <span class="op">=</span> <span class="st">"Figures suppressed as statistically unreliable"</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_body</span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">change</span>, <span class="va">`2021`</span><span class="op">)</span>,</span>
 <span>      rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">change</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html">tab_source_note</a></span><span class="op">(</span>source_note <span class="op">=</span> <span class="st">"Source: Office for National Statistics (ONS)"</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_source_note</span><span class="op">(</span>source_note <span class="op">=</span> <span class="st">"Source: Office for National Statistics (ONS)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gt_tbl</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style_body.html">tab_style_body</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_fill.html">cell_fill</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">tab_style_body</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_fill</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
 <span>    pattern <span class="op">=</span> <span class="st">"n.e.c."</span>,</span>
 <span>    extents <span class="op">=</span> <span class="st">"stub"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_stylize.html">opt_stylize</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fl">6</span>, color <span class="op">=</span> <span class="st">"gray"</span>, add_row_striping <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">opt_stylize</span><span class="op">(</span>style <span class="op">=</span> <span class="fl">6</span>, color <span class="op">=</span> <span class="st">"gray"</span>, add_row_striping <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">as_raw_html</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div id="zhadwbpznp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #5F5F5F; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #5F5F5F; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFFFFF">
@@ -613,14 +612,14 @@ div.csl-indent {
 <p>The above table uses one of the in-built style theme options. It looks clean and polished. But sometimes the table to be published needs a high degree of customisation to match, for example, a specific branding. <a href="https://gt.rstudio.com">gt</a> offers this as we’ll demonstrate by attempting to replicate the style employed by the <a href="https://markets.ft.com/data/">market data in the Financial Times</a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gt_ft</span> <span class="op">&lt;-</span> <span class="va">gt_tbl</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_options</span><span class="op">(</span></span>
 <span>    table.border.top.color <span class="op">=</span> <span class="st">"#FFF1E5"</span>,</span>
 <span>    table.border.bottom.color <span class="op">=</span> <span class="st">"#FFF1E5"</span>,</span>
 <span>    table.background.color <span class="op">=</span> <span class="st">"#FFF1E5"</span>,</span>
-<span>    table.font.size <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>    table.font.size <span class="op">=</span> <span class="fu">px</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
 <span>    table.font.color <span class="op">=</span> <span class="st">"#262A33"</span>,</span>
 <span>    heading.align <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>    heading.title.font.size <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,</span>
+<span>    heading.title.font.size <span class="op">=</span> <span class="fu">px</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,</span>
 <span>    heading.title.font.weight <span class="op">=</span> <span class="st">"bold"</span>,</span>
 <span>    heading.background.color <span class="op">=</span> <span class="st">"#FFF1E5"</span>,</span>
 <span>    row.striping.include_table_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -628,57 +627,56 @@ div.csl-indent {
 <span>    row.striping.background_color <span class="op">=</span> <span class="st">"#F2DFCE"</span>,</span>
 <span>    row_group.background.color <span class="op">=</span> <span class="st">"#FFF1E5"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"UK Employment by Occupation  "</span>, </span>
-<span>                          <span class="fu"><a href="https://gt.rstudio.com/reference/local_image.html">local_image</a></span><span class="op">(</span><span class="st">"logo.png"</span>, height <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_header</span><span class="op">(</span>title <span class="op">=</span> <span class="fu">html</span><span class="op">(</span><span class="st">"UK Employment by Occupation  "</span>, </span>
+<span>                          <span class="fu">local_image</span><span class="op">(</span><span class="st">"logo.png"</span>, height <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Financier Display"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://gt.rstudio.com/reference/cell_borders.html">cell_borders</a></span><span class="op">(</span>sides <span class="op">=</span> <span class="st">"bottom"</span>, weight <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"#262A33"</span><span class="op">)</span></span>
+<span>      <span class="fu">cell_text</span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Financier Display"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">cell_borders</span><span class="op">(</span>sides <span class="op">=</span> <span class="st">"bottom"</span>, weight <span class="op">=</span> <span class="fu">px</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"#262A33"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_title.html">cells_title</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_title</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op">(</span><span class="fl">14</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_row_groups.html">cells_row_groups</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fu">px</span><span class="op">(</span><span class="fl">14</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_row_groups</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#800D33"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_stub.html">cells_stub</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#800D33"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_stub</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op">(</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://gt.rstudio.com/reference/cells_row_groups.html">cells_row_groups</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">cells_column_labels</span><span class="op">(</span><span class="op">)</span>, </span>
+<span>                     <span class="fu">cells_column_spanners</span><span class="op">(</span><span class="op">)</span>, </span>
+<span>                     <span class="fu">cells_row_groups</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_borders.html">cell_borders</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"hidden"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                     <span class="fu"><a href="https://gt.rstudio.com/reference/cells_row_groups.html">cells_row_groups</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                     <span class="fu"><a href="https://gt.rstudio.com/reference/cells_stub.html">cells_stub</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_borders</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"hidden"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">cells_body</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                     <span class="fu">cells_row_groups</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                     <span class="fu">cells_stub</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#00994D"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#00994D"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_body</span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="va">change</span>,</span>
 <span>      rows <span class="op">=</span> <span class="va">change</span> <span class="op">&gt;=</span> <span class="fl">0</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#C00000"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#C00000"</span>, weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu">cells_body</span><span class="op">(</span></span>
 <span>      columns <span class="op">=</span> <span class="va">change</span>,</span>
 <span>      rows <span class="op">=</span> <span class="va">change</span> <span class="op">&lt;</span> <span class="fl">0</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_footnotes.html">cells_footnotes</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://gt.rstudio.com/reference/cells_source_notes.html">cells_source_notes</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">tab_style</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu">cell_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey40"</span>, size <span class="op">=</span> <span class="fu">px</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">cells_footnotes</span><span class="op">(</span><span class="op">)</span>, <span class="fu">cells_source_notes</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">gt_ft</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">gt_ft</span> <span class="op">|&gt;</span> <span class="fu">as_raw_html</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div id="fhaedxtugh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   
   <table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: auto; margin-right: auto; color: #262A33; font-size: 10px; font-weight: normal; font-style: normal; background-color: #FFF1E5; width: 100%; border-top-style: solid; border-top-width: 2px; border-top-color: #FFF1E5; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #FFF1E5; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" width="100%" bgcolor="#FFF1E5">
@@ -1468,7 +1466,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.51 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.4.74 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
