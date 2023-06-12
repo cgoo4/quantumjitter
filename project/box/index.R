@@ -16,7 +16,7 @@ conflict_scout()
 theme_set(theme_bw())
 
 n <- 4
-palette <- "harrypotter::mischief"
+palette <- "harrypotter::hufflepuff"
 
 cols <- paletteer_c(palette, n = n)
 
@@ -89,7 +89,7 @@ p1 <- packfun_df |>
   geom_col(show.legend = FALSE) +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 2, 1)]) +
+  scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(x = NULL, y = NULL, 
        subtitle = glue("Package Usage"))
 
@@ -101,7 +101,7 @@ p2 <- packfun_df |>
   geom_col() +
   coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 2, 1)]) +
+  scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(x = NULL, y = NULL, 
        subtitle = glue("Function Usage >= {min_n}"))
 
@@ -132,8 +132,8 @@ packfun_df |>
     seed = 789
   ) +
   scale_size_area(max_size = 20) +
-  scale_colour_manual(values = cols[c(2, 3, 4)]) +
+  scale_colour_manual(values = cols[c(4, 2, 1)]) +
   theme_void() +
-  theme(plot.background = element_rect(fill = cols[1]))
+  theme(plot.background = element_rect(fill = cols[3]))
 
 used_here()
