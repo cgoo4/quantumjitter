@@ -1248,6 +1248,27 @@ font-style: inherit;">&lt;=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"2023-12-31"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>mortgage_cut <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mortgage</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>All these historical data and forward-looking estimates may then be visualised to get an overall view.</p>
@@ -2393,14 +2414,73 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>A causal model feels more appropriate here. Use of linear or non-linear regression would place the principal focus on the external variables. A causal model also allows the train/test split to be sampled from across the full series rather than requiring a time-based split.</p>
 <p>The <a href="https://www.tidymodels.org">tidymodels</a> ecosystem, including workflowsets <span class="citation" data-cites="workflowsets">(Kuhn and Couch 2023)</span>, will facilitate the fitting and tuning of multiple models with differing recipes: Linear and <a href="https://parsnip.tidymodels.org/reference/details_linear_reg_stan.html">Bayesian</a> regression models (the latter using <a href="https://cran.r-project.org/web/packages/rstanarm/vignettes/priors.html">weakly informative prior distributions</a> via the rstanarm package <span class="citation" data-cites="rstanarm">(Goodrich et al. 2023)</span>) and the non-linear tree-based models Random Forest and XGBoost.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data_split</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">history_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">initial_split</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>strata <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mortgage_cut</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">train</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">training</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data_split</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">test</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">testing</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data_split</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">core_recipe</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span></span>
 <span>  <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">history_df</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">train</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
@@ -2435,7 +2515,9 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">id</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">date</span>, new_role <span class="op" style="color: #5E5E5E;
+font-style: inherit;">date</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mortgage_cut</span>, new_role <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -2763,86 +2845,7 @@ background-color: null;
 font-style: inherit;"># core_recipe |&gt; prep() |&gt; bake(new_data = NULL)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data_split</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">history_df</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>mortgage_cut <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">mortgage</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">initial_split</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>strata <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">mortgage_cut</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">train</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">training</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data_split</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">test</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">testing</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data_split</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2993,9 +2996,9 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>27.77 sec elapsed</code></pre>
+<pre><code>28.89 sec elapsed</code></pre>
 </div>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">set_results</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3258,7 +3261,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/bayes/index_files/figure-html/tune-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># --- Comment out for fit_resamples</span></span>
 <span><span class="co" style="color: #5E5E5E;
@@ -3288,7 +3291,7 @@ font-style: inherit;"># ---------------------------------</span></span></code></
 </div>
 <p>The models may then be assessed against the test data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">aug_train</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3425,7 +3428,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>The residuals from the trained model used on the test data look quite reasonable aside a small curvature pattern in the linear models. The presence of a pattern could suggest a missing explanatory variable(s), or non-linearity if present only in linear models.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">focus_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3785,7 +3788,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/bayes/index_files/figure-html/observed vs predicted-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">focus_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3939,7 +3942,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/bayes/index_files/figure-html/observed vs predicted-2.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">focus_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4177,7 +4180,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>It makes sense to now train the tuned model(s) on <em>all</em> the historical data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">fit_hist</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4389,7 +4392,17 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Feature importance unsurprisingly confirms higher <code>gilt</code> and <code>cbr</code> values equate to higher <code>mortgage</code> rates.</p>
 <div class="cell">
-<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">make_shap</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4413,43 +4426,29 @@ font-style: inherit;">y</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">forecast_df</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">mortgage</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
+font-style: inherit;">forecast_df</span>,</span>
 <span>    bg_X <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">forecast_df</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">train</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">(</span>n <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">id</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">==</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"forecast"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">50</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
 <span>    feature_names <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">forecast_df</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">train</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4465,7 +4464,9 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">id</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">mortgage</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">mortgage</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mortgage_cut</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4477,7 +4478,12 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/names.html">names</a></spa
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span>
+font-style: inherit;">)</span>,</span>
+<span>    parallel <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
 <span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
@@ -4602,10 +4608,14 @@ font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">rf_shap</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span></code></pre></div>
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 119.9 sec elapsed</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shapviz/man/sv_importance.html">sv_importance</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4636,7 +4646,45 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="https://www.quantumjitter.com/project/bayes/index_files/figure-html/shap plots-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">row_id</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/nth.html">last</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">forecast_df</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">date</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">forecast_df</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">date</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shapviz/man/sv_waterfall.html">sv_waterfall</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4644,9 +4692,9 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">mshap</span>, row_id <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">348</span>, max_display <span class="op" style="color: #5E5E5E;
+font-style: inherit;">row_id</span>, max_display <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
@@ -4659,11 +4707,19 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span></span>
+<span>    title <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"Influences on December 2023 Prediction"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"{stamp('March 1, 2000')(max(forecast_df$date))} Waterfall"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -4672,7 +4728,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Whilst modelling with Bayesian (in contrast to linear) regression comes with the computational cost of Markov Chain Monte Carlo <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">(MCMC)</a> simulation, the pay-off is the provision of a credible range of values for each of the parameters in addition to the coefficient point estimates.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">ci</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4986,7 +5042,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>The plot below shows the final point estimate for each model as well as a 90% prediction interval for the Bayesian model using rstantools <span class="citation" data-cites="rstantools">(Gabry et al. 2023)</span>.</p>
 <p>The forecasts are, at least initially, directionally similar. The test residuals and RMSE would favour the non-linear models, and XGBoost in particular, over the linear models for these data. The forecasts are further dependent upon the quality of the forward-looking externally-sourced estimates for the predictors.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">pi</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -5475,7 +5531,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -5491,7 +5547,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[7], as.data.frame[1], assign[5], c[27], library[21], list[7], names[1], readRDS[1], round[1], seq[1], set.seed[4]</td>
+<td style="text-align: left;">as.character[7], as.data.frame[1], assign[5], c[27], library[21], list[7], max[2], names[1], readRDS[1], round[1], seq[1], set.seed[5], which[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -5503,7 +5559,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">across[3], arrange[1], bind_rows[3], distinct[1], filter[6], if_else[1], join_by[3], lag[3], last[1], left_join[2], mutate[18], nth[1], rename[1], rows_append[1], select[3], slice_head[1], tribble[1]</td>
+<td style="text-align: left;">across[3], arrange[1], bind_rows[3], distinct[1], filter[5], if_else[1], join_by[3], lag[3], last[2], left_join[2], mutate[18], nth[1], rename[1], rows_append[1], select[2], slice_head[1], slice_sample[1], tribble[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">feasts</td>
@@ -5527,7 +5583,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
-<td style="text-align: left;">glue[1]</td>
+<td style="text-align: left;">glue[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">hardhat</td>
@@ -5543,7 +5599,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">lubridate</td>
-<td style="text-align: left;">dmy[1], floor_date[2], rollforward[1], year[1], ymd[7]</td>
+<td style="text-align: left;">dmy[1], floor_date[2], rollforward[1], stamp[1], year[1], ymd[7]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">parsnip</td>
@@ -21359,7 +21415,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">corpus</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>docid_field <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -21401,7 +21457,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">fcm</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>context <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -21709,7 +21765,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">corpus</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>docid_field <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -21742,7 +21798,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">tokens</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>    remove_punct <span class="op" style="color: #5E5E5E;
@@ -21767,13 +21823,13 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">kwic</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>pattern <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">phrase</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/phrase.html">phrase</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -21982,7 +22038,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">tokens</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -21991,7 +22047,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">dfm</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>dictionary <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -24578,7 +24634,7 @@ font-style: inherit;">palette</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"harrypotter::mischief"</span></span>
+font-style: inherit;">"harrypotter::hufflepuff"</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
@@ -25259,7 +25315,7 @@ font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>, <span class="fl" style="color: #AD0000;
+font-style: inherit;">3</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -25433,7 +25489,7 @@ font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>, <span class="fl" style="color: #AD0000;
+font-style: inherit;">3</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -25683,11 +25739,11 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span 
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
+font-style: inherit;">4</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
 font-style: inherit;">2</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">3</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -25723,7 +25779,7 @@ font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40897,7 +40953,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">corpus</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>text_field <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40928,7 +40984,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">dfm</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>    remove <span class="op" style="color: #5E5E5E;
@@ -40939,7 +40995,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span 
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">stopwords</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/stopwords/man/stopwords.html">stopwords</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -40966,7 +41022,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">textstat_frequency</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/textstat_frequency.html">textstat_frequency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;

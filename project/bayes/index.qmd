@@ -182,7 +182,8 @@ forecast_df <-
     ),
     .names = "{.col}_{.fn}"
   )) |>
-  filter(date >= "1995-01-01", date <= "2023-12-31")
+  filter(date >= "1995-01-01", date <= "2023-12-31") |> 
+  mutate(mortgage_cut = cut_number(mortgage, 10))
 ```
 
 All these historical data and forward-looking estimates may then be visualised to get an overall view.
@@ -321,14 +322,27 @@ A causal model feels more appropriate here. Use of linear or non-linear regressi
 The [tidymodels](https://www.tidymodels.org) ecosystem, including workflowsets [@workflowsets], will facilitate the fitting and tuning of multiple models with differing recipes: Linear and [Bayesian](https://parsnip.tidymodels.org/reference/details_linear_reg_stan.html) regression models (the latter using [weakly informative prior distributions](https://cran.r-project.org/web/packages/rstanarm/vignettes/priors.html) via the rstanarm package [@rstanarm]) and the non-linear tree-based models Random Forest and XGBoost.
 
 ```{r}
+#| label: split
+
+set.seed(1)
+
+data_split <- history_df |>
+  initial_split(strata = mortgage_cut)
+
+train <- training(data_split)
+test <- testing(data_split)
+```
+
+
+```{r}
 #| label: recipes & models
 #| output: false
 
 core_recipe <-
-  history_df |> 
+  train |> 
   recipe() |>
   update_role(mortgage, new_role = "outcome") |>
-  update_role(id, date, new_role = "id") |> 
+  update_role(id, date, mortgage_cut, new_role = "id") |> 
   update_role(-has_role(c("outcome", "id")), new_role = "predictor") |> 
   step_date(date, features = "decimal")
 
@@ -387,15 +401,6 @@ model_set <-
 ```{r}
 #| label: tune
 #| warning: false
-
-set.seed(1)
-
-data_split <- history_df |>
-  mutate(mortgage_cut = cut_number(mortgage, 12)) |>
-  initial_split(strata = mortgage_cut)
-
-train <- training(data_split)
-test <- testing(data_split)
 
 set.seed(9)
 
@@ -577,11 +582,14 @@ Feature importance unsurprisingly confirms higher `gilt` and `cbr` values equate
 #| label: shap
 #| output: false
 
+set.seed(2023)
+
 make_shap <- \(y){
   kernelshap(y,
-    X = forecast_df |> select(-mortgage),
-    bg_X = forecast_df |> filter(id == "forecast"),
-    feature_names = forecast_df |> select(-c(id, mortgage)) |> names()
+    X = forecast_df,
+    bg_X = train |> slice_sample(n = 50),
+    feature_names = train |> select(-c(id, mortgage, mortgage_cut)) |> names(),
+    parallel = TRUE
   ) |>
     shapviz()
 }
@@ -597,6 +605,8 @@ walk2(
 toc()
 
 mshap <- c(bayes = bayes_shap, xgb = xgb_shap, lm = lm_shap, rf = rf_shap)
+
+# 119.9 sec elapsed
 ```
 
 ```{r}
@@ -605,8 +615,12 @@ mshap <- c(bayes = bayes_shap, xgb = xgb_shap, lm = lm_shap, rf = rf_shap)
 sv_importance(mshap, "beeswarm", color_bar_title = NULL) +
   plot_annotation(title = "Feature Importance (Yellow = High Feature Value)")
 
-sv_waterfall(mshap, row_id = 348, max_display = 14) +
-  plot_annotation(title = "Influences on December 2023 Prediction")
+row_id <- last(which(forecast_df$date == max(forecast_df$date)))
+
+sv_waterfall(mshap, row_id = row_id, max_display = 14) +
+  plot_annotation(
+    title = glue("{stamp('March 1, 2000')(max(forecast_df$date))} Waterfall")
+  )
 ```
 
 Whilst modelling with Bayesian (in contrast to linear) regression comes with the computational cost of Markov Chain Monte Carlo [(MCMC)](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo) simulation, the pay-off is the provision of a credible range of values for each of the parameters in addition to the coefficient point estimates.

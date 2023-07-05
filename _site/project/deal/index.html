@@ -408,7 +408,7 @@ div.csl-indent {
 <p>A corpus then gives me a collection of texts whereby each document is a newspaper article.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trade_corp</span> <span class="op">&lt;-</span> <span class="va">trade_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">corpus</span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, </span>
 <span>         text_field <span class="op">=</span> <span class="st">"body"</span>, unique_docnames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although only articles mentioning Brexit have been imported, some of these will not be related to trade negotiations with the EU. For example, there are on-going negotiations with many countries around the world. So, word embeddings<span class="citation" data-cites="text2vec">(<a href="#ref-text2vec" role="doc-biblioref">Selivanov, Bickel, and Wang 2022</a>)</span> will help to narrow the focus to the specific context of the UK-EU trade deal.</p>
@@ -418,7 +418,7 @@ div.csl-indent {
 <span></span>
 <span><span class="va">trade_fcm</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">trade_corp</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">fcm</span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
 <span>      count <span class="op">=</span> <span class="st">"weighted"</span>, weights <span class="op">=</span> <span class="va">window</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va">GlobalVectors</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
@@ -512,19 +512,19 @@ INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="va">context_corp</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">context_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">corpus</span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, text_field <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"short_url"</span>, text_field <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quanteda’s<span class="citation" data-cites="quanteda">(<a href="#ref-quanteda" role="doc-biblioref">Benoit et al. 2018</a>)</span> <code>kwic</code> function shows key phrases in context to ensure we’re homing in on the required texts. Short URLs are included below so one can click on any to read the actual article as presented by The Guardian.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">context_corp</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tokens</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span></span>
 <span>    remove_punct <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_symbols <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_numbers <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">kwic</span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu">phrase</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trade negotiation"</span>, <span class="st">"trade deal"</span>, <span class="st">"trade talks"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://quanteda.io/reference/phrase.html">phrase</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trade negotiation"</span>, <span class="st">"trade deal"</span>, <span class="st">"trade talks"</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>       valuetype <span class="op">=</span> <span class="st">"regex"</span>, window <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">article_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">docname</span> <span class="op">==</span> <span class="va">short_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -629,8 +629,8 @@ INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
 <span></span>
 <span><span class="va">sent_df</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">context_corp</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tokens</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">dfm</span><span class="op">(</span>dictionary <span class="op">=</span> <span class="va">data_dictionary_LSD2015</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span>dictionary <span class="op">=</span> <span class="va">data_dictionary_LSD2015</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">context_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">doc_id</span> <span class="op">==</span> <span class="va">short_url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>

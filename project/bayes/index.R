@@ -123,7 +123,8 @@ forecast_df <-
     ),
     .names = "{.col}_{.fn}"
   )) |>
-  filter(date >= "1995-01-01", date <= "2023-12-31")
+  filter(date >= "1995-01-01", date <= "2023-12-31") |> 
+  mutate(mortgage_cut = cut_number(mortgage, 10))
 
 plot_compare <- \(x){
   forecast_df |>
@@ -234,11 +235,19 @@ l1 + l2 + l3 + l4 +
   plot_annotation(title = "Independent vs Potential Explanatory Variables") +
   plot_layout(nrow = 1)
 
+set.seed(1)
+
+data_split <- history_df |>
+  initial_split(strata = mortgage_cut)
+
+train <- training(data_split)
+test <- testing(data_split)
+
 core_recipe <-
-  history_df |> 
+  train |> 
   recipe() |>
   update_role(mortgage, new_role = "outcome") |>
-  update_role(id, date, new_role = "id") |> 
+  update_role(id, date, mortgage_cut, new_role = "id") |> 
   update_role(-has_role(c("outcome", "id")), new_role = "predictor") |> 
   step_date(date, features = "decimal")
 
@@ -292,15 +301,6 @@ model_set <-
   )
 
 # core_recipe |> prep() |> bake(new_data = NULL)
-
-set.seed(1)
-
-data_split <- history_df |>
-  mutate(mortgage_cut = cut_number(mortgage, 12)) |>
-  initial_split(strata = mortgage_cut)
-
-train <- training(data_split)
-test <- testing(data_split)
 
 set.seed(9)
 
@@ -452,11 +452,14 @@ walk2(
   \(x, y) assign(x, aug_fit(y), .GlobalEnv)
 )
 
+set.seed(2023)
+
 make_shap <- \(y){
   kernelshap(y,
-    X = forecast_df |> select(-mortgage),
-    bg_X = forecast_df |> filter(id == "forecast"),
-    feature_names = forecast_df |> select(-c(id, mortgage)) |> names()
+    X = forecast_df,
+    bg_X = train |> slice_sample(n = 50),
+    feature_names = train |> select(-c(id, mortgage, mortgage_cut)) |> names(),
+    parallel = TRUE
   ) |>
     shapviz()
 }
@@ -473,11 +476,17 @@ toc()
 
 mshap <- c(bayes = bayes_shap, xgb = xgb_shap, lm = lm_shap, rf = rf_shap)
 
+# 119.9 sec elapsed
+
 sv_importance(mshap, "beeswarm", color_bar_title = NULL) +
   plot_annotation(title = "Feature Importance (Yellow = High Feature Value)")
 
-sv_waterfall(mshap, row_id = 348, max_display = 14) +
-  plot_annotation(title = "Influences on December 2023 Prediction")
+row_id <- last(which(forecast_df$date == max(forecast_df$date)))
+
+sv_waterfall(mshap, row_id = row_id, max_display = 14) +
+  plot_annotation(
+    title = glue("{stamp('March 1, 2000')(max(forecast_df$date))} Waterfall")
+  )
 
 ci <- tidy(bayes_fit, conf.int = TRUE, conf.level = 0.9)
 

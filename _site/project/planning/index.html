@@ -390,14 +390,14 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">words</span> <span class="op">&lt;-</span> <span class="va">tidy_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">corpus</span><span class="op">(</span>text_field <span class="op">=</span> <span class="st">"proposal_dev"</span>, </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>text_field <span class="op">=</span> <span class="st">"proposal_dev"</span>, </span>
 <span>         doc_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dec_date"</span>, <span class="st">"proposal_type"</span>, </span>
 <span>                      <span class="st">"decision"</span>, <span class="st">"dec_year"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">dfm</span><span class="op">(</span></span>
-<span>    remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">stopwords</span><span class="op">(</span><span class="st">"english"</span><span class="op">)</span>, <span class="va">plus_words</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span></span>
+<span>    remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/stopwords/man/stopwords.html">stopwords</a></span><span class="op">(</span><span class="st">"english"</span><span class="op">)</span>, <span class="va">plus_words</span><span class="op">)</span>,</span>
 <span>    remove_numbers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">textstat_frequency</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html">textstat_frequency</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">feature</span>, <span class="va">frequency</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
