@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2022-04-26">
@@ -96,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -233,7 +234,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"Royal1"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The advantage here is that the tail-painting aesthetic needs no information about the shape of the curve; only the limits on the x-axis.</p>
@@ -261,7 +265,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/blend-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/blend-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Of course the red box could also be layered behind a density curve with alpha applied so it shows through. But if the preference is tail-only colouring, it’s a neat solution.</p>
@@ -327,7 +334,10 @@ Note
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Median Price Bounded by Upper &amp; Lower Quartiles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/tickers-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/tickers-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -556,6 +566,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -605,38 +635,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -645,7 +665,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -865,33 +887,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-03-01">
@@ -116,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -292,7 +293,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -333,7 +337,10 @@ div.csl-indent {
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/facet-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/facet-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Visualising data in small multiples using <code>facet_wrap</code> or <code>facet_grid</code> can be a useful way to explore data. When there are a larger number of these however, as we’re starting to see in the example above, there are alternative techniques one can employ. This is explored in <a href="../../project/wood">Seeing the Wood for the Trees</a>.</p>
@@ -371,7 +378,10 @@ div.csl-indent {
 <span>    caption <span class="op">=</span> <span class="st">"Source: data.gov.uk"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/by type-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/by type-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
@@ -393,7 +403,10 @@ div.csl-indent {
 <span>    caption <span class="op">=</span> <span class="st">"Source: data.gov.uk"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/by borough-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/by borough-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The offences and borough variables show significant variation in crime counts. And there is also evidence of a change over time.</p>
@@ -410,7 +423,10 @@ div.csl-indent {
 <span>    caption <span class="op">=</span> <span class="st">"Source: data.gov.uk"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/by year-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/by year-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>I’ll separate out some test data so I can compare the performance of the models on data they have not see during model training.</p>
@@ -499,10 +515,13 @@ div.csl-indent {
 <span></span>
 <span><span class="va">rp_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">vip</span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance -- rpart"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/rpart-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/rpart-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rp_results</span> <span class="op">&lt;-</span> <span class="va">rp_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">augment</span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -524,10 +543,13 @@ div.csl-indent {
 <span></span>
 <span><span class="va">ranger_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">vip</span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance -- Ranger"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/ranger-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/ranger-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ranger_results</span> <span class="op">&lt;-</span> <span class="va">ranger_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">augment</span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -549,10 +571,13 @@ div.csl-indent {
 <span></span>
 <span><span class="va">rf_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">vip</span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance -- Random Forest"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/forest-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/forest-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rf_results</span> <span class="op">&lt;-</span> <span class="va">rf_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">augment</span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -574,10 +599,13 @@ div.csl-indent {
 <span></span>
 <span><span class="va">poisson_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">vip</span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance -- glm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/poisson-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/poisson-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poisson_results</span> <span class="op">&lt;-</span> <span class="va">poisson_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">augment</span><span class="op">(</span><span class="va">crime_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -603,7 +631,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>        legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/results-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/results-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Another way of approaching all this would be to use time-series forecasting. This would major on auto-regression, i.e.&nbsp;looking at how the lagged number-of-offences influence future values. And one could further include exogenous data such as, say, the numbers of police. It would be reasonable to expect that increasing police numbers would, in time, lead to decreased crime levels.</p>
@@ -714,10 +745,13 @@ div.csl-indent {
 <span></span>
 <span><span class="va">temp_fit</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">vip</span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance -- Random Forest with Lags"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/forest2-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/forest2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp_results</span> <span class="op">&lt;-</span> <span class="va">temp_fit</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">augment</span><span class="op">(</span><span class="va">temp_test</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -740,7 +774,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>        legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/results2-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/results2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The model metrics bear this out. The <code>mae</code> and <code>rmse</code> are markedly smaller, and the <code>rsq</code> significantly improved. We could have tried further lags. We could have tried tweaking some parameters. We could have tried time-series forecasting with, for example a statistical model like ARIMA, or a Neural Network model such as NNETAR.</p>
@@ -851,7 +888,7 @@ div.csl-indent {
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-tidymodels" class="csl-entry" role="listitem">
 Kuhn, Max, and Hadley Wickham. 2020. <span>“Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles.”</span> <a href="https://www.tidymodels.org">https://www.tidymodels.org</a>.
 </div>
@@ -1078,6 +1115,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1127,38 +1184,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1167,7 +1214,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -1374,7 +1423,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1426,33 +1475,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

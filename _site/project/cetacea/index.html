@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2021-12-04">
@@ -116,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -274,7 +275,10 @@ div.csl-indent {
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Darjeeling2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
@@ -402,7 +406,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">plot_date_feature</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/impute-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/impute-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Do <code>latitude</code> and <code>longitude</code> carry useful predictive information?</p>
@@ -430,7 +437,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Strandings by Species"</span>, </span>
 <span>       colour <span class="op">=</span> <span class="cn">NULL</span>, size <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/mass-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/mass-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add history of mass stranding</span></span>
 <span><span class="va">strandings_df4</span> <span class="op">&lt;-</span> <span class="va">strandings_df3</span> <span class="op">|&gt;</span> </span>
@@ -459,7 +469,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Variation in Species Length by Sex"</span>, </span>
 <span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Length (metres)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/length-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/length-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>With map coordinates not always available, <code>county</code> could be, with a little string cleaning, a useful additional predictor.</p>
@@ -569,7 +582,10 @@ div.csl-indent {
 <span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Count (log10)"</span>, colour <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/count-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/count-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="modelling" class="level2"><h2 class="anchored" data-anchor-id="modelling">Modelling</h2>
@@ -690,7 +706,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://finetune.tidymodels.org/reference/plot_race.html">plot_race</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Early Elimination of Parameter Combinations"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/model-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/model-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
@@ -743,12 +762,15 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Confusion Matrix"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/results-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/results-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The top variable importance scores include <code>fam_genus</code>, many of the <code>rep_comment</code> tokens, plus <code>length</code>, <code>mass-possible</code>, <code>date_decimal</code>, <code>date_year</code>, and <code>latitude</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/edit.html">vi</a></span><span class="op">(</span><span class="va">xgb_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://koalaverse.github.io/vip/reference/vi.html">vi</a></span><span class="op">(</span><span class="va">xgb_fit</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_parsnip</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Importance</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ranking <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1270,7 +1292,7 @@ div.csl-indent {
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-textrecipes" class="csl-entry" role="listitem">
 Hvitfeldt, Emil. 2022. <span>“Textrecipes: Extra ’Recipes’ for Text Processing.”</span> <a href="https://CRAN.R-project.org/package=textrecipes">https://CRAN.R-project.org/package=textrecipes</a>.
 </div>
@@ -1503,6 +1525,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1552,38 +1594,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1592,7 +1624,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -1799,7 +1833,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1851,33 +1885,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

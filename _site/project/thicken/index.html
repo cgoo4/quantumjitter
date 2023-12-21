@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-02-07">
@@ -116,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -234,7 +235,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 17, 2023</p>
+      <p class="date-modified">October 25, 2023</p>
     </div>
   </div>
     
@@ -266,7 +267,10 @@ div.csl-indent {
 <span></span>
 <span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"IsleofDogs1"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>I’m going to start by harvesting some data from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams">Statistical charts and diagrams category</a>. I can use this to build a list of all chart types which have a dedicated Wikipedia article page. Using rvest <span class="citation" data-cites="rvest">(<a href="#ref-rvest" role="doc-biblioref">Wickham 2022</a>)</span> inside the app ensures it will respond to any newly-created articles.</p>
@@ -284,7 +288,7 @@ div.csl-indent {
 <p>The pageviews <span class="citation" data-cites="pageviews">(<a href="#ref-pageviews" role="doc-biblioref">Keyes and Lewis 2020</a>)</span> package provides an API into Wikipedia. I’ll create a function wrapped around <code>article_pageviews</code> so I can later iterate through a subset of the list established in the prior code chunk.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">article_pageviews</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pageviews/man/article_pageviews.html">article_pageviews</a></span><span class="op">(</span></span>
 <span>    project <span class="op">=</span> <span class="st">"en.wikipedia"</span>,</span>
 <span>    <span class="va">article</span>,</span>
 <span>    user_type <span class="op">=</span> <span class="st">"user"</span>,</span>
@@ -296,7 +300,7 @@ div.csl-indent {
 <p>I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of <em>fixed</em> and <em>log10</em> is better for comparing plots. <em>Free</em> scaling reveals more detail in the individual trends.</p>
 <p>Although <a href="https://rstudio.github.io/shinyuieditor/">shinyuieditor</a> <span class="citation" data-cites="shinyuieditor">(<a href="#ref-shinyuieditor" role="doc-biblioref">Strayer 2022</a>)</span>&nbsp;is currently in Alpha at the time of this update, using <code>launch_editor("/content/project/thicken/")</code> helped me modify the basic grid layout of the UI for this pre-existing <code>app.R</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">grid_page</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_page.html">grid_page</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/bs_theme.html">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, bootswatch <span class="op">=</span> <span class="st">"simplex"</span><span class="op">)</span>,</span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"header  header"</span>,</span>
@@ -311,7 +315,7 @@ div.csl-indent {
 <span>    <span class="st">"1fr"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  gap_size <span class="op">=</span> <span class="st">"1rem"</span>,</span>
-<span>  <span class="fu">grid_card</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card.html">grid_card</a></span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"sidebar"</span>,</span>
 <span>    item_alignment <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Options"</span>,</span>
@@ -347,7 +351,7 @@ div.csl-indent {
 <span>      selected <span class="op">=</span> <span class="st">"log10"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">grid_card_text</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_text.html">grid_card_text</a></span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="st">"header"</span>,</span>
 <span>    content <span class="op">=</span> <span class="st">"   Plot Plotter   "</span>,</span>
 <span>    alignment <span class="op">=</span> <span class="st">"center"</span>,</span>
@@ -355,7 +359,7 @@ div.csl-indent {
 <span>    icon <span class="op">=</span> <span class="st">"logo1.png"</span>,</span>
 <span>    img_height <span class="op">=</span> <span class="fl">30</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">grid_card_plot</span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gridlayout/man/grid_card_plot.html">grid_card_plot</a></span><span class="op">(</span>area <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The server component outputs a faceted ggplot.</p>
@@ -498,7 +502,7 @@ div.csl-indent {
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-shiny" class="csl-entry" role="listitem">
 Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2022. <span>“Shiny: Web Application Framework for r.”</span> <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.
 </div>
@@ -737,6 +741,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -786,38 +810,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -826,7 +840,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -1033,7 +1049,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1085,33 +1101,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

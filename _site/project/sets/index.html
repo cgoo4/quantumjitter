@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -121,6 +121,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -290,7 +291,11 @@ div.csl-indent {
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>(cols <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">"Royal2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>I’m going to focus on the Cloud Hosting lot. Suppliers document the services they want to offer to Public Sector buyers. Each supplier is free to assign each of their services to one or more service categories. It would be interesting to see how these categories overlap when looking at the aggregated data.</p>
@@ -438,7 +443,11 @@ Tip
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: digitalmarketplace.service.gov.uk</span><span class="sc">\n</span><span class="st">"</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/venn-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/venn-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s suppose I want to find out which Service IDs lie in a particular intersection. Perhaps I want to go back to the web site with those IDs to search for, and read up on, those particular services. I could use purrr’s <code>reduce</code> to achieve this. For example, let’s extract the IDs at the heart of the Venn which intersect all categories.</p>
@@ -495,7 +504,11 @@ Tip
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: digitalmarketplace.service.gov.uk"</span></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/frequent-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/frequent-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Now let’s take a look at the intersections across all the categories. And let’s suppose that our particular interest is all services which appear in one, and only one, category.</p>
@@ -520,7 +533,11 @@ Tip
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: digitalmarketplace.service.gov.uk"</span></span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/singles-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/singles-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Suppose we want to extract the intersection data for the top intersections across all sets. I could use functions from the tidyr package to achieve this.</p>
@@ -668,7 +685,11 @@ Tip
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: digitalmarketplace.service.gov.uk"</span></span>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/upset top-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/upset top-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>And if I want to extract all the service IDs for the top 5 intersections, I could use dplyr <span class="citation" data-cites="dplyr">(<a href="#ref-dplyr" role="doc-biblioref">Wickham et al. 2022</a>)</span> and tidyr <span class="citation" data-cites="tidyr">(<a href="#ref-tidyr" role="doc-biblioref">Wickham and Girlich 2022</a>)</span> verbs to achieve this too.</p>
@@ -815,7 +836,7 @@ Tip
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-ggupset" class="csl-entry" role="listitem">
 Ahlmann-Eltze, Constantin. 2020. <span>“Ggupset: Combination Matrix Axis for ’Ggplot2’ to Create ’UpSet’ Plots.”</span> <a href="https://CRAN.R-project.org/package=ggupset">https://CRAN.R-project.org/package=ggupset</a>.
 </div>
@@ -1055,6 +1076,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1104,38 +1145,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1144,7 +1175,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -1351,7 +1384,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1403,26 +1436,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script>
 <script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
@@ -1433,7 +1446,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.446">
+<meta name="generator" content="quarto-1.4.533">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2023-06-12">
@@ -116,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -303,7 +304,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/theme-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Banks review their mortgage interest rates in response to changes in the central bank rate. Fixed-rate mortgages are further <a href="https://www.moneysavingexpert.com/news/2022/10/mortgage-rates--could-dip--over-coming-weeks---what-you-need-to-/#gilt">influenced by the value of gilts (government bonds)</a>. Banks rely less on the wholesale market to fund mortgages when their balance sheet is well supported by savings made by households.</p>
@@ -427,7 +431,10 @@ div.csl-indent {
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span> <span class="op">/</span> <span class="va">p3</span> <span class="op">/</span> <span class="va">p4</span> <span class="op">/</span> <span class="va">p5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/compare-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/compare-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Cross-correlation shows not only the strength of the relationship between the response (<code>mortgage</code>) and explanatory variables, but also highlights any lagged effects. Spikes outside the dashed lines indicate significant correlation beyond <a href="https://otexts.com/fpp3/wn.html#wn">“white noise”</a>.</p>
@@ -463,7 +470,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"5-year Fixed-rate Mortgage Correlated With:"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/correlation-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/correlation-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
@@ -505,7 +515,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Independent vs Potential Explanatory Variables"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/relationships-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/relationships-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>One could try a time series model<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, e.g.&nbsp;ARIMA. This would focus on patterns and pattern changes in the historical mortgage data, i.e.&nbsp;<a href="https://en.wikipedia.org/wiki/Autocorrelation">autocorrelation</a>, seasonality and trend. External regressors like <code>cbr</code> and <code>gilt</code>, could then be additionally used to reduce any remaining unexplained variance. The train/test split would be a time-based split. This kind of statistical technique works well when relationships and trends in the historical data are clear and fairly stable such as, for example, with electricity consumption.</p>
@@ -633,7 +646,10 @@ div.csl-indent {
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/tune-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/tune-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># --- Comment out for fit_resamples</span></span>
 <span><span class="co"># set_results |&gt;</span></span>
@@ -694,7 +710,10 @@ div.csl-indent {
 <span>    x <span class="op">=</span> <span class="st">"Predictions"</span>, y <span class="op">=</span> <span class="st">"Observations"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/observed vs predicted-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/observed vs predicted-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">focus_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>residual <span class="op">=</span> <span class="va">mortgage</span> <span class="op">-</span> <span class="va">.pred</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -706,7 +725,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"QQ Plot of Residuals"</span>, subtitle <span class="op">=</span> <span class="st">"Test Data"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/observed vs predicted-2.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/observed vs predicted-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">focus_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>residual <span class="op">=</span> <span class="va">mortgage</span> <span class="op">-</span> <span class="va">.pred</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -721,7 +743,10 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Residuals Over Time"</span>, subtitle <span class="op">=</span> <span class="st">"Test Data"</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/observed vs predicted-3.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/observed vs predicted-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>It makes sense to now train the tuned model(s) on <em>all</em> the historical data.</p>
@@ -780,7 +805,10 @@ div.csl-indent {
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shapviz/man/sv_importance.html">sv_importance</a></span><span class="op">(</span><span class="va">mshap</span>, <span class="st">"beeswarm"</span>, color_bar_title <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Feature Importance (Yellow = High Feature Value)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/shap plots-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/shap plots-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">row_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">last</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">forecast_df</span><span class="op">$</span><span class="va">date</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">forecast_df</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -789,7 +817,10 @@ div.csl-indent {
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{stamp('March 1, 2000')(max(forecast_df$date))} Waterfall"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/shap plots-2.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/shap plots-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Whilst modelling with Bayesian (in contrast to linear) regression comes with the computational cost of Markov Chain Monte Carlo <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">(MCMC)</a> simulation, the pay-off is the provision of a credible range of values for each of the parameters in addition to the coefficient point estimates.</p>
@@ -824,7 +855,10 @@ div.csl-indent {
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/posterior-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/posterior-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The plot below shows the final point estimate for each model as well as a 90% prediction interval for the Bayesian model using rstantools <span class="citation" data-cites="rstantools">(<a href="#ref-rstantools" role="doc-biblioref">Gabry et al. 2023</a>)</span>.</p>
@@ -869,7 +903,10 @@ div.csl-indent {
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/predictions-1.png" class="img-fluid" style="width:100.0%"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/predictions-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
@@ -1026,7 +1063,7 @@ div.csl-indent {
 
 
 
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-rstantools" class="csl-entry" role="listitem">
 Gabry, Jonah, Ben Goodrich, Martin Lysy, and Andrew Johnson. 2023. <span>“Rstantools: Tools for Developing r Packages Interfacing with ’Stan’.”</span> <a href="https://CRAN.R-project.org/package=rstantools">https://CRAN.R-project.org/package=rstantools</a>.
 </div>
@@ -1039,14 +1076,14 @@ Kuhn, Max, and Simon Couch. 2023. <span>“Workflowsets: Create a Collection of 
 <div id="ref-fable" class="csl-entry" role="listitem">
 O’Hara-Wild, Mitchell, Rob Hyndman, and Earo Wang. 2023. <span>“Fable: Forecasting Models for Tidy Time Series.”</span> <a href="https://CRAN.R-project.org/package=fable">https://CRAN.R-project.org/package=fable</a>.
 </div>
-</div></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 <ol>
 <li id="fn1"><p>Per <a href="https://www.bankofengland.co.uk/legal?_gl=1*ecwt7o*_ga*MTEwNjczODEyMy4xNjMzNzEwMzA1*_ga_WJQM5Y97BL*MTYzMzcxMDMwNS4xLjEuMTYzMzcxMDMxMi4w">Legal | Bank of England</a>, the information made available via the <a href="https://www.bankofengland.co.uk/boeapps/database/">Database</a> is the copyright of the Governor and Company of the Bank, unless otherwise stated. Reproduction of data in the Database is subject to the terms of the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">UK Open Government Licence</a>, allowing and encouraging free and flexible data reuse.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p><em>econforecasting.com</em> (2023). Consensus Interest Rate Forecast Model. Retrieved from https://econforecasting.com/forecast-ukbankrate.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Estimated by <a href="https://tradingeconomics.com/united-kingdom/5-year-note-yield#forecast">Trading Economics</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Estimated by <a href="https://tradingeconomics.com/united-kingdom/mortgage-approvals">Trading Economics</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>See <a href="https://otexts.com/fpp3/">Forecasting: Principles and Practice</a> with implementation via the <a href="https://tidyverts.github.io/tidy-forecasting-principles/index.html">fable</a> package<span class="citation" data-cites="fable">(<a href="#ref-fable" role="doc-biblioref">O’Hara-Wild, Hyndman, and Wang 2023</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></aside></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1269,6 +1306,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1318,38 +1375,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1358,7 +1405,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -1565,7 +1614,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1617,33 +1666,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.quantumjitter\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.446 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.533 | Hosted by <a href="https://www.netlify.com"><iconify-icon inline="" icon="simple-icons:netlify"></iconify-icon></a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
