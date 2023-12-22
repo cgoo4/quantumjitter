@@ -16,8 +16,7 @@ In [Criminal Goings-on](/project/forest) faceting offered a way to get a sense o
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
-library(trelliscopejs)
-library(rbokeh)
+library(trelliscope)
 library(janitor)
 library(vangogh)
 library(usedthese)
@@ -25,7 +24,7 @@ library(usedthese)
 conflict_scout()
 ```
 
-This time I'll use Van Gogh's "The Starry Night" palette for the feature image and plots. And there are 9 types of criminal offence, so `colorRampPalette` will enable the interpolation of an extended set.
+This time I'll use Van Gogh's "The Starry Night" palette for the feature image and plots. And there are 12 types of criminal offence, so `colorRampPalette` will enable the interpolation of an extended set.
 
 ```{r}
 #| label: theme
@@ -36,7 +35,7 @@ theme_set(theme_bw())
 
 (cols <- vangogh_palette("StarryNight"))
 
-cols9 <- colorRampPalette(cols)(9)
+cols12 <- colorRampPalette(cols)(12)
 ```
 
 The data need a little tidy-up.
@@ -44,49 +43,34 @@ The data need a little tidy-up.
 ```{r}
 #| label: read
 
-url <- str_c(
-  "https://data.london.gov.uk/",
-  "download/recorded_crime_rates/",
-  "c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/",
-  "crime%20rates.csv"
-)
-
-crime_df <-
-  read_csv(url, col_types = "cfcfdn") |>
-  clean_names() |>
-  mutate(
-    year = str_extract(year, "(?:1999|200[0-9]|201[0-7])"),
-    year = as.numeric(year)
-  ) |>
-  summarise(number_of_offences = sum(number_of_offences),
-            .by = c(year, borough, offences)) |>
-  filter(
-    offences != "All recorded offences",
-    !borough %in% c(
-      "England and Wales",
-      "Met Police Area",
-      "Inner London",
-      "Outer London"
-    )
-  )
+crime_df <- str_c(
+  "https://data.london.gov.uk/download/recorded_crime_summary/",
+  "934f2ddb-5804-4c6a-a17c-bdd79b33430e/", 
+  "MPS%20Borough%20Level%20Crime%20%28Historical%29.csv"
+  ) |> 
+  read_csv(show_col_types = FALSE) |> 
+  clean_names() |> 
+  rename_with(\(x) str_remove_all(x, "_text|look_up_|_name")) |> 
+  pivot_longer(where(is.numeric), names_to = "month", values_to = "num_offences") |> 
+  mutate(month = parse_number(month) |> str_c("01") |> ymd())
 ```
 
-This was the original visualisation in [Criminal Goings-on](/project/forest) using ggplot's `facet_wrap`.
+The original visualisation in [Criminal Goings-on](/project/forest) using ggplot's `facet_wrap` is a little tricky to digest.
 
 ```{r}
 #| label: facet
 #| fig-height: 12
 
 crime_df |>
-  mutate(borough = str_wrap(borough, 11)) |>
-  ggplot(aes(year, number_of_offences, colour = offences, group = offences)) +
+  summarise(num_offences = sum(num_offences), .by = c(major, borough, month)) |>
+  ggplot(aes(month, num_offences, colour = major, group = major)) +
   geom_line() +
   facet_wrap(~borough, scales = "free_y", ncol = 4) +
   labs(
     x = NULL, y = NULL, title = "London Crime by Borough",
     colour = "Offence", caption = "Source: data.gov.uk"
   ) +
-  scale_colour_manual(values = cols9) +
+  scale_colour_manual(values = cols12) +
   guides(colour = guide_legend(nrow = 3)) +
   theme(
     strip.background = element_rect(fill = cols[4]),
@@ -95,80 +79,58 @@ crime_df |>
   )
 ```
 
-There are some nice alternatives which allow one to go deeper into the data whilst making the whole experience more consumable and engaging.
+This "little project" was first published using [trelliscopejs](https://hafen.github.io/trelliscopejs/) which offered a really nice alternative approach to the static `facet_wrap`. This has been recently reimagined by the superior and easier-to-use [trelliscope](https://github.com/trelliscope) package. I've updated this post to use the "latest and greatest".
 
-Switching `facet_wrap` for `facet_trelliscope` is a simple option. Or `trelliscope`[@trelliscopejs] may be used in combination with the rbokeh [@rbokeh] (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred "small multiple" panels required to go deeper into the crime data.
-
-Pairing `trelliscope` with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends.
+Click top-right to pop the display out full screen. Over 1,700 timeseries plots may be interactively filtered and sorted using summary statistics such as the steepness of the linear trendline.
 
 ```{r}
 #| label: trelliscope
+#| message: false
+#| out-width: "100%"
+#| out-height: "510px"
+#| scale: 0.5
+
+panels_df <- crime_df |>
+  mutate(major = str_wrap(major, 16)) |> 
+  ggplot(aes(month, num_offences)) +
+  geom_line(show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE, colour = cols[5]) +
+  facet_panels(vars(borough, major, minor), scales = "free") + 
+  labs(colour = NULL, x = NULL, y = "Offence Count")
 
 slope <- \(x, y) coef(lm(y ~ x))[2]
 
-plot_data <- crime_df |>
-  nest(.by = c(borough, offences)) |>
-  mutate(
-    additional_cogs = map_cog(
-      data,
-      ~ tibble(
-        slope = cog(slope(.x$year, .x$number_of_offences),
-          desc = "Steepness of the trend"
-        ) |>
-          round(2),
-        mean_count = cog(mean(.x$number_of_offences),
-          desc = "Average count"
-        ),
-        iqr_count = cog(IQR(.x$number_of_offences),
-          desc = "Interquartile range"
-        )
+summary_df <- crime_df |> 
+  summarise(
+    mean_count = mean(num_offences), 
+    slope = slope(month, num_offences),
+    .by = c(borough, major, minor))
+  
+panels_df |> 
+  as_panels_df(as_plotly = TRUE) |> 
+  as_trelliscope_df(
+    name = "Crime in 'The Smoke'",
+    description = str_c(
+      "Timeseries of offences by category ", 
+      "across London's 33 boroughs sourced from data.gov.uk."
       )
-    ),
-    panel = map_plot(
-      data,
-      ~ figure(xlab = "Date", ylab = "Count") |>
-        ly_lines(year, number_of_offences, color = cols[5], 
-                 width = 2, data = .x) |>
-        ly_points(year, number_of_offences,
-          size = 10,
-          fill_color = cols[9],
-          hover = number_of_offences, data = .x
-        ) |>
-        theme_plot(
-          background_fill_color = cols[2],
-          background_fill_alpha = 0.5
-        )
-    )
-  )
+    ) |> 
+  left_join(summary_df, join_by(borough, major, minor)) |> 
+  set_var_labels(
+    major = "Major Category of Offence",
+    minor = "Minor Category of Offence",
+    mean_count = "Average Offences by Borough & Offence Category",
+    slope = "Steepness of a Linear Trendline"
+  ) |> 
+  set_default_sort(c("slope"), dirs = "desc") |>
+  set_tags(
+    stats = c("mean_count", "slope"),
+    info = c("borough", "major", "minor")
+  ) |> 
+  view_trelliscope()
 ```
 
-::: callout-note
-A [Github issue](https://github.com/hafen/trelliscopejs/issues/122) has been raised as the `trelliscope` will *not* render (knit) when publishing the page. Running the code chunks *will* however generate the expected `trelliscope`.
-
-So, to get the `trelliscope below`: 1) run all the code chunks to generate the `appfiles` folder. 2) Set the following chunk to `#| eval: false`. 3) Use an `iframe` to display the `index.html` in the `appfiles` folder. 4) Set `resources: project/wood/appfiles/` under `project:` in the `_quarto.yml` file to ensure the `appfiles` folder is included in `_static`.
-:::
-
-```{r}
-#| label: plot
-#| eval: false
-
-plot_data |>
-  trelliscope(
-    name = "London Crime",
-    desc = "Source: data.gov.uk",
-    nrow = 2,
-    ncol = 3,
-    state = list(
-      sort = list(sort_spec("slope", dir = "desc")),
-      labels = c("borough", "offences", "slope")
-    ),
-    path = "appfiles"
-  )
-```
-
-```{=html}
-<iframe src="/project/wood/appfiles/index.html" width=100% height="600" frameBorder="0"  allowfullscreen></iframe>
-```
+###
 ## R Toolbox
 
 Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.

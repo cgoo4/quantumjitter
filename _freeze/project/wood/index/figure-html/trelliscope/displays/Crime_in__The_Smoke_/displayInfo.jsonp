@@ -1,0 +1,104 @@
+__loadDisplayInfo__7b61d178({
+  "name": "Crime in 'The Smoke'",
+  "description": "Timeseries of offences by category across London's 33 boroughs sourced from data.gov.uk.",
+  "tags": [],
+  "keycols": ["borough", "major", "minor"],
+  "metas": [
+    {
+      "maxnchar": 40,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["info"],
+      "label": "borough",
+      "type": "string",
+      "varname": "borough"
+    },
+    {
+      "maxnchar": 36,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["info"],
+      "label": "Major Category of Offence",
+      "type": "string",
+      "varname": "major"
+    },
+    {
+      "maxnchar": 50,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["info"],
+      "label": "Minor Category of Offence",
+      "type": "string",
+      "varname": "minor"
+    },
+    {
+      "source": {
+        "isLocal": true,
+        "type": "file"
+      },
+      "aspect": 1.5,
+      "paneltype": "iframe",
+      "maxnchar": 0,
+      "sortable": false,
+      "filterable": false,
+      "tags": [],
+      "label": "panel",
+      "type": "panel",
+      "varname": "panel"
+    },
+    {
+      "log": true,
+      "locale": true,
+      "digits": 1,
+      "maxnchar": 12,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["stats"],
+      "label": "Average Offences by Borough & Offence Category",
+      "type": "number",
+      "varname": "mean_count"
+    },
+    {
+      "log": false,
+      "locale": true,
+      "digits": 5,
+      "maxnchar": 13,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["stats"],
+      "label": "Steepness of a Linear Trendline",
+      "type": "number",
+      "varname": "slope"
+    }
+  ],
+  "state": {
+    "layout": {
+      "viewtype": "grid",
+      "sidebarActive": false,
+      "page": 1,
+      "ncol": 3,
+      "type": "layout"
+    },
+    "labels": {
+      "varnames": ["borough", "major", "minor"],
+      "type": "labels"
+    },
+    "sort": [
+      {
+        "type": "sort",
+        "varname": "slope",
+        "dir": "desc",
+        "metatype": "number"
+      }
+    ],
+    "filter": [],
+    "filterView": []
+  },
+  "views": [],
+  "inputs": null,
+  "primarypanel": "panel",
+  "thumbnailurl": "panels/panel/Barking_and_Dagenham_Arson_and_Criminal_Damage_Arson.html",
+  "infoOnLoad": false,
+  "hasCustomInfo": false,
+  "order": 0
+})

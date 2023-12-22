@@ -28178,16 +28178,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://github.com/hafen/trelliscopejs">trelliscopejs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">rbokeh</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://trelliscope.org/trelliscope">trelliscope</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -28226,7 +28217,7 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
-<p>This time I’ll use Van Gogh’s “The Starry Night” palette for the feature image and plots. And there are 9 types of criminal offence, so <code>colorRampPalette</code> will enable the interpolation of an extended set.</p>
+<p>This time I’ll use Van Gogh’s “The Starry Night” palette for the feature image and plots. And there are 12 types of criminal offence, so <code>colorRampPalette</code> will enable the interpolation of an extended set.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -28250,7 +28241,7 @@ font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">vangogh_palette</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/vangogh/man/vangogh_palette.html">vangogh_palette</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -28267,7 +28258,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols9</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">cols12</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -28281,7 +28272,7 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
@@ -28289,7 +28280,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell">
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">url</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">crime_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -28298,40 +28289,31 @@ background-color: null;
 font-style: inherit;">(</span></span>
 <span>  <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"https://data.london.gov.uk/"</span>,</span>
+font-style: inherit;">"https://data.london.gov.uk/download/recorded_crime_summary/"</span>,</span>
 <span>  <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"download/recorded_crime_rates/"</span>,</span>
+font-style: inherit;">"934f2ddb-5804-4c6a-a17c-bdd79b33430e/"</span>, </span>
 <span>  <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/"</span>,</span>
-<span>  <span class="st" style="color: #20794D;
+font-style: inherit;">"MPS%20Borough%20Level%20Crime%20%28Historical%29.csv"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"crime%20rates.csv"</span></span>
-<span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">crime_df</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">(</span>show_col_types <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">url</span>, col_types <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cfcfdn"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">FALSE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
@@ -28340,118 +28322,94 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>    year <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>\<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">year</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"(?:1999|200[0-9]|201[0-7])"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    year <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">year</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">x</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>number_of_offences <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>            .by <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">year</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">offences</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"_text|look_up_|_name"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>    <span class="va" style="color: #111111;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">offences</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">!=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">"All recorded offences"</span>,</span>
-<span>    <span class="op" style="color: #5E5E5E;
+font-style: inherit;">is.numeric</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">!</span><span class="va" style="color: #111111;
+font-style: inherit;">)</span>, names_to <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">borough</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">"month"</span>, values_to <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>      <span class="st" style="color: #20794D;
+font-style: inherit;">"num_offences"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"England and Wales"</span>,</span>
-<span>      <span class="st" style="color: #20794D;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"Met Police Area"</span>,</span>
-<span>      <span class="st" style="color: #20794D;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"Inner London"</span>,</span>
-<span>      <span class="st" style="color: #20794D;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"Outer London"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>month <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">month</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"01"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
-<p>This was the original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code>.</p>
+<p>The original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code> is a little tricky to digest.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -28460,19 +28418,31 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>borough <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>num_offences <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">borough</span>, <span class="fl" style="color: #AD0000;
+font-style: inherit;">num_offences</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">11</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span>, .by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">major</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">month</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -28489,17 +28459,17 @@ font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html"
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">year</span>, <span class="va" style="color: #111111;
+font-style: inherit;">month</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">number_of_offences</span>, colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">offences</span>, group <span class="op" style="color: #5E5E5E;
+font-style: inherit;">num_offences</span>, colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">offences</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">major</span>, group <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">major</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -28576,7 +28546,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols9</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">cols12</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -28658,11 +28628,144 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
-<p>There are some nice alternatives which allow one to go deeper into the data whilst making the whole experience more consumable and engaging.</p>
-<p>Switching <code>facet_wrap</code> for <code>facet_trelliscope</code> is a simple option. Or <code>trelliscope</code><span class="citation" data-cites="trelliscopejs">(Hafen and Schloerke 2021)</span> may be used in combination with the rbokeh <span class="citation" data-cites="rbokeh">(Hafen 2021)</span> (or plotly) packages. Irrespective of the option chosen, one can more flexibly display the several hundred “small multiple” panels required to go deeper into the crime data.</p>
-<p>Pairing <code>trelliscope</code> with rbokeh permits the addition of some custom cognostics and additional interactivity. The slope cognostic, for example, enables filtering on the boroughs and types of offence exhibiting the steepest upward or downward trends.</p>
-<div class="cell">
+<p>This “little project” was first published using <a href="https://hafen.github.io/trelliscopejs/">trelliscopejs</a> which offered a really nice alternative approach to the static <code>facet_wrap</code>. This has been recently reimagined by the superior and easier-to-use <a href="https://github.com/trelliscope">trelliscope</a> package. I’ve updated this post to use the “latest and greatest”.</p>
+<p>Click top-right to pop the display out full screen. Over 1,700 timeseries plots may be interactively filtered and sorted using summary statistics such as the steepness of the linear trendline.</p>
+<div class="cell" data-scale="0.5">
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">panels_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">crime_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>major <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">major</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">month</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">num_offences</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>show.legend <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>method <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"lm"</span>, se <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, colour <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/facet_panels.html">facet_panels</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">major</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">minor</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, scales <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"free"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>, x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>, y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Offence Count"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">slope</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -28702,18 +28805,43 @@ font-style: inherit;">]</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">plot_data</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">summary_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">crime_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>.by <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span></span>
+<span>    mean_count <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">num_offences</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, </span>
+<span>    slope <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">slope</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">month</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">num_offences</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>    .by <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -28723,344 +28851,156 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">offences</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">major</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">minor</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">panels_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/as_panels_df.html">as_panels_df</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>    additional_cogs <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>as_plotly <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">map_cog</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>      <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data</span>,</span>
-<span>      <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>        slope <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">cog</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">slope</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">year</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>          desc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Steepness of the trend"</span></span>
-<span>        <span class="op" style="color: #5E5E5E;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>          <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>        mean_count <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">cog</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>          desc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Average count"</span></span>
-<span>        <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>        iqr_count <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">cog</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/stats/IQR.html">IQR</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>          desc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Interquartile range"</span></span>
-<span>        <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    panel <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">map_plot</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>      <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data</span>,</span>
-<span>      <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">figure</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>xlab <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Date"</span>, ylab <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Count"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>        <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ly_lines</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">year</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span>, color <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>, </span>
-<span>                 width <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, data <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>        <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ly_points</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">year</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span>,</span>
-<span>          size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10</span>,</span>
-<span>          fill_color <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>,</span>
-<span>          hover <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span>, data <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">.x</span></span>
-<span>        <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>        <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">theme_plot</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>          background_fill_color <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>,</span>
-<span>          background_fill_alpha <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.5</span></span>
-<span>        <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span></code></pre></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A <a href="https://github.com/hafen/trelliscopejs/issues/122">Github issue</a> has been raised as the <code>trelliscope</code> will <em>not</em> render (knit) when publishing the page. Running the code chunks <em>will</em> however generate the expected <code>trelliscope</code>.</p>
-<p>So, to get the <code>trelliscope below</code>: 1) run all the code chunks to generate the <code>appfiles</code> folder. 2) Set the following chunk to <code>#| eval: false</code>. 3) Use an <code>iframe</code> to display the <code>index.html</code> in the <code>appfiles</code> folder. 4) Set <code>resources: project/wood/appfiles/</code> under <code>project:</code> in the <code>_quarto.yml</code> file to ensure the <code>appfiles</code> folder is included in <code>_static</code>.</p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">plot_data</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">trelliscope</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/as_trelliscope_df.html">as_trelliscope_df</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>    name <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"London Crime"</span>,</span>
-<span>    desc <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Crime in 'The Smoke'"</span>,</span>
+<span>    description <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>      <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Timeseries of offences by category "</span>, </span>
+<span>      <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"across London's 33 boroughs sourced from data.gov.uk."</span></span>
+<span>      <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">summary_df</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">major</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">minor</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/set_var_labels.html">set_var_labels</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    major <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Source: data.gov.uk"</span>,</span>
-<span>    nrow <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Major Category of Offence"</span>,</span>
+<span>    minor <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">2</span>,</span>
-<span>    ncol <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Minor Category of Offence"</span>,</span>
+<span>    mean_count <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">3</span>,</span>
-<span>    state <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Average Offences by Borough &amp; Offence Category"</span>,</span>
+<span>    slope <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Steepness of a Linear Trendline"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>      sort <span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/set_default_sort.html">set_default_sort</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">sort_spec</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"slope"</span>, dir <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"slope"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, dirs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"desc"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/set_tags.html">set_tags</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    stats <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mean_count"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"slope"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>      labels <span class="op" style="color: #5E5E5E;
+<span>    info <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -29070,28 +29010,43 @@ font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"borough"</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"offences"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">"major"</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"slope"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"minor"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    path <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"appfiles"</span></span>
 <span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://trelliscope.github.io/trelliscope/reference/view_trelliscope.html">view_trelliscope</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div style="width: 100%; height: 510px; padding-bottom: 5px;">
+<iframe style="
+        transform: scale(0.5);
+        width: 200%;
+        height: 1020px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #efefef;
+        transform-origin: top left;
+      " src="index_files/figure-html//trelliscope/index.html" title="Crime in 'The Smoke'" width="200%px" height="1020pxpx" allowfullscreen="">
+</iframe>
 </div>
-<iframe src="../../project/wood/appfiles/index.html" width="100%" height="600" frameborder="0" allowfullscreen=""></iframe>
-<section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
+</div>
+</div>
+<section id="section" class="level3"><h3 class="anchored" data-anchor-id="section"></h3>
+</section><section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -29107,7 +29062,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.numeric[1], c[4], library[7], list[2], mean[1], round[1], sum[1]</td>
+<td style="text-align: left;">c[5], library[6], mean[1], sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -29115,11 +29070,11 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[1], mutate[3], summarise[1]</td>
+<td style="text-align: left;">join_by[1], left_join[1], mutate[2], rename_with[1], summarise[2], vars[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[1], element_rect[1], element_text[1], facet_wrap[1], geom_line[1], ggplot[1], guide_legend[1], guides[1], labs[1], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[2], element_rect[1], element_text[1], facet_wrap[1], geom_line[2], geom_smooth[1], ggplot[2], guide_legend[1], guides[1], labs[2], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">grDevices</td>
@@ -29130,32 +29085,32 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">clean_names[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">rbokeh</td>
-<td style="text-align: left;">figure[1], ly_lines[1], ly_points[1], theme_plot[1]</td>
+<td style="text-align: left;">lubridate</td>
+<td style="text-align: left;">ymd[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readr</td>
-<td style="text-align: left;">read_csv[1]</td>
+<td style="text-align: left;">parse_number[1], read_csv[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stats</td>
-<td style="text-align: left;">IQR[1], coef[1], lm[1]</td>
+<td style="text-align: left;">coef[1], lm[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[1], str_extract[1], str_wrap[1]</td>
+<td style="text-align: left;">str_c[3], str_remove_all[1], str_wrap[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">tibble[1]</td>
+<td style="text-align: left;">tidyr</td>
+<td style="text-align: left;">pivot_longer[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tidyr</td>
-<td style="text-align: left;">nest[1]</td>
+<td style="text-align: left;">tidyselect</td>
+<td style="text-align: left;">where[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">trelliscopejs</td>
-<td style="text-align: left;">cog[3], map_cog[1], map_plot[1], sort_spec[1], trelliscope[1]</td>
+<td style="text-align: left;">trelliscope</td>
+<td style="text-align: left;">as_panels_df[1], as_trelliscope_df[1], facet_panels[1], set_default_sort[1], set_tags[1], set_var_labels[1], view_trelliscope[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">usedthese</td>
@@ -29171,15 +29126,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 
 
-
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
-<div id="ref-rbokeh" class="csl-entry">
-Hafen, Ryan, and Continuum Analytics, Inc. 2021. <span>“Rbokeh: R Interface for Bokeh.”</span> <a href="https://CRAN.R-project.org/package=rbokeh">https://CRAN.R-project.org/package=rbokeh</a>.
-</div>
-<div id="ref-trelliscopejs" class="csl-entry">
-Hafen, Ryan, and Barret Schloerke. 2021. <span>“Trelliscopejs: Create Interactive Trelliscope Displays.”</span> <a href="https://CRAN.R-project.org/package=trelliscopejs">https://CRAN.R-project.org/package=trelliscopejs</a>.
-</div>
-</div></section></div> ]]></description>
+</section> ]]></description>
   <category>R</category>
   <category>apps</category>
   <guid>https://www.quantumjitter.com/project/wood/</guid>
