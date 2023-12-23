@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 22, 2023</p>
+      <p class="date-modified">December 23, 2023</p>
     </div>
   </div>
     
@@ -305,41 +305,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    slope <span class="op">=</span> <span class="fu">slope</span><span class="op">(</span><span class="va">month</span>, <span class="va">num_offences</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span><span class="op">)</span></span>
 <span>  </span>
-<span><span class="va">panels_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/as_panels_df.html">as_panels_df</a></span><span class="op">(</span>as_plotly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">panels_df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/as_panels_df.html">as_panels_df</a></span><span class="op">(</span>as_plotly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/as_trelliscope_df.html">as_trelliscope_df</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="st">"Crime in 'The Smoke'"</span>,</span>
 <span>    description <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Timeseries of offences by category "</span>, </span>
+<span>      <span class="st">"Timeseries of offences by category "</span>,</span>
 <span>      <span class="st">"across London's 33 boroughs sourced from data.gov.uk."</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">summary_df</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">summary_df</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_var_labels.html">set_var_labels</a></span><span class="op">(</span></span>
 <span>    major <span class="op">=</span> <span class="st">"Major Category of Offence"</span>,</span>
 <span>    minor <span class="op">=</span> <span class="st">"Minor Category of Offence"</span>,</span>
 <span>    mean_count <span class="op">=</span> <span class="st">"Average Offences by Borough &amp; Offence Category"</span>,</span>
 <span>    slope <span class="op">=</span> <span class="st">"Steepness of a Linear Trendline"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_default_sort.html">set_default_sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slope"</span><span class="op">)</span>, dirs <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_tags.html">set_tags</a></span><span class="op">(</span></span>
 <span>    stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mean_count"</span>, <span class="st">"slope"</span><span class="op">)</span>,</span>
 <span>    info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"borough"</span>, <span class="st">"major"</span>, <span class="st">"minor"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_theme.html">set_theme</a></span><span class="op">(</span></span>
+<span>    primary <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    dark <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    light <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>    light_text_on_dark <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    dark_text <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    light_text <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>    header_background <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>    header_text <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/view_trelliscope.html">view_trelliscope</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div style="width: 100%; height: 510px; padding-bottom: 5px;">
+<div style="width: 100%; height: 500px; padding-bottom: 5px;">
 <iframe style="
         transform: scale(0.5);
         width: 200%;
-        height: 1020px;
+        height: 1000px;
         margin: 0;
         padding: 0;
         border: 1px solid #efefef;
         transform-origin: top left;
-      " src="index_files/figure-html//trelliscope/index.html" title="Crime in 'The Smoke'" width="200%px" height="1020pxpx" allowfullscreen="">
+      " src="index_files/figure-html//trelliscope/index.html" title="Crime in 'The Smoke'" width="200%px" height="1000pxpx" allowfullscreen="">
 </iframe>
-</div>
 </div>
 </div>
 <section id="section" class="level3"><h3 class="anchored" data-anchor-id="section"></h3>
@@ -404,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">trelliscope</td>
-<td style="text-align: left;">as_panels_df[1], as_trelliscope_df[1], facet_panels[1], set_default_sort[1], set_tags[1], set_var_labels[1], view_trelliscope[1]</td>
+<td style="text-align: left;">as_panels_df[1], as_trelliscope_df[1], facet_panels[1], set_default_sort[1], set_tags[1], set_theme[1], set_var_labels[1], view_trelliscope[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">usedthese</td>

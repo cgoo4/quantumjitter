@@ -58,27 +58,37 @@ summary_df <- crime_df |>
     slope = slope(month, num_offences),
     .by = c(borough, major, minor))
   
-panels_df |> 
-  as_panels_df(as_plotly = TRUE) |> 
+panels_df |>
+  as_panels_df(as_plotly = TRUE) |>
   as_trelliscope_df(
     name = "Crime in 'The Smoke'",
     description = str_c(
-      "Timeseries of offences by category ", 
+      "Timeseries of offences by category ",
       "across London's 33 boroughs sourced from data.gov.uk."
-      )
-    ) |> 
-  left_join(summary_df, join_by(borough, major, minor)) |> 
+    )
+  ) |>
+  left_join(summary_df, join_by(borough, major, minor)) |>
   set_var_labels(
     major = "Major Category of Offence",
     minor = "Minor Category of Offence",
     mean_count = "Average Offences by Borough & Offence Category",
     slope = "Steepness of a Linear Trendline"
-  ) |> 
+  ) |>
   set_default_sort(c("slope"), dirs = "desc") |>
   set_tags(
     stats = c("mean_count", "slope"),
     info = c("borough", "major", "minor")
-  ) |> 
+  ) |>
+  set_theme(
+    primary = cols[1],
+    dark = cols[1],
+    light = cols[5],
+    light_text_on_dark = TRUE,
+    dark_text = cols[1],
+    light_text = cols[4],
+    header_background = cols[2],
+    header_text = NULL
+  ) |>
   view_trelliscope()
 
 used_here()
