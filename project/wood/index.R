@@ -40,7 +40,8 @@ crime_df |>
     strip.background = element_rect(fill = cols[4]),
     legend.position = "bottom",
     axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+  ) + 
+  guides(col = guide_legend(ncol = 2))
 
 panels_df <- crime_df |>
   mutate(major = str_wrap(major, 16)) |> 

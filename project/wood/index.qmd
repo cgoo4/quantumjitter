@@ -1,7 +1,7 @@
 ---
 title: "Seeing the Wood for the Trees"
 date: "2019-01-01"
-categories: [R, apps]
+categories: [R, apps, time series]
 description: "Visualising small multiples when crime data leave you unable to see the wood for the trees"
 bibliography: references.bib
 ---
@@ -55,7 +55,7 @@ crime_df <- str_c(
   mutate(month = parse_number(month) |> str_c("01") |> ymd())
 ```
 
-The original visualisation in [Criminal Goings-on](/project/forest) using ggplot's `facet_wrap` is a little tricky to digest.
+The original visualisation in [Criminal Goings-on](/project/forest) using ggplot's `facet_wrap` is a little tricky to digest, even when limited to major categories of crime.
 
 ```{r}
 #| label: facet
@@ -76,12 +76,13 @@ crime_df |>
     strip.background = element_rect(fill = cols[4]),
     legend.position = "bottom",
     axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+  ) + 
+  guides(col = guide_legend(ncol = 2))
 ```
 
 This "little project" was first published using [trelliscopejs](https://hafen.github.io/trelliscopejs/) which offered a really nice alternative approach to the static `facet_wrap`. This has been recently reimagined by the superior and easier-to-use [trelliscope](https://github.com/trelliscope) package. I've updated this post to use the "latest and greatest".
 
-Click top-right to pop the display out full screen. Over 1,700 timeseries plots may be interactively filtered and sorted using summary statistics such as the steepness of the linear trendline.
+Click top-right to pop the display out full screen. Over 1,700 time series plots may be interactively filtered and sorted (for every combination of borough, major/minor category of crime) using summary statistics such as the steepness of the linear trend line.
 
 ```{r}
 #| label: trelliscope

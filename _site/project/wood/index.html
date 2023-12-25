@@ -185,6 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">apps</div>
+    <div class="quarto-category">time series</div>
   </div>
   </div>
 
@@ -214,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 23, 2023</p>
+      <p class="date-modified">December 25, 2023</p>
     </div>
   </div>
     
@@ -261,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"month"</span>, values_to <span class="op">=</span> <span class="st">"num_offences"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"01"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code> is a little tricky to digest.</p>
+<p>The original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code> is a little tricky to digest, even when limited to major categories of crime.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>num_offences <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">num_offences</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">major</span>, <span class="va">borough</span>, <span class="va">month</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -278,7 +279,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/facet-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -287,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This “little project” was first published using <a href="https://hafen.github.io/trelliscopejs/">trelliscopejs</a> which offered a really nice alternative approach to the static <code>facet_wrap</code>. This has been recently reimagined by the superior and easier-to-use <a href="https://github.com/trelliscope">trelliscope</a> package. I’ve updated this post to use the “latest and greatest”.</p>
-<p>Click top-right to pop the display out full screen. Over 1,700 timeseries plots may be interactively filtered and sorted using summary statistics such as the steepness of the linear trendline.</p>
+<p>Click top-right to pop the display out full screen. Over 1,700 time series plots may be interactively filtered and sorted (for every combination of borough, major/minor category of crime) using summary statistics such as the steepness of the linear trend line.</p>
 <div class="cell" data-scale="0.5">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">panels_df</span> <span class="op">&lt;-</span> <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>major <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">major</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -376,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[2], element_rect[1], element_text[1], facet_wrap[1], geom_line[2], geom_smooth[1], ggplot[2], guide_legend[1], guides[1], labs[2], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[2], element_rect[1], element_text[1], facet_wrap[1], geom_line[2], geom_smooth[1], ggplot[2], guide_legend[2], guides[2], labs[2], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">grDevices</td>
