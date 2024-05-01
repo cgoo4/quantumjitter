@@ -85,9 +85,8 @@ packfun_df <- pack_df |>
 
 p1 <- packfun_df |>
   filter(name == "package") |> 
-  ggplot(aes(fct_reorder(packfun, n), n, fill = multiverse)) +
+  ggplot(aes(n, fct_reorder(packfun, n), fill = multiverse)) +
   geom_col(show.legend = FALSE) +
-  coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
   scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(x = NULL, y = NULL, 
@@ -97,9 +96,8 @@ min_n <- 4
 
 p2 <- packfun_df |>
   filter(name == "function", n >= min_n) |> 
-  ggplot(aes(fct_reorder(packfun, n), n, fill = multiverse)) +
+  ggplot(aes(n, fct_reorder(packfun, n), fill = multiverse)) +
   geom_col() +
-  coord_flip() +
   geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
   scale_fill_manual(values = cols[c(4, 3, 1)]) +
   labs(x = NULL, y = NULL, 

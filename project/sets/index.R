@@ -1,6 +1,7 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflicts_prefer(tidyr::unite)
 library(rvest)
 library(furrr)
 library(wesanderson)
@@ -12,7 +13,7 @@ library(usedthese)
 
 conflict_scout()
 
-plan(multisession)
+plan(multisession, workers = 10)
 
 theme_set(theme_bw())
 
@@ -59,42 +60,37 @@ version <- lot_urls[[1]] |>
 tic()
 
 data_df <-
-  future_pmap(
-    list(
-      cat_urls$url,
-      cat_urls$pages,
-      cat_urls$lot
-    ),
-    \(x, y, z) {
-      future_map_dfr(1:y, \(y) {
+  pmap(cat_urls, \(url, pages, lot) {
+    
+    cat("\n", url, " | ", pages, " | ", lot)
+      
+    future_map(1:pages, possibly(\(pages) {
         refs <- str_c(
           "https://www.applytosupply.digitalmarketplace", 
           ".service.gov.uk/g-cloud/search?page=",
-          y,
-          x,
-          "&lot=cloud-",
-          z
-        ) |>
+          pages, url, "&lot=cloud-", lot
+          ) |>
           read_html() |>
           html_elements("#js-dm-live-search-results .govuk-link") |>
           html_attr("href") 
-        
-       tibble(
-            lot = str_c("Cloud ", str_to_title(z)),
+    
+        tibble(
+            lot = str_c("Cloud ", str_to_title(lot)),
             service_id = str_extract(refs, "[[:digit:]]{15}"), # <1>
-            cat = str_remove(x, "&serviceCategories=") |>
+            cat = str_remove(url, "&serviceCategories=") |>
               str_replace_all("\\Q+\\E", " ") |> # <2>
               str_remove("%28[[:print:]]+%29")
           )
-      })
+      }), .progress = TRUE) |> bind_rows()
     }
-  ) |>
-  list_rbind() |>
+  ) |> 
+  bind_rows() |>
   select(lot:cat) |>
   mutate(
     cat = str_trim(cat) |> str_to_title(),
     abbr = str_remove(cat, "and") |> abbreviate(3) |> str_to_upper()
-  )
+  ) |> 
+  drop_na(service_id)
 
 toc()
 

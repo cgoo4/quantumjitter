@@ -263,7 +263,7 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://text2vec.org">text2vec</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">topicmodels</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/slider">slider</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -434,7 +434,7 @@ Important
 <span>  <span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span>context <span class="op">=</span> <span class="st">"window"</span>, window <span class="op">=</span> <span class="va">window</span>, </span>
 <span>      count <span class="op">=</span> <span class="st">"weighted"</span>, weights <span class="op">=</span> <span class="va">window</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va">GlobalVectors</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html">GlobalVectors</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">60</span>, x_max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span></span>
@@ -458,7 +458,7 @@ INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
 <span>  <span class="va">word_vectors</span><span class="op">[</span><span class="st">"barnier"</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">word_vectors</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">sim2</span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/similarities.html">sim2</a></span><span class="op">(</span><span class="va">search_coord</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="st">"term"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>similarity <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

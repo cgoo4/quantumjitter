@@ -1,0 +1,86 @@
+__loadDisplayInfo__5cb177ae({
+  "name": "Average London House Prices",
+  "description": "Time series of house prices by London post code district sourced from HM Land Registry Open Data.",
+  "tags": [],
+  "keycols": ["district"],
+  "metas": [
+    {
+      "maxnchar": 22,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["info"],
+      "label": "Post Code District",
+      "type": "string",
+      "varname": "district"
+    },
+    {
+      "source": {
+        "isLocal": true,
+        "type": "file"
+      },
+      "aspect": 1.5,
+      "paneltype": "iframe",
+      "maxnchar": 0,
+      "sortable": false,
+      "filterable": false,
+      "tags": [],
+      "label": "panel",
+      "type": "panel",
+      "varname": "panel"
+    },
+    {
+      "log": true,
+      "locale": true,
+      "digits": 0,
+      "maxnchar": 7,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["stats"],
+      "label": "Last Year's Avg Price",
+      "type": "number",
+      "varname": "last_price"
+    },
+    {
+      "log": true,
+      "locale": true,
+      "digits": 0,
+      "maxnchar": 9,
+      "sortable": true,
+      "filterable": true,
+      "tags": ["stats"],
+      "label": "slope",
+      "type": "number",
+      "varname": "slope"
+    }
+  ],
+  "state": {
+    "layout": {
+      "viewtype": "grid",
+      "sidebarActive": false,
+      "page": 1,
+      "ncol": 3,
+      "type": "layout"
+    },
+    "labels": {
+      "varnames": ["district", "last_price"],
+      "type": "labels"
+    },
+    "sort": [
+      {
+        "type": "sort",
+        "varname": "last_price",
+        "dir": "desc",
+        "metatype": "number"
+      }
+    ],
+    "filter": [],
+    "filterView": []
+  },
+  "views": [],
+  "inputs": null,
+  "primarypanel": "panel",
+  "thumbnailurl": "panels/panel/BARKING_AND_DAGENHAM.html",
+  "infoOnLoad": false,
+  "hasCustomInfo": false,
+  "order": 0
+})
