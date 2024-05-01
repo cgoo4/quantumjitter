@@ -33,6 +33,7 @@ library(glue)
 library(ggwordcloud)
 library(patchwork)
 library(clock)
+library(geomtextpath)
 library(usedthese)
 
 conflict_scout()
@@ -45,13 +46,13 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 4
-palette <- "harrypotter::hufflepuff"
+n <- 6
+palette <- "LaCroixColoR::CranRaspberry"
 
-cols <- paletteer_c(palette, n = n)
+cols <- paletteer_d(palette, n = n)
 
 tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
+  ggplot(aes(x, y, fill = fct_inorder(cols))) +
   geom_col(colour = "white") +
   geom_label(aes(label = cols |> str_remove("FF$")), 
              size = 4, vjust = 2, fill = "white") +
@@ -133,37 +134,89 @@ packfun_df <- pack_df |>
 With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and `map_dfr` has fallen away whilst usage of `list_rbind` and `join_by` has freshly emerged.
 
 ```{r}
-#| label: plot
-#| fig-height: 22
+#| label: radial
+#| warning: false
 
-p1 <- packfun_df |>
-  filter(name == "package") |> 
-  ggplot(aes(n, fct_reorder(packfun, n), fill = multiverse)) +
-  geom_col(show.legend = FALSE) +
-  geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 3, 1)]) +
-  labs(x = NULL, y = NULL, 
-       subtitle = glue("Package Usage"))
+radial_df <- used_df |>
+  count(Package, multiverse, wt = n) |> 
+  filter(n > 10) |> 
+  arrange(multiverse, n) |> 
+  mutate(row = row_number())
 
-min_n <- 4
+lines_df <- radial_df |> 
+  summarise(
+    start = min(row),
+    end = max(row),
+    .by = multiverse
+  ) 
 
-p2 <- packfun_df |>
-  filter(name == "function", n >= min_n) |> 
-  ggplot(aes(n, fct_reorder(packfun, n), fill = multiverse)) +
-  geom_col() +
-  geom_label(aes(label = n), hjust = "inward", size = 2, fill = "white") +
-  scale_fill_manual(values = cols[c(4, 3, 1)]) +
-  labs(x = NULL, y = NULL, 
-       subtitle = glue("Function Usage >= {min_n}"))
+radial_df2 <- used_df |>
+  count(Function, multiverse, wt = n) |> 
+  filter(n > 20) |> 
+  arrange(multiverse, n) |> 
+  mutate(row = row_number())
 
-p1 + p2 +
-  plot_annotation(
-    title = glue("Favourite Things"),
-    subtitle = glue(
-      "Used Across {n_url} Projects as at ",
-      "{date_format(date_today('Europe/London'), format = '%B %d, %Y')}"
-    )
+lines_df2 <- radial_df2 |> 
+  summarise(
+    start = min(row),
+    end = max(row),
+    .by = multiverse
+  ) 
+
+p1 <- radial_df |> 
+  mutate(Package = fct_reorder(Package, row)) |> 
+  ggplot(aes(Package, n, fill = multiverse, colour = multiverse)) +
+  geom_col(colour = cols[6]) +
+  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
+  geom_textpath(aes(label = Package), size = 3, colour = "black",
+            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
+  geom_textsegment(
+    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
+    data = lines_df,
+    linewidth = 1,
+    size = 2, gap = FALSE,
+    offset = unit(-7, "pt")
+  ) +
+  coord_radial(inner.radius = 0.25) +
+  scale_y_log10() +
+  scale_fill_manual(values = cols[c(1, 4, 5)]) +
+  scale_colour_manual(values = cols[c(1, 4, 5)]) +
+  theme_void() +
+  theme(
+    axis.text.x = element_blank(),
+    legend.position = "none")
+
+p2 <- radial_df2 |> 
+  mutate(Function = fct_reorder(Function, row)) |> 
+  ggplot(aes(Function, n, fill = multiverse, colour = multiverse)) +
+  geom_col(colour = cols[6]) +
+  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
+  geom_textpath(aes(label = Function), size = 3, colour = "black",
+            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
+  geom_textsegment(
+    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
+    data = lines_df2,
+    linewidth = 1,
+    size = 2, gap = FALSE,
+    offset = unit(-7, "pt")
+  ) +
+  coord_radial(inner.radius = 0.25) +
+  scale_y_log10() +
+  scale_fill_manual(values = cols[c(1, 4, 5)]) +
+  scale_colour_manual(values = cols[c(1, 4, 5)]) +
+  theme_void() +
+  theme(
+    axis.text.x = element_blank(),
+    legend.position = "none")
+
+p1 + p2 + plot_annotation(
+  title = "Top Package & Function Usage",
+  subtitle = glue("Across {n_url} Projects"),
+  theme = theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5)
   )
+)
 ```
 
 This last code chunk generates the word cloud for use as the feature image for this project.
@@ -192,9 +245,9 @@ packfun_df |>
     seed = 789
   ) +
   scale_size_area(max_size = 20) +
-  scale_colour_manual(values = cols[c(4, 2, 1)]) +
+  scale_colour_manual(values = cols[c(1, 6, 5)]) +
   theme_void() +
-  theme(plot.background = element_rect(fill = cols[3]))
+  theme(plot.background = element_rect(fill = "white"))
 ```
 
 ## R Toolbox
