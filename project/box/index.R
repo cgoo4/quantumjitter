@@ -84,77 +84,59 @@ packfun_df <- pack_df |>
     .by = name
   )
 
-radial_df <- used_df |>
-  count(Package, multiverse, wt = n) |> 
-  filter(n > 10) |> 
-  arrange(multiverse, n) |> 
-  mutate(row = row_number())
+prep_data <- \(x, y){
+  used_df |>
+    count({{ x }}, multiverse, wt = n) |>
+    filter(n > y) |>
+    arrange(multiverse, n) |>
+    mutate(row = row_number())
+}
 
-lines_df <- radial_df |> 
-  summarise(
-    start = min(row),
-    end = max(row),
-    .by = multiverse
-  ) 
+radial_df <- prep_data(Package, 10)
+radial_df2 <- prep_data(Function, 20)
 
-radial_df2 <- used_df |>
-  count(Function, multiverse, wt = n) |> 
-  filter(n > 20) |> 
-  arrange(multiverse, n) |> 
-  mutate(row = row_number())
+prep_lines <- \(data){
+  data |>
+    summarise(
+      start = min(row),
+      end = max(row),
+      .by = multiverse
+    )
+}
 
-lines_df2 <- radial_df2 |> 
-  summarise(
-    start = min(row),
-    end = max(row),
-    .by = multiverse
-  ) 
+lines_df <- prep_lines(radial_df)
+lines_df2 <- prep_lines(radial_df2)
 
-p1 <- radial_df |> 
-  mutate(Package = fct_reorder(Package, row)) |> 
-  ggplot(aes(Package, n, fill = multiverse, colour = multiverse)) +
-  geom_col(colour = cols[6]) +
-  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
-  geom_textpath(aes(label = Package), size = 3, colour = "black",
-            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
-  geom_textsegment(
-    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
-    data = lines_df,
-    linewidth = 1,
-    size = 2, gap = FALSE,
-    offset = unit(-7, "pt")
-  ) +
-  coord_radial(inner.radius = 0.25) +
-  scale_y_log10() +
-  scale_fill_manual(values = cols[c(1, 4, 5)]) +
-  scale_colour_manual(values = cols[c(1, 4, 5)]) +
-  theme_void() +
-  theme(
-    axis.text.x = element_blank(),
-    legend.position = "none")
+prep_plot <- \(data, data2, x){
+  data |>
+    mutate({{ x }} := fct_reorder({{ x }}, row)) |>
+    ggplot(aes({{ x }}, n, fill = multiverse, colour = multiverse)) +
+    geom_col(colour = cols[6]) +
+    geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
+    geom_textpath(aes(label = {{ x }}),
+      size = 3, colour = "black",
+      text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1
+    ) +
+    geom_textsegment(
+      aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
+      data = data2,
+      linewidth = 1,
+      size = 2, gap = FALSE,
+      offset = unit(-7, "pt")
+    ) +
+    coord_radial(inner.radius = 0.25) +
+    scale_y_log10() +
+    scale_fill_manual(values = cols[c(1, 4, 5)]) +
+    scale_colour_manual(values = cols[c(1, 4, 5)]) +
+    theme_void() +
+    theme(
+      axis.text.x = element_blank(),
+      legend.position = "none"
+    )
+}
 
-p2 <- radial_df2 |> 
-  mutate(Function = fct_reorder(Function, row)) |> 
-  ggplot(aes(Function, n, fill = multiverse, colour = multiverse)) +
-  geom_col(colour = cols[6]) +
-  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
-  geom_textpath(aes(label = Function), size = 3, colour = "black",
-            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
-  geom_textsegment(
-    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
-    data = lines_df2,
-    linewidth = 1,
-    size = 2, gap = FALSE,
-    offset = unit(-7, "pt")
-  ) +
-  coord_radial(inner.radius = 0.25) +
-  scale_y_log10() +
-  scale_fill_manual(values = cols[c(1, 4, 5)]) +
-  scale_colour_manual(values = cols[c(1, 4, 5)]) +
-  theme_void() +
-  theme(
-    axis.text.x = element_blank(),
-    legend.position = "none")
+p1 <- prep_plot(radial_df, lines_df, Package)
+p2 <- prep_plot(radial_df2, lines_df2, Function)
 
 p1 + p2 + plot_annotation(
   title = "Top Package & Function Usage",

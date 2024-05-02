@@ -3,6 +3,7 @@ title: "Favourite Things"
 date: "2020-07-26"
 categories: [R, web scraping]
 description: "R packages & functions that make doing data science a joy based on usage across projects"
+bibliography: references.bib
 ---
 
 ![](feature-1.png){fig-alt="Wordcloud emphasising this site's most used R packages and functions"}
@@ -17,7 +18,7 @@ Each [project](/project/) closes with a table summarising the R tools used. By a
 
 Since starting this in 2017, functions like tidyr's `spread` and `gather` have been superseded by `pivot_wider` and `pivot_longer`. Newer packages have emerged like [tidyclust](https://github.com/EmilHvitfeldt/tidyclust), which brings cluster modelling to tidymodels (now used in [Finding Happiness in 'The Smoke'](https://www.quantumjitter.com/project/happiness/)). [bslib](https://rstudio.github.io/bslib/) has brought improvements to the latest shiny app version embedded in [Plots Thicken](https://www.quantumjitter.com/project/thicken/). The paletteer package has put it's arms around the myriad palette packages out there. And scales' `cut_short_scale` assisted with plot labelling.
 
-Most recently, the latest versions of dplyr and purrr have presented a host of enhancements. For example, the `.by` argument in `mutate` and friends offers a neat alternative to `group_by` and `ungroup` in many situations. Joins have been enhanced (e.g. to support inequality conditions) with the addition of `join_by` to dplyr. And changes in the `map_` family introduce `list_rbind` and associates with `map_dfr`, for example, now superseded.
+More recently, dplyr and purrr have presented a host of enhancements. For example, the `.by` argument in `mutate` and friends offers a concise temporary alternative to `group_by` and `ungroup` in many situations. Joins have been enhanced (e.g. to support inequality conditions) with the addition of `join_by` to dplyr. And changes in the `map_` family introduce `list_rbind` and associates with `map_dfr`, for example, now superseded.
 
 ```{r}
 #| label: libraries
@@ -131,83 +132,65 @@ packfun_df <- pack_df |>
   )
 ```
 
-With the latest versions of dplyr and purrr, usage of `group_by`, `ungroup` and `map_dfr` has fallen away whilst usage of `list_rbind` and `join_by` has freshly emerged.
+My most commonly used packages and functions are revealed with the help of geomtextpath [@geomtextpath] and a pair of "Catherine wheel" plots.
 
 ```{r}
 #| label: radial
 #| warning: false
 
-radial_df <- used_df |>
-  count(Package, multiverse, wt = n) |> 
-  filter(n > 10) |> 
-  arrange(multiverse, n) |> 
-  mutate(row = row_number())
+prep_data <- \(x, y){
+  used_df |>
+    count({{ x }}, multiverse, wt = n) |>
+    filter(n > y) |>
+    arrange(multiverse, n) |>
+    mutate(row = row_number())
+}
 
-lines_df <- radial_df |> 
-  summarise(
-    start = min(row),
-    end = max(row),
-    .by = multiverse
-  ) 
+radial_df <- prep_data(Package, 10)
+radial_df2 <- prep_data(Function, 20)
 
-radial_df2 <- used_df |>
-  count(Function, multiverse, wt = n) |> 
-  filter(n > 20) |> 
-  arrange(multiverse, n) |> 
-  mutate(row = row_number())
+prep_lines <- \(data){
+  data |>
+    summarise(
+      start = min(row),
+      end = max(row),
+      .by = multiverse
+    )
+}
 
-lines_df2 <- radial_df2 |> 
-  summarise(
-    start = min(row),
-    end = max(row),
-    .by = multiverse
-  ) 
+lines_df <- prep_lines(radial_df)
+lines_df2 <- prep_lines(radial_df2)
 
-p1 <- radial_df |> 
-  mutate(Package = fct_reorder(Package, row)) |> 
-  ggplot(aes(Package, n, fill = multiverse, colour = multiverse)) +
-  geom_col(colour = cols[6]) +
-  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
-  geom_textpath(aes(label = Package), size = 3, colour = "black",
-            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
-  geom_textsegment(
-    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
-    data = lines_df,
-    linewidth = 1,
-    size = 2, gap = FALSE,
-    offset = unit(-7, "pt")
-  ) +
-  coord_radial(inner.radius = 0.25) +
-  scale_y_log10() +
-  scale_fill_manual(values = cols[c(1, 4, 5)]) +
-  scale_colour_manual(values = cols[c(1, 4, 5)]) +
-  theme_void() +
-  theme(
-    axis.text.x = element_blank(),
-    legend.position = "none")
+prep_plot <- \(data, data2, x){
+  data |>
+    mutate({{ x }} := fct_reorder({{ x }}, row)) |>
+    ggplot(aes({{ x }}, n, fill = multiverse, colour = multiverse)) +
+    geom_col(colour = cols[6]) +
+    geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
+    geom_textpath(aes(label = {{ x }}),
+      size = 3, colour = "black",
+      text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1
+    ) +
+    geom_textsegment(
+      aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
+      data = data2,
+      linewidth = 1,
+      size = 2, gap = FALSE,
+      offset = unit(-7, "pt")
+    ) +
+    coord_radial(inner.radius = 0.25) +
+    scale_y_log10() +
+    scale_fill_manual(values = cols[c(1, 4, 5)]) +
+    scale_colour_manual(values = cols[c(1, 4, 5)]) +
+    theme_void() +
+    theme(
+      axis.text.x = element_blank(),
+      legend.position = "none"
+    )
+}
 
-p2 <- radial_df2 |> 
-  mutate(Function = fct_reorder(Function, row)) |> 
-  ggplot(aes(Function, n, fill = multiverse, colour = multiverse)) +
-  geom_col(colour = cols[6]) +
-  geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
-  geom_textpath(aes(label = Function), size = 3, colour = "black",
-            text_only = TRUE, offset = unit(-10, "pt"), angle = -70, hjust = 1) +
-  geom_textsegment(
-    aes(start, 0.6, xend = end, yend = 0.6, label = multiverse),
-    data = lines_df2,
-    linewidth = 1,
-    size = 2, gap = FALSE,
-    offset = unit(-7, "pt")
-  ) +
-  coord_radial(inner.radius = 0.25) +
-  scale_y_log10() +
-  scale_fill_manual(values = cols[c(1, 4, 5)]) +
-  scale_colour_manual(values = cols[c(1, 4, 5)]) +
-  theme_void() +
-  theme(
-    axis.text.x = element_blank(),
-    legend.position = "none")
+p1 <- prep_plot(radial_df, lines_df, Package)
+p2 <- prep_plot(radial_df2, lines_df2, Function)
 
 p1 + p2 + plot_annotation(
   title = "Top Package & Function Usage",
