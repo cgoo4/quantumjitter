@@ -156,12 +156,11 @@ best_method <- map(methods, \(x) {
   list_rbind()
 
 best_method |>
-  ggplot(aes(reorder(method, correlation), correlation)) +
+  ggplot(aes(correlation, reorder(method, correlation))) +
   geom_col(fill = cols[1], width = 0.8) +
   geom_text(aes(label = str_c(method, "  ", round(correlation, 2))),
     hjust = 1.3, colour = "white"
   ) +
-  coord_flip() +
   labs(
     x = "Method", y = "Correlation",
     title = "Cluster Method Correlation Coefficients",
@@ -175,23 +174,18 @@ dend_avg <- orig_dist |>
 labels(dend_avg) <- scaled_df$mp[order.dendrogram(dend_avg)]
 
 dend <- dend_avg |>
-  color_branches(k = 2, col = cols[4]) |>
-  set("labels_cex", 0.4)
+  color_branches(k = 2, col = cols[c(2, 1)]) |>
+  color_labels(k = 2, col = cols[c(2, 1)]) |>
+  set("branches_lwd", 0.5) |> 
+  set("labels_cex", 0.3)
 
-start_formatted <- date_parse(start_date, format = "%Y-%m-%d") |> 
-  date_format(format = "%b %d, %Y")
+p <- ggplot(dend, horiz = TRUE, offset_labels = -2) +
+  theme(panel.border = element_blank()) +
+  coord_radial()
 
-end_formatted <- date_parse(end_date, format = "%Y-%m-%d") |> 
-  date_format(format = "%b %d, %Y")
+p[["layers"]][[3]][["aes_params"]][["angle"]] <- seq(75, by = -1.58, length.out = 210)
 
-ggplot(rev(dend), horiz = TRUE, offset_labels = -0.2) +
-  labs(
-    y = "\nDistance", title = "Hierarchical Clustering of Labour MPs",
-    subtitle = "Based on House of Commons Divisions Since the 2017 Election",
-    caption = glue(
-      "Source: Hansard ({start_formatted} to {end_formatted})")
-  ) +
-  theme(panel.border = element_blank())
+p
 
 dend_cuts <- dend |>
   assign_values_to_leaves_nodePar(19, "pch") |>
@@ -202,14 +196,23 @@ dend_cuts <- dend |>
   color_branches(k = 2, col = cols[1]) |>
   cut(h = 50)
 
+start_formatted <- date_parse(start_date, format = "%Y-%m-%d") |> 
+  date_format(format = "%b %d, %Y")
+
+end_formatted <- date_parse(end_date, format = "%Y-%m-%d") |> 
+  date_format(format = "%b %d, %Y")
+
 ggplot(rev(dend_cuts$lower[[1]]),
   horiz = TRUE,
   nodePar = nodePar,
   offset_labels = -0.5
 ) +
   labs(
-    title = "Cluster of Six",
-    subtitle = "MPs who Branch off First in the Dendrogram"
+    y = "\nDistance", 
+    title = "Cluster of Six (Branching off First)",
+    subtitle = "Based on House of Commons Divisions Since the 2017 Election",
+    caption = glue(
+      "Source: Hansard ({start_formatted} to {end_formatted})")
   ) +
   theme_void() +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
@@ -226,11 +229,10 @@ fewest_votes <- votes |>
   filter(name != "total")
 
 fewest_votes |>
-  ggplot(aes(mp, value, fill = name)) +
+  ggplot(aes(value, mp, fill = name)) +
   geom_col() +
   geom_label(aes(label = value), position = position_stack()) +
   scale_fill_manual(values = cols[c(1, 3)]) +
-  coord_flip() +
   labs(title = "Labour MPs Voting Fewest Times",
        y = "Votes", x = NULL, fill = NULL)
 
@@ -243,12 +245,11 @@ mod_df <- mod |>
   augment() |>
   as_tibble()
 
-ggplot(mod_df, aes(title, .cooksd, colour = mp)) +
+ggplot(mod_df, aes(.cooksd, title, colour = mp)) +
   geom_jitter() +
   geom_label_repel(aes(label = if_else(.cooksd > 0.002, mp, NA)), size = 4) +
   scale_colour_manual(values = wes_palette(220, name = "Moonrise2", type = "continuous")) +
   labs(title = "Cook's Distance") +
-  coord_flip() +
   theme(
     panel.border = element_blank(),
     axis.text = element_text(size = 6),
@@ -258,7 +259,7 @@ ggplot(mod_df, aes(title, .cooksd, colour = mp)) +
 mod_df |>
   filter(str_detect(title, "759161|824379|809989")) |>
   mutate(title = str_wrap(title, 30)) |> 
-  ggplot(aes(title, .cooksd, colour = mp)) +
+  ggplot(aes(.cooksd, title, colour = mp)) +
   geom_point(size = 4) +
   geom_label_repel(aes(label = if_else(.cooksd > 0.0015, mp, NA)), size = 4) +
   ggtitle("Cook's Distance") +
@@ -269,7 +270,6 @@ mod_df |>
     axis.title = element_blank()
   ) +
   scale_colour_manual(values = wes_palette(
-    210, name = "Moonrise2", type = "continuous")) +
-  coord_flip()
+    210, name = "Moonrise2", type = "continuous"))
 
 used_here()
