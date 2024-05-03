@@ -27,6 +27,7 @@ library(broom)
 library(factoextra)
 library(glue)
 library(ggrepel)
+library(geomtextpath)
 library(usedthese)
 
 conflict_scout()
@@ -361,7 +362,6 @@ Non-voting will not be the only influencing factor. The "distant cluster" will b
 
 ```{r}
 #| label: cooks
-#| fig-height: 25
 #| warning: false
 
 tidy_df <- votes_df |>
@@ -373,16 +373,28 @@ mod_df <- mod |>
   augment() |>
   as_tibble()
 
-ggplot(mod_df, aes(.cooksd, title, colour = mp)) +
-  geom_jitter() +
-  geom_label_repel(aes(label = if_else(.cooksd > 0.002, mp, NA)), size = 4) +
+mod_df |>
+  mutate(label = str_c(mp, "\n", str_wrap(title, 25))) |>
+  ggplot(aes(.cooksd, title, colour = mp)) +
+  geom_jitter(size = 0.4) +
+  geom_label_repel(aes(label = if_else(.cooksd > 0.002, label, NA)), size = 1.5) +
+  geom_texthline(
+    yintercept = 120, label = " Cook's Distance ",
+    arrow = arrow(
+      angle = 30, length = unit(0.1, "inches"),
+      ends = "last", type = "closed"
+    ),
+    hjust = 0, vjust = 0.5, color = cols[1]
+  ) +
   scale_colour_manual(values = wes_palette(220, name = "Moonrise2", type = "continuous")) +
-  labs(title = "Cook's Distance") +
+  labs(x = NULL, y = NULL) +
   theme(
     panel.border = element_blank(),
-    axis.text = element_text(size = 6),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
     legend.position = "none"
-  )
+  ) +
+  coord_polar()
 ```
 
 ```{r}

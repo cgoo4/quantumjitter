@@ -235,7 +235,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 2, 2024</p>
+      <p class="date-modified">May 3, 2024</p>
     </div>
   </div>
     
@@ -259,6 +259,7 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/">ggrepel</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allancameron.github.io/geomtextpath/">geomtextpath</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -585,16 +586,24 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mod_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.cooksd</span>, <span class="va">title</span>, colour <span class="op">=</span> <span class="va">mp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html">geom_label_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">.cooksd</span> <span class="op">&gt;</span> <span class="fl">0.002</span>, <span class="va">mp</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">mod_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">mp</span>, <span class="st">"\n"</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">title</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">.cooksd</span>, <span class="va">title</span>, colour <span class="op">=</span> <span class="va">mp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html">geom_label_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">.cooksd</span> <span class="op">&gt;</span> <span class="fl">0.002</span>, <span class="va">label</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textabline.html">geom_texthline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">120</span>, label <span class="op">=</span> <span class="st">" Cook's Distance "</span>, </span>
+<span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"inches"</span><span class="op">)</span>,</span>
+<span>      ends <span class="op">=</span> <span class="st">"last"</span>, type <span class="op">=</span> <span class="st">"closed"</span><span class="op">)</span>,</span>
+<span>                 hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">220</span>, name <span class="op">=</span> <span class="st">"Moonrise2"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Cook's Distance"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
+<span>    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.ticks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/cooks-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -638,7 +647,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[7], cut[1], labels[1], library[12], list[3], max[2], min[2], nrow[1], readRDS[2], rev[1], round[3], saveRDS[2], seq[1]</td>
+<td style="text-align: left;">c[7], cut[1], labels[1], library[13], list[3], max[2], min[2], nrow[1], readRDS[2], rev[1], round[3], saveRDS[2], seq[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -658,7 +667,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">across[2], filter[3], if_else[3], join_by[2], left_join[2], mutate[5], n[1], pick[4], rename[2], select[5], slice_min[1], summarise[3], transmute[1]</td>
+<td style="text-align: left;">across[2], filter[3], if_else[3], join_by[2], left_join[2], mutate[6], n[1], pick[4], rename[2], select[5], slice_min[1], summarise[3], transmute[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">factoextra</td>
@@ -673,54 +682,58 @@ div.csl-indent {
 <td style="text-align: left;">augment[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[8], coord_radial[1], element_blank[3], element_line[1], element_text[2], geom_col[2], geom_jitter[1], geom_label[1], geom_point[1], geom_text[1], ggplot[6], ggtitle[1], labs[4], position_stack[1], scale_colour_manual[2], scale_fill_manual[1], theme[4], theme_bw[1], theme_set[1], theme_void[1], unit[1]</td>
+<td style="text-align: left;">geomtextpath</td>
+<td style="text-align: left;">geom_texthline[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[8], arrow[1], coord_polar[1], coord_radial[1], element_blank[5], element_line[1], element_text[1], geom_col[2], geom_jitter[1], geom_label[1], geom_point[1], geom_text[1], ggplot[6], ggtitle[1], labs[4], position_stack[1], scale_colour_manual[2], scale_fill_manual[1], theme[4], theme_bw[1], theme_set[1], theme_void[1], unit[2]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggrepel</td>
 <td style="text-align: left;">geom_label_repel[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">hansard</td>
 <td style="text-align: left;">commons_members[1], mp_vote_record[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">compact[1], list_rbind[2], map[4], pluck[1], possibly[1], reduce[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">rlang</td>
 <td style="text-align: left;">set_names[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">as.dendrogram[2], cophenetic[1], cor[1], dist[2], hclust[3], lm[1], order.dendrogram[1], reorder[1]</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[4], str_detect[1], str_replace[2], str_wrap[1]</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[5], str_detect[1], str_replace[2], str_wrap[2]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[1], tibble[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">pivot_longer[2], pivot_wider[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyselect</td>
 <td style="text-align: left;">ends_with[4]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[3]</td>
 </tr>
