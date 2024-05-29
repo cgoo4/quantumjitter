@@ -159,10 +159,23 @@ div.csl-indent {
     <a class="nav-link" href="../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://cgoo4.github.io/usedthese/index.html"> 
-<span class="menu-text">Package</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-packages">
+<li class="dropdown-header">ggfoundry</li>
+        <li>
+    <a class="dropdown-item" href="https://cgoo4.github.io/ggfoundry">
+ <span class="dropdown-text">https://cgoo4.github.io/ggfoundry</span></a>
   </li>  
+        <li class="dropdown-header">usedthese</li>
+        <li>
+    <a class="dropdown-item" href="https://cgoo4.github.io/usedthese">
+ <span class="dropdown-text">https://cgoo4.github.io/usedthese</span></a>
+  </li>  
+    </ul>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../about/index.html"> 
 <span class="menu-text">About</span></a>
@@ -403,14 +416,14 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">words</span> <span class="op">&lt;-</span> <span class="va">tidy_df</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>text_field <span class="op">=</span> <span class="st">"proposal_dev"</span>, </span>
+<span>  <span class="fu">corpus</span><span class="op">(</span>text_field <span class="op">=</span> <span class="st">"proposal_dev"</span>, </span>
 <span>         doc_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dec_date"</span>, <span class="st">"proposal_type"</span>, </span>
 <span>                      <span class="st">"decision"</span>, <span class="st">"dec_year"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span></span>
-<span>    remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/stopwords/man/stopwords.html">stopwords</a></span><span class="op">(</span><span class="st">"english"</span><span class="op">)</span>, <span class="va">plus_words</span><span class="op">)</span>,</span>
+<span>  <span class="fu">dfm</span><span class="op">(</span></span>
+<span>    remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">stopwords</span><span class="op">(</span><span class="st">"english"</span><span class="op">)</span>, <span class="va">plus_words</span><span class="op">)</span>,</span>
 <span>    remove_numbers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html">textstat_frequency</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">textstat_frequency</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">feature</span>, <span class="va">frequency</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -490,7 +503,7 @@ div.csl-indent {
 <span><span class="st">  OPTIONAL { ?item ppd:recordStatus ?ppd_recordStatus }</span></span>
 <span><span class="st">}'</span></span>
 <span></span>
-<span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SPARQL/man/SPARQL.html">SPARQL</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span>
+<span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">SPARQL</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">query</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

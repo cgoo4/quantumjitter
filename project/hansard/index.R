@@ -246,15 +246,19 @@ mod_df <- mod |>
   augment() |>
   as_tibble()
 
-mod_df |> 
-  mutate(label = str_c(mp, "\n", str_wrap(title, 25))) |> 
+mod_df |>
+  mutate(label = str_c(mp, "\n", str_wrap(title, 25))) |>
   ggplot(aes(.cooksd, title, colour = mp)) +
   geom_jitter(size = 0.4) +
   geom_label_repel(aes(label = if_else(.cooksd > 0.002, label, NA)), size = 1.5) +
-  geom_texthline(yintercept = 120, label = " Cook's Distance ", 
-                 arrow = arrow(angle = 30, length = unit(0.1, "inches"),
-      ends = "last", type = "closed"),
-                 hjust = 0, vjust = 0.5, color = cols[1]) +
+  geom_texthline(
+    yintercept = 120, label = " Cook's Distance ",
+    arrow = arrow(
+      angle = 30, length = unit(0.1, "inches"),
+      ends = "last", type = "closed"
+    ),
+    hjust = 0, vjust = 0.5, color = cols[1]
+  ) +
   scale_colour_manual(values = wes_palette(220, name = "Moonrise2", type = "continuous")) +
   labs(x = NULL, y = NULL) +
   theme(

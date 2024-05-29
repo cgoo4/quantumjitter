@@ -159,10 +159,23 @@ div.csl-indent {
     <a class="nav-link" href="../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://cgoo4.github.io/usedthese/index.html"> 
-<span class="menu-text">Package</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-packages">
+<li class="dropdown-header">ggfoundry</li>
+        <li>
+    <a class="dropdown-item" href="https://cgoo4.github.io/ggfoundry">
+ <span class="dropdown-text">https://cgoo4.github.io/ggfoundry</span></a>
   </li>  
+        <li class="dropdown-header">usedthese</li>
+        <li>
+    <a class="dropdown-item" href="https://cgoo4.github.io/usedthese">
+ <span class="dropdown-text">https://cgoo4.github.io/usedthese</span></a>
+  </li>  
+    </ul>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../about/index.html"> 
 <span class="menu-text">About</span></a>
@@ -605,7 +618,7 @@ div.csl-indent {
 <span><span class="co">#   update(mtry = finalize(mtry(), train))</span></span>
 <span><span class="co"># ---------------------------------</span></span>
 <span></span>
-<span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu">registerDoParallel</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -864,7 +877,7 @@ div.csl-indent {
 <p>The plot below shows the final point estimate for each model as well as a 90% prediction interval for the Bayesian model using rstantools <span class="citation" data-cites="rstantools">(<a href="#ref-rstantools" role="doc-biblioref">Gabry et al. 2023</a>)</span>.</p>
 <p>The forecasts are, at least initially, directionally similar. The test residuals and RMSE would favour the non-linear models, and XGBoost in particular, over the linear models for these data. The forecasts are further dependent upon the quality of the forward-looking externally-sourced estimates for the predictors.</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstantools/reference/predictive_interval.html">predictive_interval</a></span><span class="op">(</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_engine</a></span><span class="op">(</span><span class="va">bayes_fit</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pi</span> <span class="op">&lt;-</span> <span class="fu">predictive_interval</span><span class="op">(</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_fit_engine</a></span><span class="op">(</span><span class="va">bayes_fit</span><span class="op">)</span>,</span>
 <span>  newdata <span class="op">=</span> <span class="va">ns_recipe</span> <span class="op">|&gt;</span> <span class="fu">prep</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">bake</span><span class="op">(</span>new_data <span class="op">=</span> <span class="va">forecast_df</span><span class="op">)</span>,</span>
 <span>  prob <span class="op">=</span> <span class="fl">0.9</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>

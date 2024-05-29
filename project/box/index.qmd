@@ -35,6 +35,7 @@ library(ggwordcloud)
 library(patchwork)
 library(clock)
 library(geomtextpath)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -54,18 +55,20 @@ cols <- paletteer_d(palette, n = n)
 
 tibble(x = 1:n, y = 1) |>
   ggplot(aes(x, y, fill = fct_inorder(cols))) +
-  geom_col(colour = "white") +
+  geom_casting(shape = "jar", size = 1) +
   geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 4, vjust = 2, fill = "white") +
+             size = 3, vjust = 2, fill = "white") +
   annotate(
-    "label",
-    x = (n + 1) / 2, y = 0.5,
+    "text",
+    x = (n + 1) / 2, y = 1.8,
     label = palette,
-    fill = "white",
+    colour = "grey40",
     alpha = 0.8,
     size = 6
   ) +
   scale_fill_manual(values = as.character(cols)) +
+  scale_x_continuous(limits = c(0.5, n + 0.5)) +
+  scale_y_continuous(limits = c(0, 2)) +
   theme_void() +
   theme(legend.position = "none")
 ```
