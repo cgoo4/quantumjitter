@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Carl Goodwin">
+<meta name="dcterms.date" content="2024-06-17">
+<meta name="description" content="A new package casting fillable shapes for ‘ggplot2’">
 
-<title>Quantum Jitter - Blog</title>
+<title>Quantum Jitter - ggfoundry</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +26,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/favicon.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/iconify-1.0.0-beta.2/iconify-icon.min.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/iconify-1.0.0-beta.2/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,87 +73,33 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../scss/styles.css">
-<link rel="alternate" type="application/rss+xml" title="Quantum Jitter" href="index.xml" data-external="1"><meta property="og:title" content="Quantum Jitter - Blog">
-<meta property="og:description" content="A few brief notes along the way">
-<meta property="og:image" content="https://www.quantumjitter.com/blog/dark/feature.gif">
+<link rel="stylesheet" href="../../scss/styles.css">
+<meta property="og:title" content="Quantum Jitter - ggfoundry">
+<meta property="og:description" content="A new package casting fillable shapes for ‘ggplot2’">
+<meta property="og:image" content="https://www.quantumjitter.com/blog/ggfoundry/feature.png">
 <meta property="og:site_name" content="Quantum Jitter">
-<meta name="twitter:title" content="Quantum Jitter - Blog">
-<meta name="twitter:description" content="A few brief notes along the way">
-<meta name="twitter:image" content="https://www.quantumjitter.com/blog/dark/feature.gif">
+<meta property="og:image:height" content="800">
+<meta property="og:image:width" content="1488">
+<meta name="twitter:title" content="Quantum Jitter - ggfoundry">
+<meta name="twitter:description" content="A new package casting fillable shapes for ‘ggplot2’">
+<meta name="twitter:image" content="https://www.quantumjitter.com/blog/ggfoundry/feature.png">
+<meta name="twitter:image-height" content="800">
+<meta name="twitter:image-width" content="1488">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -162,15 +109,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../project/index.html"> 
+    <a class="nav-link" href="../../project/index.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../project/box/index.html"> 
+    <a class="nav-link" href="../../project/box/index.html"> 
 <span class="menu-text">Toolbox</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../blog/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -189,11 +136,11 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../about/index.html"> 
+    <a class="nav-link" href="../../about/index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../project/index-R.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../project/index-R.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -223,193 +170,85 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Blog</h1>
-            <p class="subtitle lead">A few brief notes along the way</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(6)</span></div><div class="category" data-category="blogdown">blogdown <span class="quarto-category-count">(2)</span></div><div class="category" data-category="hugo">hugo <span class="quarto-category-count">(2)</span></div><div class="category" data-category="package">package <span class="quarto-category-count">(2)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(2)</span></div><div class="category" data-category="special effects">special effects <span class="quarto-category-count">(1)</span></div><div class="category" data-category="website">website <span class="quarto-category-count">(4)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ggfoundry</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">package</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A new package casting fillable shapes for ‘ggplot2’
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carl Goodwin </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 17, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><img src="feature.png" class="img-fluid" alt="A hexagon stands next to a wall holding a newly cast shape. Along the wall a series of recently-cast shapes are cooling. And the hex itself shows a shape being cast from molton metal."></p>
+<p>There are various strategies for plotting many shapes in R. But it’s not always possible to find what you want, nor manipulate it in the way you would like. <a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a> offers arbitrary colourable and fillable shapes for ggplot2. The motivation behind it, how it contrasts with existing strategies, a showcase of example uses and a list of available shapes, are all covered on the <a href="https://cgoo4.github.io/ggfoundry/">package website</a>.</p>
+<p>This short post merely says: “Hey, I’m new in town and reachable on CRAN”. And to offer a different perspective, here’s the method used to cast these new fillable shapes.</p>
+<section id="the-method" class="level2">
+<h2 class="anchored" data-anchor-id="the-method">The Method</h2>
+<p><img src="method.png" class="img-fluid" alt="A flow diagram showing the method used to create and plot new shapes."></p>
+</section>
+<section id="workflow-steps" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-steps">Workflow Steps</h2>
+<section id="outside-r" class="level3">
+<h3 class="anchored" data-anchor-id="outside-r">Outside R</h3>
+<p>The foundry process begins with a drawing made by hand in Adobe Fresco. In a similar vein to the way ggplot2 builds up geom layers, the drawing consists of layers: An outline and a fill. These layers are exported to Adobe Capture for the creation of an <code>SVG</code> pair.</p>
+</section>
+<section id="not-shipped-with-the-r-package" class="level3">
+<h3 class="anchored" data-anchor-id="not-shipped-with-the-r-package">Not Shipped with the R Package</h3>
+<p>The <a href="https://r-pkgs.org/data.html#sec-data-data-raw">R packages book</a> recommends preserving the origin story of package data. So the R script for the next step in the process is saved in the package’s <code>data-raw</code> folder. It only needs to be run when a new shape is being cast or altered.</p>
+<p>The grImport2 package requires an <code>SVG</code> image that has been generated by the Cairo graphics library. So, <code>convertPicture()</code> handles this intermediate step. And <code>readPicture()</code> creates the object of class “Picture”.</p>
+<p><code>usethis::use_data()</code> saves a <code>list</code> of the Picture objects in <code>sysdata.rda</code> using the optimal compression method (“xz” works best for these data). This is how the shapes are shipped to the R user.</p>
+</section>
+<section id="shipped-with-the-r-package" class="level3">
+<h3 class="anchored" data-anchor-id="shipped-with-the-r-package">Shipped with the R Package</h3>
+<p>The Picture <code>list</code> is made available when <code>library(ggfoundry)</code> is called. To add these new fillable shapes to a ggplot, the user adds a <code>geom_casting()</code> layer specifying the required shape as a string, e.g.&nbsp;“box”, and optionally a fill and colour.</p>
+<p><code>geom_casting()</code> finds the selected shape in the Picture <code>list</code> and calls <code>symbolsGrob()</code> once per group to enable the drawing of it at several locations. In other words, each grob (grid graphical object) has the <code>x</code> and <code>y</code> coordinates for all data frame rows in that group along with the associated shape. Fill and colour are also applied by group.</p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="R,package" data-listing-date-sort="1718578800000" data-listing-file-modified-sort="1718625086471" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="405">
-<a href="../blog/ggfoundry/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="ggfoundry/feature.png" alt="A hexagon stands next to a wall holding a newly cast shape. Along the wall a series of recently-cast shapes are cooling. And the hex itself shows a shape being cast from molton metal." style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-ggfoundry
-</h5>
-<div class="listing-reading-time card-text text-muted">
-3 min
-</div>
-<div class="card-text listing-description">
-A new package casting fillable shapes for ‘ggplot2’
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Jun 17, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="R,website,quarto,package" data-listing-date-sort="1674345600000" data-listing-file-modified-sort="1675191129000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="402">
-<a href="../blog/usedthese/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="usedthese/feature.gif" alt="A hexagon standing on a blue-curtained stage holding up a CRAN badge. The hexagon contains 9 mini hexagons spelling usedthese." style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Usedthese
-</h5>
-<div class="listing-reading-time card-text text-muted">
-3 min
-</div>
-<div class="card-text listing-description">
-Hexcited to unveil <span>usedthese</span>: an R package that tells you what you just did in case you can’t recall!
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Jan 22, 2023
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="R,website,quarto" data-listing-date-sort="1669075200000" data-listing-file-modified-sort="1671292473000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="478">
-<a href="../blog/dark/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../blog/dark/feature.gif" class="thumbnail-image card-img" style="height: 150px;" alt="A small cottage nestled between trees with smoke billowing from the chminey, lights flickering through the windows and stars piercing the night sky">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Night Mode
-</h5>
-<div class="listing-reading-time card-text text-muted">
-3 min
-</div>
-<div class="card-text listing-description">
-Making full use of Quarto and sprucing up an oft-visited 404 page
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Nov 22, 2022
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="R,special effects" data-listing-date-sort="1650927600000" data-listing-file-modified-sort="1677323086079" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="600">
-<a href="../blog/tail/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../blog/tail/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Painting Tails
-</h5>
-<div class="listing-reading-time card-text text-muted">
-3 min
-</div>
-<div class="card-text listing-description">
-If you’re a cat, go find the nearest open pot of paint. But if you’re a data scientist, what to do?
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Apr 26, 2022
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="R,website,hugo,blogdown" data-listing-date-sort="1649458800000" data-listing-file-modified-sort="1671029282000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1056">
-<a href="../blog/renovate/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../blog/renovate/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-A Fresh Lick of Paint
-</h5>
-<div class="listing-reading-time card-text text-muted">
-6 min
-</div>
-<div class="card-text listing-description">
-Staying in Blogdown and renovating with the Hugo Apéro theme
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Apr 9, 2022
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="5" data-categories="R,website,hugo,blogdown" data-listing-date-sort="1595718000000" data-listing-file-modified-sort="1669629359000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="776">
-<a href="../blog/plunge/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../blog/plunge/feature.gif" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Moving House
-</h5>
-<div class="listing-reading-time card-text text-muted">
-4 min
-</div>
-<div class="card-text listing-description">
-Leaving Wordpress for a quieter life in Blogdown with the Hugo Academic theme
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Jul 26, 2020
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -956,6 +795,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light_high_contrast">
+<input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -966,7 +809,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>© 2023 <a href="../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></p>
+<p>© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></p>
 </div>
   </div>
 </footer>
@@ -974,5 +817,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

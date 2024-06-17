@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eod_sectors</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">tq_get</span><span class="op">(</span><span class="va">symbols</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="va">symbols</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    norm_close <span class="op">=</span> <span class="va">adjusted</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    type <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"SPY"</span>, <span class="st">"Market"</span>, <span class="st">"Sector"</span><span class="op">)</span>,</span>
