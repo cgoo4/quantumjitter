@@ -6,16 +6,21 @@ library(gridlayout)
 library(rvest)
 library(scales)
 library(pageviews)
-library(lubridate)
 library(bslib)
-library(wesanderson)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(8, name = "IsleofDogs1", type = "continuous"))
+n <- 6
+pal_name <- "wesanderson::IsleofDogs1"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 charts <-
   tibble(
@@ -72,7 +77,7 @@ ui <- grid_page(
         "Histogram",
         "Pie chart"
       ),
-      options = list(maxItems = 8),
+      options = list(maxItems = 6),
       multiple = TRUE
     ),
     selectInput(
@@ -120,8 +125,8 @@ server <- \(input, output, session) {
       )
     ) +
       geom_line() +
-      scale_colour_manual(values = cols) +
-      geom_smooth(colour = cols[7]) +
+      scale_colour_manual(values = pal) +
+      geom_smooth(colour = "lightgrey") +
       facet_wrap(~article, nrow = 1, scales = input$scales) +
       theme(
         legend.position = "none",
