@@ -18,28 +18,11 @@ conflict_scout()
 theme_set(theme_bw())
 
 n <- 6
-palette <- "LaCroixColoR::CranRaspberry"
+pal_name <- "LaCroixColoR::CranRaspberry"
 
-cols <- paletteer_d(palette, n = n)
+pal <- paletteer_d(pal_name, n = n)
 
-tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = fct_inorder(cols))) +
-  geom_casting(shape = "jar", size = 1) +
-  geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 3, vjust = 2, fill = "white") +
-  annotate(
-    "text",
-    x = (n + 1) / 2, y = 1.8,
-    label = palette,
-    colour = "grey40",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  scale_x_continuous(limits = c(0.5, n + 0.5)) +
-  scale_y_continuous(limits = c(0, 2)) +
-  theme_void() +
-  theme(legend.position = "none")
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 tidy <-
   c(
@@ -114,7 +97,7 @@ prep_plot <- \(data, data2, x){
   data |>
     mutate({{ x }} := fct_reorder({{ x }}, row)) |>
     ggplot(aes({{ x }}, n, fill = multiverse, colour = multiverse)) +
-    geom_col(colour = cols[6]) +
+    geom_col(colour = pal[6]) +
     geom_textpath(aes(label = n), colour = "white", vjust = -0.2, size = 3) +
     geom_textpath(aes(label = {{ x }}),
       size = 3, colour = "black",
@@ -129,8 +112,8 @@ prep_plot <- \(data, data2, x){
     ) +
     coord_radial(inner.radius = 0.25) +
     scale_y_log10() +
-    scale_fill_manual(values = cols[c(1, 4, 5)]) +
-    scale_colour_manual(values = cols[c(1, 4, 5)]) +
+    scale_fill_manual(values = pal[c(1, 4, 5)]) +
+    scale_colour_manual(values = pal[c(1, 4, 5)]) +
     theme_void() +
     theme(
       axis.text.x = element_blank(),
@@ -168,7 +151,7 @@ packfun_df |>
     seed = 789
   ) +
   scale_size_area(max_size = 20) +
-  scale_colour_manual(values = cols[c(1, 6, 5)]) +
+  scale_colour_manual(values = pal[c(1, 6, 5)]) +
   theme_void() +
   theme(plot.background = element_rect(fill = "white"))
 
