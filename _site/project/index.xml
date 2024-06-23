@@ -35592,7 +35592,11 @@ font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_p
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"dplyr"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -35619,7 +35623,16 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -35639,18 +35652,9 @@ background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>5 conflicts:
-* `col_factor` : scales, readr
-* `date_format`: scales, clock
-* `discard`    : scales, purrr
-* `filter`     : [dplyr]
-* `lag`        : [dplyr]</code></pre>
 </div>
-</div>
-<p>I’m using one of the beautiful range of <a href="https://github.com/karthik/wesanderson">Wes Anderson Palettes</a>. I often use the palettes provided by <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">ColorBrewer</a> too.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35664,29 +35668,86 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">n</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wesanderson::Chevalier1"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">9</span>, name <span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">)</span></span>
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">"Chevalier1"</span>, type <span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"continuous"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>  fill <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span>, n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n</span>, pal_name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span>, </span>
+<span>  shape <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"tube"</span>, shape_size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span>, label_size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -35699,7 +35760,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>In <a href="../../project/jitter">Let’s Jitter</a> I assumed the G-Cloud data file adopted the <a href="https://www.gov.uk/guidance/gds-api-technical-and-data-standards#use-unicode-for-encoding">UK Government standard</a> of UTF-8. I used the stringr package to fix any issues.</p>
 <p>This time around, I’m importing the files for two frameworks (G-Cloud and DOS) after first checking the encoding to see if I can get a cleaner import. <code>guess_encoding</code> suggests these files use the ISO-8859-1 standard.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">url</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35785,7 +35846,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Next I’ll set up a vector of column names to apply consistently to both files, import the data with the suggested encoding, and bind them into one tibble.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">colnam</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35956,7 +36017,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>I’d like to create some new features: Month-end dates, something to distinguish between the two frameworks (<em>G-Cloud</em> or <em>DOS</em>) and the framework version (i.e.&nbsp;G-Cloud 1 to 9). The spend has a messy format and needs a bit of cleaning too.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">clean_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36186,7 +36247,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Finding the interval between G-Cloud versions will enable me to calculate and print the average in the next paragraph using inline r code.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">version_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36281,7 +36342,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>Every 7.8 months, on average, suppliers are asked to resubmit their G-Cloud offerings with their latest pricing and service descriptions. It’s a chance for new suppliers, often smaller ones, to join the existing list of suppliers and increase overall competitiveness for Cloud services.</p>
 <p>Let’s visualise how each of these framework versions grows, matures and fades away as the next one takes over.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">vers_summary</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36381,11 +36442,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>linewidth <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36440,7 +36497,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36491,7 +36548,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p><a href="../../project/jitter">Let’s Jitter</a> showed signs of a weakening in the SME share of G-Cloud sales by value. This plot shows this trend to have persisted, and also reflects the Digital Outcomes &amp; Specialists (DOS) framework exhibiting a downward trend.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">fw_summary</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36590,11 +36647,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>linewidth <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36657,7 +36710,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -36723,7 +36776,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Overall spending via the combined frameworks however continues to grow across all parts of Public Sector. I’ll use a <a href="https://en.wikipedia.org/wiki/Small_multiple">small multiples</a> visualisation technique to show this using ggplot2’s<span class="citation" data-cites="ggplot2">(Wickham 2016)</span> <code>facet_wrap</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">sect_summary</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36871,11 +36924,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36960,7 +37009,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -37012,7 +37061,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>The decline in the proportion of spend via SMEs is also fairly broad-based.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">sect_summary</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -37053,11 +37102,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -37134,7 +37179,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -37187,7 +37232,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -37203,7 +37248,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[9], is.na[1], library[6], min[1], months[1], sum[6]</td>
+<td style="text-align: left;">c[9], is.na[1], library[7], min[1], months[1], sum[6]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -37218,40 +37263,48 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">bind_rows[1], filter[3], if_else[2], lead[1], mutate[3], summarise[4]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[4], facet_wrap[2], geom_line[4], geom_smooth[4], ggplot[4], labs[8], scale_colour_manual[4], scale_x_date[4], scale_y_continuous[4], theme[2], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">grDevices</td>
+<td style="text-align: left;">colorRampPalette[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">interval[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">map[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">readr</td>
 <td style="text-align: left;">locale[1], parse_number[1], read_csv[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">rlang</td>
 <td style="text-align: left;">set_names[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">label_dollar[2], label_percent[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stringr</td>
 <td style="text-align: left;">fixed[5], str_c[3], str_extract[1], str_remove[2], str_replace[4]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 </tbody>
 </table>

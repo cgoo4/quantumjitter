@@ -1,16 +1,26 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(clock)
 library(scales)
-library(wesanderson)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(9, name = "Chevalier1", type = "continuous"))
+n <- 9
+pal_name <- "wesanderson::Chevalier1"
+
+pal <- paletteer_d(pal_name)
+pal <- colorRampPalette(pal)(n)
+
+display_palette(
+  fill = pal, n = n, pal_name = pal_name, 
+  shape = "tube", shape_size = 0.9, label_size = 2
+  )
 
 url <- 
   "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/"
@@ -78,10 +88,10 @@ vers_summary <- clean_df |>
 vers_summary |> 
   ggplot(aes(month_end, sales, colour = version)) +
   geom_line() +
-  geom_smooth(linewidth = 2) +
+  geom_smooth() +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
   scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
-  scale_colour_manual(values = cols) +
+  scale_colour_manual(values = pal) +
   labs(x = NULL, y = NULL, title = "The Lifecycle of G-Cloud Versions", 
        subtitle = "Monthly Sales by Version") + 
   labs(caption = "\nSource: GOV.UK's Digital Marketplace")
@@ -93,10 +103,10 @@ fw_summary <- clean_df |>
 fw_summary |> 
   ggplot(aes(month_end, pct, colour = framework)) +
   geom_line() +
-  geom_smooth(linewidth = 2) +
+  geom_smooth() +
   scale_y_continuous(breaks = c(0.25, 0.5, 0.75, 1), labels = label_percent()) +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
-  scale_colour_manual(values = cols[c(1, 9)]) +
+  scale_colour_manual(values = pal[c(1, 9)]) +
   labs(x = NULL, y = NULL, 
        title = "The Waning SME Share of Sales", 
        subtitle = "% Monthly Sales Value via SME (vs Large Enterprise) Suppliers") + 
@@ -118,12 +128,12 @@ sect_summary <-
 sect_summary |> 
   ggplot(aes(month_end, sales, colour = sector)) +
   geom_line() +
-  geom_smooth(size = 2) +
+  geom_smooth() +
   facet_wrap(~ sector, scales = "free_y") +
   theme(legend.position = "none") +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
   scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
-  scale_colour_manual(values = cols) +
+  scale_colour_manual(values = pal) +
   labs(x = NULL, y = NULL, 
        title = "All Sectors Increase Digital Marketplace Spend", 
        subtitle = "G-Cloud & DOS Spend by Sector") + 
@@ -132,12 +142,12 @@ sect_summary |>
 sect_summary |> 
   ggplot(aes(month_end, pct, colour = sector)) +
   geom_line() +
-  geom_smooth(size = 2) +
+  geom_smooth() +
   facet_wrap(~ sector, scales = "free_y") +
   theme(legend.position = "none") +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
   scale_y_continuous(labels = label_percent()) +
-  scale_colour_manual(values = cols) +
+  scale_colour_manual(values = pal) +
   labs(x = NULL, y = NULL, 
        title = "Most Sectors Spend Proportionately Less on SMEs", 
        subtitle = "Pct SME G-Cloud & DOS Spend by Sector") + 
