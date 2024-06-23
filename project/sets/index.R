@@ -4,11 +4,12 @@ conflict_prefer_all("dplyr", quiet = TRUE)
 conflicts_prefer(tidyr::unite)
 library(rvest)
 library(furrr)
-library(wesanderson)
 library(tictoc)
 library(ggupset)
 library(ggVennDiagram)
 library(glue)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -17,7 +18,12 @@ plan(multisession, workers = 10)
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("Royal2"))
+n <- 5
+pal_name <- "wesanderson::Royal2"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 path <- 
   str_c("https://www.applytosupply.digitalmarketplace", 
@@ -111,8 +117,8 @@ four_cats <- all_cats[c("CAAH", "PAAS", "OBS", "IND")]
 
 four_cats |> 
   ggVennDiagram(label = "count", label_alpha = 0) +
-  scale_fill_gradient(low = cols[5], high = cols[3]) +
-  scale_colour_manual(values = cols[c(rep(4, 4))]) +
+  scale_fill_gradient(low = pal[5], high = pal[3]) +
+  scale_colour_manual(values = pal[c(rep(4, 4))]) +
   labs(
     x = "Category Combinations", y = NULL, fill = "# Services",
     title = "The Most Frequent Category Combinations",
@@ -136,8 +142,8 @@ set_df <- data_df |>
 
 set_df |>
   ggplot(aes(category)) +
-  geom_bar(fill = cols[1]) +
-  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = cols[5]) +
+  geom_bar(fill = pal[1]) +
+  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = pal[5]) +
   scale_x_upset() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   theme(panel.border = element_blank()) +
@@ -156,8 +162,8 @@ set_df <- data_df |>
 
 set_df |>
   ggplot(aes(category)) +
-  geom_bar(fill = cols[2]) +
-  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = cols[3]) +
+  geom_bar(fill = pal[2]) +
+  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = pal[3]) +
   scale_x_upset(n_sets = 10) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   theme(panel.border = element_blank()) +
@@ -195,8 +201,8 @@ set_df <- data_df |>
 
 set_df |>
   ggplot(aes(category)) +
-  geom_bar(fill = cols[5]) +
-  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = cols[4]) +
+  geom_bar(fill = pal[5]) +
+  geom_label(aes(y = n, label = n), vjust = -0.1, size = 3, fill = pal[4]) +
   scale_x_upset(n_sets = 22, n_intersections = 21) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   theme(panel.border = element_blank()) +

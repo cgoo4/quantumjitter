@@ -50125,28 +50125,31 @@ background-color: null;
 font-style: inherit;">library</span>(furrr)</span>
 <span id="cb1-7"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(wesanderson)</span>
+font-style: inherit;">library</span>(tictoc)</span>
 <span id="cb1-8"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(tictoc)</span>
+font-style: inherit;">library</span>(ggupset)</span>
 <span id="cb1-9"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(ggupset)</span>
+font-style: inherit;">library</span>(ggVennDiagram)</span>
 <span id="cb1-10"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(ggVennDiagram)</span>
+font-style: inherit;">library</span>(glue)</span>
 <span id="cb1-11"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(glue)</span>
+font-style: inherit;">library</span>(paletteer)</span>
 <span id="cb1-12"><span class="fu" style="color: #4758AB;
 background-color: null;
+font-style: inherit;">library</span>(ggfoundry)</span>
+<span id="cb1-13"><span class="fu" style="color: #4758AB;
+background-color: null;
 font-style: inherit;">library</span>(usedthese)</span>
-<span id="cb1-13"></span>
-<span id="cb1-14"><span class="fu" style="color: #4758AB;
+<span id="cb1-14"></span>
+<span id="cb1-15"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">conflict_scout</span>()</span>
-<span id="cb1-15"></span>
-<span id="cb1-16"><span class="fu" style="color: #4758AB;
+<span id="cb1-16"></span>
+<span id="cb1-17"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">plan</span>(multisession, <span class="at" style="color: #657422;
 background-color: null;
@@ -50161,13 +50164,34 @@ font-style: inherit;">theme_set</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_bw</span>())</span>
 <span id="cb2-2"></span>
-<span id="cb2-3">(cols <span class="ot" style="color: #003B4F;
+<span id="cb2-3">n <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span></span>
+<span id="cb2-4">pal_name <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wesanderson::Royal2"</span></span>
+<span id="cb2-5"></span>
+<span id="cb2-6">pal <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">wes_palette</span>(<span class="st" style="color: #20794D;
+font-style: inherit;">paletteer_d</span>(pal_name, <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">"Royal2"</span>))</span></code></pre></div>
+font-style: inherit;">n =</span> n)</span>
+<span id="cb2-7"></span>
+<span id="cb2-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">display_palette</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fill =</span> pal, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> n, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pal_name =</span> pal_name)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -50713,11 +50737,11 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">scale_fill_gradient</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">low =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">low =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span>], <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">high =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">high =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -50726,7 +50750,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">scale_colour_manual</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">values =</span> cols[<span class="fu" style="color: #4758AB;
+font-style: inherit;">values =</span> pal[<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">c</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -50895,7 +50919,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">geom_bar</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -50920,7 +50944,7 @@ font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>, <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -51058,7 +51082,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">geom_bar</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -51083,7 +51107,7 @@ font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>, <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -51446,7 +51470,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">geom_bar</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -51471,7 +51495,7 @@ font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>, <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -51748,7 +51772,7 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">abbreviate[1], as.character[1], c[7], cat[1], library[10], list[4], rep[1]</td>
+<td style="text-align: left;">abbreviate[1], as.character[1], c[7], cat[1], library[11], list[4], rep[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -51771,16 +51795,24 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 <td style="text-align: left;">ggVennDiagram[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[6], element_blank[3], expansion[3], geom_bar[3], geom_label[3], ggplot[3], labs[4], scale_colour_manual[1], scale_fill_gradient[1], scale_y_continuous[3], theme[3], theme_bw[1], theme_set[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">ggupset</td>
 <td style="text-align: left;">scale_x_upset[3]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
@@ -51819,10 +51851,6 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">xml2</td>
 <td style="text-align: left;">read_html[3]</td>
 </tr>
