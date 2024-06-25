@@ -23,11 +23,12 @@ library(scales)
 library(SPARQL)
 library(clock)
 conflict_prefer("date_format", "clock")
-library(wesanderson)
 library(glue)
 library(tsibble)
 library(patchwork)
 library(ggmosaic)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
@@ -40,7 +41,12 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Darjeeling1"))
+n <- 5
+pal_name <- "wesanderson::Darjeeling1"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 ```
 
 House prices paid data are provided by [HM Land Registry Open Data](http://landregistry.data.gov.uk/app/qonsole#).
@@ -160,7 +166,7 @@ data_df |>
     label = events$change, vjust = 1.4, hjust = 1, size = 3, fontface = 2
   ) +
   coord_cartesian(ylim = c(0, 5000000)) +
-  scale_colour_manual(values = cols[c(2, 3)]) +
+  scale_colour_manual(values = pal[c(2, 3)]) +
   scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
   scale_y_continuous(labels = label_dollar(accuracy = 0.1, prefix = "£", 
                                            scale_cut = cut_short_scale()))
@@ -191,7 +197,7 @@ first <- qtile_df |> summarise(min(yr_qtr)) |> pull()
 
 p1 <- qtile_df |> 
   ggplot(aes(yr_qtr, median)) +
-  geom_ribbon(aes(ymin = lower, ymax = upper), fill = cols[5]) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = pal[5]) +
   geom_line(colour = "white") +
   geom_hline(yintercept = 1000000, linetype = "dashed") +
   annotate("text", x = yearquarter("2020 Q2"), y = 300000, 
@@ -232,7 +238,7 @@ data_df |>
   ggplot() +
   geom_mosaic(aes(product(prop_type, est_type), fill = prop_type), 
               offset = 0.02, divider = mosaic("h")) +
-  scale_fill_manual(values = cols[c(2:5)]) + 
+  scale_fill_manual(values = pal[c(2:5)]) + 
   labs(
     title = "SW10 Transactions by Estate & Property Types",
     subtitle = glue("{comma(num_trans)} Transactions to {to_date}"),
