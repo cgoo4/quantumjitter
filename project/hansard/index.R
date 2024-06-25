@@ -4,6 +4,7 @@ conflict_prefer_all("dplyr", quiet = TRUE)
 library(clock)
 library(hansard)
 library(dendextend)
+library(ggdendro)
 library(corrplot)
 library(broom)
 library(factoextra)
@@ -180,49 +181,27 @@ dend_avg <- orig_dist |>
 
 labels(dend_avg) <- scaled_df$mp[order.dendrogram(dend_avg)]
 
-dend <- dend_avg |>
-  color_branches(k = 2, col = pal[c(2, 1)]) |>
-  color_labels(k = 2, col = pal[c(2, 1)]) |>
-  set("branches_lwd", 0.5) |> 
-  set("labels_cex", 0.3)
+dd <- dendro_data(dend_avg, type = "rectangle")
 
-p <- ggplot(dend, horiz = TRUE, offset_labels = -2) +
-  theme(panel.border = element_blank()) +
-  coord_radial()
+dd$labels <- dd$labels |> mutate(fill = if_else(x <= 6, "darkorange", "darkgreen"))
 
-p[["layers"]][[3]][["aes_params"]][["angle"]] <- seq(75, by = -1.58, length.out = 210)
+angle <- seq(75, by = -1.58, length.out = 210)
 
-p
-
-dend_cuts <- dend |>
-  assign_values_to_leaves_nodePar(19, "pch") |>
-  assign_values_to_leaves_nodePar(5, "cex") |>
-  assign_values_to_leaves_nodePar(pal[1], "col") |>
-  set("labels_cex", 0.4) |>
-  set("branches_lwd", 2.5) |>
-  color_branches(k = 2, col = pal[1]) |>
-  cut(h = 50)
-
-start_formatted <- date_parse(start_date, format = "%Y-%m-%d") |> 
-  date_format(format = "%b %d, %Y")
-
-end_formatted <- date_parse(end_date, format = "%Y-%m-%d") |> 
-  date_format(format = "%b %d, %Y")
-
-ggplot(rev(dend_cuts$lower[[1]]),
-  horiz = TRUE,
-  nodes = FALSE,
-  offset_labels = -0.6
-) +
-  labs(
-    y = "\nDistance", 
-    title = "Cluster of Six (Branching off First)",
-    subtitle = "Based on House of Commons Divisions Since the 2017 Election",
-    caption = glue(
-      "Source: Hansard ({start_formatted} to {end_formatted})")
-  ) +
-  theme_void() +
-  theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
+ggplot(segment(dd)) +
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_text(
+    aes(x = x, y = y, label = label, colour = fill), angle = angle,
+    size = 2, hjust = -0.1, data = dd$labels
+    ) +
+  geom_casting(
+    aes(x = x, y = y, fill = fill), shape = "hibiscus",
+    size = 0.025, data = dd$labels
+    ) +
+  scale_y_reverse(expand = c(0.2, 0)) + 
+  scale_fill_identity() +
+  scale_colour_identity() +
+  coord_radial() +
+  theme_void()
 
 fewest_votes <- votes |>
   left_join(mps, by = join_by(mp == ID)) |>
