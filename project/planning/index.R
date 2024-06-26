@@ -6,7 +6,6 @@ library(rvest)
 library(SPARQL)
 library(quanteda)
 library(quanteda.textstats)
-library(wesanderson)
 library(tictoc)
 library(htmlwidgets)
 library(clock)
@@ -14,13 +13,20 @@ library(fabletools)
 library(feasts)
 library(tsibble)
 library(DT)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Darjeeling2"))
+n <- 5
+pal_name <- "wesanderson::Darjeeling2"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 url <- "https://www.rbkc.gov.uk/planning/searches/default.aspx?adv=0&simple=sw10&simpleBatch=200&simSubmit=Search&pgdec="
 
@@ -164,6 +170,7 @@ dt1 <- tidy_df |>
   corpus(text_field = "dec_reason", 
          docid_field = "property_case", 
          doc_vars = c("dec_date", "proposal_type", "decision", "dec_year")) |> 
+  tokens() |> 
   kwic(pattern = phrases, window = 10) |> 
   as_tibble() |> 
   select(-from, -to, -pattern) |> 
@@ -193,18 +200,16 @@ words <- tidy_df |>
   corpus(text_field = "proposal_dev", 
          doc_vars = c("dec_date", "proposal_type", 
                       "decision", "dec_year")) |> 
-  dfm(
-    remove = c(stopwords("english"), plus_words),
-    remove_numbers = TRUE,
-    remove_punct = TRUE) |> 
+  tokens(remove_numbers = TRUE, remove_punct = TRUE) |> 
+  dfm() |> 
+  dfm_remove(c(stopwords("english"), plus_words)) |> 
   textstat_frequency() |> 
   slice_head(n = 30) |> 
   mutate(feature = fct_reorder(feature, frequency))
 
 words |> 
-  ggplot(aes(feature, frequency)) +
-  geom_col(fill = cols[4]) +
-  coord_flip() +
+  ggplot(aes(frequency, feature)) +
+  geom_col(fill = pal[4]) +
   labs(x = NULL, y = NULL, 
        title = "Frequent Planning Proposal Words",
        caption = "Source: RBKC Planning Search")
@@ -300,7 +305,7 @@ monthly_ts <- summary_df |>
 monthly_ts |> 
   ggplot(aes(date, volume, colour = dataset)) +
   geom_line(key_glyph = "timeseries") +
-  scale_colour_manual(values = cols[c(2, 3)]) +
+  scale_colour_manual(values = pal[c(2, 3)]) +
   labs(x = NULL, y = NULL, colour = NULL,
        title = "Monthly Property Transaction Volume in SW10",
        caption = "Sources: Land Registry & RBKC Planning"
@@ -310,7 +315,7 @@ monthly_ts |>
   model(stl = STL(volume ~ season())) |>
   components() |> 
   autoplot() +
-  scale_colour_manual(values = cols[c(2, 3)]) +
+  scale_colour_manual(values = pal[c(2, 3)]) +
   labs(x = NULL, title = "Time Series Decomposition")
 
 monthly_ts |> 
@@ -328,7 +333,7 @@ remapped_df |>
   ggplot(aes(dec_year, fill = outcome)) +
   geom_bar() +
   facet_wrap( ~ theme, nrow = 2) +
-  scale_fill_manual(values = cols[c(1:4)]) +
+  scale_fill_manual(values = pal[c(1:4)]) +
   labs(
     title = "Planning Application Themes",
     x = NULL, y = NULL,
