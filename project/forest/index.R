@@ -1,56 +1,46 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidymodels)
 library(janitor)
 library(scales)
 library(vip)
 library(poissonreg)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-cols <- c("#798E87", "#C27D38", "#CCC591", "#29211F") |>
-  fct_inorder()
+pal_name <- "Custom Palette"
 
-tibble(x = 1:4, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols), size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = 2.5, y = 0.5,
-    label = "Custom Pallette",
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+pal <- c("#798E87", "#C27D38", "#CCC591", "#29211F")
 
-cols10 <- colorRampPalette(cols)(10)
+pal12 <- colorRampPalette(pal)(12)
 
+display_palette(fill = pal12, n = 12, pal_name = pal_name, shape_size = 0.6)
+
+# MPS Borough Level Crime (Historical).csv
 url <- str_c(
-  "https://data.london.gov.uk/",
-  "download/recorded_crime_rates/",
-  "c051c7ec-c3ad-4534-bbfe-6bdfee2ef6bb/",
-  "crime%20rates.csv"
-)
+  "https://data.london.gov.uk/download/recorded_crime_summary/",
+  "a1b36c68-cd08-4a8a-99c2-c2313165b744/", 
+  "MPS%20Borough%20Level%20Crime%20%28Historical%29.csv"
+  )
 
-raw_df <-
-  read_csv(url, col_types = "cfcfdn") |>
+crime_df <-
+  read_csv(url, show_col_types = FALSE) |>
   clean_names() |>
+  pivot_longer(starts_with("x"), names_to = "year", values_to = "number_of_offences") |> 
   mutate(
-    year = str_extract(year, "(?:1999|200[0-9]|201[0-7])"), # 1999-2007
-    year = as.numeric(year)
-  ) |>
+    year = str_sub(year, 2, 5) |> as.numeric(),
+    major_text = str_to_sentence(major_text)) |>
+  filter(year != 2022) |> # partial year
+  rename(offences = major_text, borough = borough_name) |> 
   summarise(number_of_offences = sum(number_of_offences),
             .by = c(year, borough, offences))
 
-raw_df |>
+crime_df |>
   mutate(borough = str_wrap(borough, 11)) |>
   ggplot(aes(year, number_of_offences, 
              colour = offences, group = offences)) +
@@ -60,22 +50,11 @@ raw_df |>
     x = NULL, y = NULL, title = "London Crime by Borough",
     colour = "Offence", caption = "Source: data.gov.uk"
   ) +
-  scale_colour_manual(values = cols10) +
-  guides(colour = guide_legend(nrow = 4)) +
+  scale_colour_manual(values = pal12) +
+  guides(colour = guide_legend(nrow = 6, size = 4)) +
   theme(
     legend.position = "bottom",
     axis.text.x = element_text(angle = 45, hjust = 1)
-  )
-
-crime_df <- raw_df |>
-  filter(
-    offences != "All recorded offences",
-    !borough %in% c(
-      "England and Wales",
-      "Met Police Area", 
-      "Inner London", 
-      "Outer London"
-    )
   )
 
 crime_df |>
@@ -83,17 +62,18 @@ crime_df |>
             .by = c(offences, borough)) |>
   mutate(
     median_offences = median(number_of_offences),
-    offences = str_wrap(offences, 10),
+    offences = str_wrap(offences, 20),
     .by = offences
   ) |>
   ggplot(aes(fct_reorder(offences, median_offences), number_of_offences)) +
-  geom_boxplot(fill = cols[1]) +
+  geom_boxplot(fill = pal[1]) +
   scale_y_log10(labels = label_number(scale_cut = cut_short_scale())) +
   labs(
     x = NULL, y = NULL,
     title = "Number of Offences by Type",
     caption = "Source: data.gov.uk"
-  )
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 crime_df |>
   summarise(number_of_offences = sum(number_of_offences),
@@ -104,7 +84,7 @@ crime_df |>
     .by = borough
   ) |>
   ggplot(aes(fct_reorder(borough, median_offences), number_of_offences)) +
-  geom_boxplot(fill = cols[1]) +
+  geom_boxplot(fill = pal[1]) +
   scale_y_log10(labels = label_number(scale_cut = cut_short_scale())) +
   coord_flip() +
   labs(
@@ -116,8 +96,8 @@ crime_df |>
 crime_df |>
   summarise(number_of_offences = sum(number_of_offences), .by = year) |>
   ggplot(aes(year, number_of_offences)) +
-  geom_line(colour = cols[4], linetype = "dashed") +
-  geom_smooth(colour = cols[5], fill = cols[1]) +
+  geom_line(colour = pal[4], linetype = "dashed") +
+  geom_smooth(colour = pal[2]) +
   scale_y_continuous(labels = label_number(scale_cut = cut_short_scale())) +
   labs(
     x = NULL, y = NULL,
@@ -159,7 +139,7 @@ rp_fit <- rp_wflow |>
 
 rp_fit |>
   extract_fit_parsnip() |> 
-  vip(aesthetics = list(fill = cols[1])) +
+  vip(aesthetics = list(fill = pal[1])) +
   labs(title = "Feature Importance -- rpart")
 
 rp_results <- rp_fit |> 
@@ -180,7 +160,7 @@ ranger_fit <- ranger_wflow |>
 
 ranger_fit |>
   extract_fit_parsnip() |> 
-  vip(aesthetics = list(fill = cols[3])) +
+  vip(aesthetics = list(fill = pal[3])) +
   labs(title = "Feature Importance -- Ranger")
 
 ranger_results <- ranger_fit |> 
@@ -222,7 +202,7 @@ poisson_fit <- poisson_wflow |>
 
 poisson_fit |>
   extract_fit_parsnip() |> 
-  vip(aesthetics = list(fill = cols[4])) +
+  vip(aesthetics = list(fill = pal[4])) +
   labs(title = "Feature Importance -- glm")
 
 poisson_results <- poisson_fit |> 
@@ -242,7 +222,7 @@ model_results |>
   geom_col() +
   geom_label(aes(label = round(.estimate, 2)), size = 3, fill = "white") +
   facet_wrap(~ .metric, scales = "free_y") +
-  scale_fill_manual(values = as.character(cols[c(4, 5, 3, 1)])) +
+  scale_fill_manual(values = as.character(pal[c(4, 5, 3, 1)])) +
   labs(x = NULL, y = NULL, title = "Comparison of Model Metrics") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         legend.position = "none")
@@ -288,7 +268,7 @@ temp_fit <- temp_wflow |>
 
 temp_fit |>
   extract_fit_parsnip() |> 
-  vip(aesthetics = list(fill = cols[2])) +
+  vip(aesthetics = list(fill = pal[2])) +
   labs(title = "Feature Importance -- Random Forest with Lags")
 
 temp_results <- temp_fit |> 
@@ -305,7 +285,7 @@ updated_results |>
   geom_col() +
   geom_label(aes(label = round(.estimate, 2)), size = 3, fill = "white") +
   facet_wrap(~ .metric, scales = "free_y") +
-  scale_fill_manual(values = as.character(cols[c(4, 5, 3, 2, 1)])) +
+  scale_fill_manual(values = as.character(pal[c(4, 5, 3, 2, 1)])) +
   labs(x = NULL, y = NULL, title = "Comparison of Model Metrics") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         legend.position = "none")
