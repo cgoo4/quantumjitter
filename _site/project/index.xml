@@ -47085,7 +47085,11 @@ font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_p
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"dplyr"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -47121,16 +47125,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">rgdal</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -47140,6 +47135,24 @@ background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;"><a href="https://github.com/ramnathv/htmlwidgets">htmlwidgets</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -47175,21 +47188,56 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">n</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wesanderson::Darjeeling2"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">"Darjeeling2"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span>, n <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>fill <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span>, n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n</span>, pal_name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -47202,75 +47250,15 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell">
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">zip_file</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"world_shape_file.zip"</span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">shape_file</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"TM_WORLD_BORDERS_SIMPL-0.3"</span></span>
-<span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"http://thematicmapping.org/downloads/"</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">shape_file</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">".zip"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">zip_file</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">zip_file</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;">world_spdf</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">readOGR</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">shape_file</span>, verbose <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">FALSE</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"TM_WORLD_BORDERS_SIMPL-0.3.shp"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
@@ -47577,16 +47565,20 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell">
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">col_fac</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rstudio.github.io/leaflet/reference/colorNumeric.html">colorFactor</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -47602,7 +47594,9 @@ font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">]</span>,</span>
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
 <span>    domain <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -47700,7 +47694,7 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -47721,7 +47715,7 @@ font-style: inherit;">1</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -47749,7 +47743,7 @@ font-style: inherit;">3</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -47774,10 +47768,6 @@ background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">world_spdf</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">@</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">data</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span><span class="va" style="color: #111111;
 background-color: null;
@@ -47891,7 +47881,7 @@ font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">col_fac</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -47906,7 +47896,7 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -47992,7 +47982,7 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -48072,7 +48062,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1], basename[1], c[5], getwd[1], is.na[2], library[9], list[1]</td>
+<td style="text-align: left;">as.character[2], basename[1], c[5], getwd[1], is.na[2], library[10], list[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">conflicted</td>
@@ -48083,16 +48073,24 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">arrange[1], case_match[1], case_when[1], filter[1], if_else[2], mutate[3], rename[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">theme_bw[1], theme_set[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">htmlwidgets</td>
 <td style="text-align: left;">saveWidget[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">leaflet</td>
 <td style="text-align: left;">addCircleMarkers[1], addLegend[1], addPolygons[1], addProviderTiles[1], colorFactor[1], highlightOptions[1], labelOptions[1], leaflet[1], providerTileOptions[1], setView[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
@@ -48103,12 +48101,12 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">read_csv[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">rgdal</td>
-<td style="text-align: left;">readOGR[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">rgeolocate</td>
 <td style="text-align: left;">maxmind[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf</td>
+<td style="text-align: left;">read_sf[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
@@ -48121,10 +48119,6 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tr class="even">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">download.file[2], unzip[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 </tbody>
 </table>

@@ -1,19 +1,25 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(rgeolocate)
 library(R.utils)
 library(leaflet)
-library(rgdal)
-library(wesanderson)
+library(sf)
 library(htmlwidgets)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("Darjeeling2"))
+n <- 5
+pal_name <- "wesanderson::Darjeeling2"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 zip_file <- "world_shape_file.zip"
 shape_file <- "TM_WORLD_BORDERS_SIMPL-0.3"
@@ -24,6 +30,8 @@ str_c("http://thematicmapping.org/downloads/", shape_file, ".zip") |>
 unzip(zip_file)
 
 world_spdf <- readOGR(getwd(), shape_file, verbose = FALSE)
+
+world_spdf <- read_sf("TM_WORLD_BORDERS_SIMPL-0.3.shp")
 
 url <- "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 
@@ -73,8 +81,8 @@ ip_df <- ip_df |>
   mutate(Views = if_else(IP == "104.192.74.35", 2000, Views),
          Pages = if_else(IP == "104.192.74.35", 2000, Pages))
 
-pal <-
-  colorFactor(cols[c(2:5)],
+col_fac <-
+  colorFactor(as.character(pal[c(2:5)]),
     domain = c(1, 2, 3, 4)
   )
 
@@ -84,18 +92,18 @@ map1 <- leaflet(world_spdf) |> # World view
   ) |>
   setView(-30, 35, zoom = 2) |> # World view
   addPolygons(
-    fillColor = cols[1],
+    fillColor = pal[1],
     stroke = TRUE,
     fillOpacity = 1,
-    color = cols[5],
+    color = pal[5],
     weight = 0.3,
     highlight = highlightOptions(
       weight = 3,
-      color = cols[3],
+      color = pal[3],
       fillOpacity = 0.3,
       bringToFront = FALSE
     ),
-    label = world_spdf@data$NAME,
+    label = world_spdf$NAME,
     labelOptions = labelOptions(
       style = list("font-weight" = "normal"),
       textsize = "12px"
@@ -111,8 +119,8 @@ map1 <- leaflet(world_spdf) |> # World view
       3 ~ 15,
       .default = 20
     ),
-    fillColor = ~ pal(ip_df$Views),
-    color = cols[5],
+    fillColor = ~ col_fac(ip_df$Views),
+    color = pal[5],
     weight = 1,
     fillOpacity = 0.7,
     popup = str_c(
@@ -128,7 +136,7 @@ map1 <- leaflet(world_spdf) |> # World view
     )
   ) |>
   addLegend(
-    colors = cols[c(2:5)],
+    colors = pal[c(2:5)],
     labels = c("<500", "500+", "1,000+", "2,000+"),
     opacity = 1,
     title = "Page Views<br/>Oct-23 to Dec-31 2017",
