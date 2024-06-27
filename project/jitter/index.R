@@ -1,20 +1,26 @@
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
-conflict_prefer("as_date", "lubridate")
+conflicts_prefer(lubridate::as_date)
 library(clock)
-conflict_prefer("date_format", "clock")
+conflicts_prefer(clock::date_format)
 library(janitor)
 library(scales)
-library(wesanderson)
 library(glue)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("Royal1"))
+n <- 4
+pal_name <- "wesanderson::Royal1"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 url <- str_c(
   "https://www.gov.uk/government/",
@@ -54,8 +60,8 @@ last_date <- gcloud_df |>
 
 share_df |> 
   ggplot(aes(spend_date, pct)) +
-  geom_point(colour = cols[4]) +
-  geom_smooth(colour = cols[2], fill = cols[3]) +
+  geom_point(colour = pal[4]) +
+  geom_smooth(colour = pal[2], fill = pal[3]) +
   scale_y_continuous(labels = label_percent()) +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
   labs(
@@ -84,11 +90,11 @@ n_df <- sector_df |> summarise(n = n(), .by = sector)
 
 sector_df |> 
   ggplot(aes(sector, pct)) +
-  geom_boxplot(outlier.shape = FALSE, fill = cols[3]) +
-  geom_jitter(width = 0.2, alpha = 0.5, colour = cols[2]) +
+  geom_boxplot(outlier.shape = FALSE, fill = pal[3]) +
+  geom_jitter(width = 0.2, alpha = 0.5, colour = pal[2]) +
   geom_label(aes(y = .75, label = glue("n = {n}")),
     data = n_df,
-    fill = cols[1], colour = "white"
+    fill = pal[1], colour = "white"
   ) +
   scale_y_continuous(labels = label_percent()) +
   labs(
