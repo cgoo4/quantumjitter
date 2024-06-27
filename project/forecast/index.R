@@ -1,17 +1,23 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-library(wesanderson)
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(fpp3)
 library(scales)
 library(clock)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "IsleofDogs2"))
+n <- 5
+pal_name <- "wesanderson::IsleofDogs2"
+
+pal <- paletteer_d(pal_name, n = n)
+
+display_palette(fill = pal, n = n, pal_name = pal_name)
 
 url <-
   "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/"
@@ -80,14 +86,14 @@ both_ts |>
   ggplot(aes(date, spend, colour = framework)) +
   geom_line(key_glyph = "timeseries") +
   scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
-  scale_colour_manual(values = cols[c(3, 4)]) +
+  scale_colour_manual(values = pal[c(3, 4)]) +
   labs(x = NULL, y = NULL, title = "Monthly Digital Marketplace Sales")
 
 both_ts |>
   model(stl = STL(spend ~ trend(window = 7) + season(window = "periodic"))) |>
   components() |>
   autoplot() +
-  scale_colour_manual(values = cols[c(3, 4)]) +
+  scale_colour_manual(values = pal[c(3, 4)]) +
   labs(x = NULL, title = "Time Series Decomposition")
 
 mod_ts <- both_ts |>
@@ -109,12 +115,12 @@ fcast_ts <- mod_ts |>
 
 fcast_ts |>
   ggplot(aes(date, fill = framework)) +
-  geom_line(aes(y = spend), colour = cols[5]) +
+  geom_line(aes(y = spend), colour = pal[5]) +
   geom_ribbon(aes(ymin = `95%_lower`, ymax = `95%_upper`),
-    fill = cols[1], colour = NA
+    fill = pal[1], colour = NA
   ) +
   geom_ribbon(aes(ymin = `80%_lower`, ymax = `80%_upper`),
-    fill = cols[2], colour = NA
+    fill = pal[2], colour = NA
   ) +
   geom_line(aes(y = .mean), colour = "white") +
   scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
@@ -152,12 +158,12 @@ fcgc_ts <- gc_ts |>
 
 fcgc_ts |>
   ggplot(aes(date, fill = lot)) +
-  geom_line(aes(y = spend), colour = cols[5]) +
+  geom_line(aes(y = spend), colour = pal[5]) +
   geom_ribbon(aes(ymin = `95%_lower`, ymax = `95%_upper`),
-    fill = cols[1], colour = NA
+    fill = pal[1], colour = NA
   ) +
   geom_ribbon(aes(ymin = `80%_lower`, ymax = `80%_upper`),
-    fill = cols[2], colour = NA
+    fill = pal[2], colour = NA
   ) +
   geom_line(aes(y = .mean), colour = "white") +
   scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +

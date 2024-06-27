@@ -33372,16 +33372,11 @@ font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_p
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"dplyr"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -33417,6 +33412,24 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
@@ -33428,19 +33441,9 @@ background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>7 conflicts:
-* `as_date`    : clock, lubridate
-* `col_factor` : scales, readr
-* `date_format`: clock, scales
-* `discard`    : scales, purrr
-* `filter`     : [dplyr]
-* `interval`   : tsibble, lubridate
-* `lag`        : [dplyr]</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -33454,23 +33457,56 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">n</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wesanderson::IsleofDogs2"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>name <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">pal_name</span>, n <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"IsleofDogs2"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">n</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>fill <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span>, n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n</span>, pal_name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -33482,7 +33518,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>First I’ll check the encoding of the data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">url</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -33600,7 +33636,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Next I’ll set up a vector of column names to apply consistently to both files, and import the data with the suggested encoding.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">colnam</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -33767,7 +33803,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>I’d like to create some new features: Month-end dates, something to distinguish between the two frameworks (<em>G-Cloud</em> or <em>DOS</em>). The spend has a messy format and needs a bit of cleaning too.</p>
 <p>The lot structure for <em>G-Cloud</em> has evolved over time, but fortunately, there is a simple mapping, i.e.&nbsp;<em>PaaS</em> and <em>IaaS</em> became <em>Cloud Hosting</em>, <em>SaaS</em> became <em>Cloud Software</em>, and <em>Specialist Cloud Services</em> became <em>Cloud Support</em>, so I’ll standardise on the latter.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">both</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -33954,7 +33990,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>R has evolved since I first wrote this post. At that time, it was necessary to either split the data into the two frameworks (G-Cloud and DOS) and forecast them separately. Or, as I did with the three G-Cloud lots, use the purrr package to iterate through a forecast.</p>
 <p>The tsibble package combined with the newer fable<span class="citation" data-cites="fable">(O’Hara-Wild, Hyndman, and Wang 2022a)</span> and feasts<span class="citation" data-cites="feasts">(O’Hara-Wild, Hyndman, and Wang 2022b)</span> packages, make this easier. One of the defining feature of the tsibble is the <code>key</code>. I want a model for each framework, so I’m setting this as the tsibble <code>key</code> (and the temporal variable as the tsibble <code>index</code>).</p>
 <div class="cell">
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">both_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34084,7 +34120,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -34135,7 +34171,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <li><p><strong>Seasonality</strong>: Suppliers often manage their sales and financials based on a quarterly cycle, with a particular emphasis on a strong close to the financial year. And Government Buyers may want to make optimal use of their budgets at the close of their financial year (March 31st). Consequently, we see quarterly seasonality with an extra spike at financial year-end.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">both_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34209,7 +34245,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -34255,7 +34291,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>I’ll forecast with the default 80% and 95% prediction intervals. This means the darker-shaded 80% range should include the future sales value with an 80% probability. Likewise with a 95% probability when adding the wider and lighter-shaded area.</p>
 <p>Use of <code>autoplot</code> would simplify the code, but personally I like to expose all the data, for example unpacking the prediction intervals, and have finer control over the visualisation.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">mod_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34335,7 +34371,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tr class="odd">
 <td style="text-align: left;">DOS</td>
 <td style="text-align: left;">ARIMA</td>
-<td style="text-align: right;">23.60154</td>
+<td style="text-align: right;">23.60153</td>
 <td style="text-align: right;">-59.93305</td>
 <td style="text-align: right;">123.8661</td>
 <td style="text-align: right;">124.5720</td>
@@ -34354,7 +34390,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">mod_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34392,9 +34428,9 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">DOS</td>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma1</td>
-<td style="text-align: right;">-0.7725018</td>
-<td style="text-align: right;">0.1718541</td>
-<td style="text-align: right;">-4.495102</td>
+<td style="text-align: right;">-0.7725021</td>
+<td style="text-align: right;">0.1718544</td>
+<td style="text-align: right;">-4.495096</td>
 <td style="text-align: right;">0.0002213</td>
 </tr>
 <tr class="even">
@@ -34402,8 +34438,8 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ar1</td>
 <td style="text-align: right;">0.9390150</td>
-<td style="text-align: right;">0.0595354</td>
-<td style="text-align: right;">15.772391</td>
+<td style="text-align: right;">0.0595356</td>
+<td style="text-align: right;">15.772336</td>
 <td style="text-align: right;">0.0000000</td>
 </tr>
 <tr class="odd">
@@ -34411,8 +34447,8 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma1</td>
 <td style="text-align: right;">-0.5777210</td>
-<td style="text-align: right;">0.1094066</td>
-<td style="text-align: right;">-5.280494</td>
+<td style="text-align: right;">0.1094067</td>
+<td style="text-align: right;">-5.280491</td>
 <td style="text-align: right;">0.0000019</td>
 </tr>
 <tr class="even">
@@ -34420,8 +34456,8 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">sar1</td>
 <td style="text-align: right;">-0.5124417</td>
-<td style="text-align: right;">0.1142670</td>
-<td style="text-align: right;">-4.484597</td>
+<td style="text-align: right;">0.1142671</td>
+<td style="text-align: right;">-4.484596</td>
 <td style="text-align: right;">0.0000336</td>
 </tr>
 <tr class="odd">
@@ -34429,15 +34465,15 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">constant</td>
 <td style="text-align: right;">1.4084703</td>
-<td style="text-align: right;">0.3168155</td>
-<td style="text-align: right;">4.445712</td>
+<td style="text-align: right;">0.3168159</td>
+<td style="text-align: right;">4.445706</td>
 <td style="text-align: right;">0.0000385</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">fcast_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34578,7 +34614,7 @@ font-style: inherit;">)</span>, colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -34612,7 +34648,7 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -34651,7 +34687,7 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -34798,7 +34834,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>I previously combined <code>auto.arima</code> (from the forecast package) with functions from the sweep package, to create multiple forecasts in one shot. tsibble coupled fabletools handle this with the <code>key</code> set to the <code>lot</code> variable.</p>
 <p>An alternative option is hierarchical time-series forecasting which models bottom-up, top-down or middle-out, and ensures the sum of the forecasts at the lower level sum to the top-level forecast. This approach has pros and cons and is not considered here.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">gcloud_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34986,7 +35022,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">gc_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35042,8 +35078,8 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma1</td>
 <td style="text-align: right;">-0.9981867</td>
-<td style="text-align: right;">0.1304426</td>
-<td style="text-align: right;">-7.652304</td>
+<td style="text-align: right;">0.1304425</td>
+<td style="text-align: right;">-7.652312</td>
 <td style="text-align: right;">0.0000000</td>
 </tr>
 <tr class="even">
@@ -35051,9 +35087,9 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma2</td>
 <td style="text-align: right;">0.2242994</td>
-<td style="text-align: right;">0.1224834</td>
-<td style="text-align: right;">1.831264</td>
-<td style="text-align: right;">0.0721116</td>
+<td style="text-align: right;">0.1224833</td>
+<td style="text-align: right;">1.831265</td>
+<td style="text-align: right;">0.0721114</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Cloud Support</td>
@@ -35095,7 +35131,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </table>
 </div>
 </div>
-<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">fcgc_ts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35236,7 +35272,7 @@ font-style: inherit;">)</span>, colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -35270,7 +35306,7 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -35309,7 +35345,7 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -35456,7 +35492,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35472,7 +35508,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[9], is.na[1], library[7], print[1], sum[2]</td>
+<td style="text-align: left;">c[9], is.na[1], library[8], print[1], sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -35499,8 +35535,16 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">STL[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[11], autoplot[1], element_text[2], facet_wrap[2], geom_line[5], geom_ribbon[4], ggplot[3], labs[4], scale_colour_manual[2], scale_y_continuous[3], theme[2], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>
@@ -35529,10 +35573,6 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tr class="odd">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 </tbody>
 </table>
