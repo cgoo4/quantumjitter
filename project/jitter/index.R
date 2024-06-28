@@ -15,12 +15,11 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 4
 pal_name <- "wesanderson::Royal1"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 url <- str_c(
   "https://www.gov.uk/government/",

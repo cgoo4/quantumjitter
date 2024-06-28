@@ -37,17 +37,15 @@ conflict_scout()
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-n <- 4
 pal_name <- "wesanderson::Royal1"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 ```
 
 The tidyverse framework sits at the heart of all my data science work as evidenced in my [favourite things](/project/box). So I'll begin by using two of my most used tidyverse packages (readr [@readr] and dplyr [@dplyr]) to import and tidy the cloud services (G-Cloud) sales data.

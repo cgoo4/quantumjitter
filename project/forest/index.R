@@ -19,7 +19,7 @@ pal <- c("#798E87", "#C27D38", "#CCC591", "#29211F")
 
 pal12 <- colorRampPalette(pal)(12)
 
-display_palette(fill = pal12, n = 12, pal_name = pal_name, shape_size = 0.6)
+display_palette(pal12, pal_name)
 
 # MPS Borough Level Crime (Historical).csv
 url <- str_c(

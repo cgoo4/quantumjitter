@@ -1,6 +1,6 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(shiny)
 library(gridlayout)
 library(rvest)
@@ -15,12 +15,11 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 6
 pal_name <- "wesanderson::IsleofDogs1"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 charts <-
   tibble(

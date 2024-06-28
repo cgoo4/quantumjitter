@@ -11,16 +11,12 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 9
 pal_name <- "wesanderson::Chevalier1"
 
 pal <- paletteer_d(pal_name)
-pal <- colorRampPalette(pal)(n)
+pal <- colorRampPalette(pal)(9)
 
-display_palette(
-  fill = pal, n = n, pal_name = pal_name, 
-  shape = "tube", shape_size = 0.9, label_size = 2
-  )
+display_palette(pal, pal_name, shape = "tube")
 
 url <- 
   "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/"

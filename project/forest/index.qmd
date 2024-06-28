@@ -31,7 +31,6 @@ This custom palette was created in [Adobe Colour](https://color.adobe.com/create
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
@@ -42,7 +41,7 @@ pal <- c("#798E87", "#C27D38", "#CCC591", "#29211F")
 
 pal12 <- colorRampPalette(pal)(12)
 
-display_palette(fill = pal12, n = 12, pal_name = pal_name, shape_size = 0.6)
+display_palette(pal12, pal_name)
 ```
 
 ```{r}

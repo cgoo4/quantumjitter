@@ -21,12 +21,11 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 5
 pal_name <- "wesanderson::Darjeeling2"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 url <- "https://www.rbkc.gov.uk/planning/searches/default.aspx?adv=0&simple=sw10&simpleBatch=200&simSubmit=Search&pgdec="
 

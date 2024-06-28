@@ -37,17 +37,15 @@ conflict_scout()
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-n <- 4
 pal_name <- "wesanderson::Moonrise2"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 ```
 
 I'll start by building a list of all Labour Party MPs.

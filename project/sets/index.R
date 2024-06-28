@@ -18,12 +18,11 @@ plan(multisession, workers = 10)
 
 theme_set(theme_bw())
 
-n <- 5
 pal_name <- "wesanderson::Royal2"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 path <- 
   str_c("https://www.applytosupply.digitalmarketplace", 

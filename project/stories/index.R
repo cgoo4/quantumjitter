@@ -14,12 +14,11 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 5
 pal_name <- "wesanderson::Darjeeling2"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 zip_file <- "world_shape_file.zip"
 shape_file <- "TM_WORLD_BORDERS_SIMPL-0.3"
