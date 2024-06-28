@@ -3,16 +3,20 @@ library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
 library(trelliscope)
 library(janitor)
-library(vangogh)
+library(ggfoundry)
+library(paletteer)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- vangogh_palette("StarryNight"))
+pal_name <- "vangogh::StarryNight"
 
-cols12 <- colorRampPalette(cols)(12)
+pal <- paletteer_d(pal_name)
+pal <- colorRampPalette(pal)(12)
+
+display_palette(pal, pal_name)
 
 crime_df <- str_c(
   "https://data.london.gov.uk/download/recorded_crime_summary/",
@@ -34,10 +38,10 @@ crime_df |>
     x = NULL, y = NULL, title = "London Crime by Borough",
     colour = "Offence", caption = "Source: data.gov.uk"
   ) +
-  scale_colour_manual(values = cols12) +
+  scale_colour_manual(values = pal) +
   guides(colour = guide_legend(nrow = 3)) +
   theme(
-    strip.background = element_rect(fill = cols[4]),
+    strip.background = element_rect(fill = pal[4]),
     legend.position = "bottom",
     axis.text.x = element_text(angle = 45, hjust = 1)
   ) + 
@@ -47,7 +51,7 @@ panels_df <- crime_df |>
   mutate(major = str_wrap(major, 16)) |> 
   ggplot(aes(month, num_offences)) +
   geom_line(show.legend = FALSE) +
-  geom_smooth(method = "lm", se = FALSE, colour = cols[5]) +
+  geom_smooth(method = "lm", se = FALSE, colour = pal[5]) +
   facet_panels(vars(borough, major, minor), scales = "free") + 
   labs(colour = NULL, x = NULL, y = "Offence Count")
 
@@ -81,14 +85,12 @@ panels_df |>
     info = c("borough", "major", "minor")
   ) |>
   set_theme(
-    primary = cols[1],
-    dark = cols[1],
-    light = cols[5],
-    light_text_on_dark = TRUE,
-    dark_text = cols[1],
-    light_text = cols[4],
-    header_background = cols[2],
-    header_text = NULL
+    primary = pal[1],
+    primary2 = pal[1],
+    primary3 = pal[5],
+    text = pal[1],
+    text2 = pal[4],
+    bars = pal[2]
   ) |>
   view_trelliscope()
 

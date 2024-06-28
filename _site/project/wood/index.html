@@ -226,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">December 25, 2023</p>
+      <p class="date-modified">June 28, 2024</p>
     </div>
   </div>
     
@@ -240,9 +240,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">trelliscope</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://trelliscope.org/trelliscope">trelliscope</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cherylisabella/vangogh">vangogh</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -251,18 +252,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">(</span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">vangogh_palette</span><span class="op">(</span><span class="st">"StarryNight"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">pal_name</span> <span class="op">&lt;-</span> <span class="st">"vangogh::StarryNight"</span></span>
+<span></span>
+<span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">pal_name</span><span class="op">)</span></span>
+<span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">pal</span><span class="op">)</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data need a little tidy-up.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://data.london.gov.uk/download/recorded_crime_summary/"</span>,</span>
 <span>  <span class="st">"934f2ddb-5804-4c6a-a17c-bdd79b33430e/"</span>, </span>
 <span>  <span class="st">"MPS%20Borough%20Level%20Crime%20%28Historical%29.csv"</span></span>
@@ -275,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The original visualisation in <a href="../../project/forest">Criminal Goings-on</a> using ggplot’s <code>facet_wrap</code> is a little tricky to digest, even when limited to major categories of crime.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>num_offences <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">num_offences</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">major</span>, <span class="va">borough</span>, <span class="va">month</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">month</span>, <span class="va">num_offences</span>, colour <span class="op">=</span> <span class="va">major</span>, group <span class="op">=</span> <span class="va">major</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -284,10 +289,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span>, title <span class="op">=</span> <span class="st">"London Crime by Borough"</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"Offence"</span>, caption <span class="op">=</span> <span class="st">"Source: data.gov.uk"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cols12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
-<span>    strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span> </span>
@@ -302,12 +307,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This “little project” was first published using <a href="https://hafen.github.io/trelliscopejs/">trelliscopejs</a> which offered a really nice alternative approach to the static <code>facet_wrap</code>. This has been recently reimagined by the superior and easier-to-use <a href="https://github.com/trelliscope">trelliscope</a> package. I’ve updated this post to use the “latest and greatest”.</p>
 <p>Click top-right to pop the display out full screen. Over 1,700 time series plots may be interactively filtered and sorted (for every combination of borough, major/minor category of crime) using summary statistics such as the steepness of the linear trend line.</p>
 <div class="cell" data-scale="0.5">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">panels_df</span> <span class="op">&lt;-</span> <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">panels_df</span> <span class="op">&lt;-</span> <span class="va">crime_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>major <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html">str_wrap</a></span><span class="op">(</span><span class="va">major</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">month</span>, <span class="va">num_offences</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, colour <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_panels</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/facet_panels.html">facet_panels</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NULL</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Offence Count"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
@@ -319,8 +324,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">panels_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">as_panels_df</span><span class="op">(</span>as_plotly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">as_trelliscope_df</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/as_panels_df.html">as_panels_df</a></span><span class="op">(</span>as_plotly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/as_trelliscope_df.html">as_trelliscope_df</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="st">"Crime in 'The Smoke'"</span>,</span>
 <span>    description <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Timeseries of offences by category "</span>,</span>
@@ -328,28 +333,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">summary_df</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">borough</span>, <span class="va">major</span>, <span class="va">minor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">set_var_labels</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_var_labels.html">set_var_labels</a></span><span class="op">(</span></span>
 <span>    major <span class="op">=</span> <span class="st">"Major Category of Offence"</span>,</span>
 <span>    minor <span class="op">=</span> <span class="st">"Minor Category of Offence"</span>,</span>
 <span>    mean_count <span class="op">=</span> <span class="st">"Average Offences by Borough &amp; Offence Category"</span>,</span>
 <span>    slope <span class="op">=</span> <span class="st">"Steepness of a Linear Trendline"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">set_default_sort</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slope"</span><span class="op">)</span>, dirs <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">set_tags</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_default_sort.html">set_default_sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slope"</span><span class="op">)</span>, dirs <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_tags.html">set_tags</a></span><span class="op">(</span></span>
 <span>    stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mean_count"</span>, <span class="st">"slope"</span><span class="op">)</span>,</span>
 <span>    info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"borough"</span>, <span class="st">"major"</span>, <span class="st">"minor"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">set_theme</span><span class="op">(</span></span>
-<span>    primary <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    dark <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    light <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>    light_text_on_dark <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    dark_text <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    light_text <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>    header_background <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>    header_text <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_theme.html">set_theme</a></span><span class="op">(</span></span>
+<span>    primary <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    primary2 <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    primary3 <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>    text <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    text2 <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>    bars <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">view_trelliscope</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/view_trelliscope.html">view_trelliscope</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="width: 100%; height: 500px; padding-bottom: 5px;">
 <iframe style="
         transform: scale(0.5);
@@ -367,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped table-sm small" data-quarto-postprocess="true">
 <thead><tr class="header">
@@ -377,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[5], library[6], mean[1], sum[1]</td>
+<td style="text-align: left;">c[5], library[7], mean[1], sum[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -388,20 +391,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">join_by[1], left_join[1], mutate[2], rename_with[1], summarise[2], vars[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[2], element_rect[1], element_text[1], facet_wrap[1], geom_line[2], geom_smooth[1], ggplot[2], guide_legend[2], guides[2], labs[2], scale_colour_manual[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">grDevices</td>
 <td style="text-align: left;">colorRampPalette[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">ymd[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readr</td>
@@ -430,10 +441,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vangogh</td>
-<td style="text-align: left;">vangogh_palette[1]</td>
 </tr>
 </tbody>
 </table>
