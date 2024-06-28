@@ -34,6 +34,7 @@ library(gt)
 library(tictoc)
 library(patchwork)
 library(rvest)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -43,32 +44,16 @@ conflict_scout()
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
 n <- 5
-palette <- "vangogh::Rest"
+pal_name <- "vangogh::Rest"
 
-cols <- paletteer_d(palette, n = n)
+pal <- paletteer_d(pal_name)
 
-tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = (n + 1) / 2, y = 0.5,
-    label = palette,
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+display_palette(pal, pal_name)
 ```
 
 ```{r}
@@ -234,7 +219,7 @@ long_df |>
         ggplot(aes(date, value)) +
         annotate("rect",
           xmin = ymd("2023-12-31"), xmax = ymd("2026-12-31"),
-          ymin = -Inf, ymax = Inf, alpha = 0.2, fill = cols[1]
+          ymin = -Inf, ymax = Inf, alpha = 0.2, fill = pal[1]
         ) +
         geom_line() +
         scale_y +
@@ -415,7 +400,7 @@ By prefixing `agg_metrics` with `py$`, R can access the Python object.
 
 aggregated <- as.numeric(py$agg_metrics["MAPE"])
 
-col <- compose(as.character, \(x) cols[x])
+col <- compose(as.character, \(x) pal[x])
 
 py$item_metrics |> 
   select(item_id, MAPE) |> 
@@ -521,11 +506,11 @@ panels_df <- long_df |>
   geom_ribbon(aes(y = median, ymin = low, ymax = high, fill = fct_rev(pi_sample)),
     alpha = 1, linewidth = 0) +
   geom_line(aes(date, median), colour = "white") +
-  scale_fill_manual(values = col(c(1, 1, 5, 5))) +
+  scale_fill_manual(values = pal[c(1, 1, 5, 5)]) +
   scale_y_continuous(labels = label_currency(scale_cut = cut_short_scale(), prefix = "£")) +
   facet_panels(vars(district), scales = "free_y") +
   labs(
-    title = glue("Price Forecasts for {districts} Postal Districts"), 
+    title = glue("Price Forecasts for {districts} Postal Districts"),
     subtitle = "Backtest & Future Forecasts with 80 & 90% Prediction Intervals",
     caption = "DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks",
     x = NULL, y = "Avg Price", fill = "Prediction\nInterval"
@@ -534,9 +519,9 @@ panels_df <- long_df |>
 
 slope <- \(x, y) coef(lm(y ~ x))[2]
 
-summary_df <- long_df |> 
+summary_df <- long_df |>
   summarise(
-    last_price = nth(price, -4), 
+    last_price = nth(price, -4),
     slope = slope(date, price),
     .by = district)
 
@@ -559,16 +544,6 @@ panels_df |>
   set_tags(
     stats = c("last_price", "slope"),
     info = "district"
-  ) |>
-  set_theme(
-    primary = col(1),
-    dark = col(1),
-    light = col(5),
-    light_text_on_dark = TRUE,
-    dark_text = col(1),
-    light_text = col(5),
-    header_background = col(1),
-    header_text = NULL
   ) |>
   view_trelliscope()
 ```

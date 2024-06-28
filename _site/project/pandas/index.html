@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 1, 2024</p>
+      <p class="date-modified">June 28, 2024</p>
     </div>
   </div>
     
@@ -255,6 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -264,26 +265,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="va">palette</span> <span class="op">&lt;-</span> <span class="st">"vangogh::Rest"</span></span>
+<span><span class="va">pal_name</span> <span class="op">&lt;-</span> <span class="st">"vangogh::Rest"</span></span>
 <span></span>
-<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">palette</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">pal_name</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">cols</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"FF$"</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>             size <span class="op">=</span> <span class="fl">4</span>, vjust <span class="op">=</span> <span class="fl">2</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span></span>
-<span>    <span class="st">"label"</span>,</span>
-<span>    x <span class="op">=</span> <span class="op">(</span><span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>, y <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>    label <span class="op">=</span> <span class="va">palette</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">6</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -447,7 +433,7 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"rect"</span>,</span>
 <span>          xmin <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2023-12-31"</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2026-12-31"</span><span class="op">)</span>,</span>
-<span>          ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, fill <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>          ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span>        <span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="va">scale_y</span> <span class="op">+</span></span>
@@ -477,9 +463,9 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 </div>
 </section><section id="install-gluonts-r" class="level2"><h2 class="anchored" data-anchor-id="install-gluonts-r">Install gluonTS (R)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">py_install</span><span class="op">(</span><span class="st">"gluonts"</span>, <span class="st">"r-reticulate"</span>, pip <span class="op">=</span> <span class="cn">TRUE</span>, ignore_installed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_install.html">py_install</a></span><span class="op">(</span><span class="st">"gluonts"</span>, <span class="st">"r-reticulate"</span>, pip <span class="op">=</span> <span class="cn">TRUE</span>, ignore_installed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">py_list_packages</span><span class="op">(</span><span class="st">"r-reticulate"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_list_packages.html">py_list_packages</a></span><span class="op">(</span><span class="st">"r-reticulate"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="model-python" class="level2"><h2 class="anchored" data-anchor-id="model-python">Model (Python)</h2>
 <p>By prefixing <code>long_df</code> with <code>r.</code>, Python can access the R object.</p>
@@ -613,7 +599,7 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">aggregated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">py</span><span class="op">$</span><span class="va">agg_metrics</span><span class="op">[</span><span class="st">"MAPE"</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/compose.html">compose</a></span><span class="op">(</span><span class="va">as.character</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">cols</span><span class="op">[</span><span class="va">x</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/compose.html">compose</a></span><span class="op">(</span><span class="va">as.character</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">pal</span><span class="op">[</span><span class="va">x</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">py</span><span class="op">$</span><span class="va">item_metrics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">MAPE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -706,11 +692,11 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">median</span>, ymin <span class="op">=</span> <span class="va">low</span>, ymax <span class="op">=</span> <span class="va">high</span>, fill <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="va">pi_sample</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">1</span>, linewidth <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">median</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>scale_cut <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op">(</span><span class="op">)</span>, prefix <span class="op">=</span> <span class="st">"£"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/facet_panels.html">facet_panels</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">district</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Price Forecasts for {districts} Postal Districts"</span><span class="op">)</span>, </span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Price Forecasts for {districts} Postal Districts"</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Backtest &amp; Future Forecasts with 80 &amp; 90% Prediction Intervals"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks"</span>,</span>
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Avg Price"</span>, fill <span class="op">=</span> <span class="st">"Prediction\nInterval"</span></span>
@@ -719,9 +705,9 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <span></span>
 <span><span class="va">slope</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">long_df</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">long_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    last_price <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">nth</a></span><span class="op">(</span><span class="va">price</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>, </span>
+<span>    last_price <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">nth</a></span><span class="op">(</span><span class="va">price</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>    slope <span class="op">=</span> <span class="fu">slope</span><span class="op">(</span><span class="va">date</span>, <span class="va">price</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="va">district</span><span class="op">)</span></span>
 <span></span>
@@ -744,16 +730,6 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_tags.html">set_tags</a></span><span class="op">(</span></span>
 <span>    stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"last_price"</span>, <span class="st">"slope"</span><span class="op">)</span>,</span>
 <span>    info <span class="op">=</span> <span class="st">"district"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/set_theme.html">set_theme</a></span><span class="op">(</span></span>
-<span>    primary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>    dark <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>    light <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span>    light_text_on_dark <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    dark_text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>    light_text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span>    header_background <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>    header_text <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://trelliscope.github.io/trelliscope/reference/view_trelliscope.html">view_trelliscope</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="width: 100%; height: 500px; padding-bottom: 5px;">
@@ -782,7 +758,7 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[2], as.numeric[1], c[14], col[8], factor[2], if[4], is.na[2], length[1], library[14], list[2], list.files[1], max[1], min[1], ncol[1], readRDS[1], round[1], saveRDS[1], split[4]</td>
+<td style="text-align: left;">as.character[1], as.numeric[1], c[14], col[1], factor[2], if[4], is.na[2], length[1], library[15], list[2], list.files[1], max[1], min[1], ncol[1], readRDS[1], round[1], saveRDS[1], split[4]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -801,94 +777,98 @@ $ morg_rate   &lt;dbl&gt; 0.0813, 0.0827, 0.0740, 0.0636, 0.0692, 0.0620, 0.0565
 <td style="text-align: left;">fct_inorder[1], fct_reorder[1], fct_rev[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[10], annotate[2], element_blank[1], facet_wrap[1], geom_col[1], geom_label[2], geom_line[4], geom_point[2], geom_ribbon[1], geom_vline[1], ggplot[5], labs[4], scale_fill_manual[2], scale_x_log10[1], scale_y_continuous[5], theme[3], theme_bw[1], theme_set[1], theme_void[1]</td>
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[8], annotate[1], element_blank[1], facet_wrap[1], geom_label[1], geom_line[4], geom_point[2], geom_ribbon[1], geom_vline[1], ggplot[4], labs[4], scale_fill_manual[1], scale_x_log10[1], scale_y_continuous[5], theme[2], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[4]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[2], row_to_names[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">dmy[1], month[1], ymd[7]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">paletteer</td>
 <td style="text-align: left;">paletteer_d[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">patchwork</td>
 <td style="text-align: left;">plot_annotation[1], plot_layout[1], wrap_plots[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">pillar</td>
 <td style="text-align: left;">glimpse[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">compose[1], imap[1], list_rbind[3], map[4]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">readr</td>
 <td style="text-align: left;">parse_number[1], read_csv[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">reticulate</td>
 <td style="text-align: left;">py_install[1], py_list_packages[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_element[1], html_table[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">cut_short_scale[4], label_currency[2], label_number[2], label_percent[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">coef[1], lm[1], quantile[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[7], str_ends[4], str_remove[1]</td>
+<td style="text-align: left;">str_c[7], str_ends[4]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">add_row[3], as_tibble[1], tribble[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">add_row[3], as_tibble[1], tibble[1], tribble[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tictoc</td>
 <td style="text-align: left;">tic[1], toc[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">complete[1], drop_na[1], fill[1], nest[1], pivot_longer[4], pivot_wider[1], unnest[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tidyselect</td>
 <td style="text-align: left;">ends_with[1], everything[1], starts_with[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">trelliscope</td>
-<td style="text-align: left;">as_panels_df[1], as_trelliscope_df[1], facet_panels[1], set_default_labels[1], set_default_sort[1], set_tags[1], set_theme[1], set_var_labels[1], view_trelliscope[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">trelliscope</td>
+<td style="text-align: left;">as_panels_df[1], as_trelliscope_df[1], facet_panels[1], set_default_labels[1], set_default_sort[1], set_tags[1], set_var_labels[1], view_trelliscope[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">head[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">xml2</td>
 <td style="text-align: left;">read_html[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">zoo</td>
 <td style="text-align: left;">na.approx[1]</td>
 </tr>
