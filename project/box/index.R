@@ -17,12 +17,11 @@ conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 6
 pal_name <- "LaCroixColoR::CranRaspberry"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 
 tidy <-
   c(

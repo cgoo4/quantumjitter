@@ -43,17 +43,15 @@ conflict_scout()
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-n <- 6
 pal_name <- "LaCroixColoR::CranRaspberry"
 
-pal <- paletteer_d(pal_name, n = n)
+pal <- paletteer_d(pal_name)
 
-display_palette(fill = pal, n = n, pal_name = pal_name)
+display_palette(pal, pal_name)
 ```
 
 Separation of tidyverse and non-tidyverse packages may be achieved by using the likes of `tidyverse_packages` which lists all packages in the tidyverse.
