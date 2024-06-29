@@ -24490,13 +24490,15 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"as_date"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">lubridate</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"lubridate"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -24604,6 +24606,15 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
@@ -24633,14 +24644,7 @@ font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">n</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">palette</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -24648,7 +24652,7 @@ font-style: inherit;">"wesanderson::Chevalier1"</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -24656,204 +24660,19 @@ font-style: inherit;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.htm
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">palette</span>, n <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">n</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>x <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">n</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">x</span>, <span class="va" style="color: #111111;
+font-style: inherit;">pal</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">y</span>, fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"white"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>label <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"FF$"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, </span>
-<span>             size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span>, vjust <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"white"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"label"</span>,</span>
-<span>    x <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">n</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.5</span>,</span>
-<span>    label <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">palette</span>,</span>
-<span>    fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"white"</span>,</span>
-<span>    alpha <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.8</span>,</span>
-<span>    size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">6</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>legend.position <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"none"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -25012,10 +24831,10 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Access to the Guardian’s API via <a href="https://github.com/cran/guardianapi">guardianapi</a><span class="citation" data-cites="guardianapi">(Odell 2019)</span> requires a key which may be requested <a href="https://open-platform.theguardian.com/access/">here</a> and stored in the .Renviron file.</p>
+<p>Access to the Guardian’s API via <a href="https://github.com/cran/guardianapi">guardianapi</a><span class="citation" data-cites="guardianapi">(Odell 2019)</span> requires a key which may be requested <a href="https://open-platform.theguardian.com/access/">here</a> and stored as <code>GU_API_KEY=</code> in the .Renviron file.</p>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/html/read_b9a221b348136d61f0c7450830da90ee">
+<div class="cell">
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op" style="color: #5E5E5E;
@@ -25265,6 +25084,15 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
+font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>context <span class="op" style="color: #5E5E5E;
@@ -25298,7 +25126,7 @@ font-style: inherit;">glove</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">GlobalVectors</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html">GlobalVectors</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -25348,16 +25176,16 @@ font-style: inherit;">10</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>INFO  [10:54:25.762] epoch 1, loss 0.3788
-INFO  [10:54:27.135] epoch 2, loss 0.2570
-INFO  [10:54:28.548] epoch 3, loss 0.2292
-INFO  [10:54:29.944] epoch 4, loss 0.2090
-INFO  [10:54:31.337] epoch 5, loss 0.1921
-INFO  [10:54:32.731] epoch 6, loss 0.1791
-INFO  [10:54:34.125] epoch 7, loss 0.1694
-INFO  [10:54:35.518] epoch 8, loss 0.1619
-INFO  [10:54:36.912] epoch 9, loss 0.1557
-INFO  [10:54:38.306] epoch 10, loss 0.1506</code></pre>
+<pre><code>INFO  [11:53:21.069] epoch 1, loss 0.3797
+INFO  [11:53:22.349] epoch 2, loss 0.2565
+INFO  [11:53:23.648] epoch 3, loss 0.2290
+INFO  [11:53:24.907] epoch 4, loss 0.2086
+INFO  [11:53:26.164] epoch 5, loss 0.1919
+INFO  [11:53:27.414] epoch 6, loss 0.1792
+INFO  [11:53:28.669] epoch 7, loss 0.1695
+INFO  [11:53:29.919] epoch 8, loss 0.1620
+INFO  [11:53:31.172] epoch 9, loss 0.1558
+INFO  [11:53:32.425] epoch 10, loss 0.1507</code></pre>
 </div>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -25414,7 +25242,7 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">sim2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/text2vec/man/similarities.html">sim2</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -25490,40 +25318,40 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: right;">1.0000000</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">negotiator</td>
-<td style="text-align: right;">0.8060194</td>
+<td style="text-align: left;">frost</td>
+<td style="text-align: right;">0.8212195</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">michel</td>
-<td style="text-align: right;">0.8060093</td>
+<td style="text-align: right;">0.8081586</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">frost</td>
-<td style="text-align: right;">0.8040999</td>
+<td style="text-align: left;">negotiator</td>
+<td style="text-align: right;">0.7688649</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">brussels</td>
-<td style="text-align: right;">0.7012591</td>
+<td style="text-align: right;">0.7139891</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">negotiators</td>
-<td style="text-align: right;">0.6404119</td>
+<td style="text-align: right;">0.7022531</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">chief</td>
-<td style="text-align: right;">0.6399011</td>
+<td style="text-align: left;">eus</td>
+<td style="text-align: right;">0.6570144</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">friday</td>
-<td style="text-align: right;">0.6363004</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">team</td>
-<td style="text-align: right;">0.6253523</td>
+<td style="text-align: right;">0.6551399</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tweeted</td>
+<td style="text-align: right;">0.6414501</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">negotiations</td>
-<td style="text-align: right;">0.6246642</td>
+<td style="text-align: left;">chief</td>
+<td style="text-align: right;">0.6102063</td>
 </tr>
 </tbody>
 </table>
@@ -25569,6 +25397,15 @@ font-style: inherit;">&lt;-</span> </span>
 <span>  <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">context_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
@@ -25735,11 +25572,11 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="kable-table">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 33%">
+<col style="width: 16%">
+<col style="width: 21%">
+<col style="width: 5%">
+<col style="width: 21%">
+<col style="width: 34%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">docname</th>
@@ -25750,60 +25587,60 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">https://www.theguardian.com/p/ep2yb</td>
-<td style="text-align: left;">put pressure on brussels to agree a</td>
+<td style="text-align: left;">https://www.theguardian.com/p/en8ec</td>
+<td style="text-align: left;">government as incompetent failing to secure a</td>
 <td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">and iron out problems with the withdrawal</td>
-<td style="text-align: left;">Boris Johnson bows to Tory rebels with Brexit bill compromise</td>
+<td style="text-align: left;">would give the labour leader another front</td>
+<td style="text-align: left;">Brexit withdrawal deal: what is No 10 playing at?</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/dag4n</td>
-<td style="text-align: left;">expected from parties about to embark on</td>
-<td style="text-align: left;">trade talks</td>
-<td style="text-align: left;">eu member states are due to confirm</td>
+<td style="text-align: left;">the uk could not have the same</td>
+<td style="text-align: left;">trade deal</td>
+<td style="text-align: left;">with the eu as canada he said</td>
 <td style="text-align: left;">Brexit deal ‘a different ball game’ to Canada agreement, warns EU</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">https://www.theguardian.com/p/ekz7e</td>
-<td style="text-align: left;">has gone down badly in brussels in</td>
-<td style="text-align: left;">trade negotiations</td>
-<td style="text-align: left;">usually both sides work out a consolidated</td>
-<td style="text-align: left;">Barnier ‘flabbergasted’ at UK attempt to reopen Brexit specialty food debate</td>
+<td style="text-align: left;">https://www.theguardian.com/p/en752</td>
+<td style="text-align: left;">a linkage between subsidy rules in free</td>
+<td style="text-align: left;">trade deals</td>
+<td style="text-align: left;">with common ground proving difficult to find</td>
+<td style="text-align: left;">Von der Leyen warns UK against breaking international law over Brexit deal</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/fptbj</td>
-<td style="text-align: left;">the eu followed the usual pattern of</td>
-<td style="text-align: left;">trade talks</td>
-<td style="text-align: left;">down the ages the negotiations seemed to</td>
+<td style="text-align: left;">had to choose between a relatively thin</td>
+<td style="text-align: left;">trade deal</td>
+<td style="text-align: left;">and no deal and to no great</td>
 <td style="text-align: left;">Brexit talks followed common pattern but barrier-raising outcome is unique</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">https://www.theguardian.com/p/dq896</td>
-<td style="text-align: left;">text contains a cut-and-paste from the eus</td>
-<td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">with canada stating merely that it would</td>
-<td style="text-align: left;">Brexit talks: Britain accuses EU of treating UK as ‘unworthy’ partner</td>
+<td style="text-align: left;">https://www.theguardian.com/p/dpzjp</td>
+<td style="text-align: left;">related whats at stake in britains post-brexit</td>
+<td style="text-align: left;">trade talks</td>
+<td style="text-align: left;">the uk government wants to include eu-derived</td>
+<td style="text-align: left;">UK to publish draft treaty in effort to reboot Brexit process</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/fmmga</td>
-<td style="text-align: left;">the conservative party for years john harris</td>
-<td style="text-align: left;">trade deals</td>
-<td style="text-align: left;">are not meant to assert sovereignty she</td>
+<td style="text-align: left;">its pretty clear when you do a</td>
+<td style="text-align: left;">trade deal</td>
+<td style="text-align: left;">that you are a sovereign nation the</td>
 <td style="text-align: left;">EU leaders stress unity as they welcome Brexit trade talks extension</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">https://www.theguardian.com/p/fv2xh</td>
-<td style="text-align: left;">demanded a last-minute compromise to reach a</td>
-<td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">and avert chaos at the border as</td>
-<td style="text-align: left;">Firms plead for Brexit deal as coronavirus leaves industry reeling</td>
+<td style="text-align: left;">https://www.theguardian.com/p/f63be</td>
+<td style="text-align: left;">for a no-deal outcome on january the</td>
+<td style="text-align: left;">trade talks</td>
+<td style="text-align: left;">are over the eu has effectively ended</td>
+<td style="text-align: left;">What was the point of Johnson’s Brexit statement? To save face</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">https://www.theguardian.com/p/f6444</td>
-<td style="text-align: left;">canada-style trade deal the eu has a</td>
-<td style="text-align: left;">trade deal</td>
-<td style="text-align: left;">with canada called the comprehensive economic and</td>
-<td style="text-align: left;">What did Boris Johnson mean by an Australia-style system of trade?</td>
+<td style="text-align: left;">https://www.theguardian.com/p/f7tf4</td>
+<td style="text-align: left;">by michel barnier broke the impasse in</td>
+<td style="text-align: left;">trade talks</td>
+<td style="text-align: left;">the fts on that story but naturally</td>
+<td style="text-align: left;">Thursday briefing: Iran and Russia ‘interfere’ as Obama lays into Trump</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/fk5kt</td>
@@ -25857,9 +25694,16 @@ font-style: inherit;">|&gt;</span> </span>
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>dictionary <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://quanteda.io/reference/dfm_lookup.html">dfm_lookup</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">data_dictionary_LSD2015</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -25868,9 +25712,13 @@ background-color: null;
 font-style: inherit;">|&gt;</span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://quanteda.io/reference/convert.html">convert</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>to <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"data.frame"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -26027,17 +25875,17 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/d6kzd</td>
-<td style="text-align: right;">52</td>
+<td style="text-align: right;">51</td>
 <td style="text-align: right;">27</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/d79cn</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">51</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">48</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/d6t3c</td>
-<td style="text-align: right;">28</td>
+<td style="text-align: right;">27</td>
 <td style="text-align: right;">26</td>
 </tr>
 <tr class="even">
@@ -26047,22 +25895,22 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">https://www.theguardian.com/p/d7n8b</td>
-<td style="text-align: right;">57</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">https://www.theguardian.com/p/d9xtf</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">https://www.theguardian.com/p/dag4n</td>
+<td style="text-align: right;">37</td>
 <td style="text-align: right;">35</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">https://www.theguardian.com/p/dag4n</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">38</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">https://www.theguardian.com/p/d9xtf</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">https://www.theguardian.com/p/d7d9t</td>
-<td style="text-align: right;">23</td>
+<td style="text-align: right;">22</td>
 <td style="text-align: right;">11</td>
 </tr>
 </tbody>
@@ -26118,7 +25966,7 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.515 sec elapsed</code></pre>
+<pre><code>0.616 sec elapsed</code></pre>
 </div>
 </div>
 <p>Plotting the changing proportion of positive sentiment over time did surprise me a little. The outcome was more balanced than I expected which perhaps confirms the deeper impression left on me by negative articles.</p>
@@ -26333,7 +26181,7 @@ font-style: inherit;">)</span>, colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -26371,7 +26219,7 @@ font-style: inherit;">0.33</span>, fill <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -26399,7 +26247,7 @@ font-style: inherit;">"dashed"</span>, </span>
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -26505,7 +26353,7 @@ font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -26595,7 +26443,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[1], c[3], library[14], mean[1], set.seed[2], sum[2]</td>
+<td style="text-align: left;">c[3], library[15], mean[1], set.seed[2], sum[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">clock</td>
@@ -26603,77 +26451,81 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1], conflicts_prefer[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[2], group_by[1], join_by[2], left_join[2], mutate[5], n[1], rename[1], select[2], slice[1], slice_max[1], slice_sample[1], summarise[2]</td>
+<td style="text-align: left;">distinct[1], filter[2], group_by[1], join_by[2], left_join[2], mutate[5], n[1], rename[1], select[2], slice[1], slice_max[1], slice_sample[1], summarise[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[6], annotate[1], geom_col[1], geom_hline[1], geom_label[1], geom_line[2], geom_ribbon[1], ggplot[3], labs[2], scale_fill_manual[1], scale_y_continuous[1], theme[1], theme_bw[1], theme_set[1], theme_void[1]</td>
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[4], geom_hline[1], geom_line[2], geom_ribbon[1], ggplot[2], labs[2], scale_y_continuous[1], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">as_date[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">methods</td>
 <td style="text-align: left;">new[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">mlapi</td>
 <td style="text-align: left;">fit_transform[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">paletteer</td>
 <td style="text-align: left;">paletteer_d[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">patchwork</td>
 <td style="text-align: left;">plot_layout[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">list_rbind[1], pmap[1], slowly[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">quanteda</td>
-<td style="text-align: left;">corpus[2], dfm[1], fcm[1], kwic[1], phrase[1], tokens[2]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">quanteda</td>
+<td style="text-align: left;">convert[1], corpus[2], dfm[1], dfm_lookup[1], fcm[1], kwic[1], phrase[1], tokens[3]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">label_percent[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">slider</td>
 <td style="text-align: left;">slide_dbl[3]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">quantile[2]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_detect[2], str_remove[1], str_remove_all[3], str_to_lower[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_detect[2], str_remove_all[3], str_to_lower[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">text2vec</td>
 <td style="text-align: left;">sim2[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[3], rownames_to_column[1], tibble[2]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[2], rownames_to_column[1], tibble[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">tictoc</td>
 <td style="text-align: left;">tic[2], toc[2]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
@@ -37996,7 +37848,9 @@ font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">number_of_offences</span>, <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -38006,9 +37860,7 @@ font-style: inherit;">borough</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">median_offences</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">number_of_offences</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -38036,7 +37888,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -38055,15 +37907,6 @@ background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40114,7 +39957,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[8], coord_flip[1], element_text[4], facet_wrap[3], geom_boxplot[2], geom_col[2], geom_label[2], geom_line[2], geom_smooth[1], ggplot[6], guide_legend[1], guides[1], labs[11], scale_colour_manual[1], scale_fill_manual[2], scale_y_continuous[1], scale_y_log10[2], theme[4], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[8], element_text[4], facet_wrap[3], geom_boxplot[2], geom_col[2], geom_label[2], geom_line[2], geom_smooth[1], ggplot[6], guide_legend[1], guides[1], labs[11], scale_colour_manual[1], scale_fill_manual[2], scale_x_log10[1], scale_y_continuous[1], scale_y_log10[1], theme[4], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">grDevices</td>

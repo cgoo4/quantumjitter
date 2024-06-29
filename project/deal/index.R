@@ -1,7 +1,7 @@
 library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
-conflict_prefer("as_date", "lubridate")
+conflicts_prefer(lubridate::as_date)
 library(paletteer)
 library(guardianapi)
 library(quanteda)
@@ -13,33 +13,18 @@ library(text2vec)
 library(topicmodels)
 library(slider)
 library(glue)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-n <- 4
-palette <- "wesanderson::Chevalier1"
+pal_name <- "wesanderson::Chevalier1"
 
-cols <- paletteer_d(palette, n = n)
+pal <- paletteer_d(pal_name)
 
-tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = (n + 1) / 2, y = 0.5,
-    label = palette,
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+display_palette(pal, pal_name)
 
 dates_df <- tibble(start_date = date_build(2020, 1:11, 25)) |> 
   mutate(end_date = add_months(start_date, 1) |> add_days(-1))
@@ -80,6 +65,7 @@ window <- 5
 
 trade_fcm <-
   trade_corp |>
+  tokens() |> 
   fcm(context = "window", window = window, 
       count = "weighted", weights = window:1)
 
@@ -107,6 +93,7 @@ context_df <-
 
 context_corp <- 
   context_df |> 
+  distinct() |> 
   corpus(docid_field = "short_url", text_field = "body")
 
 set.seed(123)
@@ -129,8 +116,9 @@ tic()
 sent_df <- 
   context_corp |> 
   tokens() |> 
-  dfm(dictionary = data_dictionary_LSD2015) |> 
-  as_tibble() |>
+  dfm() |> 
+  dfm_lookup(data_dictionary_LSD2015) |> 
+  convert(to = "data.frame") |>
   left_join(context_df, by = join_by(doc_id == short_url)) |> 
   mutate(
     pos = positive + neg_negative,
@@ -164,11 +152,11 @@ sent_df2 <- sent_df |>
 
 p1 <- sent_df2 |>
   ggplot(aes(web_date)) +
-  geom_line(aes(y = roll_mean), colour = cols[1]) +
+  geom_line(aes(y = roll_mean), colour = pal[1]) +
   geom_ribbon(aes(ymin = roll_lq, ymax = roll_uq), 
-              alpha = 0.33, fill = cols[1]) +
+              alpha = 0.33, fill = pal[1]) +
   geom_hline(yintercept = 0.5, linetype = "dashed", 
-             colour = cols[4], linewidth = 1) +
+             colour = pal[4], linewidth = 1) +
   scale_y_continuous(labels = label_percent(accuracy = 1)) +
   labs(
     title = "Changing Sentiment Towards a UK-EU Trade Deal",
@@ -178,7 +166,7 @@ p1 <- sent_df2 |>
 
 p2 <- summary_df |> 
   ggplot(aes(web_date, n)) +
-  geom_line(colour = cols[1]) +
+  geom_line(colour = pal[1]) +
   labs(x = "Weeks", y = "Article Count",
        caption = "Source: Guardian Newspaper")
 
