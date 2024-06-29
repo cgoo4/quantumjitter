@@ -16,10 +16,11 @@ When it comes to investing in stocks, how many is "just right"?
 
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-library(wesanderson)
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(scales)
 library(truncnorm)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -29,12 +30,15 @@ I'll use this palette.
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Darjeeling2"))
+pal_name <- "wesanderson::Darjeeling2"
+
+pal <- paletteer_d(pal_name)
+
+display_palette(pal, pal_name)
 ```
 
 Suppose the [average stock market return](https://www.investopedia.com/ask/answers/042415/what-average-annual-return-sp-500.asp) is around 10%. And you do extensive research, burning the midnight oil, poring over stock fundamentals. Or perhaps you develop a cool machine learning model. And you arrive at a list of 50 promising stocks you feel confident would, on average, deliver well-above-market returns.
@@ -61,7 +65,7 @@ Here's the resultant distribution I'll use to assess the impact of portfolio siz
 
 stock_data |> 
   ggplot(aes(return)) +
-  geom_histogram(fill = cols[2]) +
+  geom_histogram(fill = pal[2]) +
   scale_x_continuous(labels = label_percent()) +
   labs(title = "50 Randomly-generated Stock Returns", 
        x = "Annual Return", y = "Count")
@@ -108,15 +112,15 @@ portfolios |>
   geom_label(aes(portfolio_size, 1.5,
     label = percent(mean_return, accuracy = 1)
   ),
-  data = mean_returns, fill = cols[4],
+  data = mean_returns, fill = pal[4],
   ) +
   geom_label(aes(portfolio_size, -0.2,
     label = percent(min_return, accuracy = 1)
   ),
-  data = mean_returns, fill = cols[1],
+  data = mean_returns, fill = pal[1],
   ) +
   scale_y_continuous(labels = label_percent(), breaks = breaks_extended(9)) +
-  scale_fill_manual(values = cols[c(1:5)]) +
+  scale_fill_manual(values = pal[c(1:5)]) +
   labs(
     x = "Portfolio Size", y = "Return",
     title = "How Portfolio Size Changes Downside & Upside Risk",

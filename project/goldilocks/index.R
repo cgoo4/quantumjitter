@@ -1,16 +1,21 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-library(wesanderson)
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(scales)
 library(truncnorm)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Darjeeling2"))
+pal_name <- "wesanderson::Darjeeling2"
+
+pal <- paletteer_d(pal_name)
+
+display_palette(pal, pal_name)
 
 set.seed(123)
 
@@ -23,7 +28,7 @@ mean(stock_data$return)
 
 stock_data |> 
   ggplot(aes(return)) +
-  geom_histogram(fill = cols[2]) +
+  geom_histogram(fill = pal[2]) +
   scale_x_continuous(labels = label_percent()) +
   labs(title = "50 Randomly-generated Stock Returns", 
        x = "Annual Return", y = "Count")
@@ -64,15 +69,15 @@ portfolios |>
   geom_label(aes(portfolio_size, 1.5,
     label = percent(mean_return, accuracy = 1)
   ),
-  data = mean_returns, fill = cols[4],
+  data = mean_returns, fill = pal[4],
   ) +
   geom_label(aes(portfolio_size, -0.2,
     label = percent(min_return, accuracy = 1)
   ),
-  data = mean_returns, fill = cols[1],
+  data = mean_returns, fill = pal[1],
   ) +
   scale_y_continuous(labels = label_percent(), breaks = breaks_extended(9)) +
-  scale_fill_manual(values = cols[c(1:5)]) +
+  scale_fill_manual(values = pal[c(1:5)]) +
   labs(
     x = "Portfolio Size", y = "Return",
     title = "How Portfolio Size Changes Downside & Upside Risk",
