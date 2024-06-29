@@ -1,29 +1,35 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidymodels)
 library(probably)
 library(finetune)
 library(textrecipes)
 library(stopwords)
-library(wesanderson)
 library(clock)
 library(glue)
 library(janitor)
 library(vip)
-conflict_prefer("vi", "vip")
+conflicts_prefer(vip::vi)
 library(tictoc)
 library(patchwork)
-library(doParallel)
+library(future)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
-registerDoParallel(cores = 6)
+plan(multisession, workers = 10)
 
 theme_set(theme_bw())
 
-(cols <- wes_palette(name = "Darjeeling2"))
+
+pal_name <- "wesanderson::Darjeeling2"
+
+pal <- paletteer_d(pal_name)
+
+display_palette(pal, pal_name)
 
 strandings_df <- read_csv("strandings.csv", show_col_types = FALSE) |>
   clean_names() |> 
@@ -80,13 +86,12 @@ plot_date_feature <- \(var) {
     ) |>
     filter(species %in% example_species) |>
     count(species, {{ var }}) |>
-    ggplot(aes(species, {{ var }})) +
+    ggplot(aes({{ var }}, species)) +
     geom_violin(
       alpha = 0.7,
-      fill = cols[3],
+      fill = pal[3],
       show.legend = FALSE
     ) +
-    coord_flip() +
     labs(
       title = glue("Variation in {str_to_title(as.character(var))}",
                    " of Stranding for Known Species"),
@@ -113,7 +118,7 @@ uki |>
   facet_wrap(~ species_lumped, nrow = 3) +
   coord_map("mollweide") +
   scale_size_manual(values = c(1, 0.5), labels = labels) +
-  scale_colour_manual(values = cols[c(3, 2)], labels = labels) +
+  scale_colour_manual(values = pal[c(3, 2)], labels = labels) +
   theme_void() +
   theme(legend.position = "top", 
         strip.text = element_text(colour = "grey50")) +
@@ -136,12 +141,11 @@ known_species |>
   count(species_lumped, length, sex) |> 
   mutate(species_lumped = fct_reorder(species_lumped, 
                                       desc(length), min, na.rm = TRUE)) |> 
-  ggplot(aes(species_lumped, length)) + 
+  ggplot(aes(length, species_lumped)) + 
   geom_violin(aes(fill = if_else(str_detect(species_lumped, "^de|^co"), 
                                  TRUE, FALSE)), show.legend = FALSE) +
   facet_wrap(~ sex) +
-  scale_fill_manual(values = cols[c(1, 5)]) +
-  coord_flip() +
+  scale_fill_manual(values = pal[c(1, 5)]) +
   labs(title = "Variation in Species Length by Sex", 
        x = NULL, y = "Length (metres)")
 
@@ -177,11 +181,10 @@ strandings_df5 |>
   summarise(counties_after = n_distinct(county))
 
 strandings_df5 |>
-  ggplot(aes(species, count, colour = species_uncertainty)) +
+  ggplot(aes(count, species, colour = species_uncertainty)) +
   geom_jitter(alpha = 0.5, size = 2) +
-  coord_flip() +
-  scale_y_log10() +
-  scale_colour_manual(values = cols[c(1, 5)]) +
+  scale_x_log10() +
+  scale_colour_manual(values = pal[c(1, 5)]) +
   labs(title = "How 'Count' Relates to Species", 
        x = NULL, y = "Count (log10)", colour = "Species") +
   theme(legend.position = "top")
@@ -300,7 +303,7 @@ xgb_results |>
   autoplot(type = "heatmap") +
   scale_fill_gradient2(
     mid = "white",
-    high = cols[1],
+    high = pal[1],
     midpoint = 0
   ) +
   labs(title = "Confusion Matrix") +
