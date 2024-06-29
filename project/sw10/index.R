@@ -120,7 +120,7 @@ data_df |>
   coord_cartesian(ylim = c(0, 5000000)) +
   scale_colour_manual(values = pal[c(2, 3)]) +
   scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
-  scale_y_continuous(labels = label_dollar(accuracy = 0.1, prefix = "£", 
+  scale_y_continuous(labels = label_currency(accuracy = 0.1, prefix = "£", 
                                            scale_cut = cut_short_scale()))
 
 qtr_start <- date_today("Europe/London") |> 
@@ -149,7 +149,7 @@ p1 <- qtile_df |>
   annotate("text", x = yearquarter("2020 Q2"), y = 300000, 
            label = "Covid-19\nLockdown", size = 3) +
   scale_x_yearquarter(date_breaks = "2 years") +
-  scale_y_log10(labels = label_dollar(prefix = "£", 
+  scale_y_log10(labels = label_currency(prefix = "£", 
                                       scale_cut = cut_short_scale())) +
   labs(
     title = glue("Median Quarterly SW10 Property Prices ({first} to {last})"), 

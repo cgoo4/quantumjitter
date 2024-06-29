@@ -86,7 +86,7 @@ vers_summary |>
   geom_line() +
   geom_smooth() +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
-  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_y_continuous(labels = label_currency(prefix = "£", suffix = "m")) +
   scale_colour_manual(values = pal) +
   labs(x = NULL, y = NULL, title = "The Lifecycle of G-Cloud Versions", 
        subtitle = "Monthly Sales by Version") + 
@@ -128,7 +128,7 @@ sect_summary |>
   facet_wrap(~ sector, scales = "free_y") +
   theme(legend.position = "none") +
   scale_x_date(date_breaks = "years", date_labels = "%Y") +
-  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_y_continuous(labels = label_currency(prefix = "£", suffix = "m")) +
   scale_colour_manual(values = pal) +
   labs(x = NULL, y = NULL, 
        title = "All Sectors Increase Digital Marketplace Spend", 

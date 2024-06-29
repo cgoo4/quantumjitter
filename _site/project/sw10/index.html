@@ -245,7 +245,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 28, 2024</p>
+      <p class="date-modified">June 29, 2024</p>
     </div>
   </div>
     
@@ -446,7 +446,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5000000</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span>, date_labels <span class="op">=</span> <span class="st">"%Y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span>, prefix <span class="op">=</span> <span class="st">"£"</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span>, prefix <span class="op">=</span> <span class="st">"£"</span>, </span>
 <span>                                           scale_cut <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -483,7 +483,7 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2020 Q2"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">300000</span>, </span>
 <span>           label <span class="op">=</span> <span class="st">"Covid-19\nLockdown"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://tsibble.tidyverts.org/reference/tsibble-scales.html">scale_x_yearquarter</a></span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, </span>
 <span>                                      scale_cut <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Median Quarterly SW10 Property Prices ({first} to {last})"</span><span class="op">)</span>, </span>
@@ -597,7 +597,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">comma[1], cut_short_scale[2], label_dollar[2]</td>
+<td style="text-align: left;">comma[1], cut_short_scale[2], label_currency[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stats</td>

@@ -84,7 +84,7 @@ both_ts <- both |>
 both_ts |> 
   ggplot(aes(date, spend, colour = framework)) +
   geom_line(key_glyph = "timeseries") +
-  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_y_continuous(labels = label_currency(prefix = "£", suffix = "m")) +
   scale_colour_manual(values = pal[c(3, 4)]) +
   labs(x = NULL, y = NULL, title = "Monthly Digital Marketplace Sales")
 
@@ -122,7 +122,7 @@ fcast_ts |>
     fill = pal[2], colour = NA
   ) +
   geom_line(aes(y = .mean), colour = "white") +
-  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_y_continuous(labels = label_currency(prefix = "£", suffix = "m")) +
   facet_wrap(~framework) +
   labs(
     title = "Digital Marketplace Sales Forecast by Framework",
@@ -165,7 +165,7 @@ fcgc_ts |>
     fill = pal[2], colour = NA
   ) +
   geom_line(aes(y = .mean), colour = "white") +
-  scale_y_continuous(labels = label_dollar(prefix = "£", suffix = "m")) +
+  scale_y_continuous(labels = label_currency(prefix = "£", suffix = "m")) +
   facet_wrap(~lot) +
   labs(
     title = "G-Cloud Sales Forecast by Lot",
