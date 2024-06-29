@@ -1,19 +1,24 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-library(wesanderson)
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(scales)
 library(glue)
 library(tidyquant)
 library(clock)
-conflict_prefer("date_format", "clock")
+conflicts_prefer(clock::date_format)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("Moonrise2"))
+pal_name <- "wesanderson::Moonrise2"
+
+pal <- paletteer_d(pal_name)
+
+display_palette(pal, pal_name)
 
 symbols <-
   c(
@@ -69,7 +74,7 @@ eod_sectors |>
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey80") +
   geom_line() +
   facet_wrap(~sector) +
-  scale_colour_gradient(low = cols[2], high = cols[1]) +
+  scale_colour_gradient(low = pal[2], high = pal[1]) +
   scale_y_continuous(labels = label_percent()) +
   labs(
     title = "S&P 500 Sector Impact of Covid-19 & Ukraine",
