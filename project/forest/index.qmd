@@ -132,10 +132,9 @@ crime_df |>
     offences = str_wrap(offences, 10),
     .by = borough
   ) |>
-  ggplot(aes(fct_reorder(borough, median_offences), number_of_offences)) +
+  ggplot(aes(number_of_offences, fct_reorder(borough, median_offences))) +
   geom_boxplot(fill = pal[1]) +
-  scale_y_log10(labels = label_number(scale_cut = cut_short_scale())) +
-  coord_flip() +
+  scale_x_log10(labels = label_number(scale_cut = cut_short_scale())) +
   labs(
     x = NULL, y = NULL,
     title = "Number of Offences by Borough",
