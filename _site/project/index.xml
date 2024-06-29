@@ -19355,7 +19355,7 @@ background-color: null;
 font-style: inherit;">Avg Price "</span>,</span>
 <span id="cb9-23">    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"</span></span>
+font-style: inherit;">"{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"</span></span>
 <span id="cb9-24">  ), <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="dv" style="color: #AD0000;
@@ -19385,7 +19385,7 @@ font-style: inherit;">scale_y_log10</span>(<span class="at" style="color: #65742
 background-color: null;
 font-style: inherit;">labels =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">label_dollar</span>(</span>
+font-style: inherit;">label_currency</span>(</span>
 <span id="cb9-28">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
@@ -19522,7 +19522,7 @@ background-color: null;
 font-style: inherit;">"</span>,</span>
 <span id="cb11-6">    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"</span></span>
+font-style: inherit;">"{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"</span></span>
 <span id="cb11-7">  ), <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="dv" style="color: #AD0000;
@@ -19565,7 +19565,7 @@ font-style: inherit;">scale_y_log10</span>(<span class="at" style="color: #65742
 background-color: null;
 font-style: inherit;">labels =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">label_dollar</span>(</span>
+font-style: inherit;">label_currency</span>(</span>
 <span id="cb11-12">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
@@ -19801,7 +19801,7 @@ background-color: null;
 font-style: inherit;">Avg Price "</span>,</span>
 <span id="cb14-15">    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"</span></span>
+font-style: inherit;">"{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"</span></span>
 <span id="cb14-16">  ), <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="dv" style="color: #AD0000;
@@ -19831,7 +19831,7 @@ font-style: inherit;">scale_y_log10</span>(<span class="at" style="color: #65742
 background-color: null;
 font-style: inherit;">labels =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">label_dollar</span>(<span class="at" style="color: #657422;
+font-style: inherit;">label_currency</span>(<span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -20210,42 +20210,31 @@ font-style: inherit;">get_ci</span>(boot_dist)</span>
 <span id="cb15-20"></span>
 <span id="cb15-21">lower <span class="ot" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">&lt;-</span> perc_ci <span class="sc" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">label_currency</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"£"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">suffix =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"m"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">accuracy =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span>)(perc_ci <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span id="cb15-22">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">pull</span>(lower_ci) <span class="sc" style="color: #5E5E5E;
+font-style: inherit;">pull</span>(lower_ci))</span>
+<span id="cb15-23">upper <span class="ot" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb15-23">  <span class="fu" style="color: #4758AB;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">dollar</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"£"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">suffix =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"m"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">accuracy =</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.01</span>)</span>
-<span id="cb15-24">upper <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> perc_ci <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb15-25">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">pull</span>(upper_ci) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb15-26">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dollar</span>(<span class="at" style="color: #657422;
+font-style: inherit;">label_currency</span>(<span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -20257,23 +20246,28 @@ font-style: inherit;">"m"</span>, <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">accuracy =</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.01</span>)</span>
-<span id="cb15-27"></span>
-<span id="cb15-28">boot_dist <span class="sc" style="color: #5E5E5E;
+font-style: inherit;">0.01</span>)(perc_ci <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span></span>
-<span id="cb15-29">  <span class="fu" style="color: #4758AB;
+<span id="cb15-24">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pull</span>(upper_ci))</span>
+<span id="cb15-25"></span>
+<span id="cb15-26">boot_dist <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb15-27">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">visualise</span>() <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb15-30">  <span class="fu" style="color: #4758AB;
+<span id="cb15-28">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">shade_confidence_interval</span>(</span>
-<span id="cb15-31">    <span class="at" style="color: #657422;
+<span id="cb15-29">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">endpoints =</span> perc_ci,</span>
-<span id="cb15-32">    <span class="at" style="color: #657422;
+<span id="cb15-30">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">color =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -20282,10 +20276,10 @@ background-color: null;
 font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>]</span>
-<span id="cb15-33">  ) <span class="sc" style="color: #5E5E5E;
+<span id="cb15-31">  ) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb15-34">  <span class="fu" style="color: #4758AB;
+<span id="cb15-32">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">geom_vline</span>(<span class="at" style="color: #657422;
 background-color: null;
@@ -20300,12 +20294,12 @@ background-color: null;
 font-style: inherit;">"white"</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb15-35">  <span class="fu" style="color: #4758AB;
+<span id="cb15-33">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">annotate</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"label"</span>,</span>
-<span id="cb15-36">    <span class="at" style="color: #657422;
+<span id="cb15-34">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">x =</span> <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -20320,38 +20314,38 @@ background-color: null;
 font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>,</span>
-<span id="cb15-37">    <span class="at" style="color: #657422;
+<span id="cb15-35">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">label =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">glue</span>(</span>
-<span id="cb15-38">      <span class="st" style="color: #20794D;
+<span id="cb15-36">      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Observed Difference</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\n</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Between Bands D &amp; E is "</span>,</span>
-<span id="cb15-39">      <span class="st" style="color: #20794D;
+<span id="cb15-37">      <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"{dollar(obs_stat, prefix = '£', suffix = 'm', accuracy = 0.01)}"</span></span>
-<span id="cb15-40">    )</span>
-<span id="cb15-41">  ) <span class="sc" style="color: #5E5E5E;
+font-style: inherit;">"{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(obs_stat)}"</span></span>
+<span id="cb15-38">    )</span>
+<span id="cb15-39">  ) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb15-42">  <span class="fu" style="color: #4758AB;
+<span id="cb15-40">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">scale_x_continuous</span>(<span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">labels =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">label_dollar</span>(</span>
-<span id="cb15-43">    <span class="at" style="color: #657422;
+font-style: inherit;">label_currency</span>(</span>
+<span id="cb15-41">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">prefix =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"£"</span>,</span>
-<span id="cb15-44">    <span class="at" style="color: #657422;
+<span id="cb15-42">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">suffix =</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -20360,25 +20354,25 @@ background-color: null;
 font-style: inherit;">accuracy =</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.1</span></span>
-<span id="cb15-45">  )) <span class="sc" style="color: #5E5E5E;
+<span id="cb15-43">  )) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb15-46">  <span class="fu" style="color: #4758AB;
+<span id="cb15-44">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">labs</span>(</span>
-<span id="cb15-47">    <span class="at" style="color: #657422;
+<span id="cb15-45">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">subtitle =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">glue</span>(</span>
-<span id="cb15-48">      <span class="st" style="color: #20794D;
+<span id="cb15-46">      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"95% Confident the Difference "</span>,</span>
-<span id="cb15-49">      <span class="st" style="color: #20794D;
+<span id="cb15-47">      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"in Mean Prices Between Bands D &amp; E is {lower} to {upper}"</span></span>
-<span id="cb15-50">    ),</span>
-<span id="cb15-51">    <span class="at" style="color: #657422;
+<span id="cb15-48">    ),</span>
+<span id="cb15-49">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">x =</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -20387,12 +20381,12 @@ background-color: null;
 font-style: inherit;">y =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Count"</span>,</span>
-<span id="cb15-52">    <span class="at" style="color: #657422;
+<span id="cb15-50">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">caption =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Sources: tax.service.gov.uk &amp; landregistry.data.gov.uk"</span></span>
-<span id="cb15-53">  )</span></code></pre></div>
+<span id="cb15-51">  )</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -20472,7 +20466,7 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">dollar[6], label_dollar[4], label_percent[1]</td>
+<td style="text-align: left;">label_currency[10], label_percent[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
@@ -29698,7 +29692,11 @@ font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_p
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"dplyr"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -29739,13 +29737,15 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"date_format"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">clock</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"clock"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://clock.r-lib.org/reference/date_format.html">date_format</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -29772,15 +29772,6 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
@@ -29791,6 +29782,24 @@ background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -29826,21 +29835,56 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
-<span><span class="op" style="color: #5E5E5E;
+<span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wesanderson::GrandBudapest2"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">"GrandBudapest2"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -30388,7 +30432,7 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Dimensionality reduction may be performed on each window. And the voting patterns are then visualised as a two-dimensional animation.</p>
-<div class="cell" data-hash="index_cache/html/pca_e97d2bcf856e68b8865330448d3c8ba2">
+<div class="cell">
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">wdows</span> <span class="op" style="color: #5E5E5E;
@@ -30701,7 +30745,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -31221,28 +31265,6 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell">
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols2</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>, name <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"GrandBudapest2"</span>, type <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"continuous"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;">little_plot</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
@@ -31260,9 +31282,9 @@ font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html"
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">country</span>, <span class="va" style="color: #111111;
+font-style: inherit;">n</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">n</span>, fill <span class="op" style="color: #5E5E5E;
+font-style: inherit;">country</span>, fill <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
@@ -31284,22 +31306,13 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -31497,7 +31510,7 @@ font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">cols2</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">[</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -31655,7 +31668,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">as.character[2], c[11], format[1], library[12], max[3], min[1], seq[1]</td>
+<td style="text-align: left;">as.character[2], c[11], format[1], library[13], max[3], min[1], seq[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -31663,7 +31676,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[1], conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1], conflicts_prefer[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
@@ -31682,56 +31695,64 @@ font-style: inherit;">)</span></span></code></pre></div>
 <td style="text-align: left;">animate[1], shadow_wake[1], transition_time[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[5], coord_flip[1], element_text[1], geom_col[2], geom_label[2], ggplot[3], labs[3], scale_fill_manual[3], scale_x_continuous[1], theme[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[5], element_text[1], geom_col[2], geom_label[2], ggplot[3], labs[3], scale_fill_manual[3], scale_x_continuous[1], theme[1], theme_bw[1], theme_set[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[2]</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">grDevices</td>
+<td style="text-align: left;">colorRampPalette[1]</td>
+</tr>
 <tr class="even">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">patchwork</td>
 <td style="text-align: left;">plot_layout[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">list_rbind[1], map[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_element[1], html_table[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">stats</td>
 <td style="text-align: left;">prcomp[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
 <td style="text-align: left;">str_detect[5], str_remove[1], str_replace[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">complete[1], fill[1], nest[2], nesting[1], pivot_longer[1], pivot_wider[1], replace_na[1], unnest[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tidyselect</td>
 <td style="text-align: left;">everything[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tsibble</td>
 <td style="text-align: left;">as_tsibble[1], slide_tsibble[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">wesanderson</td>
-<td style="text-align: left;">wes_palette[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">xml2</td>
@@ -33620,7 +33641,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34259,7 +34280,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -34917,7 +34938,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -35085,7 +35106,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_dollar[3]</td>
+<td style="text-align: left;">label_currency[3]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
@@ -36011,7 +36032,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36523,7 +36544,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -36835,7 +36856,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_dollar[2], label_percent[2]</td>
+<td style="text-align: left;">label_currency[2], label_percent[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stringr</td>
@@ -48450,7 +48471,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>accuracy <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -48863,7 +48884,7 @@ font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/dollar_format.html">label_dollar</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>prefix <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -49365,7 +49386,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">comma[1], cut_short_scale[2], label_dollar[2]</td>
+<td style="text-align: left;">comma[1], cut_short_scale[2], label_currency[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stats</td>

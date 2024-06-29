@@ -1,23 +1,29 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidymodels)
 library(tsibble)
 library(gganimate)
 library(clock)
-conflict_prefer("date_format", "clock")
+conflicts_prefer(clock::date_format)
 library(unvotes)
 library(patchwork)
-library(wesanderson)
 library(rvest)
 library(glue)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-(cols <- wes_palette("GrandBudapest2"))
+pal_name <- "wesanderson::GrandBudapest2"
+
+pal <- paletteer_d(pal_name)
+pal <- colorRampPalette(pal)(5)
+
+display_palette(pal, pal_name)
 
 raw_df <- un_votes |> 
   inner_join(un_roll_calls, by = join_by(rcid)) |> 
@@ -93,7 +99,7 @@ p <- pca_windows |>
                              "East", "West")) |>
   ggplot(aes(.fittedPC1, .fittedPC2)) +
   geom_label(aes(label = country, fill = east_west)) +
-  scale_fill_manual(values = cols[c(1, 3)]) +
+  scale_fill_manual(values = pal[c(1, 3)]) +
   transition_time(slide_id) +
   labs(
     title = glue("P5 Distance for the Period {from} to {to}"),
@@ -136,13 +142,10 @@ country_df <- meeting_df2 |>
   count(country) |>
   mutate(country = fct_reorder(country, n))
 
-cols2 <- wes_palette(5, name = "GrandBudapest2", type = "continuous")
-
 little_plot <- country_df |>
-  ggplot(aes(country, n, fill = country)) +
+  ggplot(aes(n, country, fill = country)) +
   geom_col() +
-  coord_flip() +
-  scale_fill_manual(values = cols2[c(1:5)]) +
+  scale_fill_manual(values = pal[c(1:5)]) +
   geom_label(aes(label = n), colour = "white", hjust = "inward") +
   labs(
     x = NULL, y = NULL, fill = NULL, title = "Most Vetoes",
@@ -158,7 +161,7 @@ to_date <- format(max(meeting_df2$vote_date), "%b %d, %y")
 big_plot <- year_df |>
   ggplot(aes(year, n, fill = country)) +
   geom_col(show.legend = FALSE) +
-  scale_fill_manual(values = cols2[c(1:5)]) +
+  scale_fill_manual(values = pal[c(1:5)]) +
   scale_x_continuous(breaks = (seq(1945, 2020, 5))) +
   labs(
     x = NULL, y = "Veto Count", fill = NULL,
