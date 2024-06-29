@@ -196,7 +196,7 @@ joined_df |>
   geom_violin(fill = pal[1]) +
   geom_label(aes(label = glue(
     "n = {n} \nAvg Price ",
-    "{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"
+    "{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"
   ), y = 16),
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
@@ -222,7 +222,7 @@ joined_df2 |>
   geom_violin() +
   geom_label(aes(label = glue(
     "n = {n} \nAvg Price\n",
-    "{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"
+    "{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"
   ), y = 16),
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
@@ -263,7 +263,7 @@ joined_df3 |>
   geom_violin(fill = pal[1]) +
   geom_label(aes(label = glue(
     "n = {n} \nAvg Price ",
-    "{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"
+    "{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(mean_price)}"
   ), y = 16),
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
@@ -313,12 +313,10 @@ boot_dist <-
 
 perc_ci <- get_ci(boot_dist)
 
-lower <- perc_ci |>
-  pull(lower_ci) |>
-  dollar(prefix = "£", suffix = "m", accuracy = 0.01)
-upper <- perc_ci |>
-  pull(upper_ci) |>
-  dollar(prefix = "£", suffix = "m", accuracy = 0.01)
+lower <- label_currency(prefix = "£", suffix = "m", accuracy = 0.01)(perc_ci |>
+  pull(lower_ci))
+upper <- label_currency(prefix = "£", suffix = "m", accuracy = 0.01)(perc_ci |>
+  pull(upper_ci))
 
 boot_dist |>
   visualise() +
@@ -331,7 +329,7 @@ boot_dist |>
     x = -0.12, y = 350, size = 3,
     label = glue(
       "Observed Difference\nBetween Bands D & E is ",
-      "{dollar(obs_stat, prefix = '£', suffix = 'm', accuracy = 0.01)}"
+      "{label_currency(prefix = '£', suffix = 'm', accuracy = 0.01)(obs_stat)}"
     )
   ) +
   scale_x_continuous(labels = label_currency(
