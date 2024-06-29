@@ -18537,14 +18537,16 @@ font-style: inherit;">library</span>(tidyverse)</span>
 background-color: null;
 font-style: inherit;">conflict_prefer_all</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"dplyr"</span>)</span>
+font-style: inherit;">"dplyr"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">quiet =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
 <span id="cb1-4"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">conflict_prefer</span>(<span class="st" style="color: #20794D;
+font-style: inherit;">conflicts_prefer</span>(lubridate<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"as_date"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"lubridate"</span>)</span>
+font-style: inherit;">::</span>as_date)</span>
 <span id="cb1-5"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(rvest)</span>
@@ -18559,34 +18561,35 @@ background-color: null;
 font-style: inherit;">library</span>(clock)</span>
 <span id="cb1-9"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">conflict_prefer</span>(<span class="st" style="color: #20794D;
+font-style: inherit;">conflicts_prefer</span>(clock<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"date_format"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"clock"</span>)</span>
+font-style: inherit;">::</span>date_format)</span>
 <span id="cb1-10"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(RColorBrewer)</span>
+font-style: inherit;">library</span>(glue)</span>
 <span id="cb1-11"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(glue)</span>
+font-style: inherit;">library</span>(janitor)</span>
 <span id="cb1-12"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(janitor)</span>
+font-style: inherit;">library</span>(infer)</span>
 <span id="cb1-13"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(infer)</span>
+font-style: inherit;">library</span>(tsibble)</span>
 <span id="cb1-14"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(tsibble)</span>
+font-style: inherit;">library</span>(ggfx)</span>
 <span id="cb1-15"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">library</span>(ggfx)</span>
+font-style: inherit;">library</span>(paletteer)</span>
 <span id="cb1-16"><span class="fu" style="color: #4758AB;
 background-color: null;
+font-style: inherit;">library</span>(ggfoundry)</span>
+<span id="cb1-17"><span class="fu" style="color: #4758AB;
+background-color: null;
 font-style: inherit;">library</span>(usedthese)</span>
-<span id="cb1-17"></span>
-<span id="cb1-18"><span class="fu" style="color: #4758AB;
+<span id="cb1-18"></span>
+<span id="cb1-19"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">conflict_scout</span>()</span></code></pre></div>
 </div>
@@ -18598,150 +18601,23 @@ font-style: inherit;">theme_set</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_bw</span>())</span>
 <span id="cb2-2"></span>
-<span id="cb2-3">col <span class="ot" style="color: #003B4F;
+<span id="cb2-3">pal_name <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"RdYlBu"</span></span>
+font-style: inherit;">"RColorBrewer::RdYlBu"</span></span>
 <span id="cb2-4"></span>
-<span id="cb2-5">scale_fill_continuous <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> \(...) <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_fill_distiller</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">palette =</span> col)</span>
-<span id="cb2-6"></span>
-<span id="cb2-7">cols <span class="ot" style="color: #003B4F;
+<span id="cb2-5">pal <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">brewer.pal</span>(<span class="dv" style="color: #AD0000;
+font-style: inherit;">paletteer_d</span>(pal_name, <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">7</span>, col)</span>
-<span id="cb2-8"></span>
-<span id="cb2-9"><span class="fu" style="color: #4758AB;
+font-style: inherit;">7</span>)</span>
+<span id="cb2-6"></span>
+<span id="cb2-7"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">tibble</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">x =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">y =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">fill =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">7</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span> </span>
-<span id="cb2-10">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ggplot</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">aes</span>(x, y, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">fill =</span> fill)) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-11">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">as_reference</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_col</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">show.legend =</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">FALSE</span>), <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">id =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cols"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-12">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">with_blend</span>(</span>
-<span id="cb2-13">    <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_text</span>(</span>
-<span id="cb2-14">      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">x =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>,</span>
-<span id="cb2-15">      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">y =</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3.5</span>,</span>
-<span id="cb2-16">      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">label =</span> col,</span>
-<span id="cb2-17">      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">40</span>,</span>
-<span id="cb2-18">      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">fontface =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bold"</span></span>
-<span id="cb2-19">    ),</span>
-<span id="cb2-20">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">bg_layer =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cols"</span>,</span>
-<span id="cb2-21">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">blend_type =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"atop"</span>,</span>
-<span id="cb2-22">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">flip_order =</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">TRUE</span>,</span>
-<span id="cb2-23">    <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">id =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"text"</span></span>
-<span id="cb2-24">  ) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-25">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">with_outer_glow</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"text"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">colour =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"white"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-26">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_fill_continuous</span>() <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-27">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">coord_flip</span>() <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb2-28">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">theme_void</span>()</span></code></pre></div>
+font-style: inherit;">display_palette</span>(pal, pal_name)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -19324,7 +19200,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">scale_fill_manual</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">values =</span> cols[<span class="fu" style="color: #4758AB;
+font-style: inherit;">values =</span> pal[<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -19456,7 +19332,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">geom_violin</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -19599,7 +19475,7 @@ background-color: null;
 font-style: inherit;">"No"</span>))</span></code></pre></div>
 </div>
 <p>It turns out that the unusual transactions below £0.3m are almost entirely from one postcode as shown below when isolating “SW10 0JR”. This appears to be a single large new development with all sub-units sold in 2020.</p>
-<p>These specific transactions feel somewhat unusual at these banding levels. And irrespective of their accuracy, a sample of 170 postcodes heavily dominated by the transactions of just one would not be representative of the true population.</p>
+<p>These specific transactions feel somewhat unusual at these banding levels. And irrespective of their accuracy, a sample of 173 postcodes heavily dominated by the transactions of just one would not be representative of the true population.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">joined_df2 <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -19711,7 +19587,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">scale_fill_manual</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">values =</span> cols[<span class="fu" style="color: #4758AB;
+font-style: inherit;">values =</span> pal[<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -19800,11 +19676,19 @@ font-style: inherit;">10</span>)</span></code></pre></div>
 <td style="text-align: right;">10</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">SW10 9JP</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">SW10 0AA</td>
 <td style="text-align: right;">7</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">SW10 0HG</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SW10 0DD</td>
 <td style="text-align: right;">6</td>
 </tr>
 <tr class="odd">
@@ -19812,23 +19696,15 @@ font-style: inherit;">10</span>)</span></code></pre></div>
 <td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">SW10 9JP</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">SW10 0DD</td>
+<td style="text-align: left;">SW10 0BF</td>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">SW10 0UY</td>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">SW10 9BT</td>
-<td style="text-align: right;">5</td>
-</tr>
 <tr class="even">
-<td style="text-align: left;">SW10 9JR</td>
+<td style="text-align: left;">SW10 9BT</td>
 <td style="text-align: right;">5</td>
 </tr>
 </tbody>
@@ -19851,7 +19727,7 @@ font-style: inherit;">!=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"SW10 0JR"</span>)</span></code></pre></div>
 </div>
-<p>This now feels like a representative sample of 314 property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the “drippy” band E still looking almost indistinguishable from band D.</p>
+<p>This now feels like a representative sample of 326 property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the “drippy” band E still looking almost indistinguishable from band D.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1">labels <span class="ot" style="color: #003B4F;
 background-color: null;
@@ -19902,7 +19778,7 @@ font-style: inherit;">+</span></span>
 background-color: null;
 font-style: inherit;">geom_violin</span>(<span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]) <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -20180,6 +20056,14 @@ font-style: inherit;">-</span>address)</span><div class="code-annotation-gutter-
 <td style="text-align: left;">flat-maisonette</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">SW10 9JG</td>
+<td style="text-align: left;">2021-11-16</td>
+<td style="text-align: right;">0.91500</td>
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">leasehold</td>
+<td style="text-align: left;">flat-maisonette</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">SW10 9JX</td>
 <td style="text-align: left;">2020-09-14</td>
 <td style="text-align: right;">1.00000</td>
@@ -20187,7 +20071,7 @@ font-style: inherit;">-</span>address)</span><div class="code-annotation-gutter-
 <td style="text-align: left;">leasehold</td>
 <td style="text-align: left;">flat-maisonette</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">SW10 9JY</td>
 <td style="text-align: left;">2021-08-30</td>
 <td style="text-align: right;">1.00000</td>
@@ -20195,7 +20079,7 @@ font-style: inherit;">-</span>address)</span><div class="code-annotation-gutter-
 <td style="text-align: left;">leasehold</td>
 <td style="text-align: left;">flat-maisonette</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">SW10 9JY</td>
 <td style="text-align: left;">2020-08-06</td>
 <td style="text-align: right;">0.67950</td>
@@ -20203,7 +20087,7 @@ font-style: inherit;">-</span>address)</span><div class="code-annotation-gutter-
 <td style="text-align: left;">leasehold</td>
 <td style="text-align: left;">flat-maisonette</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">SW10 9PJ</td>
 <td style="text-align: left;">2020-12-14</td>
 <td style="text-align: right;">0.68925</td>
@@ -20391,11 +20275,11 @@ background-color: null;
 font-style: inherit;">endpoints =</span> perc_ci,</span>
 <span id="cb15-32">    <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">color =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">color =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span>], <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">fill =</span> cols[<span class="dv" style="color: #AD0000;
+font-style: inherit;">fill =</span> pal[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>]</span>
 <span id="cb15-33">  ) <span class="sc" style="color: #5E5E5E;
@@ -20517,7 +20401,7 @@ font-style: inherit;">"Sources: tax.service.gov.uk &amp; landregistry.data.gov.u
 </div>
 </div>
 </div>
-<p>Bootstrapping with a 95% confidence interval suggests the true difference in mean prices between all band D and E properties in SW10 is somewhere in the range -£0.10m to £0.10m. Considerable convergence compared to <a href="https://www.gov.uk/guidance/understand-how-council-tax-bands-are-assessed#council-tax-bands-in-england-based-on-1-april-1991-values">3 decades ago</a> when the band E minimum exceeded the band D maximum.</p>
+<p>Bootstrapping with a 95% confidence interval suggests the true difference in mean prices between all band D and E properties in SW10 is somewhere in the range -£0.09m to £0.11m. Considerable convergence compared to <a href="https://www.gov.uk/guidance/understand-how-council-tax-bands-are-assessed#council-tax-bands-in-england-based-on-1-april-1991-values">3 decades ago</a> when the band E minimum exceeded the band D maximum.</p>
 <section id="r-toolbox" class="level2">
 <h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
@@ -20535,48 +20419,48 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">RColorBrewer</td>
-<td style="text-align: left;">brewer.pal[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">SPARQL</td>
 <td style="text-align: left;">SPARQL[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[5], factor[1], library[13], max[1], mean[2], min[1], readRDS[1], seq[1], set.seed[2]</td>
+<td style="text-align: left;">c[5], factor[1], library[14], max[1], mean[2], min[1], readRDS[1], seq[1], set.seed[2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conflicted</td>
+<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1], conflicts_prefer[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer[2], conflict_prefer_all[1], conflict_scout[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">dplyr</td>
 <td style="text-align: left;">across[1], arrange[1], count[4], filter[4], if_else[1], inner_join[1], join_by[1], mutate[7], n[2], pull[7], relocate[1], rename_with[1], select[5], slice_head[1], slice_sample[1], summarise[4]</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
 <tr class="even">
-<td style="text-align: left;">ggfx</td>
-<td style="text-align: left;">as_reference[1], with_blend[1], with_outer_glow[1]</td>
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[7], annotate[1], geom_col[1], geom_hline[1], geom_label[3], geom_violin[3], geom_vline[1], ggplot[4], labs[5], position_fill[1], scale_fill_manual[2], scale_x_continuous[1], scale_y_continuous[1], scale_y_log10[3], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[8], annotate[1], coord_flip[1], geom_col[2], geom_hline[1], geom_label[3], geom_text[1], geom_violin[3], geom_vline[1], ggplot[5], labs[5], position_fill[1], scale_fill_continuous[1], scale_fill_distiller[1], scale_fill_manual[2], scale_x_continuous[1], scale_y_continuous[1], scale_y_log10[3], theme_bw[1], theme_set[1], theme_void[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[8]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">infer</td>
 <td style="text-align: left;">calculate[2], generate[1], get_ci[1], shade_confidence_interval[1], specify[2], visualise[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">janitor</td>
 <td style="text-align: left;">clean_names[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">as_date[1], as_datetime[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paletteer</td>
+<td style="text-align: left;">paletteer_d[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">purrr</td>
@@ -20596,7 +20480,7 @@ font-style: inherit;">used_here</span>()</span></code></pre></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">as_tibble[1], tibble[1]</td>
+<td style="text-align: left;">as_tibble[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidyr</td>

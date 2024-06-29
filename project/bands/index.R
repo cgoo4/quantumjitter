@@ -1,50 +1,30 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
-conflict_prefer("as_date", "lubridate")
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflicts_prefer(lubridate::as_date)
 library(rvest)
 library(scales)
 library(SPARQL)
 library(clock)
-conflict_prefer("date_format", "clock")
-library(RColorBrewer)
+conflicts_prefer(clock::date_format)
 library(glue)
 library(janitor)
 library(infer)
 library(tsibble)
 library(ggfx)
+library(paletteer)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-col <- "RdYlBu"
+pal_name <- "RColorBrewer::RdYlBu"
 
-scale_fill_continuous <- \(...) scale_fill_distiller(palette = col)
+pal <- paletteer_d(pal_name, 7)
 
-cols <- brewer.pal(7, col)
-
-tibble(x = 1, y = 1, fill = 7:1) |> 
-  ggplot(aes(x, y, fill = fill)) +
-  as_reference(geom_col(show.legend = FALSE), id = "cols") +
-  with_blend(
-    geom_text(
-      x = 1,
-      y = 3.5,
-      label = col,
-      size = 40,
-      fontface = "bold"
-    ),
-    bg_layer = "cols",
-    blend_type = "atop",
-    flip_order = TRUE,
-    id = "text"
-  ) +
-  with_outer_glow("text", colour = "white") +
-  scale_fill_continuous() +
-  coord_flip() +
-  theme_void()
+display_palette(pal, pal_name)
 
 remove_pattern <-
   str_c(
@@ -188,7 +168,7 @@ joined_df |>
   geom_col(position = position_fill()) +
   scale_x_yearquarter() +
   scale_y_continuous(labels = label_percent(1)) +
-  scale_fill_manual(values = cols[c(1:7)]) +
+  scale_fill_manual(values = pal[c(1:7)]) +
   labs(
     title = "Distribution of Sales Transactions by Band & Quarter",
     x = "Quarter", y = "Proportion", fill = "Band"
@@ -213,14 +193,14 @@ to <- joined_df |>
 
 joined_df |>
   ggplot(aes(council_tax_band, price_paid)) +
-  geom_violin(fill = cols[1]) +
+  geom_violin(fill = pal[1]) +
   geom_label(aes(label = glue(
     "n = {n} \nAvg Price ",
     "{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"
   ), y = 16),
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
-  scale_y_log10(labels = label_dollar(
+  scale_y_log10(labels = label_currency(
     prefix = "£",
     suffix = "m", accuracy = 0.1
   )) +
@@ -247,11 +227,11 @@ joined_df2 |>
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
   geom_hline(yintercept = 0.3, linetype = "dashed") +
-  scale_y_log10(labels = label_dollar(
+  scale_y_log10(labels = label_currency(
     prefix = "£",
     suffix = "m", accuracy = 0.1
   )) +
-  scale_fill_manual(values = cols[c(1, 5)]) +
+  scale_fill_manual(values = pal[c(1, 5)]) +
   labs(
     title = "Unusual Bandings",
     subtitle = glue(
@@ -280,14 +260,14 @@ transactions <-
 
 joined_df3 |>
   ggplot(aes(council_tax_band, price_paid)) +
-  geom_violin(fill = cols[1]) +
+  geom_violin(fill = pal[1]) +
   geom_label(aes(label = glue(
     "n = {n} \nAvg Price ",
     "{dollar(mean_price, prefix = '£', suffix = 'm', accuracy = 0.01)}"
   ), y = 16),
   data = labels, size = 2.3, alpha = 0.7, fill = "white"
   ) +
-  scale_y_log10(labels = label_dollar(prefix = "£", 
+  scale_y_log10(labels = label_currency(prefix = "£", 
                                        suffix = "m", accuracy = 0.1)) +
   labs(
     title = "Drippy Bandings",
@@ -344,7 +324,7 @@ boot_dist |>
   visualise() +
   shade_confidence_interval(
     endpoints = perc_ci,
-    color = cols[6], fill = cols[3]
+    color = pal[6], fill = pal[3]
   ) +
   geom_vline(xintercept = obs_stat, linetype = "dashed", colour = "white") +
   annotate("label",
@@ -354,7 +334,7 @@ boot_dist |>
       "{dollar(obs_stat, prefix = '£', suffix = 'm', accuracy = 0.01)}"
     )
   ) +
-  scale_x_continuous(labels = label_dollar(
+  scale_x_continuous(labels = label_currency(
     prefix = "£",
     suffix = "m", accuracy = 0.1
   )) +
