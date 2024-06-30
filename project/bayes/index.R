@@ -4,7 +4,6 @@ conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidymodels)
 library(feasts)
 library(tsibble)
-library(wesanderson)
 library(glue)
 library(scales)
 library(patchwork)
@@ -19,36 +18,22 @@ library(shapviz)
 library(kernelshap)
 library(finetune)
 library(tictoc)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
 
 theme_set(theme_bw())
 
-cols <- c(
+pal <- c(
   "#7E1134", "#EDD5C5",
   "#057683", "#F3E2D8",
   "black", "#7F7E7C"
-) |>
-  fct_inorder()
+)
 
-tibble(x = 1:6, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols),
-    nudge_y = -0.1, fill = "white"
-  ) +
-  annotate(
-    "label",
-    x = 3.5, y = 0.5,
-    label = "Palette from Feature Image",
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+pal_name <- "Palette from Feature Image"
+
+display_palette(pal, pal_name)
 
 get_rate <- \(y, z) {
   url <-
@@ -131,7 +116,7 @@ plot_compare <- \(x){
     ggplot(aes(date, {{ x }}, colour = id)) +
     geom_line() +
     geom_vline(xintercept = ymd("2023-04-30"), linetype = "dashed", colour = "grey60") +
-    scale_colour_manual(values = as.character(cols[c(5, 3)])) +
+    scale_colour_manual(values = as.character(pal[c(5, 3)])) +
     scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
     scale_y_continuous(labels = label_number(suffix = "%")) +
     labs(x = NULL, colour = NULL) +
@@ -204,7 +189,7 @@ plot_lm <- \(x) {
   history_df |>
     ggplot(aes({{ x }}, mortgage)) +
     geom_point() +
-    geom_smooth(method = "lm", colour = cols[3]) +
+    geom_smooth(method = "lm", colour = pal[3]) +
     scale_x_continuous(labels = label_number(accuracy = 0.1, suffix = "%")) +
     scale_y_continuous(labels = label_number(accuracy = 0.1, suffix = "%")) +
     theme(
@@ -345,7 +330,7 @@ set_results |>
   )) +
   geom_pointrange(position = position_dodge(width = 0.9)) +
   geom_label(aes(label = tune)) +
-  scale_colour_manual(values = as.character(cols[c(1, 3, 5, 6)])) +
+  scale_colour_manual(values = pal[c(1, 3, 5, 6)]) +
   labs(
     x = NULL, y = "Mean RMSE",
     title = "Workflow Ranking (Label = Tune Iteration)"
@@ -397,7 +382,7 @@ focus_df |>
   geom_abline(alpha = 0.5) +
   geom_smooth(se = FALSE, size = 0.5) +
   geom_label(aes(label = glue("RMSE\n{.estimate}")),
-    data = label_df, size = 3, fill = cols[2]
+    data = label_df, size = 3, fill = pal[2]
   ) +
   coord_obs_pred() +
   facet_wrap(~model) +
@@ -414,19 +399,19 @@ focus_df |>
   geom_qq_line() +
   facet_wrap(~model) +
   scale_y_continuous(limits = c(-1, 1)) +
-  scale_colour_manual(values = as.character(cols[c(1, 3, 5, 6)])) +
+  scale_colour_manual(values = pal[c(1, 3, 5, 6)]) +
   labs(title = "QQ Plot of Residuals", subtitle = "Test Data")
 
 focus_df |>
   mutate(residual = mortgage - .pred) |>
   ggplot(aes(date, residual, colour = id)) +
-  geom_hline(yintercept = 0, linetype = "dashed", colour = cols[3], linewidth = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = pal[3], linewidth = 1) +
   geom_point() +
   geom_smooth() +
   facet_wrap(~model) +
   scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
   scale_y_continuous(limits = c(-1, 1)) +
-  scale_colour_manual(values = as.character(cols[c(1, 3, 5, 6)])) +
+  scale_colour_manual(values = pal[c(1, 3, 5, 6)]) +
   labs(title = "Residuals Over Time", subtitle = "Test Data", x = NULL, y = "Residuals") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -501,7 +486,7 @@ as.data.frame(extract_fit_engine(bayes_fit)) |>
         x = NULL, y = NULL, xmin = conf.low, xmax = conf.high,
         ymin = -Inf, ymax = Inf, fill = term
       ),
-      data = ci, colour = "grey50", fill = cols[1],
+      data = ci, colour = "grey50", fill = pal[1],
     ),
     bg_layer = "density", blend_type = "atop"
   ) +
@@ -535,7 +520,7 @@ bind_rows(
   left_join(pi, join_by(date)) |>
   mutate(across(c(`5%`, `95%`), \(x) if_else(model != "bayes", NA, x))) |>
   ggplot(aes(date, .pred, ymin = `5%`, ymax = `95%`, colour = model, fill = model)) +
-  geom_ribbon(fill = cols[1], alpha = 0.3) +
+  geom_ribbon(fill = pal[1], alpha = 0.3) +
   geom_line() +
   geom_vline(xintercept = ymd("2023-04-30"), linetype = "dashed", colour = "grey70") +
   scale_y_continuous(
@@ -543,8 +528,8 @@ bind_rows(
     breaks = c(2, 4, 6, 8, 10)
   ) +
   scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
-  scale_colour_manual(values = as.character(cols[c(1, 3, 5, 6)])) +
-  scale_fill_manual(values = as.character(cols[c(1, 3, 5, 6)])) +
+  scale_colour_manual(values = pal[c(1, 3, 5, 6)]) +
+  scale_fill_manual(values = pal[c(1, 3, 5, 6)]) +
   labs(
     title = "Forecast of Average UK Household Mortgage Rates",
     subtitle = "Fixed 5-year (75% Loan-to-Value)",
