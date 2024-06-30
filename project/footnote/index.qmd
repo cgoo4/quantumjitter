@@ -19,9 +19,10 @@ This post briefly explores the shifts in the nature of employment whilst at the 
 
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr")
+conflict_prefer_all("dplyr", quiet = TRUE)
 library(readxl)
 library(gt)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -39,35 +40,19 @@ As the intent is to present a summary in the style of the Financial Times, we'll
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-cols <- c(
+pal <- c(
   "#FFF1E5", "#F2DFCE",
   "#333333", "#800D33",
   "#C00000", "#00994D"
-) |>
-  fct_inorder()
+)
 
-tibble(x = 1:6, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols),
-    nudge_y = -0.1, fill = "white"
-  ) +
-  annotate(
-    "label",
-    x = 3.5, y = 0.5,
-    label = "Financial Times",
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+pal_name <- "Financial Times"
+
+display_palette(pal, pal_name)
 ```
 
 The labour market data are sourced from the [Office for National Statistics](https://www.nomisweb.co.uk/datasets/aps168/reports/employment-by-occupation?compare=K02000001)[^1].
@@ -196,19 +181,19 @@ The above table uses one of the in-built style theme options. It looks clean and
 
 gt_ft <- gt_tbl |> 
   tab_options(
-    table.border.top.color = "#FFF1E5",
-    table.border.bottom.color = "#FFF1E5",
-    table.background.color = "#FFF1E5",
+    table.border.top.color = pal[1],
+    table.border.bottom.color = pal[1],
+    table.background.color = pal[1],
     table.font.size = px(10),
-    table.font.color = "#262A33",
+    table.font.color = pal[3],
     heading.align = "left",
     heading.title.font.size = px(20),
     heading.title.font.weight = "bold",
-    heading.background.color = "#FFF1E5",
+    heading.background.color = pal[1],
     row.striping.include_table_body = TRUE,
     row.striping.include_stub = TRUE,
-    row.striping.background_color = "#F2DFCE",
-    row_group.background.color = "#FFF1E5"
+    row.striping.background_color = pal[2],
+    row_group.background.color = pal[1]
   ) |> 
   tab_header(title = html("UK Employment by Occupation  ", 
                           local_image("logo.png", height = 20))) |> 
@@ -224,7 +209,7 @@ gt_ft <- gt_tbl |>
     locations = cells_row_groups()
   ) |> 
   tab_style(
-    style = cell_text(color = "#800D33", weight = "bold"),
+    style = cell_text(color = pal[4], weight = "bold"),
     locations = cells_stub()
   ) |> 
   tab_style(
@@ -240,14 +225,14 @@ gt_ft <- gt_tbl |>
                      cells_stub())
   ) |>
   tab_style(
-    style = cell_text(color = "#00994D", weight = "bold"),
+    style = cell_text(color = pal[6], weight = "bold"),
     locations = cells_body(
       columns = change,
       rows = change >= 0
     )
   ) |> 
   tab_style(
-    style = cell_text(color = "#C00000", weight = "bold"),
+    style = cell_text(color = pal[5], weight = "bold"),
     locations = cells_body(
       columns = change,
       rows = change < 0
