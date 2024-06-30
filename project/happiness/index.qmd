@@ -25,6 +25,7 @@ library(janitor)
 library(ggrepel)
 library(sf)
 library(scales)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -34,29 +35,15 @@ The graphics will use a custom palette created in [Adobe Colour](https://color.a
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-cols <- c("#0AC449", "#CF4E0A", "#0057B7", "#FFD700", "#870AC4") |>
-  fct_inorder()
+pal <- c("#0AC449", "#CF4E0A", "#0057B7", "#FFD700", "#870AC4")
 
-tibble(x = 1:5, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols), size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = 3, y = 0.5,
-    label = "Custom Pallette",
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+pal_name <- "Custom Palette"
+
+display_palette(pal, pal_name)
 ```
 
 [The London Datastore](https://data.london.gov.uk) provides data profiling each area.
@@ -106,7 +93,7 @@ pca_augmented <-
 pca_augmented |>
   ggplot(aes(.fittedPC1, .fittedPC2, fill = inner_outer_london)) +
   geom_label(aes(label = area_name), size = 2, hjust = "inward") +
-  scale_fill_manual(values = as.character(cols)) +
+  scale_fill_manual(values = pal) +
   labs(
     title = "33 London Areas", fill = "London",
     x = "Principal Component 1", y = "Principal Component 2",
@@ -127,13 +114,13 @@ pct_explained <-
   pluck("cumulative", 2)
 
 pca_tidied |>
-  ggplot(aes(PC, percent)) +
+  ggplot(aes(percent, factor(PC))) +
   geom_col(aes(fill = if_else(PC <= 2, TRUE, FALSE)),
-    alpha = 0.8, show.legend = FALSE
+    alpha = 0.8, show.legend = FALSE,
   ) +
-  scale_y_continuous(labels = label_percent(1)) +
-  scale_fill_manual(values = as.character(cols)) +
-  coord_flip() +
+  scale_x_continuous(labels = label_percent(1)) +
+  scale_y_discrete(breaks = c(0, 5, 10, 15, 20)) +
+  scale_fill_manual(values = pal) +
   labs(
     title = glue(
       "{percent(pct_explained, 0.1)} of the ",
@@ -189,12 +176,11 @@ pca_long <-
   mutate(area = reorder_within(area, score, name)) 
 
 pca_long |>
-  ggplot(aes(area, score, colour = name)) +
+  ggplot(aes(score, area, colour = name)) +
   geom_point(show.legend = FALSE) +
   facet_wrap(~name, scales = "free") +
-  scale_x_reordered() +
-  scale_colour_manual(values = as.character(cols)) +
-  coord_flip() +
+  scale_y_reordered() +
+  scale_colour_manual(values = pal) +
   labs(x = NULL, caption = "Source: data.london.gov.uk")
 ```
 
@@ -219,7 +205,7 @@ kclusts <-
 
 assignments <-
   kclusts |>
-  unnest(cols = c(augmented))
+  unnest(pal = c(augmented))
 
 clusters <-
   kclusts |>
@@ -229,7 +215,7 @@ assignments |>
   ggplot(aes(x = .fittedPC1, y = .fittedPC2)) +
   geom_point(aes(color = .cluster)) +
   facet_wrap(~k, nrow = 2) +
-  scale_colour_manual(values = as.character(cols[c(1:6)])) +
+  scale_colour_manual(values = pal[c(1:6)]) +
   geom_point(data = clusters, size = 4, shape = 13) +
   labs(
     title = "How Many Clusters Best Captures the Groupings?",
@@ -249,7 +235,7 @@ kclusts |>
   geom_line() +
   geom_point() +
   geom_label(aes(label = if_else(k == 3, "Elbow", NA_character_)),
-    nudge_y = -25, fill = cols[1]
+    nudge_y = -25, fill = pal[1]
   ) +
   labs(
     title = "Elbow Method",
@@ -267,7 +253,7 @@ assignments |>
   ggplot(aes(.fittedPC1, .fittedPC2, fill = .cluster)) +
   geom_label(aes(label = area_name), 
              size = 2, hjust = "inward", overlap = FALSE) +
-  scale_fill_manual(values = as.character(cols[c(1, 2, 4)])) +
+  scale_fill_manual(values = pal[c(1, 2, 4)]) +
   labs(
     title = "Closely-Related London Areas", fill = "Cluster",
     x = "Principal Component 1", y = "Principal Component 2",
@@ -318,7 +304,7 @@ kmeans_metrics |>
   geom_point() +
   geom_line() +
   geom_label(aes(label = if_else(num_clusters == 3, "Elbow", NA_character_)),
-             nudge_y = -0.1, fill = cols[1]) +
+             nudge_y = -0.1, fill = pal[1]) +
   labs(title = "Elbow Method", x = "Clusters", y = "WSS") +
   scale_x_continuous(breaks = 1:6)
 ```
@@ -349,7 +335,7 @@ kmeans_aug |>
   ggplot(aes(.fittedPC1, .fittedPC2)) +
   geom_label(aes(label = area_name, colour = .pred_cluster),
              size = 2, hjust = "inward") +
-  scale_colour_manual(values = as.character(cols[c(1:3, 5)])) +
+  scale_colour_manual(values = pal[c(1:3, 5)]) +
   geom_point(data = kmeans_clust, size = 4, shape = 13) +
   labs(
     title = "Closely-Related London Areas", fill = "Cluster",
@@ -386,7 +372,7 @@ shape_df |>
   ggplot() +
   geom_sf(aes(fill = value), colour = "white") +
   geom_sf_label(aes(label = NAME), size = 2, alpha = 0.7) +
-  scale_fill_manual(values = as.character(cols[c(3, 4, 1, 2, 5)])) +
+  scale_fill_manual(values = pal[c(3, 4, 1, 2, 5)]) +
   facet_wrap(~name) +
   theme_void() +
   theme(legend.position = "none") +
