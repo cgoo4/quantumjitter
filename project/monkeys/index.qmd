@@ -27,18 +27,20 @@ library(conflicted)
 library(tidyverse)
 conflict_prefer_all("dplyr", quiet = TRUE)
 conflicts_prefer(purrr::map)
-conflict_prefer("as_date", "lubridate")
+conflicts_prefer(lubridate::as_date)
 library(scales)
 library(glue)
 library(SPARQL)
 library(paletteer)
 library(tsibble)
 library(rvest)
-library(Quandl)
+library(imfr)
+library(janitor)
 library(corrr)
 library(quantreg)
 library(Qtools)
 library(ggfx)
+library(ggfoundry)
 library(usedthese)
 
 conflict_scout()
@@ -46,32 +48,15 @@ conflict_scout()
 
 ```{r}
 #| label: theme
-#| fig-height: 2
 #| dev.args: { bg: "transparent" }
 
 theme_set(theme_bw())
 
-n <- 4
-palette <- "wesanderson::Royal1"
+pal_name <- "wesanderson::Royal1"
 
-cols <- paletteer_d(palette, n = n)
+pal <- paletteer_d(pal_name)
 
-tibble(x = 1:n, y = 1) |>
-  ggplot(aes(x, y, fill = cols)) +
-  geom_col(colour = "white") +
-  geom_label(aes(label = cols |> str_remove("FF$")), 
-             size = 4, vjust = 2, fill = "white") +
-  annotate(
-    "label",
-    x = (n + 1) / 2, y = 0.5,
-    label = palette,
-    fill = "white",
-    alpha = 0.8,
-    size = 6
-  ) +
-  scale_fill_manual(values = as.character(cols)) +
-  theme_void() +
-  theme(legend.position = "none")
+display_palette(pal, pal_name)
 ```
 
 House transaction data are provided by [HM Land Registry Open Data](http://landregistry.data.gov.uk/app/qonsole#).
@@ -151,25 +136,21 @@ data_df2 <- data_df |>
 
 There are various sources available for macroeconomic factors that may affect house sales activity. Inflation and interest rates (the latter impacting mortgage rates) could be influential. SW10 has many overseas buyers, so the effective exchange rate versus a basket of currencies could too be a useful predictor.
 
-I'll use the Quandl [@Quandl] R package to grab most of these.
-
 ```{r}
 #| label: macro economic
 #| message: false
 
 # Price of a selection of goods & services for a typical consumer
-cpi_df <- Quandl("RATEINF/CPI_GBR") |>
-  select(date = Date, cpi_macro = Value) |>
-  arrange(date) |>
-  mutate(yr_mon = yearmonth(date)) |>
-  select(-date)
-
-# YOY rate of change in CPI
-inflation_df <- Quandl("RATEINF/INFLATION_GBR") |>
-  select(date = Date, inflation_macro = Value) |>
-  arrange(date) |>
-  mutate(yr_mon = yearmonth(date)) |>
-  select(-date)
+cpi_df <- imf_dataset(
+  database_id = "CPI",
+  indicator = "PCPI_IX",
+  ref_area = "GB",
+  freq = "M",
+  start_year = 1990
+) |> 
+  mutate(yr_mon = yearmonth(date),
+         cpi_macro = as.double(value)) |>
+  select(yr_mon, cpi_macro)
 
 # BOE base rate
 interest_df <-
@@ -185,16 +166,28 @@ interest_df <-
   slice_tail(n = 1, by = yr_mon)
 
 # Effective exchange rate of sterling versus multiple other currencies
-sterling_df <- Quandl("BOE/XUDLBK67") |>
-  select(date = Date, sterling_macro = Value) |>
-  arrange(date) |>
-  mutate(yr_mon = yearmonth(date)) |>
-  slice_tail(n = 1, by = yr_mon) |>
-  select(-date)
+url <-
+    str_c(
+      "https://www.bankofengland.co.uk/boeapps/database/",
+      "fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&",
+      "DAT=ALL&",
+      "FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=", "XUDLBK67",
+      "&UsingCodes=Y&Filter=N&title=Quoted%20Rates&VPD=Y"
+    )
+
+sterling_df <- read_html(url) |>
+  html_element("#stats-table") |>
+  html_table() |>
+  clean_names() |>
+  mutate(
+    date = dmy(date),
+    yr_mon = yearmonth(date)
+  ) |>
+  rename(sterling_macro = 2) |>
+  summarise(sterling_macro = last(sterling_macro), .by = yr_mon)
 
 macro_list <-
   list(
-    inflation_df,
     cpi_df,
     interest_df,
     sterling_df
@@ -303,7 +296,7 @@ set.seed(123)
 
 rq_fit <- rq(
   n ~ cpi_macro + sterling_macro + interest_macro +
-    stamp_macro + inflation_macro + month + yr_mon,
+    stamp_macro + month + yr_mon,
   data = join_df,
   tau = c(0.05, 0.5, 0.95)
 )
@@ -314,7 +307,7 @@ GOFTest(rq_fit)
 
 lm_fit <- rq(
   n ~ cpi_macro + sterling_macro + interest_macro +
-    stamp_macro + inflation_macro + month + yr_mon,
+    stamp_macro + month + yr_mon,
   data = join_df
 )
 
@@ -353,18 +346,18 @@ rq_preds |>
   left_join(lm_preds, join_by(yr_mon == yr_mon)) |>
   ggplot(aes(yr_mon, median)) +
   as_reference(geom_ribbon(aes(ymin = lower, ymax = upper), 
-                           fill = cols[1]), id = "ribbon") +
+                           fill = pal[1]), id = "ribbon") +
   with_blend(
     annotate(
       "rect",
-      xmin = ymd("2022-12-31"), xmax = ymd("2023-02-28"),
-      ymin = -Inf, ymax = Inf, fill = cols[2], linetype = "dashed"
+      xmin = ymd("2024-05-31"), xmax = ymd("2024-07-31"),
+      ymin = -Inf, ymax = Inf, fill = pal[2], linetype = "dashed"
     ),
     bg_layer = "ribbon", blend_type = "atop"
   ) +
   geom_line(aes(y = n), colour = "black") +
   geom_line(colour = "white", linewidth = 1) +
-  geom_line(aes(y = lm), colour = cols[4], linetype = "dashed") +
+  geom_line(aes(y = lm), colour = pal[4], linetype = "dashed") +
   geom_vline(xintercept = ymd("2008-09-06"), 
              linetype = "dashed", colour = "grey30") +
   annotate("label",
@@ -394,7 +387,7 @@ rq_preds |>
   annotate("label",
     x = yearmonth("1999 Jan"), y = 125,
     label = glue("{coverage} Coverage"), 
-    size = 3, fill = cols[1], colour = "white"
+    size = 3, fill = pal[1], colour = "white"
   ) +
   scale_x_yearmonth(date_breaks = "2 years") +
   labs(
@@ -405,7 +398,7 @@ rq_preds |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-The 90% prediction interval (0.05 to 0.95 quantiles represented by the grey ribbon) covers `r coverage` of the historical observations and suggests a 95% probability of no more than 26 sales in February.
+The 90% prediction interval (0.05 to 0.95 quantiles represented by the grey ribbon) covers `r coverage` of the historical observations and suggests a 95% probability of no more than 26 sales in June.
 
 Of course that means there is a one-in-twenty chance of more, and an even smaller chance of repeating the summer of 2003. Anything can happen eventually.
 
