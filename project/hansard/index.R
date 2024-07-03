@@ -185,6 +185,7 @@ dd <- dendro_data(dend_avg, type = "rectangle")
 dd$labels <- dd$labels |> mutate(fill = if_else(x <= 6, "darkorange", "darkgreen"))
 
 angle <- seq(75, by = -1.58, length.out = 210)
+shape_angle <- seq(165, by = -1.58, length.out = 210)
 
 ggplot(segment(dd)) +
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
@@ -193,8 +194,8 @@ ggplot(segment(dd)) +
     size = 2, hjust = -0.1, data = dd$labels
     ) +
   geom_casting(
-    aes(x = x, y = y, fill = fill), shape = "hibiscus",
-    size = 0.025, data = dd$labels
+    aes(x = x, y = y, fill = fill, group = x), angle = shape_angle, 
+    shape = "hibiscus", size = 0.025, data = dd$labels
     ) +
   scale_y_reverse(expand = c(0.2, 0)) + 
   scale_fill_identity() +
