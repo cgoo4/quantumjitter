@@ -9885,7 +9885,6 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>There are various sources available for macroeconomic factors that may affect house sales activity. Inflation and interest rates (the latter impacting mortgage rates) could be influential. SW10 has many overseas buyers, so the effective exchange rate versus a basket of currencies could too be a useful predictor.</p>
-<p>I’ll use the Quandl <span class="citation" data-cites="Quandl">(2021)</span> R package to grab most of these.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -12443,7 +12442,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
-<p>The 90% prediction interval (0.05 to 0.95 quantiles represented by the grey ribbon) covers 89.7% of the historical observations and suggests a 95% probability of no more than 26 sales in February.</p>
+<p>The 90% prediction interval (0.05 to 0.95 quantiles represented by the grey ribbon) covers 89.7% of the historical observations and suggests a 95% probability of no more than 26 sales in June.</p>
 <p>Of course that means there is a one-in-twenty chance of more, and an even smaller chance of repeating the summer of 2003. Anything can happen eventually.</p>
 <p>As Bob Newhart pointed out, an infinite number of monkeys given enough time, could one day type out all the great books! A wide prediction interval though would suggest gibberish. So, you might want to busy yourself with other things in the meantime.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ngmf8G5xKas" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
@@ -12589,9 +12588,6 @@ Geraci, M. 2022. <span>“Qtools: <span></span>U<span></span>tilities for Quanti
 </div>
 <div id="ref-quantreg" class="csl-entry">
 Koenker, Roger. 2022. <span>“Quantreg: Quantile Regression.”</span> <a href="https://CRAN.R-project.org/package=quantreg">https://CRAN.R-project.org/package=quantreg</a>.
-</div>
-<div id="ref-Quandl" class="csl-entry">
-Raymond McTaggart, Gergely Daroczi, and Clement Leung. 2021. <span>“Quandl: API Wrapper for Quandl.com.”</span> <a href="https://CRAN.R-project.org/package=Quandl">https://CRAN.R-project.org/package=Quandl</a>.
 </div>
 <div id="ref-broom" class="csl-entry">
 Robinson, David, Alex Hayes, and Simon Couch. 2023. <span>“Broom: Convert Statistical Objects into Tidy Tibbles.”</span> <a href="https://CRAN.R-project.org/package=broom">https://CRAN.R-project.org/package=broom</a>.
@@ -42076,6 +42072,29 @@ background-color: null;
 font-style: inherit;">210</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">shape_angle</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">165</span>, by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.58</span>, length.out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">210</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -42202,14 +42221,22 @@ font-style: inherit;">y</span>, fill <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">fill</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">fill</span>, group <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, shape <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, angle <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">shape_angle</span>, </span>
+<span>    shape <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"hibiscus"</span>,</span>
-<span>    size <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"hibiscus"</span>, size <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
@@ -43222,7 +43249,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[7], labels[1], library[15], list[3], max[2], min[2], nrow[1], readRDS[2], round[3], saveRDS[2], seq[1]</td>
+<td style="text-align: left;">c[7], labels[1], library[15], list[3], max[2], min[2], nrow[1], readRDS[2], round[3], saveRDS[2], seq[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
