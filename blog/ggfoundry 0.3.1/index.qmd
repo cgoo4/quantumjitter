@@ -223,3 +223,11 @@ The shapes are the biggest contributor: `inst/extdata` contains the 28 pairs of 
 #| 
 Sys.unsetenv("HOME")
 ```
+
+The objects of class Picture (created at build time) are not exported. But use of the triple colon operator confirms these internal objects do exist.
+
+```{r}
+
+names(ggfoundry:::picture_lst)
+```
+
