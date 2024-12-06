@@ -9,7 +9,7 @@
 <link>https://www.quantumjitter.com/blog/</link>
 <atom:link href="https://www.quantumjitter.com/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
-<generator>quarto-1.5.53</generator>
+<generator>quarto-1.6.39</generator>
 <lastBuildDate>Sat, 06 Jul 2024 23:00:00 GMT</lastBuildDate>
 <item>
   <title>ggfoundry 0.3.1</title>
@@ -1845,6 +1845,52 @@ font-style: inherit;">p2</span></span></code></pre></div>
 </div>
 <p>Overall, the 0.97MB shipped is comfortably within the &lt;10MB <a href="https://cran.r-project.org/web/packages/policies.html#Source-packages">CRAN policy</a> (5 data + 5 documentation) and leaves plenty of scope to grow.</p>
 <p>The shapes are the biggest contributor: <code>inst/extdata</code> contains the 28 pairs of <code>svg</code> files (outline and fill). But each pair is relatively small, ranging from 5 to 66KB determined by shape complexity: The baby dendrogram being the most complex.</p>
+<p>The objects of class Picture (created at build time) are not exported. But use of the triple colon operator confirms these internal objects do exist.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggfoundry</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">picture_lst</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "circle-circleF_col-cairo"     "circle-circleF_fill-cairo"   
+ [3] "circle-circleL_col-cairo"     "circle-circleL_fill-cairo"   
+ [5] "circle-circleR_col-cairo"     "circle-circleR_fill-cairo"   
+ [7] "container-jar_col-cairo"      "container-jar_fill-cairo"    
+ [9] "container-tube_col-cairo"     "container-tube_fill-cairo"   
+[11] "cross-cross1_col-cairo"       "cross-cross1_fill-cairo"     
+[13] "cross-cross2_col-cairo"       "cross-cross2_fill-cairo"     
+[15] "flower-sunflower1_col-cairo"  "flower-sunflower1_fill-cairo"
+[17] "flower-sunflower2_col-cairo"  "flower-sunflower2_fill-cairo"
+[19] "flower-sunflower3_col-cairo"  "flower-sunflower3_fill-cairo"
+[21] "flower-sunflower4_col-cairo"  "flower-sunflower4_fill-cairo"
+[23] "flower-sunflower5_col-cairo"  "flower-sunflower5_fill-cairo"
+[25] "flower-sunflower6_col-cairo"  "flower-sunflower6_fill-cairo"
+[27] "flower-sunflower7_col-cairo"  "flower-sunflower7_fill-cairo"
+[29] "flower-sunflower8_col-cairo"  "flower-sunflower8_fill-cairo"
+[31] "geom-box_col-cairo"           "geom-box_fill-cairo"         
+[33] "geom-dendro_col-cairo"        "geom-dendro_fill-cairo"      
+[35] "geom-ribbon_col-cairo"        "geom-ribbon_fill-cairo"      
+[37] "geom-violin_col-cairo"        "geom-violin_fill-cairo"      
+[39] "leaf-hibiscus_col-cairo"      "leaf-hibiscus_fill-cairo"    
+[41] "leaf-oak_col-cairo"           "leaf-oak_fill-cairo"         
+[43] "penguin-adelie_col-cairo"     "penguin-adelie_fill-cairo"   
+[45] "penguin-chinstrap_col-cairo"  "penguin-chinstrap_fill-cairo"
+[47] "penguin-gentoo_col-cairo"     "penguin-gentoo_fill-cairo"   
+[49] "polygon-heptagon_col-cairo"   "polygon-heptagon_fill-cairo" 
+[51] "polygon-hexagon_col-cairo"    "polygon-hexagon_fill-cairo"  
+[53] "polygon-octagon_col-cairo"    "polygon-octagon_fill-cairo"  
+[55] "polygon-pentagon_col-cairo"   "polygon-pentagon_fill-cairo" </code></pre>
+</div>
+</div>
 
 
 </section> ]]></description>
@@ -2184,7 +2230,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://business-science.github.io/tidyquant/">tidyquant</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
@@ -2557,7 +2603,7 @@ font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">tq_get</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
