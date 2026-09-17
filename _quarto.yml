@@ -1,5 +1,7 @@
 project:
   type: website
+  post-render:
+    - sitemap.R
 
 execute:
   freeze: auto
@@ -11,6 +13,12 @@ website:
   description: "A data science and machine learning blog with the tidyverse at its {{< fa regular heart >}}"
   twitter-card: true
   open-graph: true
+  announcement:
+    icon: info-circle
+    dismissable: true
+    content: "New blog post: [Dear humanity,](/blog/dear-humanity/)"
+    type: dark
+    position: below-navbar
   navbar:
     logo: images/logo-light.png
     logo-alt: "A box and whisker plot icon"
