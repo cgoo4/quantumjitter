@@ -1,12 +1,9 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr", quiet = TRUE)
-conflicts_prefer(lubridate::as_date)
 library(rvest)
 library(scales)
-library(SPARQL)
+library(sparqlr)
 library(clock)
-conflicts_prefer(clock::date_format)
 library(glue)
 library(janitor)
 library(infer)
@@ -15,6 +12,9 @@ library(ggfx)
 library(paletteer)
 library(ggfoundry)
 library(usedthese)
+
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflicts_prefer(lubridate::as_date, clock::date_format)
 
 conflict_scout()
 
@@ -46,28 +46,28 @@ remove_pattern <-
 swizzle_from <- "^([0-9]{1,3})([A-Z])(?= .*)" # <4>
 swizzle_to <- "\\2 \\1" # <4>
 
-url1 <-
-  str_c(
-    "https://www.tax.service.gov.uk/",
-    "check-council-tax-band/",
-    "search-council-tax-advanced?",
-    "postcode=Fkvms5WVQum-uX3L00_pcA&",
-    "filters.councilTaxBands="
-  )
-
-url2 <- "&filters.propertyUse=N&postcode=Fkvms5WVQum-uX3L00_pcA&page="
-
-url3 <- "&filters.bandStatus=Current"
-
-index <- crossing(band = LETTERS[1:8], page = seq(0, 120, 1))
-
-band_df <- map2(index$band, index$page, possibly(\(i, j) {
-  str_c(url1, i, url2, j, url3) |>
-    read_html() |>
-    html_element("#search-results-table") |>
-    html_table(convert = FALSE)
-}, otherwise = NA_character_)) |> 
-  list_rbind()
+# url1 <-
+#   str_c(
+#     "https://www.tax.service.gov.uk/",
+#     "check-council-tax-band/",
+#     "search-council-tax-advanced?",
+#     "postcode=Fkvms5WVQum-uX3L00_pcA&",
+#     "filters.councilTaxBands="
+#   )
+# 
+# url2 <- "&filters.propertyUse=N&postcode=Fkvms5WVQum-uX3L00_pcA&page="
+# 
+# url3 <- "&filters.bandStatus=Current"
+# 
+# index <- crossing(band = LETTERS[1:8], page = seq(0, 120, 1))
+# 
+# band_df <- map2(index$band, index$page, possibly(\(i, j) {
+#   str_c(url1, i, url2, j, url3) |>
+#     read_html() |>
+#     html_element("#search-results-table") |>
+#     html_table(convert = FALSE)
+# }, otherwise = NA_character_)) |>
+#   list_rbind()
 
 # saveRDS(band_df, "band_df")
 band_df <- readRDS("band_df")
@@ -75,11 +75,12 @@ band_df <- readRDS("band_df")
 band_df2 <- 
   band_df |> 
   clean_names() |> 
-  mutate(postcode = str_extract(address, "SW10 .+$"),
-         raw_band_address = str_remove(address, ", London, SW10 .+$"),
-         address = str_remove_all(address, remove_pattern),
-         address = str_replace(address, swizzle_from, swizzle_to),
-         address = str_squish(address)
+  mutate(
+    postcode = str_extract(address, "SW10 .+$"),
+    raw_band_address = str_remove(address, ", London, SW10 .+$"),
+    address = str_remove_all(address, remove_pattern),
+    address = str_replace(address, swizzle_from, swizzle_to),
+    address = str_squish(address)
   )
 
 endpoint <- "https://landregistry.data.gov.uk/landregistry/query"
@@ -115,11 +116,10 @@ WHERE
     BIND(ppd:standardPricePaidTransaction AS ?ppd_transactionCategory)
   }'
 
-prices_list <- SPARQL(endpoint, query)
+prices_list <- sparql_select(endpoint, query)
 
 prices_df2 <-
-  prices_list$results |>
-  as_tibble() |> 
+  prices_list |>
   clean_names() |>
   rename_with(~ str_remove_all(., "ppd_|property_address_")) |>
   mutate(
@@ -151,14 +151,16 @@ joined_df <-
   arrange(postcode, address) |>
   mutate(council_tax_band = factor(council_tax_band))
 
-set.seed(2022)
-
-joined_df |>
-  select(`common address` = address,
-         `band address` = raw_band_address,
-         `price address` = raw_price_address,
-         postcode) |>
-  slice_sample(n = 6)
+# set.seed(2022)
+# 
+# joined_df |>
+#   select(
+#     `common address` = address,
+#     `band address` = raw_band_address,
+#     `price address` = raw_price_address,
+#     postcode
+#     ) |>
+#   slice_sample(n = 6)
 
 joined_df |>
   select(transaction_date, price_paid, council_tax_band) |>
@@ -215,7 +217,7 @@ joined_df |>
   )
 
 joined_df2 <- joined_df |>
-  mutate(`SW10 0JR` = if_else(postcode == "SW10 0JR", "Yes", "No"))
+  mutate(`SW10 0JR` = recode_values(postcode, "SW10 0JR" ~ "Yes", default = "No"))
 
 joined_df2 |>
   ggplot(aes(council_tax_band, price_paid, fill = `SW10 0JR`)) +
@@ -246,8 +248,8 @@ joined_df2 |>
   count(postcode, sort = TRUE) |>
   slice_head(n = 10)
 
-joined_df3 <- joined_df |> 
-  filter(postcode != "SW10 0JR")
+joined_df3 <- joined_df |>
+  filter_out(postcode == "SW10 0JR")
 
 labels <- joined_df3 |>
   summarise(n = n(), mean_price = mean(price_paid),

@@ -19,13 +19,10 @@ Whilst properties can and do move to higher or lower bands following alteration,
 
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr", quiet = TRUE)
-conflicts_prefer(lubridate::as_date)
 library(rvest)
 library(scales)
-library(SPARQL)
+library(sparqlr)
 library(clock)
-conflicts_prefer(clock::date_format)
 library(glue)
 library(janitor)
 library(infer)
@@ -34,6 +31,9 @@ library(ggfx)
 library(paletteer)
 library(ggfoundry)
 library(usedthese)
+
+conflict_prefer_all("dplyr", quiet = TRUE)
+conflicts_prefer(lubridate::as_date, clock::date_format)
 
 conflict_scout()
 ```
@@ -131,16 +131,17 @@ band_df <- readRDS("band_df")
 ```
 
 ```{r}
-#| label: clean bands
+#| label: clean-bands
 
 band_df2 <- 
   band_df |> 
   clean_names() |> 
-  mutate(postcode = str_extract(address, "SW10 .+$"),
-         raw_band_address = str_remove(address, ", London, SW10 .+$"),
-         address = str_remove_all(address, remove_pattern),
-         address = str_replace(address, swizzle_from, swizzle_to),
-         address = str_squish(address)
+  mutate(
+    postcode = str_extract(address, "SW10 .+$"),
+    raw_band_address = str_remove(address, ", London, SW10 .+$"),
+    address = str_remove_all(address, remove_pattern),
+    address = str_replace(address, swizzle_from, swizzle_to),
+    address = str_squish(address)
   )
 ```
 
@@ -184,15 +185,14 @@ WHERE
     BIND(ppd:standardPricePaidTransaction AS ?ppd_transactionCategory)
   }'
 
-prices_list <- SPARQL(endpoint, query)
+prices_list <- sparql_select(endpoint, query)
 ```
 
 ```{r}
-#| label: clean prices
+#| label: clean-prices
 
 prices_df2 <-
-  prices_list$results |>
-  as_tibble() |> 
+  prices_list |>
   clean_names() |>
   rename_with(~ str_remove_all(., "ppd_|property_address_")) |>
   mutate(
@@ -239,10 +239,12 @@ joined_df <-
 set.seed(2022)
 
 joined_df |>
-  select(`common address` = address,
-         `band address` = raw_band_address,
-         `price address` = raw_price_address,
-         postcode) |>
+  select(
+    `common address` = address,
+    `band address` = raw_band_address,
+    `price address` = raw_price_address,
+    postcode
+    ) |>
   slice_sample(n = 6)
 ```
 
@@ -320,11 +322,11 @@ joined_df |>
   )
 ```
 
-```{r exclude}
+```{r}
 #| label: exclude
 
 joined_df2 <- joined_df |>
-  mutate(`SW10 0JR` = if_else(postcode == "SW10 0JR", "Yes", "No"))
+  mutate(`SW10 0JR` = recode_values(postcode, "SW10 0JR" ~ "Yes", default = "No"))
 ```
 
 It turns out that the unusual transactions below £0.3m are almost entirely from one postcode as shown below when isolating "SW10 0JR". This appears to be a single large new development with all sub-units sold in 2020.
@@ -369,8 +371,8 @@ So, I'll remove this postcode.
 ```{r}
 #| label: remove
 
-joined_df3 <- joined_df |> 
-  filter(postcode != "SW10 0JR")
+joined_df3 <- joined_df |>
+  filter_out(postcode == "SW10 0JR")
 ```
 
 This now feels like a representative sample of `r joined_df3 |> nrow()` property transactions. And broadly-speaking the plot shows a progression in average property values as we step through the bands. There is though substantial convergence between some, with the "drippy" band E still looking almost indistinguishable from band D.
