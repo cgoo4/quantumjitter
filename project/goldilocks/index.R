@@ -1,11 +1,12 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr", quiet = TRUE)
 library(scales)
 library(truncnorm)
 library(paletteer)
 library(ggfoundry)
 library(usedthese)
+
+conflict_prefer_all("dplyr", quiet = TRUE)
 
 conflict_scout()
 
@@ -26,12 +27,14 @@ stock_data <- tibble(
 
 mean(stock_data$return)
 
-stock_data |> 
-  ggplot(aes(return)) +
+ggplot(stock_data, aes(return)) +
   geom_histogram(fill = pal[2]) +
   scale_x_continuous(labels = label_percent()) +
-  labs(title = "50 Randomly-generated Stock Returns", 
-       x = "Annual Return", y = "Count")
+  labs(
+    title = "50 Randomly-generated Stock Returns",
+    x = "Annual Return",
+    y = "Count"
+  )
 
 portfolio <- \(x) {
   stock_data |>
@@ -39,21 +42,23 @@ portfolio <- \(x) {
     summarise(
       portfolio_return = mean(return),
       portfolio_size = x
-    ) |>
-    bind_rows()
+    )
 }
 
 set.seed(456)
 
 portfolios <-
-  map(c(
-    rep(2, 1000),
-    rep(5, 1000),
-    rep(10, 1000),
-    rep(20, 1000),
-    rep(50, 1000)
-  ), portfolio) |>
-  list_rbind() |> 
+  map(
+    c(
+      rep(2, 1000),
+      rep(5, 1000),
+      rep(10, 1000),
+      rep(20, 1000),
+      rep(50, 1000)
+    ),
+    portfolio
+  ) |>
+  list_rbind() |>
   mutate(portfolio_size = factor(portfolio_size))
 
 mean_returns <- portfolios |>
@@ -63,23 +68,26 @@ mean_returns <- portfolios |>
     .by = portfolio_size
   )
 
-portfolios |>
-  ggplot(aes(portfolio_size, portfolio_return, group = portfolio_size)) +
+ggplot(
+  portfolios,
+  aes(portfolio_size, portfolio_return, group = portfolio_size)
+) +
   geom_violin(aes(fill = portfolio_size), show.legend = FALSE) +
-  geom_label(aes(portfolio_size, 1.5,
-    label = percent(mean_return, accuracy = 1)
-  ),
-  data = mean_returns, fill = pal[4],
+  geom_label(
+    aes(portfolio_size, 1.5, label = percent(mean_return, accuracy = 1)),
+    data = mean_returns,
+    fill = pal[4],
   ) +
-  geom_label(aes(portfolio_size, -0.2,
-    label = percent(min_return, accuracy = 1)
-  ),
-  data = mean_returns, fill = pal[1],
+  geom_label(
+    aes(portfolio_size, -0.2, label = percent(min_return, accuracy = 1)),
+    data = mean_returns,
+    fill = pal[1],
   ) +
   scale_y_continuous(labels = label_percent(), breaks = breaks_extended(9)) +
-  scale_fill_manual(values = pal[c(1:5)]) +
+  scale_fill_manual(values = pal[1:5]) +
   labs(
-    x = "Portfolio Size", y = "Return",
+    x = "Portfolio Size",
+    y = "Return",
     title = "How Portfolio Size Changes Downside & Upside Risk",
     subtitle = "BLUE Labels = Mean Return; BROWN Labels = Worst Return"
   )
