@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Refresh project listing",
+      "detail": "Re-render the listing page so 'Updated' dates reflect recent edits, then commit and push.",
+      "type": "shell",
+      "command": "./refresh-listing.sh",
+      "args": ["${input:commitMessage}"],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "type": "promptString",
+      "description": "Commit message (Enter for default)",
+      "default": "Refresh project listing updated dates"
+    }
+  ]
+}

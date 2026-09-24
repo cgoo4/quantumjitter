@@ -439,7 +439,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 30, 2024</p>
+      <p class="date-modified">September 24, 2026</p>
     </div>
   </div>
     
@@ -481,7 +481,7 @@ div.csl-indent {
 <span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://emilhvitfeldt.github.io/paletteer/reference/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">pal_name</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">display_palette</span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -499,12 +499,12 @@ div.csl-indent {
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu">tidyverse</span><span class="fu">::</span><span class="fu"><a href="https://tidyverse.tidyverse.org/reference/tidyverse_packages.html">tidyverse_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    <span class="fu">fpp3</span><span class="fu">::</span><span class="fu">fpp3_packages</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="fu">fpp3</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/fpp3package/reference/fpp3_packages.html">fpp3_packages</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    <span class="fu">tidymodels</span><span class="fu">::</span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_packages.html">tidymodels_packages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><code>used_here()</code> has already been used in <a href="https://www.quantumjitter.com/project/">Quantum Jitter projects</a> to generate a usage table at the foot of each project with the CSS class <em>usedthese</em>. <code>used_there()</code> may now be used to web-scrape all the tables with this class to aggregate package and function usage data.</p>
+<p><code><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here()</a></code> has already been used in <a href="https://www.quantumjitter.com/project/">Quantum Jitter projects</a> to generate a usage table at the foot of each project with the CSS class <em>usedthese</em>. <code><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there()</a></code> may now be used to web-scrape all the tables with this class to aggregate package and function usage data.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"stats"</span>,</span>
@@ -517,15 +517,17 @@ div.csl-indent {
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">used_df</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">used_there</span><span class="op">(</span><span class="st">"https://www.quantumjitter.com/project/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>multiverse <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match</a></span><span class="op">(</span></span>
-<span>    <span class="va">Package</span>,</span>
-<span>    <span class="va">tidy</span> <span class="op">~</span> <span class="st">"tidy"</span>,</span>
-<span>    <span class="va">base_packages</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
-<span>    .default <span class="op">=</span> <span class="st">"special"</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_there.html">used_there</a></span><span class="op">(</span><span class="st">"https://www.quantumjitter.com/project/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    multiverse <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode-and-replace-values.html">recode_values</a></span><span class="op">(</span></span>
+<span>      <span class="va">Package</span>,</span>
+<span>      <span class="va">tidy</span> <span class="op">~</span> <span class="st">"tidy"</span>,</span>
+<span>      <span class="va">base_packages</span> <span class="op">~</span> <span class="st">"base"</span>,</span>
+<span>      default <span class="op">=</span> <span class="st">"special"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">n_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">used_df</span><span class="op">$</span><span class="va">url</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pack_df</span> <span class="op">&lt;-</span> <span class="va">used_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">Package</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -540,13 +542,12 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    packfun <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="va">Package</span>, <span class="va">Function</span><span class="op">)</span>,</span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
-<span>    .by <span class="op">=</span> <span class="va">name</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>My most commonly used packages and functions are revealed with the help of geomtextpath <span class="citation" data-cites="geomtextpath">(<a href="#ref-geomtextpath" role="doc-biblioref">Cameron and Brand 2024</a>)</span> and a pair of “Catherine wheel” plots.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prep_data</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prep_data</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">used_df</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, <span class="va">multiverse</span>, wt <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -557,7 +558,7 @@ div.csl-indent {
 <span><span class="va">radial_df</span> <span class="op">&lt;-</span> <span class="fu">prep_data</span><span class="op">(</span><span class="va">Package</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">radial_df2</span> <span class="op">&lt;-</span> <span class="fu">prep_data</span><span class="op">(</span><span class="va">Function</span>, <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">prep_lines</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">prep_lines</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>      start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">row</span><span class="op">)</span>,</span>
@@ -569,21 +570,27 @@ div.csl-indent {
 <span><span class="va">lines_df</span> <span class="op">&lt;-</span> <span class="fu">prep_lines</span><span class="op">(</span><span class="va">radial_df</span><span class="op">)</span></span>
 <span><span class="va">lines_df2</span> <span class="op">&lt;-</span> <span class="fu">prep_lines</span><span class="op">(</span><span class="va">radial_df2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">prep_plot</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">data</span>, <span class="va">data2</span>, <span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">prep_plot</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">data</span>, <span class="va">data2</span>, <span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span> <span class="op">:=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, <span class="va">row</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, <span class="va">n</span>, fill <span class="op">=</span> <span class="va">multiverse</span>, colour <span class="op">=</span> <span class="va">multiverse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textpath.html">geom_textpath</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"white"</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textpath.html">geom_textpath</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>,</span>
-<span>      size <span class="op">=</span> <span class="fl">3</span>, colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>      text_only <span class="op">=</span> <span class="cn">TRUE</span>, offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>, angle <span class="op">=</span> <span class="op">-</span><span class="fl">70</span>, hjust <span class="op">=</span> <span class="fl">1</span></span>
+<span>    <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textpath.html">geom_textpath</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>      colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>      text_only <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>,</span>
+<span>      angle <span class="op">=</span> <span class="op">-</span><span class="fl">70</span>,</span>
+<span>      hjust <span class="op">=</span> <span class="fl">1</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textsegment.html">geom_textsegment</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">start</span>, <span class="fl">0.6</span>, xend <span class="op">=</span> <span class="va">end</span>, yend <span class="op">=</span> <span class="fl">0.6</span>, label <span class="op">=</span> <span class="va">multiverse</span><span class="op">)</span>,</span>
 <span>      data <span class="op">=</span> <span class="va">data2</span>,</span>
 <span>      linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>      size <span class="op">=</span> <span class="fl">2</span>, gap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      gap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="op">-</span><span class="fl">7</span>, <span class="st">"pt"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_radial.html">coord_radial</a></span><span class="op">(</span>inner.radius <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span></span>
@@ -600,14 +607,16 @@ div.csl-indent {
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">prep_plot</span><span class="op">(</span><span class="va">radial_df</span>, <span class="va">lines_df</span>, <span class="va">Package</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">prep_plot</span><span class="op">(</span><span class="va">radial_df2</span>, <span class="va">lines_df2</span>, <span class="va">Function</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span></span>
-<span>  title <span class="op">=</span> <span class="st">"Top Package &amp; Function Usage"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Across {n_url} Projects"</span><span class="op">)</span>,</span>
-<span>  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
-<span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
-<span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">p1</span> <span class="op">+</span></span>
+<span>  <span class="va">p2</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Top Package &amp; Function Usage"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Across {n_url} Projects"</span><span class="op">)</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>      plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>      plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/radial-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -617,19 +626,19 @@ div.csl-indent {
 </div>
 <p>This last code chunk generates the word cloud for use as the feature image for this project.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set.seed</span> <span class="op">=</span> <span class="fl">123</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">packfun_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, </span>
-<span>                             replace <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>                             prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    angle <span class="op">=</span> <span class="fl">45</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    label <span class="op">=</span> <span class="va">packfun</span>,</span>
 <span>    size <span class="op">=</span> <span class="va">n</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">multiverse</span>,</span>
 <span>    angle <span class="op">=</span> <span class="va">angle</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_text_wordcloud</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://lepennec.github.io/ggwordcloud/reference/geom_text_wordcloud.html">geom_text_wordcloud</a></span><span class="op">(</span></span>
 <span>    eccentricity <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    grid_margin <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>    seed <span class="op">=</span> <span class="fl">789</span></span>
@@ -648,7 +657,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>This project’s code too should be included in my “favourite things”.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">used_here</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped caption-top table-sm small">
 <thead><tr class="header">
@@ -658,7 +667,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6], library[13], max[1], min[1], sample[1], unique[1]</td>
+<td style="text-align: left;">c[6], library[13], max[1], min[1], sample[1], set.seed[1], unique[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -666,7 +675,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">arrange[2], bind_rows[1], case_match[1], coalesce[1], count[3], desc[1], filter[1], mutate[7], n[1], n_distinct[1], pull[1], row_number[1], summarise[2]</td>
+<td style="text-align: left;">arrange[2], bind_rows[1], coalesce[1], count[3], desc[1], filter[1], mutate[7], n[1], n_distinct[1], recode_values[1], row_number[1], summarise[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
