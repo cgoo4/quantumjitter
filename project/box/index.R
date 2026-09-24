@@ -1,6 +1,5 @@
 library(conflicted)
 library(tidyverse)
-conflict_prefer_all("dplyr", quiet = TRUE)
 library(tidytext)
 library(rvest)
 library(paletteer)
@@ -12,6 +11,8 @@ library(clock)
 library(geomtextpath)
 library(ggfoundry)
 library(usedthese)
+
+conflict_prefer_all("dplyr", quiet = TRUE)
 
 conflict_scout()
 
