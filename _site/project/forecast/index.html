@@ -436,7 +436,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 29, 2024</p>
+      <p class="date-modified">September 24, 2026</p>
     </div>
   </div>
     
@@ -453,13 +453,14 @@ div.csl-indent {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.robjhyndman.com/fpp3/">fpp3</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://clock.r-lib.org">clock</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://emilhvitfeldt.github.io/paletteer/">paletteer</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -470,7 +471,7 @@ div.csl-indent {
 <span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://emilhvitfeldt.github.io/paletteer/reference/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">pal_name</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">display_palette</span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -478,23 +479,57 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">forecast_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mod_ts</span>, <span class="va">hist_ts</span>, <span class="va">facet_var</span>, <span class="va">title</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">fcast_ts</span> <span class="op">&lt;-</span> <span class="va">mod_ts</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">forecast</span><span class="op">(</span>h <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`95%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">95</span><span class="op">)</span>, `80%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">80</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">unpack_hilo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"95%"</span>, <span class="st">"80%"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>fc_spend <span class="op">=</span> <span class="va">spend</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">hist_ts</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">fcast_ts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, fill <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">facet_var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">spend</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`95%_lower`</span>, ymax <span class="op">=</span> <span class="va">`95%_upper`</span><span class="op">)</span>,</span>
+<span>      fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>      colour <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>      na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`80%_lower`</span>, ymax <span class="op">=</span> <span class="va">`80%_upper`</span><span class="op">)</span>,</span>
+<span>      fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>      colour <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>      na.rm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.mean</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"white"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, suffix <span class="op">=</span> <span class="st">"m"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">facet_var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="va">title</span>,</span>
+<span>      x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>      y <span class="op">=</span> <span class="st">"Spend"</span>,</span>
+<span>      subtitle <span class="op">=</span> <span class="st">"80 &amp; 95% Prediction Intervals"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>      legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>      axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>First I’ll check the encoding of the data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span></span>
 <span>  <span class="st">"https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/"</span></span>
 <span></span>
 <span><span class="va">gcloud_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"703943/G-Cloud_spend_data_to_end_March_2018.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dos_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"703952/DOS_spend_data_to_end_March_2018.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gcloud_csv</span>, <span class="va">dos_csv</span><span class="op">)</span></span>
+<span><span class="va">csv_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gcloud_csv</span>, <span class="va">dos_csv</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Use walk to suppress the printing of list element numbers</span></span>
-<span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="va">names</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># walk() avoids printing the list element numbers</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="va">csv_paths</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://readr.tidyverse.org/reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   encoding   confidence
@@ -510,69 +545,73 @@ div.csl-indent {
 </div>
 <p>Next I’ll set up a vector of column names to apply consistently to both files, and import the data with the suggested encoding.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">colnam</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sector"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">colnam</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sector"</span>,</span>
 <span>    <span class="st">"lot"</span>,</span>
 <span>    <span class="st">"date"</span>,</span>
 <span>    <span class="st">"spend"</span>,</span>
 <span>    <span class="st">"status"</span>,</span>
 <span>    <span class="st">"supplier"</span>,</span>
 <span>    <span class="st">"customer"</span>,</span>
-<span>    <span class="st">"framework"</span><span class="op">)</span></span>
+<span>    <span class="st">"framework"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">read_dm</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">read_dm</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>    <span class="va">x</span>,</span>
 <span>    col_names <span class="op">=</span> <span class="va">colnam</span>,</span>
 <span>    skip <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    locale <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span>,</span>
-<span>    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    show_col_types <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">names</span>, <span class="va">read_dm</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gcloud"</span>, <span class="st">"dos"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">csv_paths</span>, <span class="va">read_dm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gcloud"</span>, <span class="st">"dos"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>framework <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">framework</span><span class="op">)</span>, <span class="st">"DOS"</span>, <span class="va">framework</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I’d like to create some new features: Month-end dates, something to distinguish between the two frameworks (<em>G-Cloud</em> or <em>DOS</em>). The spend has a messy format and needs a bit of cleaning too.</p>
 <p>The lot structure for <em>G-Cloud</em> has evolved over time, but fortunately, there is a simple mapping, i.e.&nbsp;<em>PaaS</em> and <em>IaaS</em> became <em>Cloud Hosting</em>, <em>SaaS</em> became <em>Cloud Software</em>, and <em>Specialist Cloud Services</em> became <em>Cloud Support</em>, so I’ll standardise on the latter.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both</span> <span class="op">&lt;-</span> <span class="va">raw</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both</span> <span class="op">&lt;-</span> <span class="va">raw</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    month_end <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span>, </span>
-<span>                           format <span class="op">=</span> <span class="st">"%b-%y-%d"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_days</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>    month_end <span class="op">=</span> <span class="fu"><a href="https://clock.r-lib.org/reference/date_parse.html">date_parse</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%b-%y-%d"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://clock.r-lib.org/reference/clock-arithmetic.html">add_days</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>    date <span class="op">=</span> <span class="fu">yearmonth</span><span class="op">(</span><span class="va">month_end</span><span class="op">)</span>,</span>
-<span>    framework <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">framework</span>, <span class="st">".{3,7}"</span><span class="op">)</span>,</span>
+<span>    framework <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">framework</span>, <span class="st">"G-Cloud|DOS"</span><span class="op">)</span>,</span>
 <span>    spend <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">spend</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">coll</a></span><span class="op">(</span><span class="st">"£"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    spend <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">spend</span>, <span class="st">"^\\("</span>, <span class="st">"-"</span><span class="op">)</span>,</span>
 <span>    spend <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,</span>
-<span>    lot <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span></span>
+<span>    lot <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode-and-replace-values.html">replace_values</a></span><span class="op">(</span></span>
 <span>      <span class="va">lot</span>,</span>
-<span>      <span class="st">"Software as a Service (SaaS)"</span> <span class="op">=</span> <span class="st">"Cloud Software"</span>,</span>
-<span>      <span class="st">"Infrastructure as a Service (IaaS)"</span> <span class="op">=</span> <span class="st">"Cloud Hosting"</span>,</span>
-<span>      <span class="st">"Platform as a Service (PaaS)"</span> <span class="op">=</span> <span class="st">"Cloud Hosting"</span>,</span>
-<span>      <span class="st">"Specialist Cloud Services"</span> <span class="op">=</span> <span class="st">"Cloud Support"</span></span>
-<span>      <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>      <span class="st">"Software as a Service (SaaS)"</span> <span class="op">~</span> <span class="st">"Cloud Software"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Infrastructure as a Service (IaaS)"</span>,</span>
+<span>        <span class="st">"Platform as a Service (PaaS)"</span></span>
+<span>      <span class="op">)</span> <span class="op">~</span> <span class="st">"Cloud Hosting"</span>,</span>
+<span>      <span class="st">"Specialist Cloud Services"</span> <span class="op">~</span> <span class="st">"Cloud Support"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The tidied data now needs to be converted to a <a href="https://github.com/tidyverts/tsibble">tsibble</a><span class="citation" data-cites="tsibble">(<a href="#ref-tsibble" role="doc-biblioref">Wang et al. 2020</a>)</span>, the temporal equivalent of a <a href="https://tibble.tidyverse.org">tibble</a><span class="citation" data-cites="tibble">(<a href="#ref-tibble" role="doc-biblioref">Müller and Wickham 2022</a>)</span>.</p>
 <p>R has evolved since I first wrote this post. At that time, it was necessary to either split the data into the two frameworks (G-Cloud and DOS) and forecast them separately. Or, as I did with the three G-Cloud lots, use the purrr package to iterate through a forecast.</p>
 <p>The tsibble package combined with the newer fable<span class="citation" data-cites="fable">(<a href="#ref-fable" role="doc-biblioref">O’Hara-Wild et al. 2022a</a>)</span> and feasts<span class="citation" data-cites="feasts">(<a href="#ref-feasts" role="doc-biblioref">O’Hara-Wild et al. 2022b</a>)</span> packages, make this easier. One of the defining feature of the tsibble is the <code>key</code>. I want a model for each framework, so I’m setting this as the tsibble <code>key</code> (and the temporal variable as the tsibble <code>index</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both_ts</span> <span class="op">&lt;-</span> <span class="va">both</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both_ts</span> <span class="op">&lt;-</span> <span class="va">both</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>key <span class="op">=</span> <span class="va">framework</span>, index <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">both_ts</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">spend</span>, colour <span class="op">=</span> <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">both_ts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">spend</span>, colour <span class="op">=</span> <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>key_glyph <span class="op">=</span> <span class="st">"timeseries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, suffix <span class="op">=</span> <span class="st">"m"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span>, title <span class="op">=</span> <span class="st">"Monthly Digital Marketplace Sales"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/plot sales-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/plot-sales-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -583,7 +622,7 @@ div.csl-indent {
 <li><p><strong>Seasonality</strong>: Suppliers often manage their sales and financials based on a quarterly cycle, with a particular emphasis on a strong close to the financial year. And Government Buyers may want to make optimal use of their budgets at the close of their financial year (March 31st). Consequently, we see quarterly seasonality with an extra spike at financial year-end.</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both_ts</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">both_ts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">model</span><span class="op">(</span>stl <span class="op">=</span> <span class="fu">STL</span><span class="op">(</span><span class="va">spend</span> <span class="op">~</span> <span class="fu">trend</span><span class="op">(</span>window <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">+</span> <span class="fu">season</span><span class="op">(</span>window <span class="op">=</span> <span class="st">"periodic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">components</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -597,14 +636,20 @@ div.csl-indent {
 </div>
 </div>
 <p>I’ll use <code>auto.arima</code>: <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">AutoRegressive Integrated Moving Average</a> modelling which aims to describe the autocorrelations in the data.</p>
-<p>By setting <code>stepwise</code> and <code>approximation</code> to <code>FALSE</code>, <code>auto.arima</code> will explore a wider range of potential models.</p>
+<p>Setting <code>approximation</code> to <code>FALSE</code> means <code>auto.arima</code> will explore a wider range of potential models. For <em>G-Cloud</em> this works as before. The much shorter <em>DOS</em> series, however, is now rejected by {fable} as “a simple polynomial” and unsuitable for the automatic search, so it’s pinned to an ARIMA(0,1,1) with drift, which continues the series’ recent trajectory.</p>
 <p>I’ll forecast with the default 80% and 95% prediction intervals. This means the darker-shaded 80% range should include the future sales value with an 80% probability. Likewise with a 95% probability when adding the wider and lighter-shaded area.</p>
 <p>Use of <code>autoplot</code> would simplify the code, but personally I like to expose all the data, for example unpacking the prediction intervals, and have finer control over the visualisation.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_ts</span> <span class="op">&lt;-</span> <span class="va">both_ts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">model</span><span class="op">(</span>ARIMA <span class="op">=</span> <span class="fu">ARIMA</span><span class="op">(</span><span class="va">spend</span>, stepwise <span class="op">=</span> <span class="cn">TRUE</span>, approximation <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_ts</span> <span class="op">&lt;-</span> <span class="va">both_ts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">framework</span> <span class="op">==</span> <span class="st">"G-Cloud"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">model</span><span class="op">(</span>ARIMA <span class="op">=</span> <span class="fu">ARIMA</span><span class="op">(</span><span class="va">spend</span>, stepwise <span class="op">=</span> <span class="cn">TRUE</span>, approximation <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span></span>
+<span>    <span class="va">both_ts</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">framework</span> <span class="op">==</span> <span class="st">"DOS"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu">model</span><span class="op">(</span>ARIMA <span class="op">=</span> <span class="fu">ARIMA</span><span class="op">(</span><span class="va">spend</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="fu">pdq</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu">PDQ</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">mod_ts</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mod_ts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">ar_roots</span>, <span class="op">-</span><span class="va">ma_roots</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -621,15 +666,6 @@ div.csl-indent {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">DOS</td>
-<td style="text-align: left;">ARIMA</td>
-<td style="text-align: right;">23.60153</td>
-<td style="text-align: right;">-59.93305</td>
-<td style="text-align: right;">123.8661</td>
-<td style="text-align: right;">124.5720</td>
-<td style="text-align: right;">125.8576</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">G-Cloud</td>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: right;">34.75275</td>
@@ -638,12 +674,20 @@ div.csl-indent {
 <td style="text-align: right;">394.3421</td>
 <td style="text-align: right;">403.7027</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">DOS</td>
+<td style="text-align: left;">ARIMA</td>
+<td style="text-align: right;">22.72166</td>
+<td style="text-align: right;">-61.55661</td>
+<td style="text-align: right;">129.1132</td>
+<td style="text-align: right;">130.5250</td>
+<td style="text-align: right;">132.2468</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_ts</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidy</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tidy</span><span class="op">(</span><span class="va">mod_ts</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -653,7 +697,7 @@ div.csl-indent {
 <col style="width: 13%">
 <col style="width: 16%">
 <col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 16%">
 <col style="width: 14%">
 </colgroup>
 <thead><tr class="header">
@@ -667,102 +711,89 @@ div.csl-indent {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">DOS</td>
-<td style="text-align: left;">ARIMA</td>
-<td style="text-align: left;">ma1</td>
-<td style="text-align: right;">-0.7725021</td>
-<td style="text-align: right;">0.1718544</td>
-<td style="text-align: right;">-4.495096</td>
-<td style="text-align: right;">0.0002213</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">G-Cloud</td>
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ar1</td>
 <td style="text-align: right;">0.9390150</td>
-<td style="text-align: right;">0.0595356</td>
-<td style="text-align: right;">15.772336</td>
+<td style="text-align: right;">0.0595352</td>
+<td style="text-align: right;">15.7724393</td>
 <td style="text-align: right;">0.0000000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">G-Cloud</td>
-<td style="text-align: left;">ARIMA</td>
-<td style="text-align: left;">ma1</td>
-<td style="text-align: right;">-0.5777210</td>
-<td style="text-align: right;">0.1094067</td>
-<td style="text-align: right;">-5.280491</td>
-<td style="text-align: right;">0.0000019</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">G-Cloud</td>
 <td style="text-align: left;">ARIMA</td>
-<td style="text-align: left;">sar1</td>
-<td style="text-align: right;">-0.5124417</td>
-<td style="text-align: right;">0.1142671</td>
-<td style="text-align: right;">-4.484596</td>
-<td style="text-align: right;">0.0000336</td>
+<td style="text-align: left;">ma1</td>
+<td style="text-align: right;">-0.5777210</td>
+<td style="text-align: right;">0.1094064</td>
+<td style="text-align: right;">-5.2805024</td>
+<td style="text-align: right;">0.0000019</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">G-Cloud</td>
 <td style="text-align: left;">ARIMA</td>
+<td style="text-align: left;">sar1</td>
+<td style="text-align: right;">-0.5124417</td>
+<td style="text-align: right;">0.1142670</td>
+<td style="text-align: right;">-4.4846005</td>
+<td style="text-align: right;">0.0000336</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">G-Cloud</td>
+<td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">constant</td>
-<td style="text-align: right;">1.4084703</td>
-<td style="text-align: right;">0.3168159</td>
-<td style="text-align: right;">4.445706</td>
+<td style="text-align: right;">1.4084702</td>
+<td style="text-align: right;">0.3168153</td>
+<td style="text-align: right;">4.4457137</td>
 <td style="text-align: right;">0.0000385</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DOS</td>
+<td style="text-align: left;">ARIMA</td>
+<td style="text-align: left;">ma1</td>
+<td style="text-align: right;">0.1715522</td>
+<td style="text-align: right;">0.4090424</td>
+<td style="text-align: right;">0.4193996</td>
+<td style="text-align: right;">0.6791833</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DOS</td>
+<td style="text-align: left;">ARIMA</td>
+<td style="text-align: left;">constant</td>
+<td style="text-align: right;">2.6875972</td>
+<td style="text-align: right;">1.1737050</td>
+<td style="text-align: right;">2.2898405</td>
+<td style="text-align: right;">0.0324856</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fcast_ts</span> <span class="op">&lt;-</span> <span class="va">mod_ts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">forecast</span><span class="op">(</span>h <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`95%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">95</span><span class="op">)</span>, `80%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">80</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">unpack_hilo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"95%"</span>, <span class="st">"80%"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>fc_spend <span class="op">=</span> <span class="va">spend</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">both_ts</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fcast_ts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, fill <span class="op">=</span> <span class="va">framework</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">spend</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`95%_lower`</span>, ymax <span class="op">=</span> <span class="va">`95%_upper`</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, colour <span class="op">=</span> <span class="cn">NA</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`80%_lower`</span>, ymax <span class="op">=</span> <span class="va">`80%_upper`</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, colour <span class="op">=</span> <span class="cn">NA</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.mean</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, suffix <span class="op">=</span> <span class="st">"m"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">framework</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Digital Marketplace Sales Forecast by Framework"</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Spend"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"80 &amp; 95% Prediction Intervals"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
-<span>    legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forecast_plot</span><span class="op">(</span></span>
+<span>  <span class="va">mod_ts</span>,</span>
+<span>  <span class="va">both_ts</span>,</span>
+<span>  <span class="va">framework</span>,</span>
+<span>  <span class="st">"Digital Marketplace Sales Forecast by Framework"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/auto arima-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/auto-arima-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The G-Cloud framework compromises three lots: Cloud Hosting, Cloud Software and Cloud Support.</p>
+<p>The G-Cloud framework comprises three lots: Cloud Hosting, Cloud Software and Cloud Support.</p>
 <p>I previously combined <code>auto.arima</code> (from the forecast package) with functions from the sweep package, to create multiple forecasts in one shot. tsibble coupled fabletools handle this with the <code>key</code> set to the <code>lot</code> variable.</p>
 <p>An alternative option is hierarchical time-series forecasting which models bottom-up, top-down or middle-out, and ensures the sum of the forecasts at the lower level sum to the top-level forecast. This approach has pros and cons and is not considered here.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gcloud_ts</span> <span class="op">&lt;-</span> <span class="va">both</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">framework</span> <span class="op">==</span> <span class="st">"G-Cloud"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">lot</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gcloud_ts</span> <span class="op">&lt;-</span> <span class="va">both</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">framework</span> <span class="op">==</span> <span class="st">"G-Cloud"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>spend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">spend</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">lot</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>key <span class="op">=</span> <span class="va">lot</span>, index <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">gc_ts</span> <span class="op">&lt;-</span> <span class="va">gcloud_ts</span> <span class="op">|&gt;</span></span>
+<span><span class="va">gcloud_mod</span> <span class="op">&lt;-</span> <span class="va">gcloud_ts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">model</span><span class="op">(</span>ARIMA <span class="op">=</span> <span class="fu">ARIMA</span><span class="op">(</span><span class="va">spend</span>, stepwise <span class="op">=</span> <span class="cn">TRUE</span>, approximation <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">gc_ts</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">gcloud_mod</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">ar_roots</span>, <span class="op">-</span><span class="va">ma_roots</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -818,7 +849,7 @@ div.csl-indent {
 </table>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gc_ts</span> <span class="op">|&gt;</span> <span class="fu">tidy</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tidy</span><span class="op">(</span><span class="va">gcloud_mod</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -864,8 +895,8 @@ div.csl-indent {
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma1</td>
 <td style="text-align: right;">-0.9981867</td>
-<td style="text-align: right;">0.1304425</td>
-<td style="text-align: right;">-7.652312</td>
+<td style="text-align: right;">0.1304427</td>
+<td style="text-align: right;">-7.652299</td>
 <td style="text-align: right;">0.0000000</td>
 </tr>
 <tr class="even">
@@ -873,9 +904,9 @@ div.csl-indent {
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">ma2</td>
 <td style="text-align: right;">0.2242994</td>
-<td style="text-align: right;">0.1224833</td>
-<td style="text-align: right;">1.831265</td>
-<td style="text-align: right;">0.0721114</td>
+<td style="text-align: right;">0.1224835</td>
+<td style="text-align: right;">1.831262</td>
+<td style="text-align: right;">0.0721119</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Cloud Support</td>
@@ -900,9 +931,9 @@ div.csl-indent {
 <td style="text-align: left;">ARIMA</td>
 <td style="text-align: left;">sma2</td>
 <td style="text-align: right;">0.7866476</td>
-<td style="text-align: right;">0.4284425</td>
+<td style="text-align: right;">0.4284424</td>
 <td style="text-align: right;">1.836064</td>
-<td style="text-align: right;">0.0705352</td>
+<td style="text-align: right;">0.0705351</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Cloud Support</td>
@@ -917,37 +948,10 @@ div.csl-indent {
 </table>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fcgc_ts</span> <span class="op">&lt;-</span> <span class="va">gc_ts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">forecast</span><span class="op">(</span>h <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`95%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">95</span><span class="op">)</span>, `80%` <span class="op">=</span> <span class="fu">hilo</span><span class="op">(</span><span class="va">spend</span>, <span class="fl">80</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">unpack_hilo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"95%"</span>, <span class="st">"80%"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>fc_spend <span class="op">=</span> <span class="va">spend</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">gcloud_ts</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fcgc_ts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, fill <span class="op">=</span> <span class="va">lot</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">spend</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`95%_lower`</span>, ymax <span class="op">=</span> <span class="va">`95%_upper`</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, colour <span class="op">=</span> <span class="cn">NA</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">`80%_lower`</span>, ymax <span class="op">=</span> <span class="va">`80%_upper`</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, colour <span class="op">=</span> <span class="cn">NA</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.mean</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_currency.html">label_currency</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"£"</span>, suffix <span class="op">=</span> <span class="st">"m"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">lot</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"G-Cloud Sales Forecast by Lot"</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Spend"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"80 &amp; 95% Prediction Intervals"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
-<span>    legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forecast_plot</span><span class="op">(</span><span class="va">gcloud_mod</span>, <span class="va">gcloud_ts</span>, <span class="va">lot</span>, <span class="st">"G-Cloud Sales Forecast by Lot"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/by lot-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/by-lot-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -956,7 +960,7 @@ div.csl-indent {
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">used_here</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped caption-top table-sm small">
 <thead><tr class="header">
@@ -966,7 +970,7 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[9], is.na[1], library[8], print[1], sum[2]</td>
+<td style="text-align: left;">c[9], function[1], is.na[1], library[8], print[1], sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">clock</td>
@@ -978,15 +982,15 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">bind_rows[3], filter[1], if_else[1], mutate[4], recode[1], rename[2], select[2], summarise[2]</td>
+<td style="text-align: left;">bind_rows[3], filter[3], if_else[1], mutate[3], rename[1], replace_values[1], select[2], summarise[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">fable</td>
-<td style="text-align: left;">ARIMA[2]</td>
+<td style="text-align: left;">ARIMA[3]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fabletools</td>
-<td style="text-align: left;">components[1], forecast[2], glance[2], hilo[4], model[3], tidy[2], unpack_hilo[2]</td>
+<td style="text-align: left;">components[1], forecast[1], glance[2], hilo[2], model[4], tidy[2], unpack_hilo[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">feasts</td>
@@ -998,7 +1002,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[11], autoplot[1], element_text[2], facet_wrap[2], geom_line[5], geom_ribbon[4], ggplot[3], labs[4], scale_colour_manual[2], scale_y_continuous[3], theme[2], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[6], autoplot[1], element_text[1], facet_wrap[1], geom_line[3], geom_ribbon[2], ggplot[2], labs[3], scale_colour_manual[2], scale_y_continuous[2], theme[1], theme_bw[1], theme_set[1], vars[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">paletteer</td>
@@ -1018,7 +1022,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">label_currency[3]</td>
+<td style="text-align: left;">label_currency[2]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stringr</td>
