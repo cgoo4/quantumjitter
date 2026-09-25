@@ -3,10 +3,12 @@
   "tasks": [
     {
       "label": "Refresh project listing",
-      "detail": "Re-render the listing page so 'Updated' dates reflect recent edits, then commit and push.",
+      // "detail": "Re-render the listing page so 'Updated' dates reflect recent edits, then commit and push.",
       "type": "shell",
       "command": "./refresh-listing.sh",
-      "args": ["${input:commitMessage}"],
+      "args": [
+        "${input:commitMessage}"
+      ],
       "group": "build",
       "problemMatcher": []
     }
