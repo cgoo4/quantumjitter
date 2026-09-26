@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">The Goldilocks Principle</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
-    <div class="quarto-category">sample distribution</div>
+    <div class="quarto-category">quant</div>
     <div class="quarto-category">simulation</div>
   </div>
   </div>
@@ -417,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">September 24, 2026</p>
+      <p class="date-modified">September 26, 2026</p>
     </div>
   </div>
     
@@ -427,137 +427,175 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><p><img src="feature.gif" class="img-fluid" alt="Three bowls of porridge rest on a long table. The small bowl has no heat rising from it, whilst the largest bowl is steaming hot. The middle bowl, with a spoon wedged in it, looks just right."></p>
 <p><a href="https://en.wikipedia.org/wiki/Goldilocks_principle">The Goldilocks principle</a> has its origins in a children’s story about a girl who tastes the bowls of porridge left by three bears. She prefers the one that is neither too hot nor too cold, but is just right.</p>
-<p>When it comes to investing in stocks, how many is “just right”?</p>
+<p>When it comes to investing in stocks, how many is ‘just right’?</p>
+<p>Too few and the fortunes of individual stocks can dominate the result. Add more and those stock-specific surprises increasingly cancel one another out. But diversification has a cost if it means moving further down a ranked list of investment ideas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Setup</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/olafmersmann/truncnorm">truncnorm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://emilhvitfeldt.github.io/paletteer/">paletteer</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<p>I’ll use this palette.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Theme &amp; palette</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pal_name</span> <span class="op">&lt;-</span> <span class="st">"wesanderson::Darjeeling2"</span></span>
 <span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://emilhvitfeldt.github.io/paletteer/reference/paletteer_d.html">paletteer_d</a></span><span class="op">(</span><span class="va">pal_name</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ggfoundry/man/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+<span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Suppose the <a href="https://www.investopedia.com/ask/answers/042415/what-average-annual-return-sp-500.asp">average stock market return</a> is around 10%. And you do extensive research, burning the midnight oil, poring over stock fundamentals. Or perhaps you develop a cool machine learning model. And you arrive at a list of 50 promising stocks you feel confident would, on average, deliver well-above-market returns.</p>
-<p>I’ll create some randomly made up stocks with an average return close to 40%. Some will tank due to events one could not foresee; I’ll allow some to lose up to 20%. Similarly, some could generate exceptional returns.</p>
+<p>Suppose some extensive research — or perhaps a cool machine learning model — produces 50 candidate stocks ranked from strongest to weakest. To keep things deliberately artificial, I’ll give the highest-ranked stock an expected return of 22%, declining gradually to 8% for the fiftieth.</p>
+<p>These aren’t forecasts. They’re simply a convenient way of representing diminishing confidence as we move down the list.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">stock_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span><span class="op">(</span></span>
-<span>  stock <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">chartr</a></span><span class="op">(</span><span class="st">"0123456789"</span>, <span class="st">"abcdefghij"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">rtruncnorm</a></span><span class="op">(</span><span class="fl">50</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, mean <span class="op">=</span> <span class="fl">0.4</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">stock_data</span><span class="op">$</span><span class="va">return</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4200244</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stock_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  stock <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Stock %02d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span>,</span>
+<span>  rank <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,</span>
+<span>  expected_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.22</span>, <span class="fl">0.08</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<p>Here’s the resultant distribution I’ll use to assess the impact of portfolio size. Stock markets are fairly close to a normal distribution, albeit with fatter tails due to a few extreme outcomes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">stock_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">return</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Ranked returns</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stock_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">expected_return</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, linewidth <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"50 Randomly-generated Stock Returns"</span>,</span>
-<span>    x <span class="op">=</span> <span class="st">"Annual Return"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Count"</span></span>
+<span>    title <span class="op">=</span> <span class="st">"50 Ranked Stock Ideas"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Expected return declines as the portfolio reaches further down the list"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Rank"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Expected Return"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/distribution-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/ranked-returns-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Expected return declines as the portfolio reaches further down the list"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Now suppose you share 2 stocks, selected at random, with 1,000 of your social network friends (selecting a different pair of stocks for each friend). Will they all still be friends a year later? And if you repeated the same scenario with portfolio sizes of 5, 10, 20 and 50 stocks per person, would that change the outcome? Let’s see.</p>
+<p>Now for the uncertain bit. A stock’s eventual return can be thought of, very simply, as containing a market-wide component and a stock-specific component.</p>
+<p>Diversification can progressively suppress the second, but not the first. So I’ll simulate 5,000 possible outcomes for portfolios containing the top 2, 5, 10, 20 or all 50 stocks.</p>
+<p>The numbers are deliberately schematic — this is a thought experiment rather than an investment model.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">portfolio</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">stock_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">x</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>      portfolio_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">return</span><span class="op">)</span>,</span>
-<span>      portfolio_size <span class="op">=</span> <span class="va">x</span></span>
-<span>    <span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_sims</span> <span class="op">&lt;-</span> <span class="fl">5000</span></span>
+<span><span class="va">market_sd</span> <span class="op">&lt;-</span> <span class="fl">0.08</span></span>
+<span><span class="va">stock_sd</span> <span class="op">&lt;-</span> <span class="fl">0.25</span></span>
+<span></span>
+<span><span class="va">portfolio_sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">simulate_portfolio</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">n</span>, <span class="va">sims</span> <span class="op">=</span> <span class="va">n_sims</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    portfolio_size <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    portfolio_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">stock_data</span><span class="op">$</span><span class="va">expected_return</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">sims</span>, <span class="fl">0</span>, <span class="va">market_sd</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">sims</span>, <span class="fl">0</span>, <span class="va">stock_sd</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">456</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">portfolios</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1000</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="va">portfolio</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">portfolio_sizes</span>, <span class="va">simulate_portfolio</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>portfolio_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">portfolio_size</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">mean_returns</span> <span class="op">&lt;-</span> <span class="va">portfolios</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    mean_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>,</span>
-<span>    min_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>,</span>
-<span>    .by <span class="op">=</span> <span class="va">portfolio_size</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    portfolio_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<span>      <span class="va">portfolio_size</span>,</span>
+<span>      levels <span class="op">=</span> <span class="va">portfolio_sizes</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
-<span>  <span class="va">portfolios</span>,</span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">portfolio_size</span>, <span class="va">portfolio_return</span>, group <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">portfolio_size</span>, <span class="fl">1.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/percent_format.html">percent</a></span><span class="op">(</span><span class="va">mean_return</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">mean_returns</span>,</span>
+<span><span class="va">portfolio_summary</span> <span class="op">&lt;-</span> <span class="va">portfolios</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    mean_return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>,</span>
+<span>    p05 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">portfolio_return</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>    p95 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">portfolio_return</span>, <span class="fl">0.95</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">portfolio_size</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Simlated outcomes</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">portfolios</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      <span class="va">portfolio_size</span>,</span>
+<span>      <span class="va">portfolio_return</span>,</span>
+<span>      group <span class="op">=</span> <span class="va">portfolio_size</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span>,</span>
+<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_return</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
 <span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">3</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">p05</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
+<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">portfolio_size</span>, <span class="op">-</span><span class="fl">0.2</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/percent_format.html">percent</a></span><span class="op">(</span><span class="va">min_return</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">mean_returns</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      y <span class="op">=</span> <span class="va">mean_return</span>,</span>
+<span>      label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">mean_return</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
+<span>    nudge_y <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">2.5</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/breaks_extended.html">breaks_extended</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      y <span class="op">=</span> <span class="va">p05</span>,</span>
+<span>      label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">p05</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
+<span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">2.5</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    breaks <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/breaks_extended.html">breaks_extended</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Portfolio Size"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Return"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"How Portfolio Size Changes Downside &amp; Upside Risk"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"BLUE Labels = Mean Return; BROWN Labels = Worst Return"</span></span>
+<span>    title <span class="op">=</span> <span class="st">"The Goldilocks Trade-off"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Mean and 5th-percentile return across {n_sims} simulated outcomes"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Number of Stocks"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Portfolio Return"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/simulate-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/simulated-outcomes-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Mean and 5th-percentile return across simulated outcomes"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>So, for all portfolio sizes, the average return across your 1,000 friends is around 42%.</p>
-<p>But, when the portfolio size is 2, you may be erased from a few Christmas card lists (or worse). If one of those two stocks has an extreme negative outcome, there’s little else in the portfolio to dissipate the effect. As the portfolio size increases, the risk (downside and upside) dramatically reduces.</p>
-<p>But is more always better? Well, irrespective of whether your list of promising stocks resulted from desk research or a model, there will be a varying degree of confidence in the 50. A machine learning model, for example, would assign class probabilities to each stock.</p>
-<p>So by picking a smaller number, one can select those in which one feels most confident, or which have the highest class probability. And by picking a larger number (ideally across different sectors to further reduce risk) one can weaken the effects of a bad egg or two caused by events no research or model could foresee.</p>
-<p>So perhaps the answer is to pick a worst-case scenario one would be prepared to accept. In the plot above, accepting a small chance of only a 12% return (still better than the historical average market return), might provide the “just right” portfolio. A portfolio of a manageable size, focused on your highest-confidence stocks, and with pretty good odds of the desired return.</p>
+<p>And there’s Goldilocks.</p>
+<p>With only a couple of stocks, the highest-conviction ideas dominate the portfolio — but so does stock-specific risk. Adding stocks initially makes a substantial difference because those individual surprises increasingly cancel one another out.</p>
+<p>Eventually the benefit diminishes. Market-wide uncertainty remains, while every additional holding reaches further down the ranked list and dilutes its expected return.</p>
+<p>Under these particular assumptions, an intermediate portfolio therefore offers the more attractive downside trade-off. Change the assumptions and the ‘just right’ number will change too — which is rather the point.</p>
+<p>Goldilocks isn’t a number. It’s a trade-off.</p>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
@@ -571,7 +609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[1], chartr[1], factor[1], library[7], mean[3], min[1], rep[5], sample[1], set.seed[2]</td>
+<td style="text-align: left;">c[1], factor[1], library[7], mean[2], seq[1], seq_len[1], set.seed[1], sprintf[1], sqrt[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -579,7 +617,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">mutate[1], slice_sample[1], summarise[2]</td>
+<td style="text-align: left;">mutate[1], summarise[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggfoundry</td>
@@ -587,29 +625,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[5], geom_histogram[1], geom_label[2], geom_violin[1], ggplot[2], labs[2], scale_fill_manual[1], scale_x_continuous[1], scale_y_continuous[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[7], geom_label[2], geom_line[1], geom_point[3], geom_violin[1], ggplot[2], labs[2], scale_fill_manual[1], scale_y_continuous[2], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">glue</td>
+<td style="text-align: left;">glue[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">paletteer</td>
 <td style="text-align: left;">paletteer_d[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">purrr</td>
 <td style="text-align: left;">list_rbind[1], map[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">breaks_extended[1], label_percent[2], percent[2]</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">quantile[2], rnorm[2]</td>
+</tr>
 <tr class="odd">
 <td style="text-align: left;">tibble</td>
-<td style="text-align: left;">tibble[1]</td>
+<td style="text-align: left;">tibble[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">truncnorm</td>
-<td style="text-align: left;">rtruncnorm[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>

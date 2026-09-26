@@ -1,7 +1,7 @@
 ---
 title: "The Goldilocks Principle"
 date: "2020-08-09"
-categories: [R, sample distribution, simulation]
+categories: [R, quant, simulation]
 description: "Simulating stock portfolio returns inspired by bowls of porridge left by three bears"
 ---
 
@@ -9,29 +9,32 @@ description: "Simulating stock portfolio returns inspired by bowls of porridge l
 
 [The Goldilocks principle](https://en.wikipedia.org/wiki/Goldilocks_principle) has its origins in a children's story about a girl who tastes the bowls of porridge left by three bears. She prefers the one that is neither too hot nor too cold, but is just right.
 
-When it comes to investing in stocks, how many is "just right"?
+When it comes to investing in stocks, how many is 'just right'?
+
+Too few and the fortunes of individual stocks can dominate the result. Add more and those stock-specific surprises increasingly cancel one another out. But diversification has a cost if it means moving further down a ranked list of investment ideas.
 
 ```{r}
-#| label: libraries
+#| label: setup
+#| code-fold: true
+#| code-summary: "Setup"
 
 library(conflicted)
 library(tidyverse)
 library(scales)
-library(truncnorm)
 library(paletteer)
+library(glue)
 library(ggfoundry)
 library(usedthese)
 
 conflict_prefer_all("dplyr", quiet = TRUE)
-
 conflict_scout()
 ```
-
-I'll use this palette.
 
 ```{r}
 #| label: theme
 #| dev.args: { bg: "transparent" }
+#| code-fold: true
+#| code-summary: "Theme & palette"
 
 theme_set(theme_bw())
 
@@ -42,109 +45,161 @@ pal <- paletteer_d(pal_name)
 display_palette(pal, pal_name)
 ```
 
-Suppose the [average stock market return](https://www.investopedia.com/ask/answers/042415/what-average-annual-return-sp-500.asp) is around 10%. And you do extensive research, burning the midnight oil, poring over stock fundamentals. Or perhaps you develop a cool machine learning model. And you arrive at a list of 50 promising stocks you feel confident would, on average, deliver well-above-market returns.
+Suppose some extensive research --- or perhaps a cool machine learning model --- produces 50 candidate stocks ranked from strongest to weakest. To keep things deliberately artificial, I'll give the highest-ranked stock an expected return of 22%, declining gradually to 8% for the fiftieth.
 
-I'll create some randomly made up stocks with an average return close to 40%. Some will tank due to events one could not foresee; I'll allow some to lose up to 20%. Similarly, some could generate exceptional returns.
+These aren't forecasts. They're simply a convenient way of representing diminishing confidence as we move down the list.
 
 ```{r}
 #| label: synthetic
 
-set.seed(123)
-
 stock_data <- tibble(
-  stock = chartr("0123456789", "abcdefghij", sample(50)),
-  return = rtruncnorm(50, a = -0.2, mean = 0.4, sd = 0.5)
+  stock = sprintf("Stock %02d", 1:50),
+  rank = 1:50,
+  expected_return = seq(0.22, 0.08, length.out = 50)
 )
-
-mean(stock_data$return)
 ```
 
-Here's the resultant distribution I'll use to assess the impact of portfolio size. Stock markets are fairly close to a normal distribution, albeit with fatter tails due to a few extreme outcomes.
 
 ```{r}
-#| label: distribution
+#| label: ranked-returns
+#| fig-alt: "Expected return declines as the portfolio reaches further down the list"
+#| code-fold: true
+#| code-summary: "Ranked returns"
 
-ggplot(stock_data, aes(return)) +
-  geom_histogram(fill = pal[2]) +
-  scale_x_continuous(labels = label_percent()) +
+stock_data |>
+  ggplot(aes(rank, expected_return)) +
+  geom_line(colour = pal[2], linewidth = 0.8) +
+  geom_point(colour = pal[2], size = 1.5) +
+  scale_y_continuous(labels = label_percent()) +
   labs(
-    title = "50 Randomly-generated Stock Returns",
-    x = "Annual Return",
-    y = "Count"
+    title = "50 Ranked Stock Ideas",
+    subtitle = "Expected return declines as the portfolio reaches further down the list",
+    x = "Rank",
+    y = "Expected Return"
   )
 ```
 
-Now suppose you share 2 stocks, selected at random, with 1,000 of your social network friends (selecting a different pair of stocks for each friend). Will they all still be friends a year later? And if you repeated the same scenario with portfolio sizes of 5, 10, 20 and 50 stocks per person, would that change the outcome? Let's see.
+Now for the uncertain bit. A stock's eventual return can be thought of, very simply, as containing a market-wide component and a stock-specific component.
+
+Diversification can progressively suppress the second, but not the first. So I'll simulate 5,000 possible outcomes for portfolios containing the top 2, 5, 10, 20 or all 50 stocks.
+
+The numbers are deliberately schematic --- this is a thought experiment rather than an investment model.
 
 ```{r}
 #| label: simulate
 
-portfolio <- \(x) {
-  stock_data |>
-    slice_sample(n = x, replace = TRUE) |>
-    summarise(
-      portfolio_return = mean(return),
-      portfolio_size = x
-    )
+n_sims <- 5000
+market_sd <- 0.08
+stock_sd <- 0.25
+
+portfolio_sizes <- c(2, 5, 10, 20, 50)
+
+simulate_portfolio <- \(n, sims = n_sims) {
+  tibble(
+    portfolio_size = n,
+    portfolio_return = mean(stock_data$expected_return[seq_len(n)]) +
+      rnorm(sims, 0, market_sd) +
+      rnorm(sims, 0, stock_sd / sqrt(n))
+  )
 }
 
 set.seed(456)
 
 portfolios <-
-  map(
-    c(
-      rep(2, 1000),
-      rep(5, 1000),
-      rep(10, 1000),
-      rep(20, 1000),
-      rep(50, 1000)
-    ),
-    portfolio
-  ) |>
+  map(portfolio_sizes, simulate_portfolio) |>
   list_rbind() |>
-  mutate(portfolio_size = factor(portfolio_size))
-
-mean_returns <- portfolios |>
-  summarise(
-    mean_return = mean(portfolio_return),
-    min_return = min(portfolio_return),
-    .by = portfolio_size
+  mutate(
+    portfolio_size = factor(
+      portfolio_size,
+      levels = portfolio_sizes
+    )
   )
 
-ggplot(
-  portfolios,
-  aes(portfolio_size, portfolio_return, group = portfolio_size)
-) +
-  geom_violin(aes(fill = portfolio_size), show.legend = FALSE) +
-  geom_label(
-    aes(portfolio_size, 1.5, label = percent(mean_return, accuracy = 1)),
-    data = mean_returns,
-    fill = pal[4],
-  ) +
-  geom_label(
-    aes(portfolio_size, -0.2, label = percent(min_return, accuracy = 1)),
-    data = mean_returns,
-    fill = pal[1],
-  ) +
-  scale_y_continuous(labels = label_percent(), breaks = breaks_extended(9)) +
-  scale_fill_manual(values = pal[1:5]) +
-  labs(
-    x = "Portfolio Size",
-    y = "Return",
-    title = "How Portfolio Size Changes Downside & Upside Risk",
-    subtitle = "BLUE Labels = Mean Return; BROWN Labels = Worst Return"
+portfolio_summary <- portfolios |>
+  summarise(
+    mean_return = mean(portfolio_return),
+    p05 = quantile(portfolio_return, 0.05),
+    p95 = quantile(portfolio_return, 0.95),
+    .by = portfolio_size
   )
 ```
 
-So, for all portfolio sizes, the average return across your 1,000 friends is around 42%.
+```{r}
+#| label: simulated-outcomes
+#| fig-alt: "Mean and 5th-percentile return across simulated outcomes"
+#| code-fold: true
+#| code-summary: "Simlated outcomes"
 
-But, when the portfolio size is 2, you may be erased from a few Christmas card lists (or worse). If one of those two stocks has an extreme negative outcome, there's little else in the portfolio to dissipate the effect. As the portfolio size increases, the risk (downside and upside) dramatically reduces.
+portfolios |>
+  ggplot(
+    aes(
+      portfolio_size,
+      portfolio_return,
+      group = portfolio_size
+    )
+  ) +
+  geom_violin(
+    aes(fill = portfolio_size),
+    show.legend = FALSE
+  ) +
+  geom_point(
+    aes(y = mean_return),
+    data = portfolio_summary,
+    fill = pal[4],
+    colour = "white",
+    shape = 21,
+    size = 3
+  ) +
+  geom_point(
+    aes(y = p05),
+    data = portfolio_summary,
+    fill = pal[1],
+    colour = "white",
+    shape = 21,
+    size = 3
+  ) +
+  geom_label(
+    aes(
+      y = mean_return,
+      label = percent(mean_return, accuracy = 1)
+    ),
+    data = portfolio_summary,
+    nudge_y = 0.1,
+    size = 2.5
+  ) +
+  geom_label(
+    aes(
+      y = p05,
+      label = percent(p05, accuracy = 1)
+    ),
+    data = portfolio_summary,
+    nudge_y = -0.1,
+    size = 2.5
+  ) +
+  scale_y_continuous(
+    labels = label_percent(),
+    breaks = breaks_extended(8)
+  ) +
+  scale_fill_manual(values = pal[1:5]) +
+  labs(
+    title = "The Goldilocks Trade-off",
+    subtitle = glue(
+      "Mean and 5th-percentile return across {n_sims} simulated outcomes"
+    ),
+    x = "Number of Stocks",
+    y = "Portfolio Return"
+  )
+```
 
-But is more always better? Well, irrespective of whether your list of promising stocks resulted from desk research or a model, there will be a varying degree of confidence in the 50. A machine learning model, for example, would assign class probabilities to each stock.
+And there's Goldilocks.
 
-So by picking a smaller number, one can select those in which one feels most confident, or which have the highest class probability. And by picking a larger number (ideally across different sectors to further reduce risk) one can weaken the effects of a bad egg or two caused by events no research or model could foresee.
+With only a couple of stocks, the highest-conviction ideas dominate the portfolio --- but so does stock-specific risk. Adding stocks initially makes a substantial difference because those individual surprises increasingly cancel one another out.
 
-So perhaps the answer is to pick a worst-case scenario one would be prepared to accept. In the plot above, accepting a small chance of only a 12% return (still better than the historical average market return), might provide the "just right" portfolio. A portfolio of a manageable size, focused on your highest-confidence stocks, and with pretty good odds of the desired return.
+Eventually the benefit diminishes. Market-wide uncertainty remains, while every additional holding reaches further down the ranked list and dilutes its expected return.
+
+Under these particular assumptions, an intermediate portfolio therefore offers the more attractive downside trade-off. Change the assumptions and the 'just right' number will change too --- which is rather the point.
+
+Goldilocks isn't a number. It's a trade-off.
 
 ## R Toolbox
 
