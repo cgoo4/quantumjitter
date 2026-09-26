@@ -190,7 +190,7 @@ set_df |>
     x = "Category Combinations",
     y = NULL,
     title = "10 Most Frequent Single-Category Services",
-    subtitle = "Focused on Service Categories in the IaaS and PaaS Lot",
+    subtitle = "Service Categories in the IaaS and PaaS Lots",
     caption = "Source: digitalmarketplace.service.gov.uk"
   )
 
@@ -235,7 +235,7 @@ set_df |>
     x = "Category Combinations",
     y = NULL,
     title = "Top Intersections Across all Sets",
-    subtitle = "Focused on Service Categories in the IaaS and PaaS Lot",
+    subtitle = "Service Categories in the IaaS and PaaS Lots",
     caption = "Source: digitalmarketplace.service.gov.uk"
   )
 
