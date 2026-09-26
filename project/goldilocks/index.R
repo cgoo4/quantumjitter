@@ -66,7 +66,6 @@ portfolio_summary <- portfolios |>
   summarise(
     mean_return = mean(portfolio_return),
     p05 = quantile(portfolio_return, 0.05),
-    p95 = quantile(portfolio_return, 0.95),
     .by = portfolio_size
   )
 
@@ -105,7 +104,7 @@ portfolios |>
     ),
     data = portfolio_summary,
     nudge_y = 0.1,
-    size = 2.5
+    size = 3
   ) +
   geom_label(
     aes(
@@ -114,7 +113,7 @@ portfolios |>
     ),
     data = portfolio_summary,
     nudge_y = -0.1,
-    size = 2.5
+    size = 3
   ) +
   scale_y_continuous(
     labels = label_percent(),
@@ -124,7 +123,7 @@ portfolios |>
   labs(
     title = "The Goldilocks Trade-off",
     subtitle = glue(
-      "Mean and 5th-percentile return across {n_sims} simulated outcomes"
+      "Mean and 5th-percentile return across {label_comma()(n_sims)} simulated outcomes"
     ),
     x = "Number of Stocks",
     y = "Portfolio Return"
