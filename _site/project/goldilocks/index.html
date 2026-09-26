@@ -524,73 +524,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Simulated outcomes</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">portfolios</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
-<span>      <span class="va">portfolio_size</span>,</span>
-<span>      <span class="va">portfolio_return</span>,</span>
-<span>      group <span class="op">=</span> <span class="va">portfolio_size</span></span>
+<details class="code-fold"><summary>Simulated outcomes</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bowls</span> <span class="op">&lt;-</span> <span class="va">portfolios</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>return_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">portfolio_return</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">portfolio_summary</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">portfolio_size</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Illustrative steam bands; fill remains continuous.</span></span>
+<span>    bowl <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="va">return_sd</span> <span class="op">&gt;</span> <span class="fl">0.13</span> <span class="op">~</span> <span class="st">"bowl2"</span>,</span>
+<span>      <span class="va">return_sd</span> <span class="op">&gt;</span> <span class="fl">0.095</span> <span class="op">~</span> <span class="st">"bowl1"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"bowl0"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span>,</span>
-<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_return</span><span class="op">)</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
-<span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    shape <span class="op">=</span> <span class="fl">21</span>,</span>
-<span>    size <span class="op">=</span> <span class="fl">3</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">portfolios</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">portfolio_size</span>, <span class="va">portfolio_return</span>, group <span class="op">=</span> <span class="va">portfolio_size</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"grey55"</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/geom_casting.html">geom_casting</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_return</span>, shape <span class="op">=</span> <span class="va">bowl</span>, fill <span class="op">=</span> <span class="va">return_sd</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">bowls</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"grey20"</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">0.18</span>,</span>
+<span>    vjust <span class="op">=</span> <span class="fl">0.36</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">p05</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
 <span>    fill <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"grey20"</span>,</span>
 <span>    shape <span class="op">=</span> <span class="fl">21</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
-<span>      y <span class="op">=</span> <span class="va">mean_return</span>,</span>
-<span>      label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">mean_return</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_return</span>, label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">mean_return</span>, accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
-<span>    nudge_y <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    nudge_y <span class="op">=</span> <span class="fl">0.22</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
-<span>      y <span class="op">=</span> <span class="va">p05</span>,</span>
-<span>      label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">p05</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">p05</span>, label <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="va">p05</span>, accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">portfolio_summary</span>,</span>
 <span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span></span>
+<span>    option <span class="op">=</span> <span class="st">"plasma"</span>,</span>
+<span>    begin <span class="op">=</span> <span class="fl">0.08</span>,</span>
+<span>    end <span class="op">=</span> <span class="fl">0.92</span>,</span>
+<span>    name <span class="op">=</span> <span class="st">"Return SD"</span>,</span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span></span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/breaks_extended.html">breaks_extended</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"The Goldilocks Trade-off"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Mean and 5th-percentile return across {label_comma()(n_sims)} simulated outcomes"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Number of Stocks"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Portfolio Return"</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Portfolio Return"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Bowls: mean return · Dots: 5th percentile\nHotter colours indicate greater variability; steam counts use illustrative bands."</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="index_files/figure-html/simulated-outcomes-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Mean and 5th-percentile return across simulated outcomes"></p>
+<figure class="figure"><p><img src="index_files/figure-html/simulated-outcomes-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Unfilled violins show simulated portfolio returns. Bowls mark mean returns, with brighter colours and more steam indicating greater variability. Dots mark fifth percentiles; the highest is at 20 stocks."></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Upper dots show mean returns — lower dots show fifth percentiles, with 5% of simulated outcomes falling below them. Of the five portfolio sizes tested, 20 stocks has the highest fifth-percentile return under these assumptions.</p>
+<p>Bowls show mean returns and lower dots show fifth percentiles with 5% of simulated outcomes falling below them. Hotter colours indicate greater return variability. The steam counts are illustrative, rather than investment thresholds. Of the five portfolio sizes tested, 20 stocks has the highest fifth-percentile return under these assumptions.</p>
 <p>And there’s Goldilocks.</p>
 <p>With only a couple of stocks, the highest-conviction ideas dominate the portfolio — but so does stock-specific risk. Adding stocks initially makes a substantial difference because those individual surprises increasingly cancel one another out.</p>
 <p>Eventually the benefit diminishes. Market-wide uncertainty remains, while every additional holding reaches further down the ranked list and dilutes its expected return.</p>
@@ -617,15 +628,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">mutate[1], summarise[1]</td>
+<td style="text-align: left;">case_when[1], join_by[1], left_join[1], mutate[2], summarise[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggfoundry</td>
-<td style="text-align: left;">display_palette[1]</td>
+<td style="text-align: left;">display_palette[1], geom_casting[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[7], geom_label[2], geom_line[1], geom_point[3], geom_violin[1], ggplot[2], labs[2], scale_fill_manual[1], scale_y_continuous[2], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[6], element_blank[1], element_text[1], geom_label[2], geom_line[1], geom_point[2], geom_violin[1], ggplot[2], labs[2], scale_fill_viridis_c[1], scale_shape_identity[1], scale_y_continuous[2], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">glue</td>
@@ -641,11 +652,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">scales</td>
-<td style="text-align: left;">breaks_extended[1], label_comma[1], label_percent[2], percent[2]</td>
+<td style="text-align: left;">breaks_extended[1], label_comma[1], label_percent[3], percent[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">stats</td>
-<td style="text-align: left;">quantile[1], rnorm[2]</td>
+<td style="text-align: left;">quantile[1], rnorm[2], sd[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tibble</td>

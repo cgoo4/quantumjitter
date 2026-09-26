@@ -59,7 +59,6 @@ stock_data <- tibble(
 )
 ```
 
-
 ```{r}
 #| label: ranked-returns
 #| fig-alt: "Expected return declines as the portfolio reaches further down the list"
@@ -125,72 +124,85 @@ portfolio_summary <- portfolios |>
 
 ```{r}
 #| label: simulated-outcomes
-#| fig-alt: "Mean and 5th-percentile return across simulated outcomes"
+#| fig-alt: "Unfilled violins show simulated portfolio returns. Bowls mark mean returns, with brighter colours and more steam indicating greater variability. Dots mark fifth percentiles; the highest is at 20 stocks."
+#| fig-width: 8
+#| fig-height: 6
 #| code-fold: true
 #| code-summary: "Simulated outcomes"
 
-portfolios |>
-  ggplot(
-    aes(
-      portfolio_size,
-      portfolio_return,
-      group = portfolio_size
+bowls <- portfolios |>
+  summarise(return_sd = sd(portfolio_return), .by = portfolio_size) |>
+  left_join(portfolio_summary, by = join_by(portfolio_size)) |>
+  mutate(
+    # Illustrative steam bands; fill remains continuous.
+    bowl = case_when(
+      return_sd > 0.13 ~ "bowl2",
+      return_sd > 0.095 ~ "bowl1",
+      TRUE ~ "bowl0"
     )
-  ) +
-  geom_violin(
-    aes(fill = portfolio_size),
-    show.legend = FALSE
-  ) +
-  geom_point(
-    aes(y = mean_return),
-    data = portfolio_summary,
-    fill = pal[4],
-    colour = "white",
-    shape = 21,
-    size = 3
+  )
+
+portfolios |>
+  ggplot(aes(portfolio_size, portfolio_return, group = portfolio_size)) +
+  geom_violin(fill = NA, colour = "grey55", linewidth = 0.5) +
+  geom_casting(
+    aes(y = mean_return, shape = bowl, fill = return_sd),
+    data = bowls,
+    colour = "grey20",
+    size = 0.18,
+    vjust = 0.36
   ) +
   geom_point(
     aes(y = p05),
     data = portfolio_summary,
     fill = pal[1],
-    colour = "white",
+    colour = "grey20",
     shape = 21,
     size = 3
   ) +
   geom_label(
-    aes(
-      y = mean_return,
-      label = percent(mean_return, accuracy = 1)
-    ),
+    aes(y = mean_return, label = percent(mean_return, accuracy = 0.1)),
     data = portfolio_summary,
-    nudge_y = 0.1,
+    nudge_y = 0.22,
+    fill = "white",
     size = 3
   ) +
   geom_label(
-    aes(
-      y = p05,
-      label = percent(p05, accuracy = 1)
-    ),
+    aes(y = p05, label = percent(p05, accuracy = 0.1)),
     data = portfolio_summary,
     nudge_y = -0.1,
+    fill = "white",
     size = 3
+  ) +
+  scale_shape_identity() +
+  scale_fill_viridis_c(
+    option = "plasma",
+    begin = 0.08,
+    end = 0.92,
+    name = "Return SD",
+    labels = label_percent(accuracy = 0.1)
   ) +
   scale_y_continuous(
     labels = label_percent(),
     breaks = breaks_extended(8)
   ) +
-  scale_fill_manual(values = pal[1:5]) +
   labs(
     title = "The Goldilocks Trade-off",
     subtitle = glue(
       "Mean and 5th-percentile return across {label_comma()(n_sims)} simulated outcomes"
     ),
     x = "Number of Stocks",
-    y = "Portfolio Return"
+    y = "Portfolio Return",
+    caption = "Bowls: mean return · Dots: 5th percentile\nHotter colours indicate greater variability; steam counts use illustrative bands."
+  ) +
+  theme(
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(hjust = 0)
   )
 ```
 
-Upper dots show mean returns --- lower dots show fifth percentiles, with 5% of simulated outcomes falling below them. Of the five portfolio sizes tested, 20 stocks has the highest fifth-percentile return under these assumptions.
+Bowls show mean returns and lower dots show fifth percentiles with 5% of simulated outcomes falling below them. Hotter colours indicate greater return variability. The steam counts are illustrative, rather than investment thresholds. Of the five portfolio sizes tested, 20 stocks has the highest fifth-percentile return under these assumptions.
 
 And there's Goldilocks.
 
