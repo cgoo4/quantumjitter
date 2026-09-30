@@ -1,3 +1,8 @@
 /project/thicken/*
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
+
+# Dedicated Worker scripts must carry a matching COEP header themselves —
+# same-origin doesn't exempt them when the owning document sets require-corp.
+/site_libs/quarto-contrib/shinylive-*/shinylive/webr/*-worker.js
+  Cross-Origin-Embedder-Policy: require-corp
