@@ -113,6 +113,67 @@ ui <- page_sidebar(
       border: none; padding: 0;
     }"
   ),
+  # Shinylive/WebR workaround: bslib's own sidebar-init script races against
+  # the page lifecycle in webR and sometimes never runs, leaving the sidebar
+  # stuck with the "hidden" attribute. Poll and force it open as a fallback.
+  # No "&gt;" (i.e. no literal ">") below: the {shinylive-r} chunk pipeline
+  # HTML-escapes it, silently breaking anything that relies on it.
+  tags$script(HTML(
+    r"(
+(function () {
+  // A WebR/shinylive boot race can leave duplicate .sidebar and
+  // .collapse-toggle nodes: one empty (but correctly placed), one real
+  // (but nested too deep and hidden). Keep the content-heaviest copy,
+  // delete the decoys, and reparent the survivor as a direct child.
+  function pickReal(els) {
+    var best = els[0];
+    for (var i = 1; i < els.length; i++) {
+      if ((els[i].innerHTML || "").length >
+          (best.innerHTML || "").length) best = els[i];
+    }
+    return best;
+  }
+  function dedupe(layout, cls) {
+    var els = Array.prototype.slice.call(
+      layout.querySelectorAll("." + cls)
+    );
+    if (els.length === 0) return null;
+    var real = pickReal(els);
+    for (var i = 0; i < els.length; i++) {
+      if (els[i] !== real && els[i].parentNode) {
+        els[i].parentNode.removeChild(els[i]);
+      }
+    }
+    if (real.parentNode !== layout) layout.appendChild(real);
+    return real;
+  }
+  function fixLayout(layout) {
+    var aside = dedupe(layout, "sidebar");
+    var openDesktop = layout.getAttribute("data-open-desktop");
+    var collapsed = layout.classList.contains("sidebar-collapsed");
+    if (
+      aside && aside.hasAttribute("hidden") && !collapsed &&
+      openDesktop !== "close" && openDesktop !== "closed"
+    ) {
+      aside.removeAttribute("hidden");
+    }
+    dedupe(layout, "collapse-toggle");
+  }
+  function fixAllLayouts() {
+    var layouts = document.querySelectorAll(".bslib-sidebar-layout");
+    for (var i = 0; i < layouts.length; i++) fixLayout(layouts[i]);
+  }
+  var tries = 0;
+  var pollId = setInterval(function () {
+    fixAllLayouts();
+    tries = tries + 1;
+    if (tries === 60) clearInterval(pollId);
+  }, 500);
+  document.addEventListener("DOMContentLoaded", fixAllLayouts);
+  window.addEventListener("load", fixAllLayouts);
+})();
+  )"
+  )),
   sidebar(
     open = "desktop",
     card(
@@ -266,18 +327,70 @@ pal <- wes_palette(8, name = "IsleofDogs1", type = "continuous")
 ui <- page_sidebar(
   theme = bs_theme(bootswatch = "simplex", primary = "#9986A5"),
   title = "Plot Plotter",
-  # Shinylive/WebR workaround: bslib's collapse-toggle stays in normal flow
-  # inside main, starving the fill layout (plot renders at zero height).
-  # Pin it until fixed upstream (bslib JS never repositions it in WebR).
-  tags$style(
-    ".bslib-page-main .collapse-toggle {
-      position: absolute; top: calc(var(--_icon-size, 1rem) / 2);
-      right: var(--_icon-size, 1rem); height: var(--_icon-button-size, 2rem);
-      width: var(--_icon-button-size, 2rem); display: flex;
-      align-items: center; justify-content: center; z-index: 1000;
-      border: none; padding: 0;
-    }"
-  ),
+  # Shinylive/WebR workaround: bslib's CSS pins .sidebar/.collapse-toggle via
+  # direct-child selectors (".bslib-sidebar-layout > .sidebar" etc.), and a
+  # WebR/shinylive boot race sometimes leaves those elements duplicated --
+  # one empty copy placed correctly, one real copy nested a level too deep
+  # and hidden -- so the sidebar renders as an empty sliver. Deduplicate by
+  # content, reparent the survivor back to a direct child, and clear any
+  # leftover "hidden" attribute, as a fallback for whenever bslib's own init
+  # doesn't do this in time.
+  # No "&gt;" (i.e. no literal ">") below: the {shinylive-r} chunk pipeline
+  # HTML-escapes it, silently breaking anything that relies on it.
+  tags$script(HTML(r"(
+(function () {
+  // A WebR/shinylive boot race can leave duplicate .sidebar and
+  // .collapse-toggle nodes: one empty (but correctly placed), one real
+  // (but nested too deep and hidden). Keep the content-heaviest copy,
+  // delete the decoys, and reparent the survivor as a direct child.
+  function pickReal(els) {
+    var best = els[0];
+    for (var i = 1; i < els.length; i++) {
+      if ((els[i].innerHTML || "").length >
+          (best.innerHTML || "").length) best = els[i];
+    }
+    return best;
+  }
+  function dedupe(layout, cls) {
+    var els = Array.prototype.slice.call(
+      layout.querySelectorAll("." + cls)
+    );
+    if (els.length === 0) return null;
+    var real = pickReal(els);
+    for (var i = 0; i < els.length; i++) {
+      if (els[i] !== real && els[i].parentNode) {
+        els[i].parentNode.removeChild(els[i]);
+      }
+    }
+    if (real.parentNode !== layout) layout.appendChild(real);
+    return real;
+  }
+  function fixLayout(layout) {
+    var aside = dedupe(layout, "sidebar");
+    var openDesktop = layout.getAttribute("data-open-desktop");
+    var collapsed = layout.classList.contains("sidebar-collapsed");
+    if (
+      aside && aside.hasAttribute("hidden") && !collapsed &&
+      openDesktop !== "close" && openDesktop !== "closed"
+    ) {
+      aside.removeAttribute("hidden");
+    }
+    dedupe(layout, "collapse-toggle");
+  }
+  function fixAllLayouts() {
+    var layouts = document.querySelectorAll(".bslib-sidebar-layout");
+    for (var i = 0; i < layouts.length; i++) fixLayout(layouts[i]);
+  }
+  var tries = 0;
+  var pollId = setInterval(function () {
+    fixAllLayouts();
+    tries = tries + 1;
+    if (tries === 60) clearInterval(pollId);
+  }, 500);
+  document.addEventListener("DOMContentLoaded", fixAllLayouts);
+  window.addEventListener("load", fixAllLayouts);
+})();
+  )")),
   sidebar(
     open = "desktop",
     card(
