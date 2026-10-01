@@ -535,56 +535,6 @@ div.csl-indent {
 <span><span class="st">      justify-content: center !important;</span></span>
 <span><span class="st">    }"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">script</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html">HTML</a></span><span class="op">(</span><span class="st">r"(</span></span>
-<span><span class="st">(function () {</span></span>
-<span><span class="st">  function pickReal(els) {</span></span>
-<span><span class="st">    var best = els[0];</span></span>
-<span><span class="st">    for (var i = 1; i &lt; els.length; i++) {</span></span>
-<span><span class="st">      if ((els[i].innerHTML || "").length &gt;</span></span>
-<span><span class="st">          (best.innerHTML || "").length) best = els[i];</span></span>
-<span><span class="st">    }</span></span>
-<span><span class="st">    return best;</span></span>
-<span><span class="st">  }</span></span>
-<span><span class="st">  function dedupe(layout, cls) {</span></span>
-<span><span class="st">    var els = Array.prototype.slice.call(</span></span>
-<span><span class="st">      layout.querySelectorAll("." + cls)</span></span>
-<span><span class="st">    );</span></span>
-<span><span class="st">    if (els.length === 0) return null;</span></span>
-<span><span class="st">    var real = pickReal(els);</span></span>
-<span><span class="st">    for (var i = 0; i &lt; els.length; i++) {</span></span>
-<span><span class="st">      if (els[i] !== real &amp;&amp; els[i].parentNode) {</span></span>
-<span><span class="st">        els[i].parentNode.removeChild(els[i]);</span></span>
-<span><span class="st">      }</span></span>
-<span><span class="st">    }</span></span>
-<span><span class="st">    if (real.parentNode !== layout) layout.appendChild(real);</span></span>
-<span><span class="st">    return real;</span></span>
-<span><span class="st">  }</span></span>
-<span><span class="st">  function fixLayout(layout) {</span></span>
-<span><span class="st">    var aside = dedupe(layout, "sidebar");</span></span>
-<span><span class="st">    var openDesktop = layout.getAttribute("data-open-desktop");</span></span>
-<span><span class="st">    var collapsed = layout.classList.contains("sidebar-collapsed");</span></span>
-<span><span class="st">    if (</span></span>
-<span><span class="st">      aside &amp;&amp; aside.hasAttribute("hidden") &amp;&amp; !collapsed &amp;&amp;</span></span>
-<span><span class="st">      openDesktop !== "close" &amp;&amp; openDesktop !== "closed"</span></span>
-<span><span class="st">    ) {</span></span>
-<span><span class="st">      aside.removeAttribute("hidden");</span></span>
-<span><span class="st">    }</span></span>
-<span><span class="st">    dedupe(layout, "collapse-toggle");</span></span>
-<span><span class="st">  }</span></span>
-<span><span class="st">  function fixAllLayouts() {</span></span>
-<span><span class="st">    var layouts = document.querySelectorAll(".bslib-sidebar-layout");</span></span>
-<span><span class="st">    for (var i = 0; i &lt; layouts.length; i++) fixLayout(layouts[i]);</span></span>
-<span><span class="st">  }</span></span>
-<span><span class="st">  var tries = 0;</span></span>
-<span><span class="st">  var pollId = setInterval(function () {</span></span>
-<span><span class="st">    fixAllLayouts();</span></span>
-<span><span class="st">    tries = tries + 1;</span></span>
-<span><span class="st">    if (tries === 60) clearInterval(pollId);</span></span>
-<span><span class="st">  }, 500);</span></span>
-<span><span class="st">  document.addEventListener("DOMContentLoaded", fixAllLayouts);</span></span>
-<span><span class="st">  window.addEventListener("load", fixAllLayouts);</span></span>
-<span><span class="st">})();</span></span>
-<span><span class="st">  )"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  sidebar <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html">sidebar</a></span><span class="op">(</span></span>
 <span>    open <span class="op">=</span> <span class="st">"desktop"</span>,</span>
 <span>    <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op">(</span></span>
@@ -744,56 +694,6 @@ ui &lt;- page_sidebar(
       justify-content: center !important;
     }"
   ),
-  tags$script(HTML(r"(
-(function () {
-  function pickReal(els) {
-    var best = els[0];
-    for (var i = 1; i &lt; els.length; i++) {
-      if ((els[i].innerHTML || "").length &gt;
-          (best.innerHTML || "").length) best = els[i];
-    }
-    return best;
-  }
-  function dedupe(layout, cls) {
-    var els = Array.prototype.slice.call(
-      layout.querySelectorAll("." + cls)
-    );
-    if (els.length === 0) return null;
-    var real = pickReal(els);
-    for (var i = 0; i &lt; els.length; i++) {
-      if (els[i] !== real &amp;&amp; els[i].parentNode) {
-        els[i].parentNode.removeChild(els[i]);
-      }
-    }
-    if (real.parentNode !== layout) layout.appendChild(real);
-    return real;
-  }
-  function fixLayout(layout) {
-    var aside = dedupe(layout, "sidebar");
-    var openDesktop = layout.getAttribute("data-open-desktop");
-    var collapsed = layout.classList.contains("sidebar-collapsed");
-    if (
-      aside &amp;&amp; aside.hasAttribute("hidden") &amp;&amp; !collapsed &amp;&amp;
-      openDesktop !== "close" &amp;&amp; openDesktop !== "closed"
-    ) {
-      aside.removeAttribute("hidden");
-    }
-    dedupe(layout, "collapse-toggle");
-  }
-  function fixAllLayouts() {
-    var layouts = document.querySelectorAll(".bslib-sidebar-layout");
-    for (var i = 0; i &lt; layouts.length; i++) fixLayout(layouts[i]);
-  }
-  var tries = 0;
-  var pollId = setInterval(function () {
-    fixAllLayouts();
-    tries = tries + 1;
-    if (tries === 60) clearInterval(pollId);
-  }, 500);
-  document.addEventListener("DOMContentLoaded", fixAllLayouts);
-  window.addEventListener("load", fixAllLayouts);
-})();
-  )")),
   sidebar = sidebar(
     open = "desktop",
     card(
@@ -900,7 +800,7 @@ shinyApp(ui, server)
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[3], for[3], format[1], function[4], if[6], library[8], list[1], switch[1]</td>
+<td style="text-align: left;">c[3], format[1], function[2], library[8], list[1], switch[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>
@@ -920,7 +820,7 @@ shinyApp(ui, server)
 </tr>
 <tr class="even">
 <td style="text-align: left;">htmltools</td>
-<td style="text-align: left;">HTML[1], img[1], span[1]</td>
+<td style="text-align: left;">img[1], span[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">httr2</td>

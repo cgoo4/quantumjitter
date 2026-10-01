@@ -64,56 +64,6 @@ ui <- page_sidebar(
       justify-content: center !important;
     }"
   ),
-  tags$script(HTML(r"(
-(function () {
-  function pickReal(els) {
-    var best = els[0];
-    for (var i = 1; i < els.length; i++) {
-      if ((els[i].innerHTML || "").length >
-          (best.innerHTML || "").length) best = els[i];
-    }
-    return best;
-  }
-  function dedupe(layout, cls) {
-    var els = Array.prototype.slice.call(
-      layout.querySelectorAll("." + cls)
-    );
-    if (els.length === 0) return null;
-    var real = pickReal(els);
-    for (var i = 0; i < els.length; i++) {
-      if (els[i] !== real && els[i].parentNode) {
-        els[i].parentNode.removeChild(els[i]);
-      }
-    }
-    if (real.parentNode !== layout) layout.appendChild(real);
-    return real;
-  }
-  function fixLayout(layout) {
-    var aside = dedupe(layout, "sidebar");
-    var openDesktop = layout.getAttribute("data-open-desktop");
-    var collapsed = layout.classList.contains("sidebar-collapsed");
-    if (
-      aside && aside.hasAttribute("hidden") && !collapsed &&
-      openDesktop !== "close" && openDesktop !== "closed"
-    ) {
-      aside.removeAttribute("hidden");
-    }
-    dedupe(layout, "collapse-toggle");
-  }
-  function fixAllLayouts() {
-    var layouts = document.querySelectorAll(".bslib-sidebar-layout");
-    for (var i = 0; i < layouts.length; i++) fixLayout(layouts[i]);
-  }
-  var tries = 0;
-  var pollId = setInterval(function () {
-    fixAllLayouts();
-    tries = tries + 1;
-    if (tries === 60) clearInterval(pollId);
-  }, 500);
-  document.addEventListener("DOMContentLoaded", fixAllLayouts);
-  window.addEventListener("load", fixAllLayouts);
-})();
-  )")),
   sidebar = sidebar(
     open = "desktop",
     card(
