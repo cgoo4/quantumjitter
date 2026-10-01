@@ -114,7 +114,7 @@ ui <- page_sidebar(
   window.addEventListener("load", fixAllLayouts);
 })();
   )")),
-  sidebar(
+  sidebar = sidebar(
     open = "desktop",
     card(
       card_header("Options"),
