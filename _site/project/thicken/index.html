@@ -584,12 +584,16 @@ div.csl-indent {
 <p>The server component outputs a faceted ggplot.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">pv_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">pv_history</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span><span class="op">)</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">article</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>article <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">article</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>article <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">article</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">pv_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">pv_history</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -742,12 +746,16 @@ ui &lt;- page_sidebar(
 
 ## ---- server ----
 server &lt;- function(input, output, session) {
-  pv_df &lt;- reactive({
+  pv_history &lt;- reactive({
     req(input$article)
     input$article |&gt;
       map(pv) |&gt;
       list_rbind() |&gt;
-      mutate(article = str_replace_all(article, "_", " ")) |&gt;
+      mutate(article = str_replace_all(article, "_", " "))
+  })
+
+  pv_df &lt;- reactive({
+    pv_history() |&gt;
       filter(date &gt;= input$dates[1], date &lt;= input$dates[2])
   })
 
@@ -1145,7 +1153,7 @@ YII=
 </tr>
 <tr class="even">
 <td style="text-align: left;">shiny</td>
-<td style="text-align: left;">dateRangeInput[1], plotOutput[1], reactive[1], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
+<td style="text-align: left;">dateRangeInput[1], plotOutput[1], reactive[2], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">stats</td>

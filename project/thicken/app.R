@@ -112,12 +112,16 @@ ui <- page_sidebar(
 
 ## ---- server ----
 server <- function(input, output, session) {
-  pv_df <- reactive({
+  pv_history <- reactive({
     req(input$article)
     input$article |>
       map(pv) |>
       list_rbind() |>
-      mutate(article = str_replace_all(article, "_", " ")) |>
+      mutate(article = str_replace_all(article, "_", " "))
+  })
+
+  pv_df <- reactive({
+    pv_history() |>
       filter(date >= input$dates[1], date <= input$dates[2])
   })
 
