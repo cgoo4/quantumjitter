@@ -496,7 +496,7 @@ div.csl-indent {
 </div>
 <p>The page-view data comes from the Wikimedia API. A function wrapped around {httr2} <span class="citation" data-cites="httr2">(<a href="#ref-httr2" role="doc-biblioref">Wickham 2026</a>)</span> calls the endpoint directly, so I can later iterate through a subset of the list established in the prior code chunk. This replaces the {pageviews} package, which has no WebAssembly build – a detail that matters now the app runs in the browser rather than on a server.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">article</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">article</span>, <span class="va">end_date</span> <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op">(</span><span class="st">"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_path_append</a></span><span class="op">(</span></span>
 <span>      <span class="st">"en.wikipedia"</span>,</span>
@@ -505,7 +505,7 @@ div.csl-indent {
 <span>      <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span><span class="op">(</span><span class="va">article</span>, reserved <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>      <span class="st">"daily"</span>,</span>
 <span>      <span class="st">"2015070100"</span>,</span>
-<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y%m%d"</span><span class="op">)</span>, <span class="st">"00"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">end_date</span>, <span class="st">"%Y%m%d"</span><span class="op">)</span>, <span class="st">"00"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://httr2.r-lib.org/reference/resp_body_raw.html">resp_body_json</a></span><span class="op">(</span>simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -584,10 +584,19 @@ div.csl-indent {
 <p>The server component outputs a faceted ggplot.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">pv_cached</span> <span class="op">&lt;-</span> <span class="fu">memoise</span><span class="fu">::</span><span class="fu"><a href="https://memoise.r-lib.org/reference/memoise.html">memoise</a></span><span class="op">(</span></span>
+<span>    <span class="va">pv</span>,</span>
+<span>    cache <span class="op">=</span> <span class="fu">cachem</span><span class="fu">::</span><span class="fu"><a href="https://cachem.r-lib.org/reference/cache_mem.html">cache_mem</a></span><span class="op">(</span></span>
+<span>      max_size <span class="op">=</span> <span class="fl">32</span> <span class="op">*</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span>,</span>
+<span>      max_age <span class="op">=</span> <span class="fl">3600</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
 <span>  <span class="va">pv_history</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">article</span><span class="op">)</span></span>
+<span>    <span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">article</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pv_cached</span>, end_date <span class="op">=</span> <span class="va">end_date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>article <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">article</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -656,7 +665,7 @@ charts &lt;-
   )
 
 ## ---- pageview ----
-pv &lt;- function(article) {
+pv &lt;- function(article, end_date = today()) {
   request("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article") |&gt;
     req_url_path_append(
       "en.wikipedia",
@@ -665,7 +674,7 @@ pv &lt;- function(article) {
       URLencode(article, reserved = TRUE),
       "daily",
       "2015070100",
-      str_c(format(today(), "%Y%m%d"), "00")
+      str_c(format(end_date, "%Y%m%d"), "00")
     ) |&gt;
     req_perform() |&gt;
     resp_body_json(simplify = TRUE) |&gt;
@@ -746,10 +755,19 @@ ui &lt;- page_sidebar(
 
 ## ---- server ----
 server &lt;- function(input, output, session) {
+  pv_cached &lt;- memoise::memoise(
+    pv,
+    cache = cachem::cache_mem(
+      max_size = 32 * 1024^2,
+      max_age = 3600
+    )
+  )
+
   pv_history &lt;- reactive({
     req(input$article)
+    end_date &lt;- today()
     input$article |&gt;
-      map(pv) |&gt;
+      map(pv_cached, end_date = end_date) |&gt;
       list_rbind() |&gt;
       mutate(article = str_replace_all(article, "_", " "))
   })
@@ -1116,28 +1134,36 @@ YII=
 <td style="text-align: left;">bs_theme[1], card[2], card_body[1], card_header[1], page_sidebar[1], sidebar[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">cachem</td>
+<td style="text-align: left;">cache_mem[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">conflicted</td>
 <td style="text-align: left;">conflict_prefer_all[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">dplyr</td>
 <td style="text-align: left;">filter[1], mutate[2], select[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[1], element_text[1], facet_wrap[1], geom_line[1], geom_smooth[1], ggplot[1], labs[1], margin[1], scale_colour_manual[1], scale_y_log10[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">htmltools</td>
 <td style="text-align: left;">img[1], span[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">httr2</td>
 <td style="text-align: left;">req_perform[1], req_url_path_append[1], request[1], resp_body_json[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">lubridate</td>
-<td style="text-align: left;">today[1], ymd[1]</td>
+<td style="text-align: left;">today[2], ymd[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memoise</td>
+<td style="text-align: left;">memoise[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">purrr</td>

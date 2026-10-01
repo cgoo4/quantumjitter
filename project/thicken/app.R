@@ -22,7 +22,7 @@ charts <-
   )
 
 ## ---- pageview ----
-pv <- function(article) {
+pv <- function(article, end_date = today()) {
   request("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article") |>
     req_url_path_append(
       "en.wikipedia",
@@ -31,7 +31,7 @@ pv <- function(article) {
       URLencode(article, reserved = TRUE),
       "daily",
       "2015070100",
-      str_c(format(today(), "%Y%m%d"), "00")
+      str_c(format(end_date, "%Y%m%d"), "00")
     ) |>
     req_perform() |>
     resp_body_json(simplify = TRUE) |>
@@ -112,10 +112,19 @@ ui <- page_sidebar(
 
 ## ---- server ----
 server <- function(input, output, session) {
+  pv_cached <- memoise::memoise(
+    pv,
+    cache = cachem::cache_mem(
+      max_size = 32 * 1024^2,
+      max_age = 3600
+    )
+  )
+
   pv_history <- reactive({
     req(input$article)
+    end_date <- today()
     input$article |>
-      map(pv) |>
+      map(pv_cached, end_date = end_date) |>
       list_rbind() |>
       mutate(article = str_replace_all(article, "_", " "))
   })
