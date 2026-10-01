@@ -491,6 +491,24 @@ Summarising below the packages and functions used in this post enables me to sep
 ```{r}
 #| label: toolbox
 
-used_here("app.R")
+local({
+  lines <- readr::read_lines(knitr::current_input())
+  starts <- stringr::str_which(lines, r"(^```\{shinylive-r\}$)")
+  if (length(starts) != 1) {
+    stop("Expected exactly one {shinylive-r} block, found ",
+         length(starts), call. = FALSE)
+  }
+  after <- lines[(starts + 1):length(lines)]
+  closes <- stringr::str_which(after, r"(^```$)")
+  if (length(closes) == 0) {
+    stop("Closing fence of the {shinylive-r} block not found",
+         call. = FALSE)
+  }
+  body <- after[seq_len(closes[1] - 1)]
+  app <- tempfile(fileext = ".R")
+  writeLines(body, app)
+  on.exit(unlink(app), add = TRUE)
+  usedthese::used_here(app)
+})
 ```
 
