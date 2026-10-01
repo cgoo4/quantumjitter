@@ -39698,9 +39698,31 @@ Kuhn, Max, and Hadley Wickham. 2020. <em>Tidymodels: A Collection of Packages fo
   <link>https://www.quantumjitter.com/project/thicken/</link>
   <description><![CDATA[ <p><img src="https://www.quantumjitter.com/project/thicken/feature.gif" class="img-fluid" alt="The keys of a typewriter with &quot;R&quot; highlighted and the word &quot;plot&quot; being typed"></p>
 <p>One could think of data science as “art grounded in facts”. It tells a story through visualisation. Both story and visualisation rely on a good plot. And an abundance of those has evolved over time. Many have their own dedicated Wikipedia page <iconify-icon inline="" icon="iconoir:emoji-surprise-alt" aria-label="Icon emoji-surprise-alt from iconoir Iconify.design set." title="Icon emoji-surprise-alt from iconoir Iconify.design set."></iconify-icon>.</p>
-<p>Which generate the most interest? How is the interest trending over time? Let’s build an interactive app to find out.</p>
+<p>Which generate the most interest? How is the interest trending over time? Let’s build an interactive serverless Shiny app to find out.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
@@ -39720,19 +39742,6 @@ background-color: null;
 font-style: inherit;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -39750,7 +39759,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">gridlayout</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/">bslib</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -39780,7 +39789,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">pageviews</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://httr2.r-lib.org">httr2</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -39790,50 +39799,26 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://rstudio.github.io/bslib/">bslib</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://emilhvitfeldt.github.io/paletteer/">paletteer</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -39849,47 +39834,48 @@ font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">pal_name</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"wesanderson::IsleofDogs1"</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;">pal</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://emilhvitfeldt.github.io/paletteer/reference/paletteer_d.html">paletteer_d</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"IsleofDogs1"</span>, type <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"continuous"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pal</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">display_palette</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">pal</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">pal_name</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"wesanderson::IsleofDogs1"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.quantumjitter.com/project/thicken/index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://www.quantumjitter.com/project/thicken/index_files/figure-html/palette-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>I’m going to start by harvesting some data from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams">Statistical charts and diagrams category</a>. I can use this to build a list of all chart types which have a dedicated Wikipedia article page. Using rvest <span class="citation" data-cites="rvest">(Wickham 2022)</span> inside the app ensures it will respond to any newly-created articles.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">charts</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -39945,13 +39931,16 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
-<p>The pageviews <span class="citation" data-cites="pageviews">(Keyes and Lewis 2020)</span> package provides an API into Wikipedia. I’ll create a function wrapped around <code>article_pageviews</code> so I can later iterate through a subset of the list established in the prior code chunk.</p>
+<p>The page-view data comes from the Wikimedia API. A function wrapped around {httr2} <span class="citation" data-cites="httr2">(Wickham 2026)</span> calls the endpoint directly, so I can later iterate through a subset of the list established in the prior code chunk. This replaces the {pageviews} package, which has no WebAssembly build – a detail that matters now the app runs in the browser rather than on a server.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">pv</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> \<span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -39962,37 +39951,158 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">article_pageviews</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_path_append</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>    project <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+<span>      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"en.wikipedia"</span>,</span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">article</span>,</span>
-<span>    user_type <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">"all-access"</span>,</span>
+<span>      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"user"</span>,</span>
-<span>    start <span class="op" style="color: #5E5E5E;
+<span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">article</span>, reserved <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>      <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"daily"</span>,</span>
+<span>      <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"2015070100"</span>,</span>
-<span>    end <span class="op" style="color: #5E5E5E;
+<span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"%Y%m%d"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"00"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://httr2.r-lib.org/reference/resp_body_raw.html">resp_body_json</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>simplify <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"items"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>date <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_sub.html">str_sub</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">timestamp</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">article</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">date</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">views</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="op" style="color: #5E5E5E;
@@ -40000,15 +40110,23 @@ background-color: null;
 font-style: inherit;">}</span></span></code></pre></div></div>
 </div>
 <p>I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of <em>fixed</em> and <em>log10</em> is better for comparing plots. <em>Free</em> scaling reveals more detail in the individual trends.</p>
-<p>Although <a href="https://rstudio.github.io/shinyuieditor/">shinyuieditor</a> <span class="citation" data-cites="shinyuieditor">(Strayer 2022)</span> is currently in Alpha at the time of this update, using <code>launch_editor("/content/project/thicken/")</code> helped me modify the basic grid layout of the UI for this pre-existing <code>app.R</code>.</p>
+<p>The UI was originally laid out with {gridlayout}. It is now built with {bslib} <span class="citation" data-cites="shiny">(Chang et al. 2022)</span>’s own <code><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html">page_sidebar()</a></code>, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset <a href="www/logo.png">www/logo.png</a>, which must be retained beside <code>app.R</code> when the app is reused.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">logo</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"logo.png"</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">ui</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">grid_page</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html">page_sidebar</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>  theme <span class="op" style="color: #5E5E5E;
@@ -40017,163 +40135,211 @@ font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>version <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>, bootswatch <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>bootswatch <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"simplex"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"simplex"</span>, primary <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#9986A5"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>  layout <span class="op" style="color: #5E5E5E;
+<span>  title <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">tags</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">span</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tags</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">img</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>src <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">logo</span>, height <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"40px"</span>, alt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Plot Plotter logo"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
 <span>    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"header  header"</span>,</span>
-<span>    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sidebar line "</span></span>
+font-style: inherit;">"Plot Plotter"</span></span>
 <span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>  row_sizes <span class="op" style="color: #5E5E5E;
+<span>  <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">tags</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"100px"</span>,</span>
-<span>    <span class="st" style="color: #20794D;
+font-style: inherit;">".navbar {</span></span>
+<span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"1fr"</span></span>
+font-style: inherit;">      background-color: var(--bs-body-bg, #fff) !important;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      color: var(--bs-body-color) !important;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    }</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    .navbar .container-fluid {</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      justify-content: center !important;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    }"</span></span>
 <span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>  col_sizes <span class="op" style="color: #5E5E5E;
+<span>  sidebar <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/sidebar.html">sidebar</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>    <span class="st" style="color: #20794D;
+<span>    open <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"250px"</span>,</span>
-<span>    <span class="st" style="color: #20794D;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"1fr"</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>desktop <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"open"</span>, mobile <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"always-above"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>  gap_size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"1rem"</span>,</span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">grid_card</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>    area <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sidebar"</span>,</span>
-<span>    item_alignment <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"top"</span>,</span>
-<span>    title <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Options"</span>,</span>
-<span>    item_gap <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"13px"</span>,</span>
 <span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_header</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Options"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_body</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>        <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html">dateRangeInput</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"dates"</span>,</span>
-<span>      label <span class="op" style="color: #5E5E5E;
+<span>          label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Date range"</span>,</span>
-<span>      start <span class="op" style="color: #5E5E5E;
+<span>          start <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"2015-07-01"</span>,</span>
-<span>      end <span class="op" style="color: #5E5E5E;
+<span>          end <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">NULL</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>    <span class="fu" style="color: #4758AB;
+<span>        <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectizeInput</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>      inputId <span class="op" style="color: #5E5E5E;
+<span>          inputId <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"article"</span>,</span>
-<span>      label <span class="op" style="color: #5E5E5E;
+<span>          label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Chart type"</span>,</span>
-<span>      choices <span class="op" style="color: #5E5E5E;
+<span>          choices <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">charts</span>,</span>
-<span>      selected <span class="op" style="color: #5E5E5E;
+font-style: inherit;">charts</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">chart</span>,</span>
+<span>          selected <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>        <span class="st" style="color: #20794D;
+<span>            <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Violin plot"</span>,</span>
-<span>        <span class="st" style="color: #20794D;
+<span>            <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Dendrogram"</span>,</span>
-<span>        <span class="st" style="color: #20794D;
+<span>            <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Histogram"</span>,</span>
-<span>        <span class="st" style="color: #20794D;
+<span>            <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Pie chart"</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Pie chart"</span>,</span>
+<span>            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Q–Q plot"</span>,</span>
+<span>            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Error bar"</span></span>
+<span>          <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>      options <span class="op" style="color: #5E5E5E;
+<span>          options <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -40183,33 +40349,33 @@ font-style: inherit;">(</span>maxItems <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">6</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>      multiple <span class="op" style="color: #5E5E5E;
+<span>          multiple <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">TRUE</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>    <span class="fu" style="color: #4758AB;
+<span>        <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>      inputId <span class="op" style="color: #5E5E5E;
+<span>          inputId <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"scales"</span>,</span>
-<span>      label <span class="op" style="color: #5E5E5E;
+<span>          label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Fixed or free y-axis"</span>,</span>
-<span>      choices <span class="op" style="color: #5E5E5E;
+<span>          choices <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -40230,30 +40396,30 @@ background-color: null;
 font-style: inherit;">"free"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>      selected <span class="op" style="color: #5E5E5E;
+<span>          selected <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"fixed"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>    <span class="fu" style="color: #4758AB;
+<span>        <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>      inputId <span class="op" style="color: #5E5E5E;
+<span>          inputId <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"log10"</span>,</span>
-<span>      label <span class="op" style="color: #5E5E5E;
+<span>          label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Log 10 or normal y-axis"</span>,</span>
-<span>      choices <span class="op" style="color: #5E5E5E;
+<span>          choices <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -40274,11 +40440,17 @@ background-color: null;
 font-style: inherit;">"norm"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>      selected <span class="op" style="color: #5E5E5E;
+<span>          selected <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"log10"</span></span>
+<span>        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>      <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
 <span>    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
@@ -40287,51 +40459,24 @@ background-color: null;
 font-style: inherit;">)</span>,</span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">grid_card_text</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>    area <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"header"</span>,</span>
-<span>    content <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"   Plot Plotter   "</span>,</span>
-<span>    alignment <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"center"</span>,</span>
-<span>    is_title <span class="op" style="color: #5E5E5E;
+<span>    full_screen <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">FALSE</span>,</span>
-<span>    icon <span class="op" style="color: #5E5E5E;
+font-style: inherit;">TRUE</span>,</span>
+<span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"logo1.png"</span>,</span>
-<span>    img_height <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">grid_card_plot</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>area <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"line"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="op" style="color: #5E5E5E;
@@ -40340,11 +40485,14 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
 <p>The server component outputs a faceted ggplot.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">server</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> \<span class="op" style="color: #5E5E5E;
+font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -40359,7 +40507,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span>  <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">subsetr</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">pv_history</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -40383,19 +40531,18 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span>    <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">pageviews</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;">input</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">article</span>, <span class="va" style="color: #111111;
+font-style: inherit;">article</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">pv</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40404,21 +40551,18 @@ background-color: null;
 font-style: inherit;">|&gt;</span></span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>        date <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">date</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>        article <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>article <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -40432,8 +40576,31 @@ font-style: inherit;">"_"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">" "</span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pv_df</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pv_history</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40481,15 +40648,6 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">}</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span> </span>
-<span>    <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
 <span>  <span class="va" style="color: #111111;
@@ -40518,7 +40676,7 @@ background-color: null;
 font-style: inherit;">(</span></span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">subsetr</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">pv_df</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40529,16 +40687,13 @@ font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html"
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">date</span>,</span>
-<span>        <span class="va" style="color: #111111;
+font-style: inherit;">date</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">views</span>,</span>
-<span>        colour <span class="op" style="color: #5E5E5E;
+font-style: inherit;">views</span>, colour <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">article</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+font-style: inherit;">article</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span>    <span class="op" style="color: #5E5E5E;
@@ -40557,6 +40712,25 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>values <span class="op" style="color: #5E5E5E;
@@ -40564,19 +40738,6 @@ background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">pal</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>      <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"lightgrey"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -40752,8 +40913,470 @@ font-style: inherit;">server</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
-<p>And here’s the live shiny <span class="citation" data-cites="shiny">(Chang et al. 2022)</span> app deployed via <a href="https://www.shinyapps.io">shinyapps.io</a>.</p>
-<iframe src="https://quantumjitter.shinyapps.io/thicken/" width="100%" height="700" scrolling="no" frameborder="0"></iframe>
+<p>The serverless app below is embedded using the {shinylive} <span class="citation" data-cites="shinylive">(Chang et al. 2026)</span> Quarto extension. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.</p>
+<pre class="shinylive-r" data-engine="r"><code>#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 700
+
+## ---- libraries ----
+library(conflicted)
+library(tidyverse)
+library(shiny)
+library(bslib)
+library(rvest)
+library(scales)
+library(httr2)
+library(wesanderson)
+
+conflict_prefer_all("dplyr", quiet = TRUE)
+
+## ---- scrape ----
+charts &lt;-
+  tibble(
+    chart = read_html(str_c(
+      "https://en.wikipedia.org/wiki/",
+      "Category:Statistical_charts_and_diagrams"
+    )) |&gt;
+      html_elements(".mw-category-group a") |&gt;
+      html_text()
+  )
+
+## ---- pageview ----
+pv &lt;- function(article) {
+  request("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article") |&gt;
+    req_url_path_append(
+      "en.wikipedia",
+      "all-access",
+      "user",
+      URLencode(article, reserved = TRUE),
+      "daily",
+      "2015070100",
+      str_c(format(today(), "%Y%m%d"), "00")
+    ) |&gt;
+    req_perform() |&gt;
+    resp_body_json(simplify = TRUE) |&gt;
+    pluck("items") |&gt;
+    as_tibble() |&gt;
+    mutate(date = ymd(str_sub(timestamp, 1, 8))) |&gt;
+    select(article, date, views)
+}
+
+## ---- app-theme ----
+theme_set(theme_bw())
+
+pal &lt;- wes_palette(8, name = "IsleofDogs1", type = "continuous")
+
+## ---- ui ----
+logo &lt;- "logo.png"
+
+ui &lt;- page_sidebar(
+  theme = bs_theme(bootswatch = "simplex", primary = "#9986A5"),
+  title = tags$span(
+    tags$img(src = logo, height = "40px", alt = "Plot Plotter logo"),
+    "Plot Plotter"
+  ),
+  tags$style(
+    ".navbar {
+      background-color: var(--bs-body-bg, #fff) !important;
+      color: var(--bs-body-color) !important;
+    }
+    .navbar .container-fluid {
+      justify-content: center !important;
+    }"
+  ),
+  sidebar = sidebar(
+    open = list(desktop = "open", mobile = "always-above"),
+    card(
+      card_header("Options"),
+      card_body(
+        dateRangeInput("dates",
+          label = "Date range",
+          start = "2015-07-01",
+          end = NULL
+        ),
+        selectizeInput(
+          inputId = "article",
+          label = "Chart type",
+          choices = charts$chart,
+          selected = c(
+            "Violin plot",
+            "Dendrogram",
+            "Histogram",
+            "Pie chart",
+            "Q–Q plot",
+            "Error bar"
+          ),
+          options = list(maxItems = 8),
+          multiple = TRUE
+        ),
+        selectInput(
+          inputId = "scales",
+          label = "Fixed or free y-axis",
+          choices = c("Fixed" = "fixed", "Free" = "free"),
+          selected = "fixed"
+        ),
+        selectInput(
+          inputId = "log10",
+          label = "Log 10 or normal y-axis",
+          choices = c("Log 10" = "log10", "Normal" = "norm"),
+          selected = "log10"
+        )
+      )
+    )
+  ),
+  card(
+    full_screen = TRUE,
+    plotOutput("line")
+  )
+)
+
+## ---- server ----
+server &lt;- function(input, output, session) {
+  pv_history &lt;- reactive({
+    req(input$article)
+    input$article |&gt;
+      map(pv) |&gt;
+      list_rbind() |&gt;
+      mutate(article = str_replace_all(article, "_", " "))
+  })
+
+  pv_df &lt;- reactive({
+    pv_history() |&gt;
+      filter(date &gt;= input$dates[1], date &lt;= input$dates[2])
+  })
+
+  output$line &lt;- renderPlot({
+    p &lt;- ggplot(
+      pv_df(),
+      aes(date, views, colour = article)
+    ) +
+      geom_line() +
+      geom_smooth(colour = pal[7]) +
+      scale_colour_manual(values = pal) +
+      facet_wrap(~article, nrow = 1, scales = input$scales) +
+      theme(
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.margin = margin(1, 1, 1, 1, "cm")
+      ) +
+      labs(
+        x = NULL, y = NULL,
+        caption = "\nSource: Daily Wikipedia Article Page Views"
+      )
+
+    switch(input$log10,
+      norm = p,
+      log10 = p + scale_y_log10(
+        labels = label_number(scale_cut = cut_short_scale())
+      )
+    )
+  })
+}
+
+shinyApp(ui, server)
+
+
+## file: www/logo.png
+## type: binary
+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
+YII=
+</code></pre>
 <p>Note the utility of selecting the right scaling. The combination of “fixed” and “normal” reveals what must have been “world histogram day” on July 27th 2015, but little else.</p>
 <p>Turning non-interactive code into an app sharpens the mind’s focus on performance. And profvis <span class="citation" data-cites="profvis">(Chang et al. 2020)</span>, integrated into RStudio via the profile menu option, is a wonderful “tool for helping you understand how R spends its time”.</p>
 <p>My first version of the app was finger-tappingly slow.</p>
@@ -40762,11 +41385,13 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">used_here</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'app.R'</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output-display">
@@ -40778,47 +41403,39 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[6], library[11], list[1], switch[1]</td>
+<td style="text-align: left;">c[3], format[1], function[2], library[8], list[2], switch[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>
-<td style="text-align: left;">bs_theme[1]</td>
+<td style="text-align: left;">bs_theme[1], card[2], card_body[1], card_header[1], page_sidebar[1], sidebar[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">conflicted</td>
-<td style="text-align: left;">conflict_prefer_all[1], conflict_scout[1]</td>
+<td style="text-align: left;">conflict_prefer_all[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">filter[1], mutate[1]</td>
+<td style="text-align: left;">filter[1], mutate[2], select[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ggfoundry</td>
-<td style="text-align: left;">display_palette[1]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[1], element_text[1], facet_wrap[1], geom_line[1], geom_smooth[1], ggplot[1], labs[1], margin[1], scale_colour_manual[1], scale_y_log10[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">htmltools</td>
+<td style="text-align: left;">img[1], span[1]</td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;">gridlayout</td>
-<td style="text-align: left;">grid_card[1], grid_card_plot[1], grid_card_text[1], grid_page[1]</td>
+<td style="text-align: left;">httr2</td>
+<td style="text-align: left;">req_perform[1], req_url_path_append[1], request[1], resp_body_json[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">today[1], ymd[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">pageviews</td>
-<td style="text-align: left;">article_pageviews[1]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">paletteer</td>
-<td style="text-align: left;">paletteer_d[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">purrr</td>
-<td style="text-align: left;">list_rbind[1], map[1]</td>
+<td style="text-align: left;">list_rbind[1], map[1], pluck[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">rvest</td>
@@ -40830,19 +41447,27 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </tr>
 <tr class="even">
 <td style="text-align: left;">shiny</td>
-<td style="text-align: left;">dateRangeInput[1], reactive[1], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
+<td style="text-align: left;">dateRangeInput[1], plotOutput[1], reactive[2], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">str_c[1], str_replace_all[1]</td>
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">var[2]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">tibble</td>
-<td style="text-align: left;">tibble[1]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">str_c[2], str_replace_all[1], str_sub[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">usedthese</td>
-<td style="text-align: left;">used_here[1]</td>
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">as_tibble[1], tibble[1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">utils</td>
+<td style="text-align: left;">URLencode[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wesanderson</td>
+<td style="text-align: left;">wes_palette[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">xml2</td>
@@ -40859,17 +41484,17 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div id="ref-shiny" class="csl-entry">
 Chang, Winston, Joe Cheng, JJ Allaire, et al. 2022. <em>Shiny: Web Application Framework for r</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.
 </div>
+<div id="ref-shinylive" class="csl-entry">
+Chang, Winston, Joe Edwards, George Stagg, James Pastva, Barret Schloerke, and Christine Wang. 2026. <em>Shinylive: Run ’Shiny’ Applications in the Browser</em>. <a href="https://posit-dev.github.io/r-shinylive/">https://posit-dev.github.io/r-shinylive/</a>.
+</div>
 <div id="ref-profvis" class="csl-entry">
 Chang, Winston, Javier Luraschi, and Timothy Mastny. 2020. <em>Profvis: Interactive Visualizations for Profiling r Code</em>. <a href="https://CRAN.R-project.org/package=profvis">https://CRAN.R-project.org/package=profvis</a>.
 </div>
-<div id="ref-pageviews" class="csl-entry">
-Keyes, Os, and Jeremiah Lewis. 2020. <em>Pageviews: An API Client for Wikimedia Traffic Data</em>. <a href="https://CRAN.R-project.org/package=pageviews">https://CRAN.R-project.org/package=pageviews</a>.
-</div>
-<div id="ref-shinyuieditor" class="csl-entry">
-Strayer, Nick. 2022. <em>Shinyuieditor: Build and Modify Your Shiny UI, Visually</em>. <a href="https://rstudio.github.io/shinyuieditor/">https://rstudio.github.io/shinyuieditor/</a>.
-</div>
 <div id="ref-rvest" class="csl-entry">
 Wickham, Hadley. 2022. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
+</div>
+<div id="ref-httr2" class="csl-entry">
+Wickham, Hadley. 2026. <em>Httr2: Perform Requests and Process the Responses with Extra Tools</em>. <a href="https://httr2.r-lib.org/">https://httr2.r-lib.org/</a>.
 </div>
 </div></section></div> ]]></description>
   <category>R</category>

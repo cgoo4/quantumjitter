@@ -2,7 +2,7 @@
 title: Plots Thicken
 date: 2018-02-07
 categories: [R, apps, web scraping]
-description: "Every story needs a good plot. Which plot types generate the most interest on Wikipedia?"
+description: 'Build a serverless Shiny app with WebR to compare Wikipedia page views for chart types — directly in your browser.'
 bibliography: references.bib
 filters:
   - shinylive
@@ -13,7 +13,7 @@ comments: false
 
 One could think of data science as "art grounded in facts". It tells a story through visualisation. Both story and visualisation rely on a good plot. And an abundance of those has evolved over time. Many have their own dedicated Wikipedia page {{< iconify iconoir emoji-surprise-alt >}}.
 
-Which generate the most interest? How is the interest trending over time? Let's build an interactive app to find out.
+Which generate the most interest? How is the interest trending over time? Let's build an interactive serverless Shiny app to find out.
 
 ```{r}
 #| label: app-source
@@ -81,7 +81,7 @@ The server component outputs a faceted ggplot.
 
 ```
 
-And here's the app embedded with the {shinylive} [@shinylive] Quarto extension. R and {shiny} run entirely in your browser via WebR, so the app needs no server at all -- it will work offline, straight from the static page. Be patient on first load: R itself and the packages are downloaded into the browser before the app appears.
+The serverless app below is embedded using the {shinylive} [@shinylive] Quarto extension. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.
 
 ```{shinylive-r}
 #| standalone: true

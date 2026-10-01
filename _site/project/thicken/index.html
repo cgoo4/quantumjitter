@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Carl Goodwin">
 <meta name="dcterms.date" content="2018-02-07">
-<meta name="description" content="Every story needs a good plot. Which plot types generate the most interest on Wikipedia?">
+<meta name="description" content="Build a serverless Shiny app with WebR to compare Wikipedia page views for chart types — directly in your browser.">
 <title>Plots Thicken – Quantum Jitter</title>
 <style>
 /* Default styles provided by pandoc.
@@ -149,12 +149,12 @@ div.csl-indent {
   plausible.init();
 </script><link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="Plots Thicken – Quantum Jitter">
-<meta property="og:description" content="Every story needs a good plot. Which plot types generate the most interest on Wikipedia?">
+<meta property="og:description" content="Build a serverless Shiny app with WebR to compare Wikipedia page views for chart types — directly in your browser.">
 <meta property="og:image" content="https://www.quantumjitter.com/project/thicken/feature.gif">
 <meta property="og:site_name" content="Quantum Jitter">
 <meta property="og:image:alt" content="The keys of a typewriter with &quot;R&quot; highlighted and the word &quot;plot&quot; being typed">
 <meta name="twitter:title" content="Plots Thicken – Quantum Jitter">
-<meta name="twitter:description" content="Every story needs a good plot. Which plot types generate the most interest on Wikipedia?">
+<meta name="twitter:description" content="Build a serverless Shiny app with WebR to compare Wikipedia page views for chart types — directly in your browser.">
 <meta name="twitter:image" content="https://www.quantumjitter.com/project/thicken/feature.gif">
 <meta name="twitter:image:alt" content="The keys of a typewriter with &quot;R&quot; highlighted and the word &quot;plot&quot; being typed">
 <meta name="twitter:card" content="summary_large_image">
@@ -417,7 +417,7 @@ div.csl-indent {
 
 <div>
   <div class="description">
-    Every story needs a good plot. Which plot types generate the most interest on Wikipedia?
+    Build a serverless Shiny app with WebR to compare Wikipedia page views for chart types — directly in your browser.
   </div>
 </div>
 
@@ -451,7 +451,7 @@ div.csl-indent {
 
 </header><p><img src="feature.gif" class="img-fluid" alt="The keys of a typewriter with &quot;R&quot; highlighted and the word &quot;plot&quot; being typed"></p>
 <p>One could think of data science as “art grounded in facts”. It tells a story through visualisation. Both story and visualisation rely on a good plot. And an abundance of those has evolved over time. Many have their own dedicated Wikipedia page <iconify-icon role="img" inline="" icon="iconoir:emoji-surprise-alt" aria-label="Icon emoji-surprise-alt from iconoir Iconify.design set." title="Icon emoji-surprise-alt from iconoir Iconify.design set."></iconify-icon>.</p>
-<p>Which generate the most interest? How is the interest trending over time? Let’s build an interactive app to find out.</p>
+<p>Which generate the most interest? How is the interest trending over time? Let’s build an interactive serverless Shiny app to find out.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -627,7 +627,7 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>And here’s the app embedded with the {shinylive} <span class="citation" data-cites="shinylive">(<a href="#ref-shinylive" role="doc-biblioref">Chang et al. 2026</a>)</span> Quarto extension. R and {shiny} run entirely in your browser via WebR, so the app needs no server at all – it will work offline, straight from the static page. Be patient on first load: R itself and the packages are downloaded into the browser before the app appears.</p>
+<p>The serverless app below is embedded using the {shinylive} <span class="citation" data-cites="shinylive">(<a href="#ref-shinylive" role="doc-biblioref">Chang et al. 2026</a>)</span> Quarto extension. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.</p>
 <pre class="shinylive-r" data-engine="r"><code>#| standalone: true
 #| components: [viewer]
 #| viewerHeight: 700
