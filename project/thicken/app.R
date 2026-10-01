@@ -1,6 +1,11 @@
 ## ---- libraries ----
 library(conflicted)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(purrr)
+library(stringr)
+library(tibble)
 library(shiny)
 library(bslib)
 library(rvest)
