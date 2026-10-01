@@ -536,7 +536,7 @@ div.csl-indent {
 <span><span class="st">    }"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  sidebar <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html">sidebar</a></span><span class="op">(</span></span>
-<span>    open <span class="op">=</span> <span class="st">"desktop"</span>,</span>
+<span>    open <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>desktop <span class="op">=</span> <span class="st">"open"</span>, mobile <span class="op">=</span> <span class="st">"always-above"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_header</a></span><span class="op">(</span><span class="st">"Options"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_body</a></span><span class="op">(</span></span>
@@ -695,7 +695,7 @@ ui &lt;- page_sidebar(
     }"
   ),
   sidebar = sidebar(
-    open = "desktop",
+    open = list(desktop = "open", mobile = "always-above"),
     card(
       card_header("Options"),
       card_body(
@@ -800,7 +800,7 @@ shinyApp(ui, server)
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[3], format[1], function[2], library[8], list[1], switch[1]</td>
+<td style="text-align: left;">c[3], format[1], function[2], library[8], list[2], switch[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>

@@ -65,7 +65,7 @@ ui <- page_sidebar(
     }"
   ),
   sidebar = sidebar(
-    open = "desktop",
+    open = list(desktop = "open", mobile = "always-above"),
     card(
       card_header("Options"),
       card_body(
