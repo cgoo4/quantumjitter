@@ -65,7 +65,7 @@ The page-view data comes from the Wikimedia API. A function wrapped around {httr
 
 I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of *fixed* and *log10* is better for comparing plots. *Free* scaling reveals more detail in the individual trends.
 
-The UI was originally laid out with {gridlayout}. It is now built with {bslib} [@shiny]'s own `page_sidebar()`, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary.
+The UI was originally laid out with {gridlayout}. It is now built with {bslib} [@shiny]'s own `page_sidebar()`, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset [www/logo.png](www/logo.png), which must be retained beside `app.R` when the app is reused.
 
 ```{r}
 #| label: ui
@@ -89,6 +89,10 @@ And here's the app embedded with the {shinylive} [@shinylive] Quarto extension. 
 #| viewerHeight: 700
 
 {{< include app.R >}}
+
+## file: www/logo.png
+## type: binary
+{{< base64 www/logo.png >}}
 
 ```
 

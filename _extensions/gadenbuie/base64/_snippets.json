@@ -1,0 +1,23 @@
+{
+  "Base64 Encode": {
+    "prefix": "base64",
+    "body": [
+      "{{< base64 ${1:path/to/file} >}}"
+    ],
+    "description": "Encode a file as a base64 string."
+  },
+  "Base64 Data URI": {
+    "prefix": "data",
+    "body": [
+      "{{< base64-data ${1:path/to/file} >}}"
+    ],
+    "description": "Encode a file as a base64 data URI with automatic MIME type detection."
+  },
+  "Base64 Data URI with MIME Type": {
+    "prefix": "data-mime",
+    "body": [
+      "{{< base64-data ${1:path/to/file} ${2:image/png} >}}"
+    ],
+    "description": "Encode a file as a base64 data URI with an explicit MIME type."
+  }
+}
