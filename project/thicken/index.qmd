@@ -11,16 +11,9 @@ comments: false
 
 ![](feature.gif){fig-alt="The keys of a typewriter with \"R\" highlighted and the word \"plot\" being typed"}
 
-One could think of data science as "art grounded in facts". It tells a story through visualisation. Both story and visualisation rely on a good plot. And an abundance of those has evolved over time. Many have their own dedicated Wikipedia page {{< iconify iconoir emoji-surprise-alt >}}.
+One could think of data science as art grounded in facts. It tells a story through visualization. Both story and visualization rely on a good plot. And there are plenty to choose from, many with their own Wikipedia page {{< iconify iconoir emoji-surprise-alt >}}.
 
-Which generate the most interest? How is the interest trending over time? Let's build an interactive serverless Shiny app to find out.
-
-```{r}
-#| label: article-setup
-
-library(ggfoundry)
-library(usedthese)
-```
+Which attract the most readers? How has that attention changed over time? Let’s build a Shiny app to explore their daily page views. These tell us something about attention to the articles, rather than how often people actually use each chart.
 
 ```{r}
 #| label: libraries
@@ -37,6 +30,8 @@ library(rvest)
 library(scales)
 library(httr2)
 library(wesanderson)
+library(ggfoundry)
+library(usedthese)
 ```
 
 ```{r}
@@ -54,7 +49,7 @@ pal <- wes_palette(8, name = "IsleofDogs1", type = "continuous")
 display_palette(pal, "wesanderson::IsleofDogs1")
 ```
 
-I'm going to start by harvesting some data from Wikipedia's [Statistical charts and diagrams category](https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams). I can use this to build a list of all chart types which have a dedicated Wikipedia article page. Using rvest [@rvest] inside the app ensures it will respond to any newly-created articles.
+First, I’ll use {rvest} [@rvest] to collect the article names from Wikipedia’s [Statistical charts and diagrams category](https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams). The app builds this list when it starts, so the choices can follow changes to the category.
 
 ```{r}
 #| label: scrape
@@ -70,7 +65,7 @@ charts <-
   )
 ```
 
-The page-view data comes from the Wikimedia API. A function wrapped around {httr2} [@httr2] calls the endpoint directly, so I can later iterate through a subset of the list established in the prior code chunk. This replaces the {pageviews} package, which has no WebAssembly build -- a detail that matters now the app runs in the browser rather than on a server.
+The page-view data comes from the Wikimedia API. This little {httr2} [@httr2] function retrieves an article’s daily views from July 2015 onwards and returns the article name, date and count. Later, the app will call it for whichever charts the visitor selects.
 
 ```{r}
 #| label: pageview
@@ -95,9 +90,9 @@ pv <- function(article, end_date = today()) {
 }
 ```
 
-I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of *fixed* and *log10* is better for comparing plots. *Free* scaling reveals more detail in the individual trends.
+The controls let visitors choose up to six chart types, a date range and the y-axis scales. 'Fixed' gives every panel the same scale for comparing counts. 'Free' gives each panel its own range, making individual patterns easier to see. 'Log 10' helps when counts differ greatly, while 'Normal' keeps the original spacing between counts.
 
-The UI was originally laid out with {gridlayout}. It is now built with {bslib} [@shiny]'s own `page_sidebar()`, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset [www/logo.png](www/logo.png).
+I’m using {bslib} to arrange the controls above the plot, keeping everything compact enough for this page. The plot card can also expand when six charts need a little more elbow room.
 
 ```{r}
 #| label: ui
@@ -144,38 +139,39 @@ ui <- bslib::page(
     class = "controls",
     layout_columns(
       col_widths = c(6, 6),
-    dateRangeInput("dates",
-      label = "Date range",
-      start = "2015-07-01",
-      end = NULL
-    ),
-    selectizeInput(
-      inputId = "article",
-      label = "Chart type",
-      choices = charts$chart,
-      selected = c(
-        "Violin plot",
-        "Dendrogram",
-        "Histogram",
-        "Pie chart",
-        "Q–Q plot",
-        "Error bar"
+      dateRangeInput(
+        "dates",
+        label = "Date range",
+        start = "2015-07-01",
+        end = NULL
       ),
-      options = list(maxItems = 6),
-      multiple = TRUE
-    ),
-    selectInput(
-      inputId = "scales",
-      label = "Fixed or free y-axis",
-      choices = c("Fixed" = "fixed", "Free" = "free"),
-      selected = "fixed"
-    ),
-    selectInput(
-      inputId = "log10",
-      label = "Log 10 or normal y-axis",
-      choices = c("Log 10" = "log10", "Normal" = "norm"),
-      selected = "log10"
-    )
+      selectizeInput(
+        inputId = "article",
+        label = "Chart type",
+        choices = charts$chart,
+        selected = c(
+          "Violin plot",
+          "Dendrogram",
+          "Histogram",
+          "Pie chart",
+          "Q–Q plot",
+          "Error bar"
+        ),
+        options = list(maxItems = 6),
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = "scales",
+        label = "Fixed or free y-axis",
+        choices = c("Fixed" = "fixed", "Free" = "free"),
+        selected = "fixed"
+      ),
+      selectInput(
+        inputId = "log10",
+        label = "Log 10 or normal y-axis",
+        choices = c("Log 10" = "log10", "Normal" = "norm"),
+        selected = "log10"
+      )
     )
   ),
   card(
@@ -185,7 +181,9 @@ ui <- bslib::page(
 )
 ```
 
-The server component outputs a faceted ggplot.
+The server fetches the selected articles and draws one panel per chart with {ggplot2}. A straight trend line summarizes each article’s views across the selected period. With 'Normal', the fit uses the view counts, while with 'Log 10' it uses their logarithms. It is a broad summary, so bumps and changes of direction still deserve a look.
+
+To avoid fetching the same history repeatedly, I wrap the page-view function in {memoise}. Each browser session gets its own in-memory cache, managed by {cachem}, with a 32 MiB limit and a one-hour expiry setting. Changing the date range filters the data already retrieved, while changing the scale redraws the plot. Returning to a previously selected article can reuse its cached history while that entry remains available.
 
 ```{r}
 #| label: server
@@ -231,15 +229,18 @@ server <- function(input, output, session) {
         plot.caption = element_text(size = 8, hjust = 0)
       ) +
       labs(
-        x = NULL, y = NULL,
+        x = NULL,
+        y = NULL,
         caption = "Source: Daily Wikipedia Article Page Views"
       )
 
-    switch(input$log10,
+    switch(
+      input$log10,
       norm = p,
-      log10 = p + scale_y_log10(
-        labels = label_number(scale_cut = cut_short_scale())
-      )
+      log10 = p +
+        scale_y_log10(
+          labels = label_number(scale_cut = cut_short_scale())
+        )
     )
   })
 }
@@ -252,7 +253,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-The serverless app below is embedded using the {shinylive} [@shinylive] Quarto extension. A small hidden chunk assembles the app chunks above and emits it for the {shinylive} filter. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.
+The app below runs R and {shiny} in your browser through WebR, using the {shinylive} [@shinylive] Quarto extension. There is no hosted R session behind it. You still need an internet connection to load the runtime and packages and retrieve Wikipedia data, and the first load can take a little patience.
 
 ```{r}
 #| label: app-embed
@@ -261,7 +262,15 @@ The serverless app below is embedded using the {shinylive} [@shinylive] Quarto e
 #| cache: false
 
 app_code <-
-  c("libraries", "scrape", "pageview", "app-theme", "ui", "server", "app-run") |>
+  c(
+    "libraries",
+    "scrape",
+    "pageview",
+    "app-theme",
+    "ui",
+    "server",
+    "app-run"
+  ) |>
   map(knitr::knit_code$get) |>
   unlist()
 
@@ -282,19 +291,17 @@ writeLines(
 )
 ```
 
-Note the utility of selecting the right scaling. The combination of "fixed" and "normal" reveals what must have been "world histogram day" on July 27th 2015, but little else.
+Try 'Fixed' and 'Normal' with the default charts and the full date range. The histogram's 'world histogram day' spike in July 2015 steals the show. Switching to 'Log 10' gives the quieter charts a chance to be heard.
 
-Turning non-interactive code into an app sharpens the mind's focus on performance. And profvis [@profvis], integrated into RStudio via the profile menu option, is a wonderful "tool for helping you understand how R spends its time".
+My first version was finger-tappingly slow. Profiling with {profvis} [@profvis] helped explain why: I was fetching histories for every chart before anyone had chosen one. The more reactive approach of fetching only the selected articles, then reusing their histories, makes for a less impatient plot.
 
-My first version of the app was finger-tappingly slow.
+There are two different waits here. Loading R and its packages gets the browser ready to run the app. Fetching and plotting the selected articles comes afterwards. Memoisation helps with repeated data requests within a session, but does not remove that initial runtime download.
 
-Profvis revealed the main culprit to be the pre-loading of a dataframe with the page-view data for all chart types (there are more than 100). Profiling prompted the more efficient "reactive" approach of loading the data only for the user's selection (maximum of 8).
-
-Profiling also showed that rounding the corners of the plot.background with additional grid-package code was expensive. App efficiency felt more important than minor cosmetic detailing (to the main panel to match the theme's side panel). And most users would probably barely notice (had I not drawn attention to it here).
+To adapt the example, start with the Quarto source and supporting files. The named chunks in `index.qmd` supply both the code shown here and the embedded app, so there is only one version to edit. The source also shows how to include a logo as a file within the app. The website’s Quarto configuration and extensions live at the repository root.
 
 ## R Toolbox
 
-Summarising below the packages and functions used in this post enables me to separately create a [toolbox visualisation](/project/box) summarising the usage of packages and functions across all posts.
+Summarizing below the packages and functions used in this post enables me to separately create a [toolbox visualization](/project/box) summarizing the usage of packages and functions across all posts.
 
 ```{r}
 #| label: toolbox
