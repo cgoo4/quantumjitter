@@ -453,11 +453,7 @@ div.csl-indent {
 <p>One could think of data science as art grounded in facts. It tells a story through visualization. Both story and visualization rely on a good plot. And there are plenty to choose from, many with their own Wikipedia page <iconify-icon role="img" inline="" icon="iconoir:emoji-surprise-alt" aria-label="Icon emoji-surprise-alt from iconoir Iconify.design set." title="Icon emoji-surprise-alt from iconoir Iconify.design set."></iconify-icon>.</p>
 <p>Which attract the most readers? How has that attention changed over time? Let’s build a Shiny app to explore their daily page views. These tell us something about attention to the articles, rather than how often people actually use each chart.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
@@ -468,15 +464,17 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://httr2.r-lib.org">httr2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"IsleofDogs1"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="st">"wesanderson::IsleofDogs1"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/display_palette.html">display_palette</a></span><span class="op">(</span><span class="va">pal</span>, <span class="st">"wesanderson::IsleofDogs1"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="index_files/figure-html/palette-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -486,7 +484,7 @@ div.csl-indent {
 </div>
 <p>First, I’ll use {rvest} <span class="citation" data-cites="rvest">(<a href="#ref-rvest" role="doc-biblioref">Wickham 2022</a>)</span> to collect the article names from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Category:Statistical_charts_and_diagrams">Statistical charts and diagrams category</a>. The app builds this list when it starts, so the choices can follow changes to the category.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">charts</span> <span class="op">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">charts</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>    chart <span class="op">=</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"https://en.wikipedia.org/wiki/"</span>,</span>
@@ -498,7 +496,7 @@ div.csl-indent {
 </div>
 <p>The page-view data comes from the Wikimedia API. This little {httr2} <span class="citation" data-cites="httr2">(<a href="#ref-httr2" role="doc-biblioref">Wickham 2026</a>)</span> function retrieves an article’s daily views from July 2015 onwards and returns the article name, date and count. Later, the app will call it for whichever charts the visitor selects.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">article</span>, <span class="va">end_date</span> <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">article</span>, <span class="va">end_date</span> <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op">(</span><span class="st">"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_path_append</a></span><span class="op">(</span></span>
 <span>      <span class="st">"en.wikipedia"</span>,</span>
@@ -520,7 +518,7 @@ div.csl-indent {
 <p>The controls let visitors choose up to six chart types, a date range and the y-axis scales. ‘Fixed’ gives every panel the same scale for comparing counts. ‘Free’ gives each panel its own range, making individual patterns easier to see. ‘Log 10’ helps when counts differ greatly, while ‘Normal’ keeps the original spacing between counts.</p>
 <p>I’m using {bslib} to arrange the controls above the plot, keeping everything compact enough for this page. The plot card can also expand when six charts need a little more elbow room.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logo</span> <span class="op">&lt;-</span> <span class="st">"logo.png"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logo</span> <span class="op">&lt;-</span> <span class="st">"logo.png"</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html">page</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span></span>
@@ -606,7 +604,7 @@ div.csl-indent {
 <p>The server fetches the selected articles and draws one panel per chart with {ggplot2}. A straight trend line summarizes each article’s views across the selected period. With ‘Normal’, the fit uses the view counts, while with ‘Log 10’ it uses their logarithms. It is a broad summary, so bumps and changes of direction still deserve a look.</p>
 <p>To avoid fetching the same history repeatedly, I wrap the page-view function in {memoise}. Each browser session gets its own in-memory cache, managed by {cachem}, with a 32 MiB limit and a one-hour expiry setting. Changing the date range filters the data already retrieved, while changing the scale redraws the plot. Returning to a previously selected article can reuse its cached history while that entry remains available.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">pv_cached</span> <span class="op">&lt;-</span> <span class="fu">memoise</span><span class="fu">::</span><span class="fu"><a href="https://memoise.r-lib.org/reference/memoise.html">memoise</a></span><span class="op">(</span></span>
 <span>    <span class="va">pv</span>,</span>
 <span>    cache <span class="op">=</span> <span class="fu">cachem</span><span class="fu">::</span><span class="fu"><a href="https://cachem.r-lib.org/reference/cache_mem.html">cache_mem</a></span><span class="op">(</span></span>
@@ -680,6 +678,8 @@ library(rvest)
 library(scales)
 library(httr2)
 library(wesanderson)
+library(ggfoundry)
+library(usedthese)
 charts &lt;-
   tibble(
     chart = read_html(str_c(
@@ -1157,7 +1157,7 @@ YII=</code></pre>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarizing below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualization</a> summarizing the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped caption-top table-sm small">
 <thead><tr class="header">
