@@ -1146,7 +1146,7 @@ Ax4lJpT9y6BrkiRJqqX3kD+Q7QY2Rl2QJElSHa0CHiFvKHtP2NVIkiTV2LcAk+QJZJ/CB8YkSZIW
 CPAPCpyvJElSo10N/ArwGLMHsUPAJ0hhzA3HpczGSp+AJKm480khbSuwGtgP7ADuA04VPC9JkiRJ
 kiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ5f3//1apdPd/iLYAAAAASUVORK5C
 YII=</code></pre>
-<p>Try ‘Fixed’ and ‘Normal’ with the default charts and the full date range. The histogram’s ‘world histogram day’ spike in July 2015 steals the show. Switching to ‘Log 10’ gives the quieter charts a chance to be heard.</p>
+<p>Try ‘Fixed’ and ‘Normal’ with the default charts and the full date range. The ‘world histogram day’ spike in July 2015 steals the show. Switching to ‘Log 10’ gives the quieter charts a chance to be heard.</p>
 <p>My first version was finger-tappingly slow. Profiling with {profvis} <span class="citation" data-cites="profvis">(<a href="#ref-profvis" role="doc-biblioref">Chang et al. 2020</a>)</span> helped explain why: I was fetching histories for every chart before anyone had chosen one. The more reactive approach of fetching only the selected articles, then reusing their histories, makes for a less impatient plot.</p>
 <p>There are two different waits here. Loading R and its packages gets the browser ready to run the app. Fetching and plotting the selected articles comes afterwards. Memoisation helps with repeated data requests within a session, but does not remove that initial runtime download.</p>
 <p>To adapt the example, start with the Quarto source and supporting files. The named chunks in <code>index.qmd</code> supply both the code shown here and the embedded app, so there is only one version to edit. The source also shows how to include a logo as a file within the app. The website’s Quarto configuration and extensions live at the repository root.</p>
