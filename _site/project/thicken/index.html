@@ -474,7 +474,7 @@ div.csl-indent {
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"IsleofDogs1"</span>, type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -525,59 +525,78 @@ div.csl-indent {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logo</span> <span class="op">&lt;-</span> <span class="st">"logo.png"</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html">page_sidebar</a></span><span class="op">(</span></span>
-<span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span>bootswatch <span class="op">=</span> <span class="st">"simplex"</span>, primary <span class="op">=</span> <span class="st">"#9986A5"</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span>src <span class="op">=</span> <span class="va">logo</span>, height <span class="op">=</span> <span class="st">"40px"</span>, alt <span class="op">=</span> <span class="st">"Plot Plotter logo"</span><span class="op">)</span>,</span>
-<span>    <span class="st">"Plot Plotter"</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html">page</a></span><span class="op">(</span></span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span></span>
+<span>    bootswatch <span class="op">=</span> <span class="st">"simplex"</span>,</span>
+<span>    primary <span class="op">=</span> <span class="st">"#9986A5"</span>,</span>
+<span>    font_scale <span class="op">=</span> <span class="fl">0.95</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span>    <span class="st">".navbar {</span></span>
-<span><span class="st">      background-color: var(--bs-body-bg, #fff) !important;</span></span>
-<span><span class="st">      color: var(--bs-body-color) !important;</span></span>
+<span>    <span class="st">".app-title {</span></span>
+<span><span class="st">      display: flex;</span></span>
+<span><span class="st">      justify-content: center;</span></span>
+<span><span class="st">      align-items: center;</span></span>
+<span><span class="st">      gap: 0.5rem;</span></span>
+<span><span class="st">      padding: 0.5rem 0;</span></span>
+<span><span class="st">      font-size: 1.1rem;</span></span>
 <span><span class="st">    }</span></span>
-<span><span class="st">    .navbar .container-fluid {</span></span>
-<span><span class="st">      justify-content: center !important;</span></span>
+<span><span class="st">    .controls {</span></span>
+<span><span class="st">      padding: 0.75rem 1rem;</span></span>
+<span><span class="st">    }</span></span>
+<span><span class="st">    .card-header {</span></span>
+<span><span class="st">      padding: 0.5rem 0.75rem;</span></span>
+<span><span class="st">    }</span></span>
+<span><span class="st">    .card-body {</span></span>
+<span><span class="st">      padding: 0.75rem;</span></span>
+<span><span class="st">    }</span></span>
+<span><span class="st">    .shiny-input-container {</span></span>
+<span><span class="st">      margin-bottom: 0.75rem;</span></span>
+<span><span class="st">    }</span></span>
+<span><span class="st">    .control-label {</span></span>
+<span><span class="st">      margin-bottom: 0.15rem;</span></span>
 <span><span class="st">    }"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  sidebar <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html">sidebar</a></span><span class="op">(</span></span>
-<span>    open <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>desktop <span class="op">=</span> <span class="st">"open"</span>, mobile <span class="op">=</span> <span class="st">"always-above"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_header</a></span><span class="op">(</span><span class="st">"Options"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card_body.html">card_body</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html">dateRangeInput</a></span><span class="op">(</span><span class="st">"dates"</span>,</span>
-<span>          label <span class="op">=</span> <span class="st">"Date range"</span>,</span>
-<span>          start <span class="op">=</span> <span class="st">"2015-07-01"</span>,</span>
-<span>          end <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectizeInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"article"</span>,</span>
-<span>          label <span class="op">=</span> <span class="st">"Chart type"</span>,</span>
-<span>          choices <span class="op">=</span> <span class="va">charts</span><span class="op">$</span><span class="va">chart</span>,</span>
-<span>          selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>            <span class="st">"Violin plot"</span>,</span>
-<span>            <span class="st">"Dendrogram"</span>,</span>
-<span>            <span class="st">"Histogram"</span>,</span>
-<span>            <span class="st">"Pie chart"</span>,</span>
-<span>            <span class="st">"Q–Q plot"</span>,</span>
-<span>            <span class="st">"Error bar"</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>maxItems <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
-<span>          multiple <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"scales"</span>,</span>
-<span>          label <span class="op">=</span> <span class="st">"Fixed or free y-axis"</span>,</span>
-<span>          choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fixed"</span> <span class="op">=</span> <span class="st">"fixed"</span>, <span class="st">"Free"</span> <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span>
-<span>          selected <span class="op">=</span> <span class="st">"fixed"</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"log10"</span>,</span>
-<span>          label <span class="op">=</span> <span class="st">"Log 10 or normal y-axis"</span>,</span>
-<span>          choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Log 10"</span> <span class="op">=</span> <span class="st">"log10"</span>, <span class="st">"Normal"</span> <span class="op">=</span> <span class="st">"norm"</span><span class="op">)</span>,</span>
-<span>          selected <span class="op">=</span> <span class="st">"log10"</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">header</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span>src <span class="op">=</span> <span class="va">logo</span>, height <span class="op">=</span> <span class="st">"32px"</span>, alt <span class="op">=</span> <span class="st">"Plot Plotter logo"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"Plot Plotter"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"app-title"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">div</a></span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"controls"</span>,</span>
+<span>    <span class="fu"><a href="https://rstudio.github.io/bslib/reference/layout_columns.html">layout_columns</a></span><span class="op">(</span></span>
+<span>      col_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html">dateRangeInput</a></span><span class="op">(</span><span class="st">"dates"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Date range"</span>,</span>
+<span>      start <span class="op">=</span> <span class="st">"2015-07-01"</span>,</span>
+<span>      end <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectizeInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"article"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Chart type"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="va">charts</span><span class="op">$</span><span class="va">chart</span>,</span>
+<span>      selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Violin plot"</span>,</span>
+<span>        <span class="st">"Dendrogram"</span>,</span>
+<span>        <span class="st">"Histogram"</span>,</span>
+<span>        <span class="st">"Pie chart"</span>,</span>
+<span>        <span class="st">"Q–Q plot"</span>,</span>
+<span>        <span class="st">"Error bar"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>maxItems <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
+<span>      multiple <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"scales"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Fixed or free y-axis"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fixed"</span> <span class="op">=</span> <span class="st">"fixed"</span>, <span class="st">"Free"</span> <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="st">"fixed"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"log10"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Log 10 or normal y-axis"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Log 10"</span> <span class="op">=</span> <span class="st">"log10"</span>, <span class="st">"Normal"</span> <span class="op">=</span> <span class="st">"norm"</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="st">"log10"</span></span>
+<span>    <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/bslib/reference/card.html">card</a></span><span class="op">(</span></span>
@@ -619,15 +638,18 @@ div.csl-indent {
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">article</span>, nrow <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">scales</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">article</span>, ncol <span class="op">=</span> <span class="fl">3</span>, scales <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">scales</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>        legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span>        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>        plot.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="st">"cm"</span><span class="op">)</span></span>
+<span>        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
+<span>        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
+<span>        strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
+<span>        plot.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>,</span>
+<span>        plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span>, hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>      <span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>        x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>        caption <span class="op">=</span> <span class="st">"\nSource: Daily Wikipedia Article Page Views"</span></span>
+<span>        caption <span class="op">=</span> <span class="st">"Source: Daily Wikipedia Article Page Views"</span></span>
 <span>      <span class="op">)</span></span>
 <span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">log10</span>,</span>
@@ -695,66 +717,85 @@ pv &lt;- function(article, end_date = today()) {
 }
 
 ## ---- app-theme ----
-theme_set(theme_bw())
+theme_set(theme_bw(base_size = 11))
 
 pal &lt;- wes_palette(8, name = "IsleofDogs1", type = "continuous")
 
 ## ---- ui ----
 logo &lt;- "logo.png"
 
-ui &lt;- page_sidebar(
-  theme = bs_theme(bootswatch = "simplex", primary = "#9986A5"),
-  title = tags$span(
-    tags$img(src = logo, height = "40px", alt = "Plot Plotter logo"),
-    "Plot Plotter"
+ui &lt;- bslib::page(
+  theme = bs_theme(
+    bootswatch = "simplex",
+    primary = "#9986A5",
+    font_scale = 0.95
   ),
   tags$style(
-    ".navbar {
-      background-color: var(--bs-body-bg, #fff) !important;
-      color: var(--bs-body-color) !important;
+    ".app-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
     }
-    .navbar .container-fluid {
-      justify-content: center !important;
+    .controls {
+      padding: 0.75rem 1rem;
+    }
+    .card-header {
+      padding: 0.5rem 0.75rem;
+    }
+    .card-body {
+      padding: 0.75rem;
+    }
+    .shiny-input-container {
+      margin-bottom: 0.75rem;
+    }
+    .control-label {
+      margin-bottom: 0.15rem;
     }"
   ),
-  sidebar = sidebar(
-    open = list(desktop = "open", mobile = "always-above"),
-    card(
-      card_header("Options"),
-      card_body(
-        dateRangeInput("dates",
-          label = "Date range",
-          start = "2015-07-01",
-          end = NULL
-        ),
-        selectizeInput(
-          inputId = "article",
-          label = "Chart type",
-          choices = charts$chart,
-          selected = c(
-            "Violin plot",
-            "Dendrogram",
-            "Histogram",
-            "Pie chart",
-            "Q–Q plot",
-            "Error bar"
-          ),
-          options = list(maxItems = 8),
-          multiple = TRUE
-        ),
-        selectInput(
-          inputId = "scales",
-          label = "Fixed or free y-axis",
-          choices = c("Fixed" = "fixed", "Free" = "free"),
-          selected = "fixed"
-        ),
-        selectInput(
-          inputId = "log10",
-          label = "Log 10 or normal y-axis",
-          choices = c("Log 10" = "log10", "Normal" = "norm"),
-          selected = "log10"
-        )
-      )
+  tags$header(
+    tags$img(src = logo, height = "32px", alt = "Plot Plotter logo"),
+    "Plot Plotter",
+    class = "app-title"
+  ),
+  div(
+    class = "controls",
+    layout_columns(
+      col_widths = c(6, 6),
+    dateRangeInput("dates",
+      label = "Date range",
+      start = "2015-07-01",
+      end = NULL
+    ),
+    selectizeInput(
+      inputId = "article",
+      label = "Chart type",
+      choices = charts$chart,
+      selected = c(
+        "Violin plot",
+        "Dendrogram",
+        "Histogram",
+        "Pie chart",
+        "Q–Q plot",
+        "Error bar"
+      ),
+      options = list(maxItems = 6),
+      multiple = TRUE
+    ),
+    selectInput(
+      inputId = "scales",
+      label = "Fixed or free y-axis",
+      choices = c("Fixed" = "fixed", "Free" = "free"),
+      selected = "fixed"
+    ),
+    selectInput(
+      inputId = "log10",
+      label = "Log 10 or normal y-axis",
+      choices = c("Log 10" = "log10", "Normal" = "norm"),
+      selected = "log10"
+    )
     )
   ),
   card(
@@ -795,15 +836,18 @@ server &lt;- function(input, output, session) {
       geom_line() +
       geom_smooth(colour = pal[7]) +
       scale_colour_manual(values = pal) +
-      facet_wrap(~article, nrow = 1, scales = input$scales) +
+      facet_wrap(~article, ncol = 3, scales = input$scales) +
       theme(
         legend.position = "none",
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.margin = margin(1, 1, 1, 1, "cm")
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        strip.text = element_text(size = 9),
+        plot.margin = margin(5, 10, 5, 10, "pt"),
+        plot.caption = element_text(size = 8, hjust = 0)
       ) +
       labs(
         x = NULL, y = NULL,
-        caption = "\nSource: Daily Wikipedia Article Page Views"
+        caption = "Source: Daily Wikipedia Article Page Views"
       )
 
     switch(input$log10,
@@ -1137,11 +1181,11 @@ YII=
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[3], format[1], function[2], library[13], list[2], switch[1]</td>
+<td style="text-align: left;">c[4], format[1], function[2], library[13], list[1], switch[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>
-<td style="text-align: left;">bs_theme[1], card[2], card_body[1], card_header[1], page_sidebar[1], sidebar[1]</td>
+<td style="text-align: left;">bs_theme[1], card[1], layout_columns[1], page[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cachem</td>
@@ -1157,11 +1201,11 @@ YII=
 </tr>
 <tr class="even">
 <td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[1], element_text[1], facet_wrap[1], geom_line[1], geom_smooth[1], ggplot[1], labs[1], margin[1], scale_colour_manual[1], scale_y_log10[1], theme[1], theme_bw[1], theme_set[1]</td>
+<td style="text-align: left;">aes[1], element_text[4], facet_wrap[1], geom_line[1], geom_smooth[1], ggplot[1], labs[1], margin[1], scale_colour_manual[1], scale_y_log10[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">htmltools</td>
-<td style="text-align: left;">img[1], span[1]</td>
+<td style="text-align: left;">div[1], img[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">httr2</td>
@@ -1192,26 +1236,22 @@ YII=
 <td style="text-align: left;">dateRangeInput[1], plotOutput[1], reactive[2], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">stats</td>
-<td style="text-align: left;">var[2]</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">stringr</td>
 <td style="text-align: left;">str_c[2], str_replace_all[1], str_sub[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[1], tibble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">utils</td>
 <td style="text-align: left;">URLencode[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">wesanderson</td>
 <td style="text-align: left;">wes_palette[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">xml2</td>
 <td style="text-align: left;">read_html[1]</td>
 </tr>

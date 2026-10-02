@@ -47,66 +47,85 @@ pv <- function(article, end_date = today()) {
 }
 
 ## ---- app-theme ----
-theme_set(theme_bw())
+theme_set(theme_bw(base_size = 11))
 
 pal <- wes_palette(8, name = "IsleofDogs1", type = "continuous")
 
 ## ---- ui ----
 logo <- "logo.png"
 
-ui <- page_sidebar(
-  theme = bs_theme(bootswatch = "simplex", primary = "#9986A5"),
-  title = tags$span(
-    tags$img(src = logo, height = "40px", alt = "Plot Plotter logo"),
-    "Plot Plotter"
+ui <- bslib::page(
+  theme = bs_theme(
+    bootswatch = "simplex",
+    primary = "#9986A5",
+    font_scale = 0.95
   ),
   tags$style(
-    ".navbar {
-      background-color: var(--bs-body-bg, #fff) !important;
-      color: var(--bs-body-color) !important;
+    ".app-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
     }
-    .navbar .container-fluid {
-      justify-content: center !important;
+    .controls {
+      padding: 0.75rem 1rem;
+    }
+    .card-header {
+      padding: 0.5rem 0.75rem;
+    }
+    .card-body {
+      padding: 0.75rem;
+    }
+    .shiny-input-container {
+      margin-bottom: 0.75rem;
+    }
+    .control-label {
+      margin-bottom: 0.15rem;
     }"
   ),
-  sidebar = sidebar(
-    open = list(desktop = "open", mobile = "always-above"),
-    card(
-      card_header("Options"),
-      card_body(
-        dateRangeInput("dates",
-          label = "Date range",
-          start = "2015-07-01",
-          end = NULL
-        ),
-        selectizeInput(
-          inputId = "article",
-          label = "Chart type",
-          choices = charts$chart,
-          selected = c(
-            "Violin plot",
-            "Dendrogram",
-            "Histogram",
-            "Pie chart",
-            "Q–Q plot",
-            "Error bar"
-          ),
-          options = list(maxItems = 8),
-          multiple = TRUE
-        ),
-        selectInput(
-          inputId = "scales",
-          label = "Fixed or free y-axis",
-          choices = c("Fixed" = "fixed", "Free" = "free"),
-          selected = "fixed"
-        ),
-        selectInput(
-          inputId = "log10",
-          label = "Log 10 or normal y-axis",
-          choices = c("Log 10" = "log10", "Normal" = "norm"),
-          selected = "log10"
-        )
-      )
+  tags$header(
+    tags$img(src = logo, height = "32px", alt = "Plot Plotter logo"),
+    "Plot Plotter",
+    class = "app-title"
+  ),
+  div(
+    class = "controls",
+    layout_columns(
+      col_widths = c(6, 6),
+    dateRangeInput("dates",
+      label = "Date range",
+      start = "2015-07-01",
+      end = NULL
+    ),
+    selectizeInput(
+      inputId = "article",
+      label = "Chart type",
+      choices = charts$chart,
+      selected = c(
+        "Violin plot",
+        "Dendrogram",
+        "Histogram",
+        "Pie chart",
+        "Q–Q plot",
+        "Error bar"
+      ),
+      options = list(maxItems = 6),
+      multiple = TRUE
+    ),
+    selectInput(
+      inputId = "scales",
+      label = "Fixed or free y-axis",
+      choices = c("Fixed" = "fixed", "Free" = "free"),
+      selected = "fixed"
+    ),
+    selectInput(
+      inputId = "log10",
+      label = "Log 10 or normal y-axis",
+      choices = c("Log 10" = "log10", "Normal" = "norm"),
+      selected = "log10"
+    )
     )
   ),
   card(
@@ -147,15 +166,18 @@ server <- function(input, output, session) {
       geom_line() +
       geom_smooth(colour = pal[7]) +
       scale_colour_manual(values = pal) +
-      facet_wrap(~article, nrow = 1, scales = input$scales) +
+      facet_wrap(~article, ncol = 3, scales = input$scales) +
       theme(
         legend.position = "none",
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.margin = margin(1, 1, 1, 1, "cm")
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        strip.text = element_text(size = 9),
+        plot.margin = margin(5, 10, 5, 10, "pt"),
+        plot.caption = element_text(size = 8, hjust = 0)
       ) +
       labs(
         x = NULL, y = NULL,
-        caption = "\nSource: Daily Wikipedia Article Page Views"
+        caption = "Source: Daily Wikipedia Article Page Views"
       )
 
     switch(input$log10,
