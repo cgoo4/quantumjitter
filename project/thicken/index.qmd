@@ -298,7 +298,7 @@ writeLines(
 )
 ```
 
-Try 'Fixed' and 'Normal' with the default charts and the full date range. The histogram's 'world histogram day' spike in July 2015 steals the show. Switching to 'Log 10' gives the quieter charts a chance to be heard.
+Try 'Fixed' and 'Normal' with the default charts and the full date range. The 'world histogram day' spike in July 2015 steals the show. Switching to 'Log 10' gives the quieter charts a chance to be heard.
 
 My first version was finger-tappingly slow. Profiling with {profvis} [@profvis] helped explain why: I was fetching histories for every chart before anyone had chosen one. The more reactive approach of fetching only the selected articles, then reusing their histories, makes for a less impatient plot.
 
