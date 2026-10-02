@@ -16,14 +16,6 @@ One could think of data science as "art grounded in facts". It tells a story thr
 Which generate the most interest? How is the interest trending over time? Let's build an interactive serverless Shiny app to find out.
 
 ```{r}
-#| label: app-source
-#| include: false
-#| cache: false
-
-knitr::read_chunk('app.R')
-```
-
-```{r}
 #| label: article-setup
 
 library(ggfoundry)
@@ -33,11 +25,26 @@ library(usedthese)
 ```{r}
 #| label: libraries
 
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(purrr)
+library(stringr)
+library(tibble)
+library(shiny)
+library(bslib)
+library(rvest)
+library(scales)
+library(httr2)
+library(wesanderson)
 ```
 
 ```{r}
 #| label: app-theme
 
+theme_set(theme_bw(base_size = 11))
+
+pal <- wes_palette(8, name = "IsleofDogs1", type = "continuous")
 ```
 
 ```{r}
@@ -51,49 +58,228 @@ I'm going to start by harvesting some data from Wikipedia's [Statistical charts 
 
 ```{r}
 #| label: scrape
-#| eval: false
 
+charts <-
+  tibble(
+    chart = read_html(str_c(
+      "https://en.wikipedia.org/wiki/",
+      "Category:Statistical_charts_and_diagrams"
+    )) |>
+      html_elements(".mw-category-group a") |>
+      html_text()
+  )
 ```
 
 The page-view data comes from the Wikimedia API. A function wrapped around {httr2} [@httr2] calls the endpoint directly, so I can later iterate through a subset of the list established in the prior code chunk. This replaces the {pageviews} package, which has no WebAssembly build -- a detail that matters now the app runs in the browser rather than on a server.
 
 ```{r}
 #| label: pageview
-#| eval: false
 
+pv <- function(article, end_date = today()) {
+  request("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article") |>
+    req_url_path_append(
+      "en.wikipedia",
+      "all-access",
+      "user",
+      URLencode(article, reserved = TRUE),
+      "daily",
+      "2015070100",
+      str_c(format(end_date, "%Y%m%d"), "00")
+    ) |>
+    req_perform() |>
+    resp_body_json(simplify = TRUE) |>
+    pluck("items") |>
+    as_tibble() |>
+    mutate(date = ymd(str_sub(timestamp, 1, 8))) |>
+    select(article, date, views)
+}
 ```
 
 I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of *fixed* and *log10* is better for comparing plots. *Free* scaling reveals more detail in the individual trends.
 
-The UI was originally laid out with {gridlayout}. It is now built with {bslib} [@shiny]'s own `page_sidebar()`, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset [www/logo.png](www/logo.png), which must be retained beside `app.R` when the app is reused.
+The UI was originally laid out with {gridlayout}. It is now built with {bslib} [@shiny]'s own `page_sidebar()`, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset [www/logo.png](www/logo.png).
 
 ```{r}
 #| label: ui
-#| eval: false
 
+logo <- "logo.png"
+
+ui <- bslib::page(
+  theme = bs_theme(
+    bootswatch = "simplex",
+    primary = "#9986A5",
+    font_scale = 0.95
+  ),
+  tags$style(
+    ".app-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    .controls {
+      padding: 0.75rem 1rem;
+    }
+    .card-header {
+      padding: 0.5rem 0.75rem;
+    }
+    .card-body {
+      padding: 0.75rem;
+    }
+    .shiny-input-container {
+      margin-bottom: 0.75rem;
+    }
+    .control-label {
+      margin-bottom: 0.15rem;
+    }"
+  ),
+  tags$header(
+    tags$img(src = logo, height = "32px", alt = "Plot Plotter logo"),
+    "Plot Plotter",
+    class = "app-title"
+  ),
+  div(
+    class = "controls",
+    layout_columns(
+      col_widths = c(6, 6),
+    dateRangeInput("dates",
+      label = "Date range",
+      start = "2015-07-01",
+      end = NULL
+    ),
+    selectizeInput(
+      inputId = "article",
+      label = "Chart type",
+      choices = charts$chart,
+      selected = c(
+        "Violin plot",
+        "Dendrogram",
+        "Histogram",
+        "Pie chart",
+        "Q–Q plot",
+        "Error bar"
+      ),
+      options = list(maxItems = 6),
+      multiple = TRUE
+    ),
+    selectInput(
+      inputId = "scales",
+      label = "Fixed or free y-axis",
+      choices = c("Fixed" = "fixed", "Free" = "free"),
+      selected = "fixed"
+    ),
+    selectInput(
+      inputId = "log10",
+      label = "Log 10 or normal y-axis",
+      choices = c("Log 10" = "log10", "Normal" = "norm"),
+      selected = "log10"
+    )
+    )
+  ),
+  card(
+    full_screen = TRUE,
+    plotOutput("line")
+  )
+)
 ```
 
 The server component outputs a faceted ggplot.
 
 ```{r}
 #| label: server
-#| eval: false
 
+server <- function(input, output, session) {
+  pv_cached <- memoise::memoise(
+    pv,
+    cache = cachem::cache_mem(
+      max_size = 32 * 1024^2,
+      max_age = 3600
+    )
+  )
+
+  pv_history <- reactive({
+    req(input$article)
+    end_date <- today()
+    input$article |>
+      map(pv_cached, end_date = end_date) |>
+      list_rbind() |>
+      mutate(article = str_replace_all(article, "_", " "))
+  })
+
+  pv_df <- reactive({
+    pv_history() |>
+      dplyr::filter(date >= input$dates[1], date <= input$dates[2])
+  })
+
+  output$line <- renderPlot({
+    p <- ggplot(
+      pv_df(),
+      aes(date, views, colour = article)
+    ) +
+      geom_line() +
+      geom_smooth(method = "lm", formula = y ~ x, colour = pal[7]) +
+      scale_colour_manual(values = pal) +
+      facet_wrap(~article, ncol = 3, scales = input$scales) +
+      theme(
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        strip.text = element_text(size = 9),
+        plot.margin = margin(5, 10, 5, 10, "pt"),
+        plot.caption = element_text(size = 8, hjust = 0)
+      ) +
+      labs(
+        x = NULL, y = NULL,
+        caption = "Source: Daily Wikipedia Article Page Views"
+      )
+
+    switch(input$log10,
+      norm = p,
+      log10 = p + scale_y_log10(
+        labels = label_number(scale_cut = cut_short_scale())
+      )
+    )
+  })
+}
 ```
 
-The serverless app below is embedded using the {shinylive} [@shinylive] Quarto extension. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.
+```{r}
+#| label: app-run
+#| include: false
 
-```{shinylive-r}
-#| standalone: true
-#| components: [viewer]
-#| viewerHeight: 700
+shinyApp(ui, server)
+```
 
-{{< include app.R >}}
+The serverless app below is embedded using the {shinylive} [@shinylive] Quarto extension. A small hidden chunk assembles the app chunks above and emits it for the {shinylive} filter. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.
 
-## file: www/logo.png
-## type: binary
-{{< base64 www/logo.png >}}
+```{r}
+#| label: app-embed
+#| echo: false
+#| results: asis
+#| cache: false
 
+app_code <-
+  c("libraries", "scrape", "pageview", "app-theme", "ui", "server", "app-run") |>
+  map(knitr::knit_code$get) |>
+  unlist()
+
+writeLines(
+  c(
+    "```{shinylive-r}",
+    "#| standalone: true",
+    "#| components: [viewer]",
+    "#| viewerHeight: 700",
+    "",
+    app_code,
+    "",
+    "## file: www/logo.png",
+    "## type: binary",
+    "{{< base64 www/logo.png >}}",
+    "```"
+  )
+)
 ```
 
 Note the utility of selecting the right scaling. The combination of "fixed" and "normal" reveals what must have been "world histogram day" on July 27th 2015, but little else.
@@ -113,6 +299,5 @@ Summarising below the packages and functions used in this post enables me to sep
 ```{r}
 #| label: toolbox
 
-used_here('app.R')
+used_here()
 ```
-

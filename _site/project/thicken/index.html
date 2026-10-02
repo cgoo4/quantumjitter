@@ -441,7 +441,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 1, 2026</p>
+      <p class="date-modified">October 2, 2026</p>
     </div>
   </div>
     
@@ -518,7 +518,7 @@ div.csl-indent {
 <span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I want an input selector so that a user can choose plot types for comparison. I also want to provide user control of the y-axis scale. A combination of <em>fixed</em> and <em>log10</em> is better for comparing plots. <em>Free</em> scaling reveals more detail in the individual trends.</p>
-<p>The UI was originally laid out with {gridlayout}. It is now built with {bslib} <span class="citation" data-cites="shiny">(<a href="#ref-shiny" role="doc-biblioref">Chang et al. 2022</a>)</span>’s own <code><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html">page_sidebar()</a></code>, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset <a href="www/logo.png">www/logo.png</a>, which must be retained beside <code>app.R</code> when the app is reused.</p>
+<p>The UI was originally laid out with {gridlayout}. It is now built with {bslib} <span class="citation" data-cites="shiny">(<a href="#ref-shiny" role="doc-biblioref">Chang et al. 2022</a>)</span>’s own <code><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html">page_sidebar()</a></code>, which has the happy side-effect that every package in the app has a pre-built WebAssembly binary. The title-bar logo is now the tracked asset <a href="www/logo.png">www/logo.png</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logo</span> <span class="op">&lt;-</span> <span class="st">"logo.png"</span></span>
 <span></span>
@@ -633,7 +633,7 @@ div.csl-indent {
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">views</span>, colour <span class="op">=</span> <span class="va">article</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, colour <span class="op">=</span> <span class="va">pal</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">article</span>, ncol <span class="op">=</span> <span class="fl">3</span>, scales <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">scales</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
@@ -656,16 +656,13 @@ div.csl-indent {
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The serverless app below is embedded using the {shinylive} <span class="citation" data-cites="shinylive">(<a href="#ref-shinylive" role="doc-biblioref">Chang et al. 2026</a>)</span> Quarto extension. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.</p>
+<p>The serverless app below is embedded using the {shinylive} <span class="citation" data-cites="shinylive">(<a href="#ref-shinylive" role="doc-biblioref">Chang et al. 2026</a>)</span> Quarto extension. A small hidden chunk assembles the app chunks above and emits it for the {shinylive} filter. R and {shiny} run in your browser via WebR, without a hosted R server. An internet connection is still needed to load the runtime and packages and retrieve Wikipedia data. The first load can take a little time.</p>
 <pre class="shinylive-r" data-engine="r"><code>#| standalone: true
 #| components: [viewer]
 #| viewerHeight: 700
 
-## ---- libraries ----
 library(dplyr)
 library(ggplot2)
 library(lubridate)
@@ -678,8 +675,6 @@ library(rvest)
 library(scales)
 library(httr2)
 library(wesanderson)
-
-## ---- scrape ----
 charts &lt;-
   tibble(
     chart = read_html(str_c(
@@ -689,8 +684,6 @@ charts &lt;-
       html_elements(".mw-category-group a") |&gt;
       html_text()
   )
-
-## ---- pageview ----
 pv &lt;- function(article, end_date = today()) {
   request("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article") |&gt;
     req_url_path_append(
@@ -709,13 +702,9 @@ pv &lt;- function(article, end_date = today()) {
     mutate(date = ymd(str_sub(timestamp, 1, 8))) |&gt;
     select(article, date, views)
 }
-
-## ---- app-theme ----
 theme_set(theme_bw(base_size = 11))
 
 pal &lt;- wes_palette(8, name = "IsleofDogs1", type = "continuous")
-
-## ---- ui ----
 logo &lt;- "logo.png"
 
 ui &lt;- bslib::page(
@@ -797,8 +786,6 @@ ui &lt;- bslib::page(
     plotOutput("line")
   )
 )
-
-## ---- server ----
 server &lt;- function(input, output, session) {
   pv_cached &lt;- memoise::memoise(
     pv,
@@ -828,7 +815,7 @@ server &lt;- function(input, output, session) {
       aes(date, views, colour = article)
     ) +
       geom_line() +
-      geom_smooth(colour = pal[7]) +
+      geom_smooth(method = "lm", formula = y ~ x, colour = pal[7]) +
       scale_colour_manual(values = pal) +
       facet_wrap(~article, ncol = 3, scales = input$scales) +
       theme(
@@ -852,9 +839,7 @@ server &lt;- function(input, output, session) {
     )
   })
 }
-
 shinyApp(ui, server)
-
 
 ## file: www/logo.png
 ## type: binary
@@ -1155,8 +1140,7 @@ Ax4lJpT9y6BrkiRJqqX3kD+Q7QY2Rl2QJElSHa0CHiFvKHtP2NVIkiTV2LcAk+QJZJ/CB8YkSZIW
 7CcZfSC7Bzgr8iIkSZKa4OcYXSD7GrAt9vQlSZKa4x+RVvpfTiD7KE7slyRJWrYLgD8gLfi6mDD2
 CPAPCpyvJElSo10N/ArwGLMHsUPAJ0hhzA3HpczGSp+AJKm480khbSuwGtgP7ADuA04VPC9JkiRJ
 kiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ5f3//1apdPd/iLYAAAAASUVORK5C
-YII=
-</code></pre>
+YII=</code></pre>
 <p>Note the utility of selecting the right scaling. The combination of “fixed” and “normal” reveals what must have been “world histogram day” on July 27th 2015, but little else.</p>
 <p>Turning non-interactive code into an app sharpens the mind’s focus on performance. And profvis <span class="citation" data-cites="profvis">(<a href="#ref-profvis" role="doc-biblioref">Chang et al. 2020</a>)</span>, integrated into RStudio via the profile menu option, is a wonderful “tool for helping you understand how R spends its time”.</p>
 <p>My first version of the app was finger-tappingly slow.</p>
@@ -1165,7 +1149,7 @@ YII=
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
 <p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="st">'app.R'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped caption-top table-sm small">
 <thead><tr class="header">
@@ -1175,7 +1159,7 @@ YII=
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">c[4], format[1], function[2], library[12], list[1], switch[1]</td>
+<td style="text-align: left;">c[6], format[1], function[2], library[14], list[1], switch[1], unlist[1], writeLines[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bslib</td>
@@ -1190,48 +1174,56 @@ YII=
 <td style="text-align: left;">filter[1], mutate[2], select[1]</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">display_palette[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">ggplot2</td>
 <td style="text-align: left;">aes[1], element_text[4], facet_wrap[1], geom_line[1], geom_smooth[1], ggplot[1], labs[1], margin[1], scale_colour_manual[1], scale_y_log10[1], theme[1], theme_bw[1], theme_set[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">htmltools</td>
 <td style="text-align: left;">div[1], img[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">httr2</td>
 <td style="text-align: left;">req_perform[1], req_url_path_append[1], request[1], resp_body_json[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">lubridate</td>
 <td style="text-align: left;">today[2], ymd[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">memoise</td>
 <td style="text-align: left;">memoise[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">list_rbind[1], map[1], pluck[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">purrr</td>
+<td style="text-align: left;">list_rbind[1], map[2], pluck[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">rvest</td>
 <td style="text-align: left;">html_elements[1], html_text[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">scales</td>
 <td style="text-align: left;">cut_short_scale[1], label_number[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">shiny</td>
 <td style="text-align: left;">dateRangeInput[1], plotOutput[1], reactive[2], renderPlot[1], req[1], selectInput[2], selectizeInput[1], shinyApp[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">stringr</td>
 <td style="text-align: left;">str_c[2], str_replace_all[1], str_sub[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[1], tibble[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">usedthese</td>
+<td style="text-align: left;">used_here[1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">utils</td>
