@@ -1,5 +1,4 @@
 ## ---- libraries ----
-library(conflicted)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
@@ -12,8 +11,6 @@ library(rvest)
 library(scales)
 library(httr2)
 library(wesanderson)
-
-conflict_prefer_all("dplyr", quiet = TRUE)
 
 ## ---- scrape ----
 charts <-
@@ -155,7 +152,7 @@ server <- function(input, output, session) {
 
   pv_df <- reactive({
     pv_history() |>
-      filter(date >= input$dates[1], date <= input$dates[2])
+      dplyr::filter(date >= input$dates[1], date <= input$dates[2])
   })
 
   output$line <- renderPlot({
