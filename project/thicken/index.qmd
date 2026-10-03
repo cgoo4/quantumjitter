@@ -104,7 +104,20 @@ I’m using {bslib} to arrange the controls above the plot, keeping everything c
 ```{r}
 #| label: ui
 
-logo <- "logo.png"
+# Resolve the logo from the document directory, or the project root when
+# chunks are sent to the console, then embed it as a data URI: an inline
+# shinyApp() object serves no www/ directory, unlike a deployed app
+logo_file <- c(
+  "www/logo.png",
+  file.path("project", "thicken", "www", "logo.png")
+) |>
+  purrr::keep(file.exists) |>
+  head(1)
+
+logo <- paste0(
+  "data:image/png;base64,",
+  openssl::base64_encode(readBin(logo_file, "raw", file.size(logo_file)))
+)
 
 ui <- bslib::page(
   theme = bs_theme(
@@ -285,6 +298,13 @@ app_code <-
   map(knitr::knit_code$get) |>
   unlist()
 
+# Generate the base64 at knit time: the Shinylive filter reads this code
+# block before Quarto expands shortcodes, so a `{{< base64 >}}` shortcode
+# here would ship its literal text as the file content
+logo_b64 <- openssl::base64_encode(
+  readBin("www/logo.png", "raw", file.size("www/logo.png"))
+)
+
 writeLines(
   c(
     "```{shinylive-r}",
@@ -296,7 +316,7 @@ writeLines(
     "",
     "## file: www/logo.png",
     "## type: binary",
-    "{{< base64 www/logo.png >}}",
+    logo_b64,
     "```"
   )
 )
