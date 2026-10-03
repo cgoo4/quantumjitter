@@ -516,10 +516,7 @@ div.csl-indent {
 <p>The controls let visitors choose up to six chart types, a date range and the y-axis scales. ‘Fixed’ gives every panel the same scale for comparing counts. ‘Free’ gives each panel its own range, making individual patterns easier to see. ‘Log 10’ helps when counts differ greatly, while ‘Normal’ keeps the original spacing between counts.</p>
 <p>I’m using {bslib} to arrange the controls above the plot, keeping everything compact enough for this page. The plot card can also expand when six charts need a little more elbow room.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Resolve the logo from the document directory, or the project root when</span></span>
-<span><span class="co"># chunks are sent to the console, then embed it as a data URI: an inline</span></span>
-<span><span class="co"># shinyApp() object serves no www/ directory, unlike a deployed app</span></span>
-<span><span class="va">logo_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logo_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"www/logo.png"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"project"</span>, <span class="st">"thicken"</span>, <span class="st">"www"</span>, <span class="st">"logo.png"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -732,9 +729,6 @@ pv &lt;- function(article, end_date = today()) {
 theme_set(theme_bw(base_size = 11))
 
 pal &lt;- wes_palette(8, name = "IsleofDogs1", type = "continuous")
-# Resolve the logo from the document directory, or the project root when
-# chunks are sent to the console, then embed it as a data URI: an inline
-# shinyApp() object serves no www/ directory, unlike a deployed app
 logo_file &lt;- c(
   "www/logo.png",
   file.path("project", "thicken", "www", "logo.png")
