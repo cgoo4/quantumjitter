@@ -15,6 +15,10 @@ One could think of data science as art grounded in facts. It tells a story throu
 
 Which attract the most readers? How has that attention changed over time? Let’s build a Shiny app to explore their daily page views. These tell us something about attention to the articles, rather than how often people actually use each chart.
 
+::: callout-note
+Want to make your own version? The [source folder](https://github.com/cgoo4/quantumjitter/tree/main/project/thicken) contains the complete `index.qmd` and supporting files, including the logo. The named chunks supply both this walkthrough and the embedded app. To render the whole article, download the repository too: its Quarto configuration and extensions live at the root.
+:::
+
 ```{r}
 #| label: libraries
 
@@ -30,6 +34,9 @@ library(rvest)
 library(scales)
 library(httr2)
 library(wesanderson)
+library(memoise)
+library(cachem)
+library(openssl)
 ```
 
 ```{r}
@@ -265,7 +272,8 @@ server <- function(input, output, session) {
 
 ```{r}
 #| label: app-run
-#| include: false
+#| eval: false
+#| purl: true
 
 shinyApp(ui, server)
 ```
@@ -273,7 +281,9 @@ shinyApp(ui, server)
 The app below runs R and {shiny} in your browser through WebR, using the {shinylive} [@shinylive] Quarto extension. There is no hosted R session behind it. You still need an internet connection to load the runtime and packages and retrieve Wikipedia data, and the first load can take a little patience.
 
 ::: callout-caution
-## If a ‘404’ page appears inside the app, try opening this page in a new private browsing window. This helped in Safari testing, though the root cause is yet to be pinned down.
+If the app doesn’t load
+
+An intermittent loading problem can sometimes show a ‘404’ inside the app. A reload or a new private browsing window may help, though neither is a guaranteed fix. The cause is still being investigated.
 :::
 
 ```{r}
@@ -295,9 +305,6 @@ app_code <-
   map(knitr::knit_code$get) |>
   unlist()
 
-# Generate the base64 at knit time: the Shinylive filter reads this code
-# block before Quarto expands shortcodes, so a `{{< base64 >}}` shortcode
-# here would ship its literal text as the file content
 logo_b64 <- openssl::base64_encode(
   readBin("www/logo.png", "raw", file.size("www/logo.png"))
 )
@@ -319,17 +326,17 @@ writeLines(
 )
 ```
 
-Try 'Fixed' and 'Normal' with the default charts and the full date range. The 'world histogram day' spike in July 2015 steals the show. Switching to 'Log 10' gives the quieter charts a chance to be heard.
+Try ‘Fixed’ and ‘Normal’ with the default charts and the full date range. The 'world histogram day' spike in July 2015 steals the show. Switching to ‘Log 10’ gives the underloved charts a chance to be heard.
 
 My first version was finger-tappingly slow. Profiling with {profvis} [@profvis] helped explain why: I was fetching histories for every chart before anyone had chosen one. The more reactive approach of fetching only the selected articles, then reusing their histories, makes for a less impatient plot.
 
-There are two different waits here. Loading R and its packages gets the browser ready to run the app. Fetching and plotting the selected articles comes afterwards. Memoisation helps with repeated data requests within a session, but does not remove that initial runtime download.
+There are two different waits here. Loading R and its packages gets the browser ready to run the app. Fetching and plotting the selected articles comes afterwards. Memoization helps with repeated data requests within a session, but does not remove that initial runtime download.
 
 To adapt the example, start with the Quarto source and supporting files. The named chunks in `index.qmd` supply both the code shown here and the embedded app, so there is only one version to edit. The source also shows how to include a logo as a file within the app. The website’s Quarto configuration and extensions live at the repository root.
 
 ## R Toolbox
 
-Summarizing below the packages and functions used in this post enables me to separately create a [toolbox visualization](/project/box) summarizing the usage of packages and functions across all posts.
+Here are the packages and functions used in this example, gathered with {usedthese}. For more ideas, explore the [toolbox visualization](/project/box), which brings together examples from across the site.
 
 ```{r}
 #| label: toolbox
