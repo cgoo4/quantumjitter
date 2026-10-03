@@ -1,13 +1,16 @@
 # Post-render tidy-up: align generated URLs with canonical addresses
-# - sitemap: normalise URLs to canonical addresses, drop the 404 page,
-#   and deduplicate complete <url> records accumulated by incremental
-#   renders. Deduplication is record-wise, never line-wise: repeated
-#   structural tags and dates across entries are legitimate XML.
+# - sitemap: emit the complete canonical URL inventory from the rendered
+#   pages' canonical link tags, without lastmod values. Quarto's
+#   incremental renderer rebuilds sitemap.xml from a lossy in-memory
+#   state (readSitemap() drops undated entries and lets later entries
+#   inherit earlier dates), so the existing sitemap is neither a
+#   reliable source of the inventory nor of its dates.
 # - HTML: internal hrefs to trailing-slash directories, encode spaces
 
 library(xml2)
 
-sitemap <- "_site/sitemap.xml"
+sitemap_path <- "_site/sitemap.xml"
+site_dir <- "_site"
 site_url <- "https://www.quantumjitter.com/"
 
 # Canonical URL conventions for this site
@@ -27,84 +30,50 @@ escape_xml <- function(x) {
   gsub(">", "&gt;", x, fixed = TRUE)
 }
 
-parse_sitemap <- function(path) {
-  doc <- read_xml(path)
-  url_nodes <- xml_find_all(doc, "./*[local-name() = 'url']")
-  locs <- xml_text(xml_find_first(url_nodes, "./*[local-name() = 'loc']"))
-  lastmods <- xml_text(xml_find_first(
-    url_nodes,
-    "./*[local-name() = 'lastmod']"
-  ))
-  tibble::tibble(
-    loc = normalize_loc(locs),
-    lastmod = dplyr::if_else(lastmods %in% c("", NA), NA_character_, lastmods)
+# Canonical href from a rendered page's <link rel="canonical"> tag;
+# NA when the page has none
+canonical_loc <- function(path) {
+  doc <- xml2::read_html(path)
+  href <- xml2::xml_text(
+    xml2::xml_find_first(doc, "//link[@rel='canonical']/@href")
   )
+  if (is.na(href)) NA_character_ else href
 }
 
-# Parse W3C dates/times to UTC instants. Accepts date-only values and
-# timestamps with a Z suffix or an explicit UTC offset; anything else
-# (including NA) is invalid and yields NA
-parse_lastmod <- function(lastmod) {
-  lastmod[is.na(lastmod)] <- ""
-  out <- as.POSIXct(rep(NA_character_, length(lastmod)), tz = "UTC")
-
-  is_date_only <- grepl("^\\d{4}-\\d{2}-\\d{2}$", lastmod)
-  out[is_date_only] <- as.POSIXct(
-    lastmod[is_date_only],
-    format = "%Y-%m-%d",
-    tz = "UTC"
+# Complete canonical URL inventory from the rendered pages, sorted and
+# deduplicated. Canonicals pointing outside the site are excluded
+build_inventory <- function(site_dir, site_url) {
+  html_files <- list.files(
+    site_dir,
+    pattern = "\\.html$",
+    recursive = TRUE,
+    full.names = TRUE
   )
-
-  # Normalise offsets to +HHMM for %z, and treat a Z suffix as UTC
-  with_offset <- !is_date_only & grepl("[+-]\\d{2}(:?\\d{2})?$", lastmod)
-  zulu <- !is_date_only & !with_offset & grepl("Z$", lastmod)
-  out[zulu] <- as.POSIXct(
-    sub("Z$", "", lastmod[zulu]),
-    format = "%Y-%m-%dT%H:%M:%OS",
-    tz = "UTC"
-  )
-  offset_forms <- sub("([+-]\\d{2}):(\\d{2})$", "\\1\\2", lastmod[with_offset])
-  out[with_offset] <- as.POSIXct(
-    offset_forms,
-    format = "%Y-%m-%dT%H:%M:%OS%z",
-    tz = "UTC"
-  )
-  out
+  tibble::tibble(file = html_files) |>
+    dplyr::mutate(loc = purrr::map_chr(file, canonical_loc)) |>
+    dplyr::mutate(loc = normalize_loc(loc)) |>
+    dplyr::filter(!is.na(loc), startsWith(loc, site_url)) |>
+    dplyr::distinct(loc) |>
+    dplyr::arrange(loc)
 }
 
-# One row per canonical URL. Where duplicates exist, retain the latest
-# valid lastmod by chronological comparison rather than input order.
-# Invalid lastmod values are cleared, so URLs with no valid date are
-# written undated rather than invented
-dedupe_sitemap <- function(sitemap_df) {
-  sitemap_df |>
-    dplyr::mutate(
-      lastmod_time = parse_lastmod(lastmod),
-      lastmod = dplyr::if_else(is.na(lastmod_time), NA_character_, lastmod)
-    ) |>
-    dplyr::filter(loc != paste0(site_url, "404.html")) |>
-    dplyr::slice_max(lastmod_time, n = 1, by = loc, with_ties = FALSE) |>
-    dplyr::arrange(loc) |>
-    dplyr::select(loc, lastmod)
+# Rewrite sitemap.xml with the canonical inventory. The existing file
+# is deliberately ignored: whatever URLs or dates it holds cannot be
+# trusted after an incremental render
+repair_sitemap <- function(sitemap_path, site_dir, site_url) {
+  inventory <- build_inventory(site_dir, site_url) |>
+    dplyr::filter(loc != paste0(site_url, "404.html"))
+  write_sitemap(inventory$loc, sitemap_path)
+  inventory
 }
 
-write_sitemap <- function(sitemap_df, path) {
-  entry <- function(loc, lastmod) {
-    lastmod_line <- if (!is.na(lastmod)) {
-      paste0("    <lastmod>", escape_xml(lastmod), "</lastmod>\n")
-    } else {
-      ""
-    }
+write_sitemap <- function(locs, path) {
+  body <- paste(
     paste0(
       "  <url>\n    <loc>",
-      escape_xml(loc),
-      "</loc>\n",
-      lastmod_line,
-      "  </url>"
-    )
-  }
-  body <- paste(
-    mapply(entry, sitemap_df$loc, sitemap_df$lastmod),
+      escape_xml(locs),
+      "</loc>\n  </url>"
+    ),
     collapse = "\n"
   )
   writeLines(
@@ -119,18 +88,20 @@ write_sitemap <- function(sitemap_df, path) {
   )
 }
 
-write_sitemap(dedupe_sitemap(parse_sitemap(sitemap)), sitemap)
+if (sys.nframe() == 0L) {
+  repair_sitemap(sitemap_path, site_dir, site_url)
 
-# Rewrite internal hrefs pointing at index.html files and encode spaces
-html_files <- list.files(
-  "_site",
-  pattern = "\\.html$",
-  recursive = TRUE,
-  full.names = TRUE
-)
-for (f in html_files) {
-  html <- readLines(f, encoding = "UTF-8", warn = FALSE)
-  html <- gsub('href="([^"]*)/index\\.html"', 'href="\\1/"', html)
-  html <- gsub('href="([^" ]*) ([^"]*)"', 'href="\\1%20\\2"', html)
-  writeLines(html, f, useBytes = TRUE)
+  # Rewrite internal hrefs pointing at index.html files and encode spaces
+  html_files <- list.files(
+    site_dir,
+    pattern = "\\.html$",
+    recursive = TRUE,
+    full.names = TRUE
+  )
+  for (f in html_files) {
+    html <- readLines(f, encoding = "UTF-8", warn = FALSE)
+    html <- gsub('href="([^"]*)/index\\.html"', 'href="\\1/"', html)
+    html <- gsub('href="([^" ]*) ([^"]*)"', 'href="\\1%20\\2"', html)
+    writeLines(html, f, useBytes = TRUE)
+  }
 }
