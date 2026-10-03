@@ -2,6 +2,17 @@ project:
   type: website
   resources:
     - _headers
+  # Local assistant diagnostics are not site content. Positives are
+  # listed explicitly: a render list with only exclusions renders nothing
+  render:
+    - index.qmd
+    - 404.qmd
+    - LICENSE.md
+    - about/
+    - blog/
+    - project/
+    - license/
+    - "!scratch/"
   post-render:
     - post-render.R
 
