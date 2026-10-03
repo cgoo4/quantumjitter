@@ -41096,6 +41096,19 @@ background-color: null;
 font-style: inherit;">}</span></span></code></pre></div></div>
 </div>
 <p>The app below runs R and {shiny} in your browser through WebR, using the {shinylive} <span class="citation" data-cites="shinylive">(Chang et al. 2026)</span> Quarto extension. There is no hosted R session behind it. You still need an internet connection to load the runtime and packages and retrieve Wikipedia data, and the first load can take a little patience.</p>
+<div class="callout callout-style-default callout-caution callout-empty-content callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>If a ‘404’ page appears inside the app, try opening this page in a new private browsing window. This helped in Safari testing, though the root cause is yet to be pinned down.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
 <pre class="shinylive-r" data-engine="r"><code>#| standalone: true
 #| components: [viewer]
 #| viewerHeight: 700
@@ -41582,7 +41595,7 @@ Ax4lJpT9y6BrkiRJqqX3kD+Q7QY2Rl2QJElSHa0CHiFvKHtP2NVIkiTV2LcAk+QJZJ/CB8YkSZIW
 CPAPCpyvJElSo10N/ArwGLMHsUPAJ0hhzA3HpczGSp+AJKm480khbSuwGtgP7ADuA04VPC9JkiRJ
 kiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ5f3//1apdPd/iLYAAAAASUVORK5C
 YII=</code></pre>
-<p>Try ‘Fixed’ and ‘Normal’ with the default charts and the full date range. The histogram’s ‘world histogram day’ spike in July 2015 steals the show. Switching to ‘Log 10’ gives the quieter charts a chance to be heard.</p>
+<p>Try ‘Fixed’ and ‘Normal’ with the default charts and the full date range. The ‘world histogram day’ spike in July 2015 steals the show. Switching to ‘Log 10’ gives the quieter charts a chance to be heard.</p>
 <p>My first version was finger-tappingly slow. Profiling with {profvis} <span class="citation" data-cites="profvis">(Chang et al. 2020)</span> helped explain why: I was fetching histories for every chart before anyone had chosen one. The more reactive approach of fetching only the selected articles, then reusing their histories, makes for a less impatient plot.</p>
 <p>There are two different waits here. Loading R and its packages gets the browser ready to run the app. Fetching and plotting the selected articles comes afterwards. Memoisation helps with repeated data requests within a session, but does not remove that initial runtime download.</p>
 <p>To adapt the example, start with the Quarto source and supporting files. The named chunks in <code>index.qmd</code> supply both the code shown here and the embedded app, so there is only one version to edit. The source also shows how to include a logo as a file within the app. The website’s Quarto configuration and extensions live at the repository root.</p>
