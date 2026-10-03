@@ -1898,13 +1898,11 @@ self.addEventListener("fetch", function(event) {
   const appPathRegex = /.*\/(app_[^/]+\/)/;
   const m_appPath = appPathRegex.exec(url.pathname);
   if (m_appPath) {
-    const appPathname = url.pathname;
-    console.log("QJ-DIAG qj-diag-b1 sw app-fetch entry", appPathname, "registered:", !!apps[m_appPath[1]]);
-    const respondPromise = (async () => {
+    event.respondWith(
+      (async () => {
         let pollCount = 5;
         while (!apps[m_appPath[1]]) {
           if (pollCount == 0) {
-            console.log("QJ-DIAG qj-diag-b1 sw app-fetch registration-timeout", appPathname);
             return new Response(
               `Couldn't find parent page for ${url}. This may be because the Service Worker has updated. Try reloading the page.`,
               {
@@ -1934,17 +1932,13 @@ self.addEventListener("fetch", function(event) {
           void 0,
           filter
         );
-        console.log("QJ-DIAG qj-diag-b1 sw app-fetch status", appPathname, resp.status);
         if (coiRequested) {
           return addCorpHeader(resp);
         } else {
           return resp;
         }
-      })();
-    event.respondWith(respondPromise.catch((err) => {
-      console.log("QJ-DIAG qj-diag-b1 sw respondWith-rejected", appPathname, String(err && err.message || err));
-      throw err;
-    }));
+      })()
+    );
     return;
   }
   if (request.method !== "GET") {
@@ -1998,7 +1992,6 @@ self.addEventListener("message", (event) => {
     const path = msg.path;
     const port = event.ports[0];
     apps[path] = port;
-    console.log("QJ-DIAG qj-diag-b1 sw proxy-registered", path);
   }
 });
 function identityFilter(bodyChunk, response) {
