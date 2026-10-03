@@ -33276,18 +33276,30 @@ webr::shim_install()
   tmp <- tempfile()
   on.exit(unlink(tmp, recursive = TRUE))
 
-  utils::download.file(path, tmp, quiet = TRUE)
-  utils::untar(
-    tmp,
-    exdir = lib,
-    tar = "internal",
-    extras = "--no-same-permissions"
+  message("QJ-DIAG qj-diag-b1 stage=vfs op=tgz entry path=", path)
+  withCallingHandlers(
+    {
+      utils::download.file(path, tmp, quiet = TRUE)
+      utils::untar(
+        tmp,
+        exdir = lib,
+        tar = "internal",
+        extras = "--no-same-permissions"
+      )
+      message("QJ-DIAG qj-diag-b1 stage=vfs op=tgz returned path=", path)
+    },
+    error = function(cnd) {
+      message("QJ-DIAG qj-diag-b1 stage=vfs op=tgz error path=", path, " msg=", conditionMessage(cnd))
+      print(conditionCall(cnd))
+      print(sys.calls())
+    }
   )
 }
 
 .mount_vfs_images <- function() {
   metadata_url <- glue::glue("{.base_url}packages/metadata.rds")
   metadata_path <- glue::glue("/shinylive/webr/packages/metadata.rds")
+  message("QJ-DIAG qj-diag-b1 stage=vfs entry")
 
   # Attempt this download quietly, if no metadata exists we can still continue
   found <- webr::eval_js(glue::glue("
@@ -33297,11 +33309,25 @@ webr::shim_install()
     (xhr.status >= 200 && xhr.status < 300)
   "))
   if (found) {
-    download.file(metadata_url, metadata_path, quiet = TRUE)
+    withCallingHandlers(
+      download.file(metadata_url, metadata_path, quiet = TRUE),
+      error = function(cnd) {
+        message("QJ-DIAG qj-diag-b1 stage=vfs op=metadata-dl error url=", metadata_url, " msg=", conditionMessage(cnd))
+        print(conditionCall(cnd))
+        print(sys.calls())
+      }
+    )
   }
 
   if (file.exists(metadata_path)) {
-    metadata <- readRDS(metadata_path)
+    metadata <- withCallingHandlers(
+      readRDS(metadata_path),
+      error = function(cnd) {
+        message("QJ-DIAG qj-diag-b1 stage=vfs op=readRDS-metadata error msg=", conditionMessage(cnd))
+        print(conditionCall(cnd))
+        print(sys.calls())
+      }
+    )
     lapply(metadata, function(data) {
       name <- data$name
       path <- data$path
@@ -33314,6 +33340,7 @@ webr::shim_install()
           tryCatch({
             webr::mount(mountpoint, glue::glue("{.base_url}{path}"))
           }, error = function(cnd) {
+            message("QJ-DIAG qj-diag-b1 stage=vfs op=mount error pkg=", name, " msg=", conditionMessage(cnd))
             # File extraction fallback for .tgz with no filesystem metadata
             if (grepl(".tgz$", path)) {
               .install_pkg_tgz(path, "/shinylive/webr/packages/")
@@ -33335,14 +33362,23 @@ webr::shim_install()
 
   # Warm package cache with installed packages
   lapply(rownames(installed.packages()), function(p) { .webr_pkg_cache[[p]] <<- TRUE })
+  message("QJ-DIAG qj-diag-b1 stage=vfs returned")
 }
 
 .start_app <- function(appName, appDir, devMode = FALSE) {
+  message("QJ-DIAG qj-diag-b1 stage=start entry name=", appName)
   # Mount VFS images provided in Shinylive app assets
   .mount_vfs_images()
 
   # Uniquely install packages with webr
-  unique_pkgs <- unique(renv::dependencies(appDir, quiet = TRUE)$Package)
+  unique_pkgs <- unique(withCallingHandlers(
+    renv::dependencies(appDir, quiet = TRUE)$Package,
+    error = function(cnd) {
+      message("QJ-DIAG qj-diag-b1 stage=vfs op=renv-deps error name=", appName, " msg=", conditionMessage(cnd))
+      print(conditionCall(cnd))
+      print(sys.calls())
+    }
+  ))
   lapply(unique_pkgs, function(pkg_name) {
     if (isTRUE(.webr_pkg_cache[[pkg_name]])) return()
 
@@ -33350,17 +33386,35 @@ webr::shim_install()
     .webr_pkg_cache[[pkg_name]] <<- has_pkg
 
     if (!has_pkg) {
-      webr::install(pkg_name)
+      withCallingHandlers(
+        webr::install(pkg_name),
+        error = function(cnd) {
+          message("QJ-DIAG qj-diag-b1 stage=pkg-install error pkg=", pkg_name, " msg=", conditionMessage(cnd))
+          print(conditionCall(cnd))
+          print(sys.calls())
+        }
+      )
     }
   })
+  message("QJ-DIAG qj-diag-b1 stage=pkg-install returned name=", appName)
 
   if (isTRUE(devMode)) {
     # Enable client-side dev mode features, namely the error console
     options(shiny.client_devmode = TRUE)
   }
 
-  app <- .shiny_to_httpuv(appDir)
+  message("QJ-DIAG qj-diag-b1 stage=app-eval entry name=", appName)
+  app <- withCallingHandlers(
+    .shiny_to_httpuv(appDir),
+    error = function(cnd) {
+      message("QJ-DIAG qj-diag-b1 stage=app-eval error name=", appName, " msg=", conditionMessage(cnd))
+      print(conditionCall(cnd))
+      print(sys.calls())
+    }
+  )
+  message("QJ-DIAG qj-diag-b1 stage=app-eval returned name=", appName)
   assign(appName, app, envir = .shiny_app_registry)
+  message("QJ-DIAG qj-diag-b1 stage=app-registered name=", appName)
   invisible(0)
 }
 
