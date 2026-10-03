@@ -262,6 +262,10 @@ shinyApp(ui, server)
 
 The app below runs R and {shiny} in your browser through WebR, using the {shinylive} [@shinylive] Quarto extension. There is no hosted R session behind it. You still need an internet connection to load the runtime and packages and retrieve Wikipedia data, and the first load can take a little patience.
 
+::: callout-caution
+## If a ‘404’ page appears inside the app, try opening this page in a new private browsing window. This helped in Safari testing, though the root cause is yet to be pinned down.
+:::
+
 ```{r}
 #| label: app-embed
 #| echo: false
