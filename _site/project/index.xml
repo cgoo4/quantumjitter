@@ -17,7 +17,7 @@
   <link>https://www.quantumjitter.com/project/saowtu/</link>
   <description><![CDATA[ <p><img src="https://www.quantumjitter.com/project/saowtu/feature.png" class="profile-img img-fluid" alt="AI-assisted digital composition of the book manuscript and a laptop displaying a boxplot."></p>
 <p><br></p>
-<p>A little under a year ago, I embarked on a journey to write my first novel <em>Such an Odd Word to Use</em> — more accurately a novella given its 31.5k words. The process was both exhilarating and challenging, pushing me to explore new creative depths. It was also a chance to deploy my skills in data analysis and visualisation in a novel context — literally.</p>
+<p>A little under a year ago, I embarked on a journey to write my first novel <em>Such an Odd Word to Use</em> — more accurately a novella given its 31.5k words. The process was both exhilarating and challenging, pushing me to explore new creative depths. It was also a chance to deploy my skills in data analysis and visualization in a novel context — literally.</p>
 <p>On my author website, also built with Quarto, I wrote a <a href="https://carlgoodwin.com/blog/analysis/analysis">blog post</a> comparing my writing style to established literature using R and the <code>quanteda</code> package. This version of that same post incorporates the R code used to delve into the structure and readability of my manuscript.</p>
 <p><br></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -30,7 +30,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>My manuscript is not in the repo, but the code should be reproducible for the gutenberg books. If you are interested in reading the novella, I’m running time-bound giveaways for <em>Such an Odd Word to Use</em> on my <a href="https://carlgoodwin.com">author site</a>.</p>
+<p>My manuscript is not in the repository, but the code should be reproducible for the Gutenberg books. If you are interested in reading the novella, I’m running time-bound giveaways for <em>Such an Odd Word to Use</em> on my <a href="https://carlgoodwin.com">author site</a>.</p>
 </div>
 </div>
 <div style="text-align:center; margin: 2rem 0;">
@@ -55,37 +55,6 @@ background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ggplot2</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">::</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">readtext</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">::</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://readtext.quanteda.io/reference/texts.html">texts</a></span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">quanteda</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">::</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dplyr</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">::</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -168,6 +137,53 @@ background-color: null;
 font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot2</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>,</span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">readtext</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://readtext.quanteda.io/reference/texts.html">texts</a></span>,</span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">quanteda</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span>,</span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dplyr</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -228,7 +244,7 @@ font-style: inherit;"># Define a regular expression for your section headers</sp
 background-color: null;
 font-style: inherit;">section_pattern</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> </span>
+font-style: inherit;">&lt;-</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op" style="color: #5E5E5E;
@@ -252,15 +268,13 @@ font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_split
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">book_text</span>, pattern <span class="op" style="color: #5E5E5E;
+font-style: inherit;">book_text</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">section_pattern</span>, simplify <span class="op" style="color: #5E5E5E;
+font-style: inherit;">text</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">FALSE</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">section_pattern</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -285,21 +299,29 @@ font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_extra
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">book_text</span>, <span class="va" style="color: #111111;
+font-style: inherit;">book_text</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">section_pattern</span>, simplify <span class="op" style="color: #5E5E5E;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+font-style: inherit;">text</span>, <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">section_pattern</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span>
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[[</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">head_foot</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> </span>
+font-style: inherit;">&lt;-</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op" style="color: #5E5E5E;
@@ -351,14 +373,14 @@ font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">)</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># -1 drop preamble before first heading</span></span>
 <span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -395,7 +417,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">book_split</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
@@ -406,7 +428,7 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"heading"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span> </span>
+font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
@@ -416,7 +438,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">book_corp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op" style="color: #5E5E5E;
@@ -433,7 +455,7 @@ font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
@@ -446,7 +468,7 @@ font-style: inherit;">"heading"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
@@ -459,13 +481,13 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">heading</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Cha|Pro"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Chapter|Prologue"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -481,7 +503,7 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">heading</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>,  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">)</span>, <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Preserve factor order</span></span>
 <span>    cum_toks <span class="op" style="color: #5E5E5E;
@@ -546,7 +568,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 background-color: null;
 font-style: inherit;">book_toks</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
@@ -600,25 +622,47 @@ background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Label just right of the chapter-axis midpoint</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span></span>
+<span>    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"label"</span>, x <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"label"</span>,</span>
+<span>    x <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">15.5</span>, y <span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">book_toks</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">heading</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">11.5</span>,</span>
+<span>    y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">avg_words</span>, label <span class="op" style="color: #5E5E5E;
+font-style: inherit;">avg_words</span>,</span>
+<span>    label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Average"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Average"</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -643,12 +687,13 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">NULL</span>, y <span class="op" style="color: #5E5E5E;
+font-style: inherit;">NULL</span>,</span>
+<span>    y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Words"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -690,11 +735,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>For comparison, I drew on works from <a href="https://www.gutenberg.org">Project Gutenberg</a>, a digital library of public domain classics. Selecting works of a similar length, and after stripping out introductory front matter, I computed the same chapter-level readability and word counts for each title. This allowed a side-by-side view of how <em>Such an Odd Word to Use</em> sits in relation to the established canon — not just in overall difficulty, but in how that difficulty shifts over the course of the narrative.</p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># x &lt;- gutenberg_works()</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">books</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -719,7 +760,7 @@ font-style: inherit;">19337</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">64317</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>  meta_fields <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -733,11 +774,11 @@ background-color: null;
 font-style: inherit;">"author"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
+<span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op" style="color: #5E5E5E;
@@ -746,19 +787,20 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span>front_matter <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span></span>
+<span>    front_matter <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -781,7 +823,7 @@ background-color: null;
 font-style: inherit;">~</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>,</span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -804,7 +846,7 @@ background-color: null;
 font-style: inherit;">~</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>,</span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -827,7 +869,7 @@ background-color: null;
 font-style: inherit;">~</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>,</span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -850,7 +892,7 @@ background-color: null;
 font-style: inherit;">~</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>,</span>
-<span>    <span class="va" style="color: #111111;
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -873,30 +915,20 @@ background-color: null;
 font-style: inherit;">~</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>,</span>
-<span>    .default <span class="op" style="color: #5E5E5E;
+<span>      .default <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
+<span>    <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, .by <span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span>,</span>
+<span>    .by <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">title</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">books</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"books"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">title</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
@@ -917,219 +949,13 @@ font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">extract_title_phrase</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">text</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span></span>
-<span>  <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">words</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">text</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"\\s+"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span></span>
-<span>  </span>
-<span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Clean punctuation but preserve letters, accents, apostrophes, dashes</span></span>
-<span>  <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">clean_words</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">words</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"[^\\p{L}\\p{Pd}’'-]"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span>  <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">allowed_lc</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"the"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"and"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Title-case detection with Unicode support via stringi</span></span>
-<span>  <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">is_title</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">stringi</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/stringi/man/stri_detect.html">stri_detect_regex</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">clean_words</span>,</span>
-<span>                                pattern <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"^[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?$"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|</span></span>
-<span>              <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">clean_words</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">allowed_lc</span></span>
-<span></span>
-<span>  <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">stop_index</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">is_title</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span></span>
-<span>  <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">stop_index</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">||</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">stop_index</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">NA_character_</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">words</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">stop_index</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>, collapse <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">" "</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
 font-style: inherit;">such</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">book_split</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op" style="color: #5E5E5E;
@@ -1142,7 +968,7 @@ font-style: inherit;">heading</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
@@ -1155,13 +981,13 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">chapter</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Chapter|Prol"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Chapter|Prologue"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -1171,7 +997,7 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Such an Odd Word to Use"</span>, </span>
+font-style: inherit;">"Such an Odd Word to Use"</span>,</span>
 <span>    author <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -1181,38 +1007,79 @@ font-style: inherit;">"Goodwin, Carl"</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">chapter</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">chapter</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">==</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Prologue"</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">chapter</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"\\d+"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span>,</span>
+<span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Leading run of title-case words, permitting lower-case "the"/"and";</span></span>
+<span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># NA when the first word is not title-case</span></span>
 <span>    chapter_name <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>      <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">text</span>,</span>
+<span>      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"^((?:[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?|the|and)"</span>,</span>
+<span>        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"(?:\\s+(?:[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?|the|and))*)"</span></span>
+<span>      <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span>,</span>
+<span>    chapter_name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">text</span>, <span class="va" style="color: #111111;
+font-style: inherit;">chapter_name</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">extract_title_phrase</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">""</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
 <span>    chapter_name <span class="op" style="color: #5E5E5E;
@@ -1260,7 +1127,7 @@ background-color: null;
 font-style: inherit;">chapter_name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
@@ -1276,17 +1143,11 @@ font-style: inherit;">"chapter|scene|the prologue|stave"</span></span>
 background-color: null;
 font-style: inherit;">books_corp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">books</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"books"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
@@ -1301,7 +1162,7 @@ font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -1343,10 +1204,11 @@ font-style: inherit;">"Chapter "</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">text</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, <span class="va" style="color: #111111;
+font-style: inherit;">)</span>,</span>
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">text</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+<span>    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
 <span>    text <span class="op" style="color: #5E5E5E;
@@ -1358,7 +1220,7 @@ background-color: null;
 font-style: inherit;">(</span></span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1368,9 +1230,7 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">text</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"."</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1401,10 +1261,11 @@ font-style: inherit;">text</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, <span class="va" style="color: #111111;
+font-style: inherit;">)</span>,</span>
+<span>      <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">text</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+<span>    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
 <span>    chapter <span class="op" style="color: #5E5E5E;
@@ -1441,11 +1302,11 @@ background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">title</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op" style="color: #5E5E5E;
@@ -1456,7 +1317,7 @@ font-style: inherit;">such</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
@@ -1476,7 +1337,7 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">" "</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    .by <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -1492,11 +1353,11 @@ background-color: null;
 font-style: inherit;">"chapter"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -1523,12 +1384,52 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Insert a break at 1 so numbers below 1,000 are left uncut</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">n_words</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_number.html">label_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>  accuracy <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>,</span>
+<span>  scale_cut <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
@@ -1540,7 +1441,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">books_corp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op" style="color: #5E5E5E;
@@ -1557,7 +1458,7 @@ font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
@@ -1570,18 +1471,21 @@ font-style: inherit;">"doc"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">(</span></span>
+<span>    <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">doc</span>, delim <span class="op" style="color: #5E5E5E;
+font-style: inherit;">doc</span>,</span>
+<span>    delim <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"|"</span>, names <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"|"</span>,</span>
+<span>    names <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1595,11 +1499,12 @@ font-style: inherit;">"author"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"chapter"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
@@ -1630,7 +1535,7 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -1655,42 +1560,14 @@ font-style: inherit;">)</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_number.html">label_number</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
-<span>      accuracy <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.1</span>, </span>
-<span>      scale_cut <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">n_words</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">words</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
@@ -1702,7 +1579,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">books_corp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/textstat_readability.html">textstat_readability</a></span><span class="op" style="color: #5E5E5E;
@@ -1720,9 +1597,11 @@ font-style: inherit;">|&gt;</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>cols <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span><span class="va" style="color: #111111;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">document</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1736,11 +1615,13 @@ background-color: null;
 font-style: inherit;">(</span></span>
 <span>    <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">document</span>, delim <span class="op" style="color: #5E5E5E;
+font-style: inherit;">document</span>,</span>
+<span>    delim <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"|"</span>, names <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"|"</span>,</span>
+<span>    names <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1755,7 +1636,7 @@ background-color: null;
 font-style: inherit;">"chapter"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
@@ -1763,7 +1644,7 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">readability_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -1783,7 +1664,7 @@ font-style: inherit;">" | "</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">author</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    fill <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -1807,11 +1688,11 @@ background-color: null;
 font-style: inherit;">NA</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
@@ -1875,23 +1756,25 @@ font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">words</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    size <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">3</span>, hjust <span class="op" style="color: #5E5E5E;
+font-style: inherit;">3</span>,</span>
+<span>    hjust <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.3</span>, data <span class="op" style="color: #5E5E5E;
+font-style: inherit;">0.3</span>,</span>
+<span>    data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">books_toks</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1935,7 +1818,8 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Score"</span>, y <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Score"</span>,</span>
+<span>    y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
@@ -1950,7 +1834,7 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Dot = Outlier Chapter"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1990,7 +1874,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">such</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -2013,7 +1897,7 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
@@ -2022,7 +1906,7 @@ font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/textstat_readability.html">textstat_readability</a></span><span class="op" style="color: #5E5E5E;
@@ -2040,30 +1924,13 @@ font-style: inherit;">|&gt;</span></span>
 background-color: null;
 font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>cols <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span><span class="va" style="color: #111111;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">document</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>document <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
+font-style: inherit;">!</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">document</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2078,7 +1945,26 @@ font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">document</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span> </span>
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>chapter <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">chapter</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
@@ -2088,7 +1974,7 @@ font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">read_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op" style="color: #5E5E5E;
@@ -2111,14 +1997,14 @@ font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
-<p>Chapters with a more conversational tone — such as the Lana-focused chapters 19 and 23 — tend to be easier to read, while more analytical sections, like the cypher-driven chapter 26, are more complex. The overall Flesch-Kincaid Grade Level score averages 8.4, indicating the text is suitable for readers at a middle to early high school level (roughly ages 13–15), which aligns with the book’s intended accessibility.</p>
+<p>Chapters with a more conversational tone — such as the Lana-focused Chapters 19 and 23 — tend to be easier to read, while more analytical sections, like the cypher-driven Chapter 26, are more complex. The overall Flesch-Kincaid Grade Level score averages 8.4, indicating the text is suitable for readers at a middle to early high school level (roughly ages 13–15), which aligns with the book’s intended accessibility.</p>
 <p><br></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">read_df</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
@@ -2157,7 +2043,8 @@ font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">avg_score</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, linetype <span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span>,</span>
+<span>    linetype <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -2166,12 +2053,13 @@ font-style: inherit;">"dashed"</span>,</span>
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"grey80"</span>, data <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"grey80"</span>,</span>
+<span>    data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">avgs</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2188,9 +2076,10 @@ background-color: null;
 font-style: inherit;">(</span></span>
 <span>      <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"15 | Pancakes and Paranoia"</span>, <span class="va" style="color: #111111;
+font-style: inherit;">"15 | Pancakes and Paranoia"</span>,</span>
+<span>      <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">avg_score</span>, </span>
+font-style: inherit;">avg_score</span>,</span>
 <span>      label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -2202,25 +2091,27 @@ background-color: null;
 font-style: inherit;">"Average\n{round(avgs$avg_score, 1)}"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
+<span>    <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    nudge_y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1.5</span>, size <span class="op" style="color: #5E5E5E;
+font-style: inherit;">1.5</span>,</span>
+<span>    size <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">3</span>, data <span class="op" style="color: #5E5E5E;
+font-style: inherit;">3</span>,</span>
+<span>    data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">avgs</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2240,9 +2131,21 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://cgoo4.github.io/ggfoundry/reference/geom_casting.html">geom_casting</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>shape <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"quill"</span>, size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>, fill <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#82b777"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2281,11 +2184,12 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">NULL</span>, y <span class="op" style="color: #5E5E5E;
+font-style: inherit;">NULL</span>,</span>
+<span>    y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Score"</span>, </span>
+font-style: inherit;">"Score"</span>,</span>
 <span>    title <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -2296,7 +2200,7 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Chapter Readability (Flesch-Kincaid)"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2341,14 +2245,14 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div style="text-align:center; margin: 2rem 0;">
 <p><iconify-icon inline="" icon="clarity:music-note-solid" style="font-size: 20px;" aria-label="Icon music-note-solid from clarity Iconify.design set." title="Icon music-note-solid from clarity Iconify.design set."></iconify-icon></p>
 </div>
-<p>A lexical dispersion plot visualises where and how often key characters are mentioned across the chapters. It highlights patterns in their narrative presence — for example, Alistair (the antagonist) appears consistently throughout, suggesting a sustained influence on the storyline. Lana (an ally) is introduced early but becomes more prominent in later chapters. Imogen (a supporting character) is mentioned more sparingly, reflecting her secondary role in the narrative arc.</p>
+<p>A lexical dispersion plot visualizes where and how often key characters are mentioned across the chapters. It highlights patterns in their narrative presence — for example, Alistair (the antagonist) appears consistently throughout, suggesting a sustained influence on the storyline. Lana (an ally) is introduced early but becomes more prominent in later chapters. Imogen (a supporting character) is mentioned more sparingly, reflecting her secondary role in the narrative arc.</p>
 <p><br></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">such</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
@@ -2371,7 +2275,7 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op" style="color: #5E5E5E;
@@ -2384,7 +2288,7 @@ font-style: inherit;">"docid"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op" style="color: #5E5E5E;
@@ -2397,7 +2301,7 @@ font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
+font-style: inherit;">|&gt;</span></span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op" style="color: #5E5E5E;
@@ -2417,13 +2321,13 @@ font-style: inherit;">"Lana"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Imogen"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    valuetype <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"fixed"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2456,7 +2360,7 @@ font-style: inherit;">0.5</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span>, </span>
+font-style: inherit;">)</span>,</span>
 <span>    labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
@@ -2471,7 +2375,8 @@ font-style: inherit;">"Middle"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"End"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2485,17 +2390,18 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Relative Position in Chapter"</span>, y <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Relative Position in Chapter"</span>,</span>
+<span>    y <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Chapter"</span>, </span>
+font-style: inherit;">"Chapter"</span>,</span>
 <span>    title <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Lexical Dispersion - Character Appearance"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2588,11 +2494,11 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p><iconify-icon inline="" icon="clarity:music-note-solid" style="font-size: 20px;" aria-label="Icon music-note-solid from clarity Iconify.design set." title="Icon music-note-solid from clarity Iconify.design set."></iconify-icon></p>
 </div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
-<p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
+<p>Summarizing below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualization</a> summarizing the usage of packages and functions across all posts.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">used_here</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2606,7 +2512,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">append[1], c[10], cumsum[2], function[1], if[1], is.na[1], library[10], mean[2], readRDS[1], return[1], round[1], sum[2], tolower[1], which[1]</td>
+<td style="text-align: left;">append[1], as.numeric[1], c[11], cumsum[2], library[11], mean[2], nlevels[1], paste0[1], round[1], sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -2614,43 +2520,43 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">bind_rows[1], filter[3], if_else[5], mutate[10], rename[2], summarise[3]</td>
+<td style="text-align: left;">bind_rows[1], case_when[1], coalesce[1], distinct[1], filter[3], if_else[4], mutate[11], na_if[1], rename[2], row_number[5], summarise[3]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
 <td style="text-align: left;">fct_inorder[2]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[7], annotate[1], coord_cartesian[1], element_rect[3], element_text[3], expansion[1], geom_boxplot[1], geom_col[1], geom_hline[2], geom_label[1], geom_line[1], geom_point[1], geom_text[1], ggplot[3], labs[4], scale_fill_identity[1], scale_x_continuous[2], set_theme[1], theme[4], theme_bw[1]</td>
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">geom_casting[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[7], annotate[1], coord_cartesian[1], element_rect[3], element_text[3], expansion[1], geom_boxplot[1], geom_col[1], geom_hline[2], geom_label[1], geom_line[1], geom_text[1], ggplot[3], labs[4], scale_fill_identity[1], scale_x_continuous[2], set_theme[1], theme[4], theme_bw[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">grid</td>
 <td style="text-align: left;">unit[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map_chr[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">gutenbergr</td>
+<td style="text-align: left;">gutenberg_download[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">quanteda</td>
 <td style="text-align: left;">corpus[4], kwic[1], ntoken[2], tokens[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">quanteda.textplots</td>
 <td style="text-align: left;">textplot_xray[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">quanteda.textstats</td>
 <td style="text-align: left;">textstat_readability[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">parse_number[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">readtext</td>
@@ -2661,22 +2567,18 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <td style="text-align: left;">comma[1], cut_short_scale[1], label_number[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">stringi</td>
-<td style="text-align: left;">stri_detect_regex[1]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">regex[3], str_c[8], str_detect[2], str_extract[1], str_extract_all[1], str_length[1], str_match[1], str_remove[2], str_remove_all[1], str_split[1], str_squish[3], str_starts[3], str_to_title[1], str_trim[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">regex[3], str_c[9], str_count[1], str_detect[2], str_extract_all[1], str_remove[2], str_remove_all[2], str_split[2], str_squish[3], str_starts[3], str_to_title[1], str_trim[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[2], tibble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">pivot_longer[2], separate_wider_delim[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
