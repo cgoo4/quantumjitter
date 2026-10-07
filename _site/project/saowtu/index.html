@@ -373,13 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav><div id="quarto-announcement" data-announcement-id="65d437c6869a9a5a251940707ecba2da" class="alert alert-dark hidden">
-<i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p>New blog post: <a href="../../blog/dear-humanity/">Dear humanity,</a></p>
-</div>
-<i class="bi bi-x-lg quarto-announcement-action"></i>
-</div>
-</header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -417,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">September 25, 2025</p>
+      <p class="date-modified">October 7, 2026</p>
     </div>
   </div>
     
@@ -427,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><p><img src="feature.png" class="profile-img img-fluid" alt="AI-assisted digital composition of the book manuscript and a laptop displaying a boxplot."></p>
 <p><br></p>
-<p>A little under a year ago, I embarked on a journey to write my first novel <em>Such an Odd Word to Use</em> — more accurately a novella given its 31.5k words. The process was both exhilarating and challenging, pushing me to explore new creative depths. It was also a chance to deploy my skills in data analysis and visualisation in a novel context — literally.</p>
+<p>A little under a year ago, I embarked on a journey to write my first novel <em>Such an Odd Word to Use</em> — more accurately a novella given its 31.5k words. The process was both exhilarating and challenging, pushing me to explore new creative depths. It was also a chance to deploy my skills in data analysis and visualization in a novel context — literally.</p>
 <p>On my author website, also built with Quarto, I wrote a <a href="https://carlgoodwin.com/blog/analysis/analysis">blog post</a> comparing my writing style to established literature using R and the <code>quanteda</code> package. This version of that same post incorporates the R code used to delve into the structure and readability of my manuscript.</p>
 <p><br></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -440,7 +434,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>My manuscript is not in the repo, but the code should be reproducible for the gutenberg books. If you are interested in reading the novella, I’m running time-bound giveaways for <em>Such an Odd Word to Use</em> on my <a href="https://carlgoodwin.com">author site</a>.</p>
+<p>My manuscript is not in the repository, but the code should be reproducible for the Gutenberg books. If you are interested in reading the novella, I’m running time-bound giveaways for <em>Such an Odd Word to Use</em> on my <a href="https://carlgoodwin.com">author site</a>.</p>
 </div>
 </div>
 <div style="text-align:center; margin: 2rem 0;">
@@ -449,7 +443,6 @@ Note
 <div class="cell" data-messages="false">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>, <span class="fu">readtext</span><span class="fu">::</span><span class="va"><a href="https://readtext.quanteda.io/reference/texts.html">texts</a></span>, <span class="fu">quanteda</span><span class="fu">::</span><span class="va"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://quanteda.io">quanteda</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://quanteda.io">quanteda.textstats</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">quanteda.textplots</span><span class="op">)</span></span>
@@ -458,6 +451,14 @@ Note
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/gutenbergr/">gutenbergr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cgoo4.github.io/usedthese/">usedthese</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgoo4/ggfoundry">ggfoundry</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflicts_prefer.html">conflicts_prefer</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>,</span>
+<span>  <span class="fu">readtext</span><span class="fu">::</span><span class="va"><a href="https://readtext.quanteda.io/reference/texts.html">texts</a></span>,</span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="va"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span>,</span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_scout.html">conflict_scout</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -470,34 +471,34 @@ Note
 <span><span class="va">book_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readtext.quanteda.io/reference/readtext.html">readtext</a></span><span class="op">(</span><span class="st">"manuscript.txt"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Define a regular expression for your section headers</span></span>
-<span><span class="va">section_pattern</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">section_pattern</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">"\\b(Chapter\\s+\\d+|Prologue|Disclaimer|Acknowledgements)\\b"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Split based on this pattern</span></span>
-<span><span class="va">sections</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">book_text</span>, pattern <span class="op">=</span> <span class="va">section_pattern</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">sections</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">book_text</span><span class="op">$</span><span class="va">text</span>, <span class="va">section_pattern</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Extract headers separately to keep them</span></span>
-<span><span class="va">headers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">book_text</span>, <span class="va">section_pattern</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">headers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">book_text</span><span class="op">$</span><span class="va">text</span>, <span class="va">section_pattern</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">head_foot</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">head_foot</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">"carl goodwin|\\n\\n\\n\\s*[0-9]+\\n\\n|vii|such an odd word to use"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Combine headers and content into a tibble</span></span>
 <span><span class="va">book_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  heading <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="va">headers</span><span class="op">)</span>,</span>
-<span>  text <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">sections</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>  <span class="co"># -1 drop preamble before first heading</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  text <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">sections</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># -1 drop preamble before first heading</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">head_foot</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">book_corp</span> <span class="op">&lt;-</span> <span class="va">book_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"heading"</span><span class="op">)</span> </span>
+<span><span class="va">book_corp</span> <span class="op">&lt;-</span> <span class="va">book_split</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"heading"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">book_toks</span> <span class="op">&lt;-</span> <span class="va">book_corp</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"heading"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">heading</span>, <span class="st">"Cha|Pro"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">book_toks</span> <span class="op">&lt;-</span> <span class="va">book_corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"heading"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">heading</span>, <span class="st">"Chapter|Prologue"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    heading <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="va">heading</span><span class="op">)</span>,  <span class="co"># Preserve factor order</span></span>
+<span>    heading <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="va">heading</span><span class="op">)</span>, <span class="co"># Preserve factor order</span></span>
 <span>    cum_toks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -506,15 +507,22 @@ Note
 <span><span class="va">avg_words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">book_toks</span><span class="op">$</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">book_toks</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">book_toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">heading</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#82b777"</span>, colour <span class="op">=</span> <span class="st">"#181d1e"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">avg_words</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>, x <span class="op">=</span> <span class="fl">15.5</span>, y <span class="op">=</span> <span class="va">avg_words</span>, label <span class="op">=</span> <span class="st">"Average"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># Label just right of the chapter-axis midpoint</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span></span>
+<span>    <span class="st">"label"</span>,</span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span><span class="op">(</span><span class="va">book_toks</span><span class="op">$</span><span class="va">heading</span><span class="op">)</span> <span class="op">-</span> <span class="fl">11.5</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">avg_words</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Average"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Such an Odd Word to Use -- {word_count} Words"</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Words"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Words"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -530,120 +538,124 @@ Note
 <p>For comparison, I drew on works from <a href="https://www.gutenberg.org">Project Gutenberg</a>, a digital library of public domain classics. Selecting works of a similar length, and after stripping out introductory front matter, I computed the same chapter-level readability and word counts for each title. This allowed a side-by-side view of how <em>Such an Odd Word to Use</em> sits in relation to the established canon — not just in overall difficulty, but in how that difficulty shifts over the course of the narrative.</p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># x &lt;- gutenberg_works()</span></span>
-<span></span>
-<span><span class="va">books</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/gutenbergr/reference/gutenberg_download.html">gutenberg_download</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">42</span>, <span class="fl">2097</span>, <span class="fl">19337</span>, <span class="fl">64317</span><span class="op">)</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">books</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/gutenbergr/reference/gutenberg_download.html">gutenberg_download</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">42</span>, <span class="fl">2097</span>, <span class="fl">19337</span>, <span class="fl">64317</span><span class="op">)</span>,</span>
 <span>  meta_fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>front_matter <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
-<span>    <span class="va">author</span> <span class="op">==</span> <span class="st">"Carroll, Lewis"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">17</span> <span class="op">~</span> <span class="fl">1</span>,</span>
-<span>    <span class="va">author</span> <span class="op">==</span> <span class="st">"Doyle, Arthur Conan"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">17</span> <span class="op">~</span> <span class="fl">1</span>,</span>
-<span>    <span class="va">author</span> <span class="op">==</span> <span class="st">"Dickens, Charles"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">83</span> <span class="op">~</span> <span class="fl">1</span>,</span>
-<span>    <span class="va">author</span> <span class="op">==</span> <span class="st">"Stevenson, Robert Louis"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">22</span> <span class="op">~</span> <span class="fl">1</span>,</span>
-<span>    <span class="va">author</span> <span class="op">==</span> <span class="st">"Fitzgerald, F. Scott (Francis Scott)"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">22</span> <span class="op">~</span> <span class="fl">1</span>,</span>
-<span>    .default <span class="op">=</span> <span class="fl">0</span></span>
-<span>  <span class="op">)</span>, .by <span class="op">=</span> <span class="va">title</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">books</span>, <span class="st">"books"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    front_matter <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="va">author</span> <span class="op">==</span> <span class="st">"Carroll, Lewis"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">17</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>      <span class="va">author</span> <span class="op">==</span> <span class="st">"Doyle, Arthur Conan"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">17</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>      <span class="va">author</span> <span class="op">==</span> <span class="st">"Dickens, Charles"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">83</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>      <span class="va">author</span> <span class="op">==</span> <span class="st">"Stevenson, Robert Louis"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">22</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>      <span class="va">author</span> <span class="op">==</span> <span class="st">"Fitzgerald, F. Scott (Francis Scott)"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">22</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>      .default <span class="op">=</span> <span class="fl">0</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">title</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Flesch.Kincaid"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">extract_title_phrase</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">"\\s+"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span>  </span>
-<span>  <span class="co"># Clean punctuation but preserve letters, accents, apostrophes, dashes</span></span>
-<span>  <span class="va">clean_words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"[^\\p{L}\\p{Pd}’'-]"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">allowed_lc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"and"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># Title-case detection with Unicode support via stringi</span></span>
-<span>  <span class="va">is_title</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_detect.html">stri_detect_regex</a></span><span class="op">(</span><span class="va">clean_words</span>,</span>
-<span>                                pattern <span class="op">=</span> <span class="st">"^[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?$"</span><span class="op">)</span> <span class="op">|</span></span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">clean_words</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">allowed_lc</span></span>
-<span></span>
-<span>  <span class="va">stop_index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="op">!</span><span class="va">is_title</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">stop_index</span><span class="op">)</span> <span class="op">||</span> <span class="va">stop_index</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NA_character_</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">words</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">stop_index</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span>, collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">such</span> <span class="op">&lt;-</span> <span class="va">book_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>chapter <span class="op">=</span> <span class="va">heading</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">"Chapter|Prol"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">such</span> <span class="op">&lt;-</span> <span class="va">book_split</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>chapter <span class="op">=</span> <span class="va">heading</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">"Chapter|Prologue"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Such an Odd Word to Use"</span>, </span>
+<span>    title <span class="op">=</span> <span class="st">"Such an Odd Word to Use"</span>,</span>
 <span>    author <span class="op">=</span> <span class="st">"Goodwin, Carl"</span>,</span>
-<span>    chapter <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">chapter</span> <span class="op">==</span> <span class="st">"Prologue"</span>, <span class="fl">0</span>, <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">chapter</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">extract_title_phrase</span><span class="op">)</span>,</span>
+<span>    chapter <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">"\\d+"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Leading run of title-case words, permitting lower-case "the"/"and";</span></span>
+<span>    <span class="co"># NA when the first word is not title-case</span></span>
+<span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span></span>
+<span>      <span class="va">text</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"^((?:[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?|the|and)"</span>,</span>
+<span>        <span class="st">"(?:\\s+(?:[\\p{Lu}][\\p{Ll}’']*(?:-[\\p{Lu}][\\p{Ll}’']*)?|the|and))*)"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span>
+<span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op">(</span><span class="va">chapter_name</span>, <span class="st">""</span><span class="op">)</span>,</span>
 <span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">chapter_name</span>, <span class="st">"\\s+\\S+$"</span><span class="op">)</span>,</span>
 <span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">chapter_name</span>, <span class="st">"As$|Amid$|In$|Over$"</span><span class="op">)</span>,</span>
 <span>    chapter_name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">chapter</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"Prologue"</span>, <span class="va">chapter_name</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="st">"chapter|scene|the prologue|stave"</span></span>
 <span></span>
-<span><span class="va">books_corp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"books"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">front_matter</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">books_corp</span> <span class="op">&lt;-</span> <span class="va">books</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">front_matter</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    text <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">"^[[:upper:]]{2}"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">author</span> <span class="op">==</span> <span class="st">"Stevenson, Robert Louis"</span>,</span>
-<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"Chapter "</span>, <span class="va">text</span><span class="op">)</span>, <span class="va">text</span></span>
-<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"Chapter "</span>, <span class="va">text</span><span class="op">)</span>,</span>
+<span>      <span class="va">text</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    text <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>, <span class="st">"."</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">4</span> <span class="op">&amp;</span> <span class="va">title</span> <span class="op">==</span> <span class="st">"The Great Gatsby"</span>,</span>
-<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"Chapter "</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span>, <span class="va">text</span></span>
-<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">4</span> <span class="op">&amp;</span> <span class="va">title</span> <span class="op">==</span> <span class="st">"The Great Gatsby"</span>,</span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"Chapter "</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_squish</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">text</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    chapter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_starts.html">str_starts</a></span><span class="op">(</span><span class="va">text</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="va">pattern</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="va">title</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">such</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">such</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    text <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">text</span>, collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>, </span>
+<span>    text <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">text</span>, collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"chapter"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">title</span>, <span class="va">author</span>, <span class="va">chapter</span>, sep <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">title</span>, <span class="va">author</span>, <span class="va">chapter</span>, sep <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">books_toks</span> <span class="op">&lt;-</span> <span class="va">books_corp</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"doc"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op">(</span><span class="va">doc</span>, delim <span class="op">=</span> <span class="st">"|"</span>, names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"chapter"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="co"># Insert a break at 1 so numbers below 1,000 are left uncut</span></span>
+<span><span class="va">n_words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html">label_number</a></span><span class="op">(</span></span>
+<span>  accuracy <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  scale_cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="fu"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">books_toks</span> <span class="op">&lt;-</span> <span class="va">books_corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/ntoken.html">ntoken</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"doc"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op">(</span></span>
+<span>    <span class="va">doc</span>,</span>
+<span>    delim <span class="op">=</span> <span class="st">"|"</span>,</span>
+<span>    names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"chapter"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">" | "</span>, <span class="va">author</span><span class="op">)</span>,</span>
-<span>    words <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html">label_number</a></span><span class="op">(</span></span>
-<span>      accuracy <span class="op">=</span> <span class="fl">0.1</span>, </span>
-<span>      scale_cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="fu"><a href="https://scales.r-lib.org/reference/number.html">cut_short_scale</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="va">words</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>    words <span class="op">=</span> <span class="fu">n_words</span><span class="op">(</span><span class="va">words</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">readability_df</span> <span class="op">&lt;-</span> <span class="va">books_corp</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">readability_df</span> <span class="op">&lt;-</span> <span class="va">books_corp</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/textstat_readability.html">textstat_readability</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="va">methods</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">document</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">!</span><span class="va">document</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op">(</span></span>
-<span>    <span class="va">document</span>, delim <span class="op">=</span> <span class="st">"|"</span>, names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"chapter"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="va">document</span>,</span>
+<span>    delim <span class="op">=</span> <span class="st">"|"</span>,</span>
+<span>    names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"chapter"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">readability_df</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">readability_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">" | "</span>, <span class="va">author</span><span class="op">)</span>, </span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">" | "</span>, <span class="va">author</span><span class="op">)</span>,</span>
 <span>    fill <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">"Such"</span><span class="op">)</span>, <span class="st">"#82b777"</span>, <span class="cn">NA</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">title</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">fill</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, y <span class="op">=</span> <span class="va">title</span>, label <span class="op">=</span> <span class="va">words</span><span class="op">)</span>, </span>
-<span>    size <span class="op">=</span> <span class="fl">3</span>, hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>, data <span class="op">=</span> <span class="va">books_toks</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, y <span class="op">=</span> <span class="va">title</span>, label <span class="op">=</span> <span class="va">words</span><span class="op">)</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">books_toks</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.12</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Score"</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Score"</span>,</span>
+<span>    y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Readability Boxplot (Flesch-Kincaid)"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Dot = Outlier Chapter"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -653,41 +665,47 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_df</span> <span class="op">&lt;-</span> <span class="va">such</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">" | "</span>, <span class="va">chapter_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_df</span> <span class="op">&lt;-</span> <span class="va">such</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">" | "</span>, <span class="va">chapter_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/textstat_readability.html">textstat_readability</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="va">methods</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">document</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>document <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="va">document</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>chapter <span class="op">=</span> <span class="va">document</span><span class="op">)</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">!</span><span class="va">document</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>chapter <span class="op">=</span> <span class="va">document</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>chapter <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="va">chapter</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">avgs</span> <span class="op">&lt;-</span> <span class="va">read_df</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">avgs</span> <span class="op">&lt;-</span> <span class="va">read_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>avg_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Chapters with a more conversational tone — such as the Lana-focused chapters 19 and 23 — tend to be easier to read, while more analytical sections, like the cypher-driven chapter 26, are more complex. The overall Flesch-Kincaid Grade Level score averages 8.4, indicating the text is suitable for readers at a middle to early high school level (roughly ages 13–15), which aligns with the book’s intended accessibility.</p>
+<p>Chapters with a more conversational tone — such as the Lana-focused Chapters 19 and 23 — tend to be easier to read, while more analytical sections, like the cypher-driven Chapter 26, are more complex. The overall Flesch-Kincaid Grade Level score averages 8.4, indicating the text is suitable for readers at a middle to early high school level (roughly ages 13–15), which aligns with the book’s intended accessibility.</p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_df</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="va">value</span>, group <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">avg_score</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"grey80"</span>, data <span class="op">=</span> <span class="va">avgs</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">avg_score</span><span class="op">)</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"grey80"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">avgs</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_label</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
-<span>      <span class="st">"15 | Pancakes and Paranoia"</span>, <span class="va">avg_score</span>, </span>
+<span>      <span class="st">"15 | Pancakes and Paranoia"</span>,</span>
+<span>      <span class="va">avg_score</span>,</span>
 <span>      label <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Average\n{round(avgs$avg_score, 1)}"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>, </span>
-<span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span>, size <span class="op">=</span> <span class="fl">3</span>, data <span class="op">=</span> <span class="va">avgs</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">avgs</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"#82b777"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://cgoo4.github.io/ggfoundry/reference/geom_casting.html">geom_casting</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"quill"</span>, size <span class="op">=</span> <span class="fl">0.3</span>, fill <span class="op">=</span> <span class="st">"#82b777"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">14</span><span class="op">)</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Score"</span>, </span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Score"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Such an Odd Word to Use"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Chapter Readability (Flesch-Kincaid)"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">55</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
@@ -702,25 +720,27 @@ Note
 <div style="text-align:center; margin: 2rem 0;">
 <p><iconify-icon role="img" inline="" icon="clarity:music-note-solid" style="font-size: 20px;" aria-label="Icon music-note-solid from clarity Iconify.design set." title="Icon music-note-solid from clarity Iconify.design set."></iconify-icon></p>
 </div>
-<p>A lexical dispersion plot visualises where and how often key characters are mentioned across the chapters. It highlights patterns in their narrative presence — for example, Alistair (the antagonist) appears consistently throughout, suggesting a sustained influence on the storyline. Lana (an ally) is introduced early but becomes more prominent in later chapters. Imogen (a supporting character) is mentioned more sparingly, reflecting her secondary role in the narrative arc.</p>
+<p>A lexical dispersion plot visualizes where and how often key characters are mentioned across the chapters. It highlights patterns in their narrative presence — for example, Alistair (the antagonist) appears consistently throughout, suggesting a sustained influence on the storyline. Lana (an ally) is introduced early but becomes more prominent in later chapters. Imogen (a supporting character) is mentioned more sparingly, reflecting her secondary role in the narrative arc.</p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">such</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>docid <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">" | "</span>, <span class="va">chapter_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"docid"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">such</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>docid <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">chapter</span>, <span class="st">" | "</span>, <span class="va">chapter_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span>docid_field <span class="op">=</span> <span class="st">"docid"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span>split_hyphens <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://quanteda.io/reference/kwic.html">kwic</a></span><span class="op">(</span></span>
-<span>    pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alistair"</span>, <span class="st">"Lana"</span>, <span class="st">"Imogen"</span><span class="op">)</span>, </span>
+<span>    pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alistair"</span>, <span class="st">"Lana"</span>, <span class="st">"Imogen"</span><span class="op">)</span>,</span>
 <span>    valuetype <span class="op">=</span> <span class="st">"fixed"</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_xray.html">textplot_xray</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span></span>
-<span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, </span>
-<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Start"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Start"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Relative Position in Chapter"</span>, y <span class="op">=</span> <span class="st">"Chapter"</span>, </span>
+<span>    x <span class="op">=</span> <span class="st">"Relative Position in Chapter"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Chapter"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Lexical Dispersion - Character Appearance"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    panel.spacing.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>    legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
@@ -739,9 +759,9 @@ Note
 <p><iconify-icon role="img" inline="" icon="clarity:music-note-solid" style="font-size: 20px;" aria-label="Icon music-note-solid from clarity Iconify.design set." title="Icon music-note-solid from clarity Iconify.design set."></iconify-icon></p>
 </div>
 <section id="r-toolbox" class="level2"><h2 class="anchored" data-anchor-id="r-toolbox">R Toolbox</h2>
-<p>Summarising below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualisation</a> summarising the usage of packages and functions across all posts.</p>
+<p>Summarizing below the packages and functions used in this post enables me to separately create a <a href="../../project/box">toolbox visualization</a> summarizing the usage of packages and functions across all posts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">used_here</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://cgoo4.github.io/usedthese/reference/used_here.html">used_here</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="usedthese table table-striped caption-top table-sm small">
 <thead><tr class="header">
@@ -751,7 +771,7 @@ Note
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">base</td>
-<td style="text-align: left;">append[1], c[10], cumsum[2], function[1], if[1], is.na[1], library[10], mean[2], readRDS[1], return[1], round[1], sum[2], tolower[1], which[1]</td>
+<td style="text-align: left;">append[1], as.numeric[1], c[11], cumsum[2], library[11], mean[2], nlevels[1], paste0[1], round[1], sum[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">conflicted</td>
@@ -759,43 +779,43 @@ Note
 </tr>
 <tr class="odd">
 <td style="text-align: left;">dplyr</td>
-<td style="text-align: left;">bind_rows[1], filter[3], if_else[5], mutate[10], rename[2], summarise[3]</td>
+<td style="text-align: left;">bind_rows[1], case_when[1], coalesce[1], distinct[1], filter[3], if_else[4], mutate[11], na_if[1], rename[2], row_number[5], summarise[3]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">forcats</td>
 <td style="text-align: left;">fct_inorder[2]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ggplot2</td>
-<td style="text-align: left;">aes[7], annotate[1], coord_cartesian[1], element_rect[3], element_text[3], expansion[1], geom_boxplot[1], geom_col[1], geom_hline[2], geom_label[1], geom_line[1], geom_point[1], geom_text[1], ggplot[3], labs[4], scale_fill_identity[1], scale_x_continuous[2], set_theme[1], theme[4], theme_bw[1]</td>
+<td style="text-align: left;">ggfoundry</td>
+<td style="text-align: left;">geom_casting[1]</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">ggplot2</td>
+<td style="text-align: left;">aes[7], annotate[1], coord_cartesian[1], element_rect[3], element_text[3], expansion[1], geom_boxplot[1], geom_col[1], geom_hline[2], geom_label[1], geom_line[1], geom_text[1], ggplot[3], labs[4], scale_fill_identity[1], scale_x_continuous[2], set_theme[1], theme[4], theme_bw[1]</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">glue</td>
 <td style="text-align: left;">glue[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">grid</td>
 <td style="text-align: left;">unit[1]</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">purrr</td>
-<td style="text-align: left;">map_chr[1]</td>
-</tr>
 <tr class="odd">
+<td style="text-align: left;">gutenbergr</td>
+<td style="text-align: left;">gutenberg_download[1]</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">quanteda</td>
 <td style="text-align: left;">corpus[4], kwic[1], ntoken[2], tokens[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">quanteda.textplots</td>
 <td style="text-align: left;">textplot_xray[1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">quanteda.textstats</td>
 <td style="text-align: left;">textstat_readability[2]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">readr</td>
-<td style="text-align: left;">parse_number[1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">readtext</td>
@@ -806,22 +826,18 @@ Note
 <td style="text-align: left;">comma[1], cut_short_scale[1], label_number[1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">stringi</td>
-<td style="text-align: left;">stri_detect_regex[1]</td>
+<td style="text-align: left;">stringr</td>
+<td style="text-align: left;">regex[3], str_c[8], str_detect[2], str_extract[1], str_extract_all[1], str_length[1], str_match[1], str_remove[2], str_remove_all[1], str_split[1], str_squish[3], str_starts[3], str_to_title[1], str_trim[1]</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">stringr</td>
-<td style="text-align: left;">regex[3], str_c[9], str_count[1], str_detect[2], str_extract_all[1], str_remove[2], str_remove_all[2], str_split[2], str_squish[3], str_starts[3], str_to_title[1], str_trim[1]</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">tibble</td>
 <td style="text-align: left;">as_tibble[2], tibble[1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">tidyr</td>
 <td style="text-align: left;">pivot_longer[2], separate_wider_delim[2]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">usedthese</td>
 <td style="text-align: left;">used_here[1]</td>
 </tr>
@@ -1328,7 +1344,7 @@ Note
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>© 2023 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></p>
+<p>© 2026 <a href="../../about">Carl Goodwin</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></p>
 </div>
   </div>
 </footer>
